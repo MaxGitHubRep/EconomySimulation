@@ -1,6 +1,9 @@
 package economysimulation;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Random;
+import javax.swing.JTextField;
 
 /**
  *
@@ -12,6 +15,21 @@ public class Methods {
         return new Random().nextInt((max-min)+1)+min;
     }
     
+    
+    public static void addGhostText(JTextField field, String ghostText) {
+        field.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                field.setText(field.getText().replace(ghostText, ""));
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if ("".equals(field.getText())) field.setText(ghostText);
+            }
+
+        });
+    }
     
     /**
      * @param args the command line arguments

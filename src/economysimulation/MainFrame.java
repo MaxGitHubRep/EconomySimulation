@@ -21,6 +21,12 @@ public class MainFrame extends javax.swing.JFrame {
         
     }
     
+    public void shut() {
+        back.removeAll();
+        back.revalidate();
+        back.repaint();
+        this.dispose();
+    }
     
     public MainFrame() {
         initComponents();

@@ -1,9 +1,14 @@
 package economysimulation;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -12,6 +17,7 @@ import javax.swing.Timer;
 public class MainMenu extends javax.swing.JPanel {
 
     private final int TOTAL_BACK_PICS = 4;
+    private final String GHOST_TEXT = "Enter username here";
     
     private void addRandomImage() {
         picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(1, TOTAL_BACK_PICS) + ".png")));
@@ -31,8 +37,29 @@ public class MainMenu extends javax.swing.JPanel {
         timerChart.start();
     }
     
+    private void checkTextFields(JTextField field) {
+        field.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+              execute();
+            }
+            public void removeUpdate(DocumentEvent e) {
+              execute();
+            }
+            public void insertUpdate(DocumentEvent e) {
+              execute();
+            }
+
+            public void execute() {
+                begin.setEnabled(!"".equals(entername.getText()) && !GHOST_TEXT.equals(entername.getText()));
+            }
+        });
+        
+    }
+    
     public MainMenu() {
         initComponents();
+        checkTextFields(entername);
+        Methods.addGhostText(entername, GHOST_TEXT);
         timerStart();   
     }
 
@@ -53,7 +80,7 @@ public class MainMenu extends javax.swing.JPanel {
         entername = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         begin = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        exit = new javax.swing.JLabel();
         picHold = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -80,15 +107,16 @@ public class MainMenu extends javax.swing.JPanel {
         begin.setForeground(new java.awt.Color(204, 0, 0));
         begin.setMnemonic('\r');
         begin.setText("Begin Simulation");
+        begin.setEnabled(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("x");
-        jLabel2.setToolTipText("Close");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        exit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        exit.setForeground(new java.awt.Color(255, 0, 0));
+        exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        exit.setText("x");
+        exit.setToolTipText("Close");
+        exit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                exitMouseClicked(evt);
             }
         });
 
@@ -110,13 +138,13 @@ public class MainMenu extends javax.swing.JPanel {
                     .addComponent(begin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(12, 12, 12)
                 .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         rightLayout.setVerticalGroup(
             rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightLayout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(exit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rightLayout.createSequentialGroup()
@@ -153,20 +181,16 @@ public class MainMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        try {
-            new MainFrame().openPanel(new MainMenu());
-        } catch (Exception ex) {
-            
-        }
-    }//GEN-LAST:event_jLabel2MouseClicked
+    private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
+        new MainFrame().shut();
+    }//GEN-LAST:event_exitMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton begin;
     private javax.swing.JTextField entername;
+    private javax.swing.JLabel exit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
