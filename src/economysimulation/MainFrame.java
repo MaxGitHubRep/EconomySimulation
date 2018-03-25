@@ -6,11 +6,11 @@ import javax.swing.JScrollPane;
 
 /**
  *
- * @author Max
+ * @author Max Carter
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public void openPanel(JPanel panel) throws Exception {
+    public static void openPanel(JPanel panel) throws Exception {
         back.removeAll();
         back.revalidate();
         
@@ -20,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
         back.repaint();
         
     }
-    
+
     public void shut() {
         back.removeAll();
         back.revalidate();
@@ -120,6 +120,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel back;
+    public static javax.swing.JPanel back;
     // End of variables declaration//GEN-END:variables
 }
