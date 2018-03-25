@@ -1,8 +1,13 @@
 package economysimulation;
 
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -15,6 +20,30 @@ public class Methods {
         return new Random().nextInt((max-min)+1)+min;
     }
     
+    public static void addButtonFormat(JLabel label, JPanel panel) {
+        label.addMouseListener(new MouseAdapter() {
+
+            @Override 
+            public void mouseEntered(MouseEvent e) {
+                label.setForeground(Color.green);
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                label.setForeground(new Color(255, 51, 0));
+            }
+            
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    GameHold.addToFrontPanel(panel);
+                } catch (Exception ex) {
+                    
+                }
+            }
+            
+        });
+    }
     
     public static void addGhostText(JTextField field, String ghostText) {
         field.addFocusListener(new FocusListener() {

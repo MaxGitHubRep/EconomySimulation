@@ -2,7 +2,6 @@ package economysimulation;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 /**
  *
@@ -10,7 +9,7 @@ import javax.swing.JScrollPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public static void openPanel(JPanel panel) throws Exception {
+    public static void addToMainFrame(JPanel panel) throws Exception {
         back.removeAll();
         back.revalidate();
         
@@ -31,7 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         try {
-            openPanel(new MainMenu());
+            addToMainFrame(new MainMenu());
         } catch (Exception ex) {
             
         }

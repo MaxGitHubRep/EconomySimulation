@@ -171,7 +171,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
         try {
-            MainFrame.openPanel(new GameHold());
+            MainFrame.addToMainFrame(new GameHold());
         } catch (Exception ex) {
             
         }
