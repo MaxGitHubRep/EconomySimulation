@@ -1,6 +1,8 @@
 /*
     Plan
+
     components measured:
+
     businesses:
         -investment
         -cop
