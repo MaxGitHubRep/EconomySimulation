@@ -146,7 +146,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="mnemonic" type="int" value="13"/>
-            <Property name="text" type="java.lang.String" value="Begin Simulation"/>
+            <Property name="text" type="java.lang.String" value="Get Started"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -24,12 +27,32 @@ public class GameHold extends javax.swing.JPanel {
         backadd.repaint();
         
     }
+    
+    private void addSliderListener(JSlider slider) {
+        
+        slider.addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider)e.getSource();
+                if(!source.getValueIsAdjusting()) {
+                    System.out.println("move 2");
+                } else {
+                    System.out.println("move1");
+                }
+            }
+
+            
+        });
+        
+    }
 
     public GameHold() {
         initComponents();
-        opButtons = new JLabel[]{ op1, };
+        addSliderListener(time);
+        opButtons = new JLabel[]{ titleGov, };
         opPanels = new JPanel[]{
-            new IntroPage()
+            
         
         };
         
@@ -51,7 +74,10 @@ public class GameHold extends javax.swing.JPanel {
         sidebar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        op1 = new javax.swing.JLabel();
+        titleGov = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        time = new javax.swing.JSlider();
+        titleTime = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -65,7 +91,7 @@ public class GameHold extends javax.swing.JPanel {
         );
         backaddLayout.setVerticalGroup(
             backaddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
 
         sidebar.setBackground(new java.awt.Color(255, 255, 255));
@@ -74,24 +100,44 @@ public class GameHold extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/border280.png"))); // NOI18N
 
-        op1.setBackground(new java.awt.Color(102, 102, 102));
-        op1.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
-        op1.setForeground(new java.awt.Color(255, 51, 0));
-        op1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        op1.setText("Option 1");
-        op1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        op1.setOpaque(true);
+        titleGov.setBackground(new java.awt.Color(102, 102, 102));
+        titleGov.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleGov.setForeground(new java.awt.Color(255, 51, 0));
+        titleGov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleGov.setText("Government");
+        titleGov.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleGov.setOpaque(true);
+
+        titleTime.setBackground(new java.awt.Color(102, 102, 102));
+        titleTime.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleTime.setForeground(new java.awt.Color(255, 51, 0));
+        titleTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleTime.setText("Time: 50%");
+        titleTime.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleTime.setOpaque(true);
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
         sidebarLayout.setHorizontalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidebarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
-                .addContainerGap())
-            .addComponent(op1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(titleGov, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(19, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
+                        .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(time, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, sidebarLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,9 +145,15 @@ public class GameHold extends javax.swing.JPanel {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(op1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 583, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleGov, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -125,7 +177,10 @@ public class GameHold extends javax.swing.JPanel {
     public static javax.swing.JPanel backadd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel op1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel sidebar;
+    private javax.swing.JSlider time;
+    private javax.swing.JLabel titleGov;
+    private javax.swing.JLabel titleTime;
     // End of variables declaration//GEN-END:variables
 }

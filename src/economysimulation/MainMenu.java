@@ -104,7 +104,7 @@ public class MainMenu extends javax.swing.JPanel {
         begin.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         begin.setForeground(new java.awt.Color(204, 0, 0));
         begin.setMnemonic('\r');
-        begin.setText("Begin Simulation");
+        begin.setText("Get Started");
         begin.setEnabled(false);
         begin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,7 +171,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
         try {
-            MainFrame.addToMainFrame(new GameHold());
+            MainFrame.addToMainFrame(new IntroPage());
         } catch (Exception ex) {
             
         }
