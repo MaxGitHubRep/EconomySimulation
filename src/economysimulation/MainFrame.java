@@ -14,7 +14,6 @@ public class MainFrame extends javax.swing.JFrame {
         back.revalidate();
         
         back.setLayout(new BorderLayout());
-        //back.add(new JScrollPane(panel));
         back.add(panel);
         back.repaint();
         
