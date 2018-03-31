@@ -36,7 +36,7 @@ public class Methods {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    GameHold.addToFrontPanel(panel);
+                    GameHold.addToFrontPanel(panel, true);
                 } catch (Exception ex) {
                     
                 }
