@@ -114,13 +114,13 @@ public class GameHold extends javax.swing.JPanel {
         addToFrontPanel(new ZAssist(), false);
         
         times = new int[]{ 0, 0, 0 };
-        opButtons = new JLabel[]{ titleGov, };
+        opButtons = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleConf };
         opPanels = new JPanel[]{
             new PGovernment()
         
         };
         
-        for (int i = 0; i < opButtons.length; i++) {
+        for (int i = 0; i < (opButtons.length > opPanels.length ? opPanels : opButtons).length; i++) {
             Methods.addButtonFormat(opButtons[i], opPanels[i]);
         }
         
@@ -145,7 +145,12 @@ public class GameHold extends javax.swing.JPanel {
         titleSpeed = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         titleGov = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        titleBudget = new javax.swing.JLabel();
+        exit = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        titleCorp = new javax.swing.JLabel();
+        titleCons = new javax.swing.JLabel();
+        titleConf = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -159,7 +164,7 @@ public class GameHold extends javax.swing.JPanel {
         );
         backaddLayout.setVerticalGroup(
             backaddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         sidebar.setBackground(new java.awt.Color(255, 255, 255));
@@ -200,26 +205,88 @@ public class GameHold extends javax.swing.JPanel {
         titleGov.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleGov.setOpaque(true);
 
+        titleBudget.setBackground(new java.awt.Color(102, 102, 102));
+        titleBudget.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleBudget.setForeground(new java.awt.Color(255, 51, 0));
+        titleBudget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleBudget.setText("Budget Deficit");
+        titleBudget.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleBudget.setOpaque(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titleGov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleGov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleBudget, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titleGov)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleBudget)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(204, 0, 0));
-        jButton1.setText("Exit Game");
+        exit.setBackground(new java.awt.Color(255, 255, 255));
+        exit.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        exit.setForeground(new java.awt.Color(204, 0, 0));
+        exit.setText("Exit Game");
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Determinants", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel3.setOpaque(false);
+
+        titleCorp.setBackground(new java.awt.Color(102, 102, 102));
+        titleCorp.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleCorp.setForeground(new java.awt.Color(255, 51, 0));
+        titleCorp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleCorp.setText("Corporations");
+        titleCorp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleCorp.setOpaque(true);
+
+        titleCons.setBackground(new java.awt.Color(102, 102, 102));
+        titleCons.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleCons.setForeground(new java.awt.Color(255, 51, 0));
+        titleCons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleCons.setText("Consumers");
+        titleCons.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleCons.setOpaque(true);
+
+        titleConf.setBackground(new java.awt.Color(102, 102, 102));
+        titleConf.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleConf.setForeground(new java.awt.Color(255, 51, 0));
+        titleConf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleConf.setText("Confidence");
+        titleConf.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleConf.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleCorp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleCons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleConf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(titleCorp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleCons)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(titleConf)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
@@ -235,15 +302,16 @@ public class GameHold extends javax.swing.JPanel {
                         .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
                         .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator1)
                             .addComponent(jSeparator2)
+                            .addComponent(exit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(sidebarLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         sidebarLayout.setVerticalGroup(
@@ -261,9 +329,11 @@ public class GameHold extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(exit)
                 .addContainerGap())
         );
 
@@ -278,21 +348,26 @@ public class GameHold extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(backadd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton exit;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel picHold;
     private javax.swing.JPanel sidebar;
     private javax.swing.JSlider time;
+    private javax.swing.JLabel titleBudget;
+    private javax.swing.JLabel titleConf;
+    private javax.swing.JLabel titleCons;
+    private javax.swing.JLabel titleCorp;
     private javax.swing.JLabel titleGov;
     private javax.swing.JLabel titleSpeed;
     private javax.swing.JLabel titleTime;
