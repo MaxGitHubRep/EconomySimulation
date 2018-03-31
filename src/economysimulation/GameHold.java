@@ -85,6 +85,7 @@ public class GameHold extends javax.swing.JPanel {
         
     }//</editor-fold> 
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
         addSliderListener(time);
@@ -99,7 +100,7 @@ public class GameHold extends javax.swing.JPanel {
             Methods.addButtonFormat(opButtons[i], opPanels[i]);
         }
         timerStart();
-    }
+    }//</editor-fold>
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
