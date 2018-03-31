@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -55,8 +56,10 @@ public class GameHold extends javax.swing.JPanel {
         backadd.revalidate();
         
         backadd.setLayout(new BorderLayout());
-        //backadd.add(new JScrollPane(panel));
-        backadd.add(panel);
+        backadd.add(new JScrollPane(panel,
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+        //backadd.add(panel);
         backadd.repaint();
     }//</editor-fold>
     
