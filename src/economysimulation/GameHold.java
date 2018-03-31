@@ -2,7 +2,6 @@ package economysimulation;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,18 +16,20 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel {
 
-    private Timer timer;
     public final String SPEED_FORMAT = "Speed: %s";
     public int SPEED;
-    public final SimpleDateFormat format = new SimpleDateFormat("mm:ss:HH");
     public final int SPEED_MID_POINT = 100;
     
     public JPanel[] opPanels;
     public JLabel[] opButtons;
     
+    private Timer timer;
+    private int[] times;
+    
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
     public void updateFunction() {
         timer.stop();
+        updateTime();
         updateSpeed();
         timerStart();
     }//</editor-fold>
@@ -72,6 +73,20 @@ public class GameHold extends javax.swing.JPanel {
         }
     }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Calculate display time."> 
+    private void updateTime() {
+        times[0]++;
+        for (int i = 0; i < 2; i++) {
+            if (times[i] == 60) {
+                times[i+1]++;
+                times[i] = 0;
+            }
+        }
+
+        titleTime.setText("Time: " + times[0] + ":" + times[1] + ":" + times[2]);
+        
+    }//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
     private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
@@ -88,8 +103,8 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
-        addSliderListener(time);
-        updateSpeed();
+
+        times = new int[]{ 0, 0, 0 };
         opButtons = new JLabel[]{ titleGov, };
         opPanels = new JPanel[]{
             new PGovernment()
@@ -99,6 +114,11 @@ public class GameHold extends javax.swing.JPanel {
         for (int i = 0; i < opButtons.length; i++) {
             Methods.addButtonFormat(opButtons[i], opPanels[i]);
         }
+        
+        addSliderListener(time);
+        updateSpeed();
+        updateTime();
+        
         timerStart();
     }//</editor-fold>
 
