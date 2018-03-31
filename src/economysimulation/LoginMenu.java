@@ -12,7 +12,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author Max Carter
  */
-public class MainMenu extends javax.swing.JPanel {
+public class LoginMenu extends javax.swing.JPanel {
 
     private final int SWITCH_BACK_TICKS = 5000;
     private final int TOTAL_BACK_PICS = 4;
@@ -55,7 +55,7 @@ public class MainMenu extends javax.swing.JPanel {
         
     }
     
-    public MainMenu() {
+    public LoginMenu() {
         initComponents();
         checkTextFields(entername);
         Methods.addGhostText(entername, GHOST_TEXT);

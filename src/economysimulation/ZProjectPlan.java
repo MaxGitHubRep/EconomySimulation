@@ -22,7 +22,7 @@
         -tax corp
         -subsidies
         -regulations
-        -cob
+        -gov spending
         -pensions
     
     

@@ -29,7 +29,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         try {
-            addToMainFrame(new MainMenu());
+            addToMainFrame(new LoginMenu());
         } catch (Exception ex) {
             
         }
