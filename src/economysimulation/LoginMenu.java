@@ -170,6 +170,7 @@ public class LoginMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
+        Methods.username = entername.getText();
         try {
             MainFrame.addToMainFrame(new IntroPage());
         } catch (Exception ex) {

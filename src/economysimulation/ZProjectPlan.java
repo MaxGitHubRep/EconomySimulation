@@ -13,7 +13,7 @@
         -u/e
         -consumption
         -demand
-        -borring
+        -borrowing
     
     gov:
         -ir

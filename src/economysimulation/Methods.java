@@ -16,6 +16,8 @@ import javax.swing.JTextField;
  */
 public class Methods {
 
+    public static String username;
+    
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
     }
