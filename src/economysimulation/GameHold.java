@@ -27,11 +27,17 @@ public class GameHold extends javax.swing.JPanel {
     private Timer timer;
     private int[] times;
     
+    //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
+    public static void globalClockTick() {
+        PGovernment.globalClockPulseGov();
+    }//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
     public void updateFunction() {
         timer.stop();
         updateTime();
         updateSpeed();
+        globalClockTick();
         timerStart();
     }//</editor-fold>
     
@@ -95,7 +101,7 @@ public class GameHold extends javax.swing.JPanel {
         
     }//</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
+    //<editor-fold defaultstate="collapsed" desc="Slider Event.">   
     private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
