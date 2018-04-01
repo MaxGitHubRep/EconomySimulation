@@ -18,7 +18,7 @@ import javax.swing.event.ChangeListener;
 public class GameHold extends javax.swing.JPanel {
 
     public final String SPEED_FORMAT = "Speed: %s";
-    public int SPEED;
+    public static int SPEED;
     public final int SPEED_MID_POINT = 100;
     
     public JPanel[] opPanels;
@@ -29,7 +29,8 @@ public class GameHold extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
-        PGovernment.globalClockPulseGov();
+        Methods.TICKS++;
+        //PGovernment.globalClockPulseGov();
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
@@ -64,9 +65,12 @@ public class GameHold extends javax.swing.JPanel {
         backadd.setLayout(new BorderLayout());
         
         if (scrollable) {
-            backadd.add(new JScrollPane(panel,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-            JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+            JScrollPane scrolling = new JScrollPane(panel,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrolling.getVerticalScrollBar().setUnitIncrement(16);
+            
+            backadd.add(scrolling);
         } else {
             backadd.add(panel);
         }
@@ -217,7 +221,7 @@ public class GameHold extends javax.swing.JPanel {
         titleBudget.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         titleBudget.setForeground(new java.awt.Color(255, 51, 0));
         titleBudget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleBudget.setText("Budget Deficit");
+        titleBudget.setText("Budget");
         titleBudget.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleBudget.setOpaque(true);
 
