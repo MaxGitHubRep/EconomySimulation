@@ -1,6 +1,7 @@
 package economysimulation;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -10,6 +11,8 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 
 /**
  *
@@ -31,6 +34,31 @@ public class Methods {
     
     // Budget variables
     public static double ANNUAL_BUDGET, NATIONAL_DEBT, PUBLIC_SECTOR_BUDGET, POLITICAL_INFLUENCE, INFLATION, PRICE_LEVEL, REAL_GDP;
+    
+    public static void applyChartTheme(JFreeChart chart) {
+        StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
+        
+        // ---- Editing default graph theme: Fonts ----
+        
+        theme.setTitlePaint(new Color(204, 0, 0));
+        theme.setExtraLargeFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 32) );
+        theme.setLargeFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 25));
+        theme.setRegularFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 20));
+        
+        // ---- Editing default graph theme: Colours ----
+        
+        theme.setAxisLabelPaint(new Color(204, 0, 0));
+        theme.setChartBackgroundPaint(Color.WHITE);
+        theme.setPlotBackgroundPaint(Color.white);
+        theme.setRangeGridlinePaint(new Color(0, 0, 0));
+        
+        // ---- Editing default graph theme: Formatting ----
+        
+        chart.getCategoryPlot().setOutlineVisible( false );
+        chart.getCategoryPlot().getRangeAxis().setAxisLineVisible( false );
+
+        theme.apply(chart);
+    }
     
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
