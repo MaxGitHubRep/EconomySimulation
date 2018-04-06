@@ -1,16 +1,15 @@
 package economysimulation;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import javax.swing.AbstractAction;
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JSlider;
-import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -19,46 +18,48 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class PGovernment extends javax.swing.JPanel {
 
-    private final String INTEREST_RATES_FORMAT = "Interest Rates: %s";
-    
-    private JSlider[] sliders;
-    
-    private DefaultCategoryDataset dataSetIR;
-    private Timer timer;
-    
-//    //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
-//    public static void globalClockPulseGov() {
-//        Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
-//        new PGovernment();
-//    }//</editor-fold> 
-//    
-    
-    private void timerStart() { 
-        timer = new Timer(GameHold.SPEED, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    createGraphIR();
-                } catch (Exception ex) {
-                    
-                }
-            }
-        });
-        timer.start();
-    }
-    
+    //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
+    public static void globalClockPulseGov() {
+        PGovernment.createGraphIR();
+    }//</editor-fold> 
+  
     //<editor-fold defaultstate="collapsed" desc="Create Interest Rates graph"> 
-    public void createGraphIR() {
-        dataSetIR = new DefaultCategoryDataset();
+    public static void createGraphIR() {
+        DefaultCategoryDataset dataSetIR = new DefaultCategoryDataset();
+        
         Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
-
-        for (double value : Methods.INTEREST_RATES) {
-            dataSetIR.addValue(value, "Interest Rate (%)", Methods.TICKS + "");
+        int size = Methods.INTEREST_RATES.size();
+        
+        for (int i = 0; i < size; i++) {
+            dataSetIR.addValue(Methods.INTEREST_RATES.get(i), "Interest Rate (%)", (i+1) + "");
         }
+
+        JFreeChart chartIR = ChartFactory.createLineChart("Interest Rates", "Game Ticks", "Interest Rate (%)", dataSetIR);
+
+        StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
-        JFreeChart chartIR = ChartFactory.createLineChart("Long Term Interest Rates", "Time", "Interest Rate (%)", dataSetIR);
+        // ---- Editing default graph theme: Fonts ----
         
-        ltIR.setLayout(new java.awt.BorderLayout());
+        theme.setTitlePaint(new Color(204, 0, 0));
+        theme.setExtraLargeFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 32) );
+        theme.setLargeFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 25));
+        theme.setRegularFont( new Font(Methods.GRAPH_FONT_NAME,Font.BOLD, 20));
+        
+        // ---- Editing default graph theme: Colours ----
+        
+        theme.setAxisLabelPaint(new Color(204, 0, 0));
+        theme.setChartBackgroundPaint(Color.WHITE);
+        theme.setPlotBackgroundPaint(Color.white);
+        theme.setRangeGridlinePaint(new Color(0, 0, 0));
+        
+        // ---- Editing default graph theme: Formatting ----
+        
+        chartIR.getCategoryPlot().setOutlineVisible( false );
+        chartIR.getCategoryPlot().getRangeAxis().setAxisLineVisible( false );
+
+        theme.apply(chartIR);
+        
+        ltIR.setLayout(new BorderLayout());
         ChartPanel CP = new ChartPanel(chartIR);
         ltIR.add(CP, BorderLayout.CENTER);
         ltIR.validate();
@@ -70,7 +71,7 @@ public class PGovernment extends javax.swing.JPanel {
         min.setText(tenth + "%");
         max.setText((tenth + 1) + "%");
         Methods.INTEREST_RATE = tenth + ((double) dec / 10);
-        valueIR.setText(String.format(INTEREST_RATES_FORMAT, Methods.INTEREST_RATE) + "%");
+        valueIR.setText("Interest Rates: " + Methods.INTEREST_RATE + "%");
     }//</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -88,12 +89,11 @@ public class PGovernment extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public PGovernment() {
         initComponents();
-        sliders = new JSlider[]{ sliderIR, sliderIRDec };
-        for (JSlider slide : sliders) {
-            addSliderListener(slide);
-        }
+        
+        addSliderListener(sliderIR);
+        addSliderListener(sliderIRDec);
+        
         adjustInterestRates(sliderIR.getValue(), sliderIRDec.getValue());
-        timerStart();
     }//</editor-fold>
 
     /**
@@ -117,13 +117,12 @@ public class PGovernment extends javax.swing.JPanel {
         zero1 = new javax.swing.JLabel();
         max = new javax.swing.JLabel();
         ltIR = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
         subTitle.setFont(new java.awt.Font("Agency FB", 1, 72)); // NOI18N
-        subTitle.setForeground(new java.awt.Color(255, 255, 255));
+        subTitle.setForeground(new java.awt.Color(204, 0, 0));
         subTitle.setText("Government");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Interest Rates", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -170,37 +169,41 @@ public class PGovernment extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sliderIR, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                    .addComponent(valueIR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(zero1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(hunnit))
-                    .addComponent(sliderIRDec, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                    .addComponent(sliderIR, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sliderIRDec, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(min)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(max)))
+                .addGap(18, 18, 18)
+                .addComponent(valueIR, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(sliderIR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hunnit)
-                    .addComponent(zero1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sliderIRDec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(min)
-                    .addComponent(max))
-                .addGap(16, 16, 16)
-                .addComponent(valueIR))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valueIR)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sliderIR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sliderIRDec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(hunnit)
+                                .addComponent(zero1)
+                                .addComponent(min))
+                            .addComponent(max))))
+                .addGap(137, 137, 137))
         );
 
         ltIR.setOpaque(false);
@@ -209,48 +212,30 @@ public class PGovernment extends javax.swing.JPanel {
         ltIR.setLayout(ltIRLayout);
         ltIRLayout.setHorizontalGroup(
             ltIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 651, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         ltIRLayout.setVerticalGroup(
             ltIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel4.setOpaque(false);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+            .addGap(0, 425, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ltIR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ltIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(ltIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ltIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -276,10 +261,8 @@ public class PGovernment extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(subTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 380, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(155, 155, 155)
@@ -295,9 +278,9 @@ public class PGovernment extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(230, 230, 230)
+                .addGap(155, 155, 155)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(940, Short.MAX_VALUE))
+                .addContainerGap(953, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,10 +289,9 @@ public class PGovernment extends javax.swing.JPanel {
     private javax.swing.JLabel hunnit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPanel ltIR;
+    private static javax.swing.JPanel ltIR;
     private javax.swing.JLabel max;
     private javax.swing.JLabel min;
     private javax.swing.JSlider sliderIR;

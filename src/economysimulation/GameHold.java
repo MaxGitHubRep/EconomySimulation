@@ -30,7 +30,7 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
         Methods.TICKS++;
-        //PGovernment.globalClockPulseGov();
+        PGovernment.globalClockPulseGov();
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 

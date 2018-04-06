@@ -17,6 +17,9 @@ import javax.swing.JTextField;
  */
 public class Methods {
 
+    public static final int SHORT_RUN_SIZE = 6;
+    public static final String GRAPH_FONT_NAME = "Agency FB";
+    
     public static String username;
     
     public static int TICKS;
