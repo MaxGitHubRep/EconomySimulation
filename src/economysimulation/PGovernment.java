@@ -3,13 +3,14 @@ package economysimulation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.StandardChartTheme;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -20,29 +21,29 @@ public class PGovernment extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
     public static void globalClockPulseGov() {
-        PGovernment.createGraphIR();
+        Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
+        //PGovernment.createGraphIR();
+        PGovernment.createGraph("Interest Rates", Methods.INTEREST_RATES, ltIR);
     }//</editor-fold> 
   
-    //<editor-fold defaultstate="collapsed" desc="Create Interest Rates graph"> 
-    public static void createGraphIR() {
-        DefaultCategoryDataset dataSetIR = new DefaultCategoryDataset();
-        
-        Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
-        int size = Methods.INTEREST_RATES.size();
+    //<editor-fold defaultstate="collapsed" desc="Creates a graph with given data."> 
+    public static void createGraph(String title, ArrayList<Double> historyList, JPanel panel) {
+        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+
+        int size = historyList.size();
         
         for (int i = 0; i < size; i++) {
-            dataSetIR.addValue(Methods.INTEREST_RATES.get(i), "Interest Rate (%)", (i+1) + "");
+            dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
         }
 
-        JFreeChart chartIR = ChartFactory.createLineChart("Interest Rates", "Game Ticks", "Interest Rate (%)", dataSetIR);
+        JFreeChart chartIR = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
 
         Methods.applyChartTheme(chartIR);
         
-        ltIR.setLayout(new BorderLayout());
+        panel.setLayout(new BorderLayout());
         ChartPanel CP = new ChartPanel(chartIR);
-        ltIR.add(CP, BorderLayout.CENTER);
-        ltIR.validate();
-        
+        panel.add(CP, BorderLayout.CENTER);
+        panel.validate();
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Adjusts Interest Rates"> 
