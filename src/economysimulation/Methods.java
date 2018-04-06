@@ -1,5 +1,6 @@
 package economysimulation;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.FocusEvent;
@@ -11,8 +12,11 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -31,6 +35,14 @@ public class Methods {
     public static double INTEREST_RATE, EXCHANGE_RATE, CORP_TAX, CONS_TAX, REGULATIONS, SUBSIDIES, GOV_SPENDING, PENSIONS;
     
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<Double>();
+    public static ArrayList<Double> EXCHANGE_RATES = new ArrayList<Double>();
+    public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<Double>();
+    public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<Double>();
+    public static ArrayList<Double> REGULATIONS_LIST = new ArrayList<Double>();
+    public static ArrayList<Double> SUBSIDIES_LIST = new ArrayList<Double>();
+    public static ArrayList<Double> GOV_SPENDING_LIST = new ArrayList<Double>();
+    public static ArrayList<Double> PENSIONS_LIST = new ArrayList<Double>();
+    
     
     // Budget variables
     public static double ANNUAL_BUDGET, NATIONAL_DEBT, PUBLIC_SECTOR_BUDGET, POLITICAL_INFLUENCE, INFLATION, PRICE_LEVEL, REAL_GDP;
@@ -59,6 +71,26 @@ public class Methods {
 
         theme.apply(chart);
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Creates a graph with given data."> 
+    public static void createGraph(String title, ArrayList<Double> historyList, JPanel panel) {
+        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
+
+        int size = historyList.size();
+        
+        for (int i = 0; i < size; i++) {
+            dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
+        }
+
+        JFreeChart chartIR = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
+
+        Methods.applyChartTheme(chartIR);
+        
+        panel.setLayout(new BorderLayout());
+        ChartPanel CP = new ChartPanel(chartIR);
+        panel.add(CP, BorderLayout.CENTER);
+        panel.validate();
+    }//</editor-fold> 
     
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;

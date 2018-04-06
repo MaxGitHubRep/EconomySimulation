@@ -1,17 +1,11 @@
 package economysimulation;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -19,32 +13,26 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class PGovernment extends javax.swing.JPanel {
 
+    private static String[] titles = new String[]{ "Interest Rates", "Exchange Rates" };
+    private static double[] values = new double[]{ Methods.INTEREST_RATE, Methods.EXCHANGE_RATE };
+    private static ArrayList<Double>[] history = new ArrayList[]{ Methods.INTEREST_RATES, Methods.EXCHANGE_RATES };
+    private static JPanel[] panelsBack;
+    
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
     public static void globalClockPulseGov() {
         Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
-        //PGovernment.createGraphIR();
-        PGovernment.createGraph("Interest Rates", Methods.INTEREST_RATES, ltIR);
+//
+//        Methods.createGraph("Interest Rates", Methods.INTEREST_RATES, graphPanelIR);
+        
+        for (int i = 0; i < 2; i++) {
+            //history[i].add(values[i]);
+            
+            Methods.createGraph(titles[i], history[i], panelsBack[i]);
+        }
+        
     }//</editor-fold> 
   
-    //<editor-fold defaultstate="collapsed" desc="Creates a graph with given data."> 
-    public static void createGraph(String title, ArrayList<Double> historyList, JPanel panel) {
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-
-        int size = historyList.size();
-        
-        for (int i = 0; i < size; i++) {
-            dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
-        }
-
-        JFreeChart chartIR = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
-
-        Methods.applyChartTheme(chartIR);
-        
-        panel.setLayout(new BorderLayout());
-        ChartPanel CP = new ChartPanel(chartIR);
-        panel.add(CP, BorderLayout.CENTER);
-        panel.validate();
-    }//</editor-fold> 
+    
     
     //<editor-fold defaultstate="collapsed" desc="Adjusts Interest Rates"> 
     private void adjustInterestRates(int tenth, int dec) {
@@ -69,6 +57,8 @@ public class PGovernment extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public PGovernment() {
         initComponents();
+        
+        panelsBack = new JPanel[]{ graphPanelIR, graphPanelER };
         
         addSliderListener(sliderIR);
         addSliderListener(sliderIRDec);
@@ -96,8 +86,10 @@ public class PGovernment extends javax.swing.JPanel {
         sliderIRDec = new javax.swing.JSlider();
         zero1 = new javax.swing.JLabel();
         max = new javax.swing.JLabel();
-        ltIR = new javax.swing.JPanel();
+        graphPanelIR = new javax.swing.JPanel();
         panelER = new javax.swing.JPanel();
+        graphPanelER = new javax.swing.JPanel();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -187,16 +179,16 @@ public class PGovernment extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        ltIR.setOpaque(false);
+        graphPanelIR.setOpaque(false);
 
-        javax.swing.GroupLayout ltIRLayout = new javax.swing.GroupLayout(ltIR);
-        ltIR.setLayout(ltIRLayout);
-        ltIRLayout.setHorizontalGroup(
-            ltIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout graphPanelIRLayout = new javax.swing.GroupLayout(graphPanelIR);
+        graphPanelIR.setLayout(graphPanelIRLayout);
+        graphPanelIRLayout.setHorizontalGroup(
+            graphPanelIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        ltIRLayout.setVerticalGroup(
-            ltIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        graphPanelIRLayout.setVerticalGroup(
+            graphPanelIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 425, Short.MAX_VALUE)
         );
 
@@ -207,7 +199,7 @@ public class PGovernment extends javax.swing.JPanel {
             .addGroup(panelIRLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelIRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ltIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(graphPanelIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -216,22 +208,41 @@ public class PGovernment extends javax.swing.JPanel {
             .addGroup(panelIRLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ltIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(graphPanelIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        panelER.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exchange Rates", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        panelER.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exchange Rates", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(255, 255, 255))); // NOI18N
         panelER.setOpaque(false);
+
+        graphPanelER.setOpaque(false);
+
+        javax.swing.GroupLayout graphPanelERLayout = new javax.swing.GroupLayout(graphPanelER);
+        graphPanelER.setLayout(graphPanelERLayout);
+        graphPanelERLayout.setHorizontalGroup(
+            graphPanelERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        graphPanelERLayout.setVerticalGroup(
+            graphPanelERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 299, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout panelERLayout = new javax.swing.GroupLayout(panelER);
         panelER.setLayout(panelERLayout);
         panelERLayout.setHorizontalGroup(
             panelERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
+            .addGroup(panelERLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(graphPanelER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelERLayout.setVerticalGroup(
             panelERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(panelERLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(graphPanelER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -241,14 +252,12 @@ public class PGovernment extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelER, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addComponent(panelIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(panelER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,18 +268,22 @@ public class PGovernment extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelIR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(155, 155, 155)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(953, Short.MAX_VALUE))
+                .addContainerGap(844, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel graphPanelER;
+    private static javax.swing.JPanel graphPanelIR;
     private javax.swing.JLabel hunnit;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private static javax.swing.JPanel ltIR;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel max;
     private javax.swing.JLabel min;
     private javax.swing.JPanel panelER;
