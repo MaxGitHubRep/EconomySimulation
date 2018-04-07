@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    public static void addToMainFrame(JPanel panel) throws Exception {
+    public static void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
         
