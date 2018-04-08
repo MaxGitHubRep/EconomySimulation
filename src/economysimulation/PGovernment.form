@@ -374,11 +374,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="valueIR3" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="valueCT" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="min1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="minCT" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="max1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="maxCT" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -404,11 +404,11 @@
                       <Component id="sliderCTDec" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="min1" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="max1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="minCT" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="maxCT" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="valueIR3" min="-2" max="-2" attributes="0"/>
+                      <Component id="valueCT" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -426,7 +426,7 @@
                 <Property name="opaque" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="valueIR3">
+            <Component class="javax.swing.JLabel" name="valueCT">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="30" style="1"/>
@@ -437,7 +437,7 @@
                 <Property name="text" type="java.lang.String" value="Tax Rate:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="min1">
+            <Component class="javax.swing.JLabel" name="minCT">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="30" style="1"/>
@@ -481,7 +481,7 @@
                 <Property name="text" type="java.lang.String" value="0%"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="max1">
+            <Component class="javax.swing.JLabel" name="maxCT">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="30" style="1"/>
