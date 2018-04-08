@@ -81,16 +81,20 @@ public class PGovernment extends javax.swing.JPanel {
         addSliderListener(sliderCT, 3);
         addSliderListener(sliderCTDec, 3);
         
-        for (int i = 0; i < 10; i++) {
-            
+        JSlider[] sliders = new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec };
+        
+        int c = 1;
+        boolean wait = true;
+        for (int i = 0; i < panelsBack.length; i++) {
+            addSliderListener(sliders[i], c);
+            if (!wait) {
+                c++;
+                wait = true;
+            } else {
+                wait = false;
+            }
         }
         
-//        for (JSlider slider : new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec }) {
-//            addSliderListener(slider);
-//        }
-        
-        
-        //adjustRates(sliderIR.getValue(), sliderIRDec.getValue());
     }//</editor-fold>
 
     /**
