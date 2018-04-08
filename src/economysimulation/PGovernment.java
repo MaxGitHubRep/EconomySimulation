@@ -25,15 +25,11 @@ public class PGovernment extends javax.swing.JPanel {
         Methods.CONSUMER_TAXES.add(Methods.CONS_TAX);
         
         for (int i = 0; i < panelsBack.length; i++) {
-            //history[i].add(values[i]);
-            
             Methods.createGraph(TITLES[i], HISTORY[i], panelsBack[i]);
         }
         
     }//</editor-fold> 
-  
-    
-    
+
     //<editor-fold defaultstate="collapsed" desc="Adjusts rates of a specific component."> 
     private void adjustRates(String title, double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
         minLabel.setText(tenth + "%");
@@ -48,11 +44,11 @@ public class PGovernment extends javax.swing.JPanel {
                 Methods.INTEREST_RATE = sliderIR.getValue() + ((double) sliderIRDec.getValue() / 10);
                 adjustRates("Interest Rates: ", Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
                 break;
-            case 3:
+            case 2:
                 Methods.CONS_TAX = sliderCT.getValue() + ((double) sliderCTDec.getValue() / 10);
                 adjustRates("Consumer Tax Rates: ", Methods.CONS_TAX, valueCT, minCT, maxCT, sliderCT.getValue());
                 break;
-            case 4:
+            case 3:
                 break;
         }
     }//</editor-fold> 
@@ -62,8 +58,6 @@ public class PGovernment extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                //adjustRates(sliderIR.getValue(), sliderIRDec.getValue());
-                
                 sliderEditEvent(id);
             }
         });
@@ -75,17 +69,12 @@ public class PGovernment extends javax.swing.JPanel {
         initComponents();
         
         panelsBack = new JPanel[]{ graphPanelIR, graphPanelER, graphPanelCT };
-
-        addSliderListener(sliderIR, 1);
-        addSliderListener(sliderIRDec, 1);
-        addSliderListener(sliderCT, 3);
-        addSliderListener(sliderCTDec, 3);
         
         JSlider[] sliders = new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec };
         
         int c = 1;
         boolean wait = true;
-        for (int i = 0; i < panelsBack.length; i++) {
+        for (int i = 0; i < sliders.length; i++) {
             addSliderListener(sliders[i], c);
             if (!wait) {
                 c++;
