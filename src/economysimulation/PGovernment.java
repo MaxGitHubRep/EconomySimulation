@@ -59,9 +59,11 @@ public class PGovernment extends javax.swing.JPanel {
         initComponents();
         
         panelsBack = new JPanel[]{ graphPanelIR, graphPanelCT, graphPanelCT };
+
+        for (JSlider slider : new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec }) {
+            addSliderListener(slider);
+        }
         
-        addSliderListener(sliderIR);
-        addSliderListener(sliderIRDec);
         
         adjustInterestRates(sliderIR.getValue(), sliderIRDec.getValue());
     }//</editor-fold>
