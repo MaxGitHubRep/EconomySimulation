@@ -1,6 +1,7 @@
 package economysimulation;
 
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -35,20 +36,31 @@ public class PGovernment extends javax.swing.JPanel {
     
     
     //<editor-fold defaultstate="collapsed" desc="Adjusts Interest Rates"> 
-    private void adjustInterestRates(int tenth, int dec) {
-        min.setText(tenth + "%");
-        max.setText((tenth + 1) + "%");
-        Methods.INTEREST_RATE = tenth + ((double) dec / 10);
-        valueIR.setText("Interest Rates: " + Methods.INTEREST_RATE + "%");
+    private void adjustRates(String title, double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
+        minLabel.setText(tenth + "%");
+        maxLabel.setText((tenth + 1) + "%");
+        output.setText(title + value + "%");
     }//</editor-fold> 
 
+    private void sliderEditEvent(int id) {
+        
+        switch (id) {
+            case 1:
+                Methods.INTEREST_RATE = sliderIR.getValue() + ((double) sliderIRDec.getValue() / 10);
+                adjustRates("Interest Rates: ", Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
+            case 2:
+        }
+        
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider) { 
+    private void addSliderListener(JSlider slider, int id) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                //adjustRates(sliderIR.getValue(), sliderIRDec.getValue());
                 
-                adjustInterestRates(sliderIR.getValue(), sliderIRDec.getValue());
+                sliderEditEvent(id);
             }
         });
         
@@ -60,12 +72,15 @@ public class PGovernment extends javax.swing.JPanel {
         
         panelsBack = new JPanel[]{ graphPanelIR, graphPanelCT, graphPanelCT };
 
-        for (JSlider slider : new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec }) {
-            addSliderListener(slider);
-        }
+        addSliderListener(sliderIR, 1);
+        addSliderListener(sliderIRDec, 1);
+        
+//        for (JSlider slider : new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec }) {
+//            addSliderListener(slider);
+//        }
         
         
-        adjustInterestRates(sliderIR.getValue(), sliderIRDec.getValue());
+        //adjustRates(sliderIR.getValue(), sliderIRDec.getValue());
     }//</editor-fold>
 
     /**
@@ -83,11 +98,11 @@ public class PGovernment extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         sliderIR = new javax.swing.JSlider();
         valueIR = new javax.swing.JLabel();
-        min = new javax.swing.JLabel();
+        minIR = new javax.swing.JLabel();
         hunnit = new javax.swing.JLabel();
         sliderIRDec = new javax.swing.JSlider();
         zero1 = new javax.swing.JLabel();
-        max = new javax.swing.JLabel();
+        maxIR = new javax.swing.JLabel();
         graphPanelIR = new javax.swing.JPanel();
         panelCT = new javax.swing.JPanel();
         graphPanelCT = new javax.swing.JPanel();
@@ -128,9 +143,9 @@ public class PGovernment extends javax.swing.JPanel {
         valueIR.setForeground(new java.awt.Color(255, 255, 255));
         valueIR.setText("Interest Rates: ");
 
-        min.setFont(new java.awt.Font("Agency FB", 1, 30)); // NOI18N
-        min.setForeground(new java.awt.Color(255, 255, 255));
-        min.setText("0%");
+        minIR.setFont(new java.awt.Font("Agency FB", 1, 30)); // NOI18N
+        minIR.setForeground(new java.awt.Color(255, 255, 255));
+        minIR.setText("0%");
 
         hunnit.setFont(new java.awt.Font("Agency FB", 1, 30)); // NOI18N
         hunnit.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,9 +161,9 @@ public class PGovernment extends javax.swing.JPanel {
         zero1.setForeground(new java.awt.Color(255, 255, 255));
         zero1.setText("0%");
 
-        max.setFont(new java.awt.Font("Agency FB", 1, 30)); // NOI18N
-        max.setForeground(new java.awt.Color(255, 255, 255));
-        max.setText("100%");
+        maxIR.setFont(new java.awt.Font("Agency FB", 1, 30)); // NOI18N
+        maxIR.setForeground(new java.awt.Color(255, 255, 255));
+        maxIR.setText("100%");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -169,9 +184,9 @@ public class PGovernment extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(valueIR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(min)
+                                .addComponent(minIR)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(max))))
+                                .addComponent(maxIR))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(sliderIRDec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -189,8 +204,8 @@ public class PGovernment extends javax.swing.JPanel {
                 .addComponent(sliderIRDec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(min)
-                    .addComponent(max))
+                    .addComponent(minIR)
+                    .addComponent(maxIR))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(valueIR)
                 .addContainerGap(180, Short.MAX_VALUE))
@@ -455,10 +470,10 @@ public class PGovernment extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel max;
     private javax.swing.JLabel max1;
-    private javax.swing.JLabel min;
+    private javax.swing.JLabel maxIR;
     private javax.swing.JLabel min1;
+    private javax.swing.JLabel minIR;
     private javax.swing.JPanel panelCT;
     private javax.swing.JPanel panelER1;
     private javax.swing.JPanel panelIR;

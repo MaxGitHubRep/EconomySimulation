@@ -151,9 +151,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="valueIR" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="min" min="-2" max="-2" attributes="0"/>
+                                      <Component id="minIR" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="max" min="-2" max="-2" attributes="0"/>
+                                      <Component id="maxIR" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -179,8 +179,8 @@
                       <Component id="sliderIRDec" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="min" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="max" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="minIR" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="maxIR" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="valueIR" min="-2" max="-2" attributes="0"/>
@@ -212,7 +212,7 @@
                 <Property name="text" type="java.lang.String" value="Interest Rates: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="min">
+            <Component class="javax.swing.JLabel" name="minIR">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="30" style="1"/>
@@ -256,7 +256,7 @@
                 <Property name="text" type="java.lang.String" value="0%"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="max">
+            <Component class="javax.swing.JLabel" name="maxIR">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="30" style="1"/>
