@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -21,6 +20,11 @@ public class PGovernment extends javax.swing.JPanel {
     private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.REGULATIONS_LIST, Methods.SUBSIDIES_LIST, Methods.GOV_SPENDING_LIST, Methods.PENSIONS_LIST };
     
     private static JButton[] graphButtons;
+    private static JLabel[] valueLabels;
+    private static JLabel[] mins;
+    private static JLabel[] maxs;
+    private static JSlider[] sliders;
+    private static JSlider[] slidersDec;
     private static int graphCode = 0;
     
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
@@ -42,17 +46,21 @@ public class PGovernment extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Switch case that uses slider listener ID to change component."> 
     private void sliderEditEvent(int id) {
         switch (id) {
-            case 1:
+            case 0:
                 Methods.INTEREST_RATE = sliderIR.getValue() + ((double) sliderIRDec.getValue() / 10);
                 adjustRates(Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
                 break;
-            case 2:
+            case 1:
                 Methods.CONS_TAX = sliderCT.getValue() + ((double) sliderCTDec.getValue() / 10);
                 adjustRates(Methods.CONS_TAX, valueCT, minCT, maxCT, sliderCT.getValue());
                 break;
-            case 3:
+            case 2:
                 break;
         }
+
+        //VALUES[id] = 
+        
+
     }//</editor-fold> 
     
     private void addButtonListenerGraph(JButton button, int id) {
@@ -80,24 +88,19 @@ public class PGovernment extends javax.swing.JPanel {
         initComponents();
         
         graphButtons = new JButton[]{ historyIR, historyCT };
-        JSlider[] sliders = new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec };
+        sliders = new JSlider[]{ sliderIR, sliderCT };
+        slidersDec = new JSlider[]{ sliderIRDec, sliderCTDec };
         
         for (int i = 0; i < graphButtons.length; i++) {
             addButtonListenerGraph(graphButtons[i], i);
         }
         
-        int c = 1;
-        boolean wait = true;
         for (int i = 0; i < sliders.length; i++) {
-            addSliderListener(sliders[i], c);
-            if (!wait) {
-                c++;
-                wait = true;
-            } else {
-                wait = false;
-            }
+            addSliderListener(sliders[i], i);
+            addSliderListener(slidersDec[i], i);
+            sliderEditEvent(i); 
         }
-        sliderEditEvent(1); 
+        
     }//</editor-fold>
 
     /**
