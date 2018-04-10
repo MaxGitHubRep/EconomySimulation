@@ -72,7 +72,9 @@ public class PGovernment extends javax.swing.JPanel {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                graphButtons[graphCode].setEnabled(true);
                 graphCode = id;
+                graphButtons[id].setEnabled(false);
             }
         });
     }//</editor-fold> 
