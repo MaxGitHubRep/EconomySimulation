@@ -24,7 +24,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
-    public static final int SHORT_RUN_SIZE = 6;
     public static final String GRAPH_FONT_NAME = "Agency FB";
     
     public static String username;
@@ -32,10 +31,9 @@ public class Methods {
     public static int TICKS;
     
     // Gov variables
-    public static double INTEREST_RATE, EXCHANGE_RATE, CORP_TAX, CONS_TAX, REGULATIONS, SUBSIDIES, GOV_SPENDING, PENSIONS;
+    public static double INTEREST_RATE, CORP_TAX, CONS_TAX, REGULATIONS, SUBSIDIES, GOV_SPENDING, PENSIONS;
     
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<Double>();
-    public static ArrayList<Double> EXCHANGE_RATES = new ArrayList<Double>();
     public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<Double>();
     public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<Double>();
     public static ArrayList<Double> REGULATIONS_LIST = new ArrayList<Double>();
