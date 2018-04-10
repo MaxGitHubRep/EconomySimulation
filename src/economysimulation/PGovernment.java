@@ -1,5 +1,7 @@
 package economysimulation;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,25 +19,24 @@ public class PGovernment extends javax.swing.JPanel {
     private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Regulations", "Subsidies", "Government Spending", "Pensions" };
     private static final double[] VALUES = new double[]{ Methods.INTEREST_RATE, Methods.CONS_TAX, Methods.CORP_TAX, Methods.REGULATIONS, Methods.SUBSIDIES, Methods.GOV_SPENDING, Methods.PENSIONS };
     private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.REGULATIONS_LIST, Methods.SUBSIDIES_LIST, Methods.GOV_SPENDING_LIST, Methods.PENSIONS_LIST };
-    private static JButton[] graphButtons;
     
-    private static int graphCode = 1;
+    private static JButton[] graphButtons;
+    private static int graphCode = 0;
     
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
     public static void globalClockPulseGov() {
         Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
         Methods.CONSUMER_TAXES.add(Methods.CONS_TAX);
 
-        Methods.createGraph("Interest Rates", Methods.INTEREST_RATES, graphPanel);
-        
+        Methods.createGraph(TITLES[graphCode], HISTORY[graphCode], graphPanel);
         
     }//</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Adjusts rates of a specific component."> 
-    private void adjustRates(String title, double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
+    private void adjustRates(double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
         minLabel.setText(tenth + "%");
         maxLabel.setText((tenth + 1) + "%");
-        output.setText(title + value + "%");
+        output.setText(value + "%");
     }//</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Switch case that uses slider listener ID to change component."> 
@@ -43,19 +44,24 @@ public class PGovernment extends javax.swing.JPanel {
         switch (id) {
             case 1:
                 Methods.INTEREST_RATE = sliderIR.getValue() + ((double) sliderIRDec.getValue() / 10);
-                adjustRates("Interest Rates: ", Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
+                adjustRates(Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
                 break;
             case 2:
                 Methods.CONS_TAX = sliderCT.getValue() + ((double) sliderCTDec.getValue() / 10);
-                adjustRates("Consumer Tax Rates: ", Methods.CONS_TAX, valueCT, minCT, maxCT, sliderCT.getValue());
+                adjustRates(Methods.CONS_TAX, valueCT, minCT, maxCT, sliderCT.getValue());
                 break;
             case 3:
                 break;
         }
     }//</editor-fold> 
     
-    private void addButtonListener(JButton button) {
-        
+    private void addButtonListenerGraph(JButton button, int id) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                graphCode = id;
+            }
+        });
     }
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -77,7 +83,7 @@ public class PGovernment extends javax.swing.JPanel {
         JSlider[] sliders = new JSlider[]{ sliderIR, sliderIRDec, sliderCT, sliderCTDec };
         
         for (int i = 0; i < graphButtons.length; i++) {
-            addButtonListener(graphButtons[i]);
+            addButtonListenerGraph(graphButtons[i], i);
         }
         
         int c = 1;
@@ -91,7 +97,7 @@ public class PGovernment extends javax.swing.JPanel {
                 wait = false;
             }
         }
-        
+        sliderEditEvent(1); 
     }//</editor-fold>
 
     /**
