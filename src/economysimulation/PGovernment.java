@@ -45,22 +45,19 @@ public class PGovernment extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Switch case that uses slider listener ID to change component."> 
     private void sliderEditEvent(int id) {
+        double newValue = sliders[id].getValue() + ((double) slidersDec[id].getValue() / 10);
+        
         switch (id) {
             case 0:
-                Methods.INTEREST_RATE = sliderIR.getValue() + ((double) sliderIRDec.getValue() / 10);
-                adjustRates(Methods.INTEREST_RATE, valueIR, minIR, maxIR, sliderIR.getValue());
+                Methods.INTEREST_RATE = newValue;
                 break;
             case 1:
-                Methods.CONS_TAX = sliderCT.getValue() + ((double) sliderCTDec.getValue() / 10);
-                adjustRates(Methods.CONS_TAX, valueCT, minCT, maxCT, sliderCT.getValue());
+                Methods.CONS_TAX = newValue;
                 break;
             case 2:
                 break;
         }
-
-        //VALUES[id] = 
-        
-
+        adjustRates(newValue, valueLabels[id], mins[id], maxs[id], sliders[id].getValue());
     }//</editor-fold> 
     
     private void addButtonListenerGraph(JButton button, int id) {
@@ -90,6 +87,11 @@ public class PGovernment extends javax.swing.JPanel {
         graphButtons = new JButton[]{ historyIR, historyCT };
         sliders = new JSlider[]{ sliderIR, sliderCT };
         slidersDec = new JSlider[]{ sliderIRDec, sliderCTDec };
+        valueLabels = new JLabel[]{ valueIR, valueCT };
+        mins = new JLabel[]{ minIR, minCT };
+        maxs = new JLabel[]{ maxIR, maxCT };
+
+        
         
         for (int i = 0; i < graphButtons.length; i++) {
             addButtonListenerGraph(graphButtons[i], i);
@@ -98,7 +100,6 @@ public class PGovernment extends javax.swing.JPanel {
         for (int i = 0; i < sliders.length; i++) {
             addSliderListener(sliders[i], i);
             addSliderListener(slidersDec[i], i);
-            sliderEditEvent(i); 
         }
         
     }//</editor-fold>
