@@ -7,12 +7,10 @@ A game whereby you can simulate a real-world economy. Players can change feature
 
  - **Government** - Players can edit & view:
    * Interest Rates
-   * Exchange Rate
    * Direct Consumer Taxes
    * Direct Corporation Taxes
    * Regulations
    * Subsidies
-   * Government Spending
    * Pensions
   
  - **Budget Deficit** - Players can view charts of the following:
