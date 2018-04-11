@@ -95,7 +95,7 @@ public class IntroPage extends javax.swing.JPanel {
         try {
             MainFrame.addToMainFrame(new GameHold());
         } catch (Exception ex) {
-            
+            System.out.println(ex);
         }
     }//GEN-LAST:event_beginGameActionPerformed
 
