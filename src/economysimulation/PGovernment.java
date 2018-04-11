@@ -15,9 +15,9 @@ import javax.swing.event.ChangeListener;
  */
 public class PGovernment extends javax.swing.JPanel {
 
-    private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions", "Regulations", "Subsidies", "Government Spending" };
-    private static final double[] VALUES = new double[]{ Methods.INTEREST_RATE, Methods.CONS_TAX, Methods.CORP_TAX, Methods.PENSIONS, Methods.REGULATIONS, Methods.SUBSIDIES, Methods.GOV_SPENDING };
-    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.PENSIONS_LIST, Methods.REGULATIONS_LIST, Methods.SUBSIDIES_LIST, Methods.GOV_SPENDING_LIST };
+    private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions" };
+    private static final double[] VALUES = new double[]{ Methods.INTEREST_RATE, Methods.CONS_TAX, Methods.CORP_TAX, Methods.PENSIONS, Methods.GOV_SPENDING };
+    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.PENSIONS_LIST, };
     
     private static JButton[] graphButtons;
     private static JLabel[] valueLabels;
@@ -263,7 +263,7 @@ public class PGovernment extends javax.swing.JPanel {
         );
         graphPanelLayout.setVerticalGroup(
             graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         panelP.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pensions", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -555,9 +555,9 @@ public class PGovernment extends javax.swing.JPanel {
                             .addComponent(panelIR3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelIR4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(panelP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(358, 358, 358)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(436, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -569,24 +569,19 @@ public class PGovernment extends javax.swing.JPanel {
     private javax.swing.JButton historyIR;
     private javax.swing.JButton historyP;
     private javax.swing.JLabel hunnit;
-    private javax.swing.JLabel hunnit2;
     private javax.swing.JLabel hunnit3;
     private javax.swing.JLabel hunnit4;
     private javax.swing.JLabel hunnit5;
-    private javax.swing.JButton jButton2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel maxCT;
     private javax.swing.JLabel maxCT2;
     private javax.swing.JLabel maxIR;
-    private javax.swing.JLabel maxIR1;
     private javax.swing.JLabel maxP;
     private javax.swing.JLabel minCT;
     private javax.swing.JLabel minCT2;
     private javax.swing.JLabel minIR;
-    private javax.swing.JLabel minIR1;
     private javax.swing.JLabel minP;
     private javax.swing.JPanel panelIR;
-    private javax.swing.JPanel panelIR1;
     private javax.swing.JPanel panelIR3;
     private javax.swing.JPanel panelIR4;
     private javax.swing.JPanel panelP;
@@ -595,19 +590,15 @@ public class PGovernment extends javax.swing.JPanel {
     private javax.swing.JSlider sliderCT2Dec;
     private javax.swing.JSlider sliderCTDec;
     private javax.swing.JSlider sliderIR;
-    private javax.swing.JSlider sliderIR1;
     private javax.swing.JSlider sliderIRDec;
-    private javax.swing.JSlider sliderIRDec1;
     private javax.swing.JSlider sliderP;
     private javax.swing.JSlider sliderPDec;
     private javax.swing.JLabel subTitle;
     private javax.swing.JLabel valueCT;
     private javax.swing.JLabel valueCT2;
     private javax.swing.JLabel valueIR;
-    private javax.swing.JLabel valueIR1;
     private javax.swing.JLabel valueP;
     private javax.swing.JLabel zero1;
-    private javax.swing.JLabel zero3;
     private javax.swing.JLabel zero4;
     private javax.swing.JLabel zero5;
     private javax.swing.JLabel zero6;

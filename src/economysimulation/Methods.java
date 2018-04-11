@@ -31,14 +31,11 @@ public class Methods {
     public static int TICKS;
     
     // Gov variables
-    public static double INTEREST_RATE, CORP_TAX, CONS_TAX, REGULATIONS, SUBSIDIES, GOV_SPENDING, PENSIONS;
+    public static double INTEREST_RATE, CORP_TAX, CONS_TAX, GOV_SPENDING, PENSIONS;
     
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<Double>();
     public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<Double>();
     public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<Double>();
-    public static ArrayList<Double> REGULATIONS_LIST = new ArrayList<Double>();
-    public static ArrayList<Double> SUBSIDIES_LIST = new ArrayList<Double>();
-    public static ArrayList<Double> GOV_SPENDING_LIST = new ArrayList<Double>();
     public static ArrayList<Double> PENSIONS_LIST = new ArrayList<Double>();
     
     
