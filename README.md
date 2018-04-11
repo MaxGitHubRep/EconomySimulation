@@ -6,13 +6,12 @@ A game whereby you can simulate a real-world economy. Players can change feature
 # Independent Sectors:
 
  - **Government** - Players can edit & view:
+   * Budget (Spending)
    * Interest Rates
    * Direct Consumer Taxes
    * Direct Corporation Taxes
-   * Regulations
-   * Subsidies
-   * Pensions
-  
+   * *<Unsure>*
+
  - **Budget Deficit** - Players can view charts of the following:
    * Annual Budget
    * National Debt
