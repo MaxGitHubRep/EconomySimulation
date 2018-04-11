@@ -42,7 +42,7 @@ public class Methods {
     // Budget variables
     public static double ANNUAL_BUDGET, NATIONAL_DEBT, PUBLIC_SECTOR_BUDGET, POLITICAL_INFLUENCE, INFLATION, PRICE_LEVEL, REAL_GDP;
     
-    public static void applyChartTheme(JFreeChart chart) {
+    public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
         // ---- Editing default graph theme: Fonts ----
@@ -61,9 +61,11 @@ public class Methods {
         
         // ---- Editing default graph theme: Formatting ----
         
-        chart.getCategoryPlot().setOutlineVisible( false );
-        chart.getCategoryPlot().getRangeAxis().setAxisLineVisible( false );
-
+        if (cataPlot) {
+            chart.getCategoryPlot().setOutlineVisible(false);
+            chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
+        }
+        
         theme.apply(chart);
     }
     
@@ -79,7 +81,7 @@ public class Methods {
 
         JFreeChart chart = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
 
-        Methods.applyChartTheme(chart);
+        Methods.applyChartTheme(chart, true);
         
         addChartToPanel(chart, panel);
         
