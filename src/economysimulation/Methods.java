@@ -77,19 +77,25 @@ public class Methods {
             dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
         }
 
-        JFreeChart chartIR = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
+        JFreeChart chart = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
 
-        Methods.applyChartTheme(chartIR);
+        Methods.applyChartTheme(chart);
         
+        addChartToPanel(chart, panel);
+        
+    }//</editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="Adds a chart to a panel."> 
+    public static void addChartToPanel(JFreeChart chart, JPanel panel) {
         panel.setLayout(new BorderLayout());
-        ChartPanel CP = new ChartPanel(chartIR);
+        ChartPanel CP = new ChartPanel(chart);
         panel.add(CP, BorderLayout.CENTER);
         panel.validate();
-    }//</editor-fold> 
+    }
     
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
-    }
+    }//</editor-fold> 
     
     public static void addButtonFormat(JLabel label, JPanel panel) {
         label.addMouseListener(new MouseAdapter() {
