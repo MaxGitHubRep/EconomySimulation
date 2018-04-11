@@ -127,11 +127,11 @@ public class GameHold extends javax.swing.JPanel {
         times = new int[]{ 0, 0, 0 };
         opButtons = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleConf };
         opPanels = new JPanel[]{
-            new PGovernment()
-        
+            new PGovernment(), 
+            new PBudget()
         };
         
-        for (int i = 0; i < (opButtons.length > opPanels.length ? opPanels : opButtons).length; i++) {
+        for (int i = 0; i < opPanels.length; i++) {
             Methods.addButtonFormat(opButtons[i], opPanels[i]);
         }
         
