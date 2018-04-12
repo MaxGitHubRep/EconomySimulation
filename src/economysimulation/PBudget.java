@@ -1,5 +1,7 @@
 package economysimulation;
 
+import java.text.DecimalFormat;
+import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -13,7 +15,11 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class PBudget extends javax.swing.JPanel {
 
+    private DecimalFormat format = new DecimalFormat("0");
+    
     private JSlider[] sliders;
+    private JLabel[] percents;
+    private JLabel[] values;
     
     public static void displayGovSpendingGraph() {
         JFreeChart chart;
@@ -43,12 +49,17 @@ public class PBudget extends javax.swing.JPanel {
         Methods.addChartToPanel(chart, graphPanel);
     }
 
+    private void updateValueLabels(int id) {
+        values[id].setText("£" + sliders[id].getValue() + "bn");
+        percents[id].setText((format.format(((double) sliders[id].getValue() / 750) * 100)) + "%");
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
     private void addSliderListener(JSlider slider, int id) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
+                updateValueLabels(id);
             }
         });
         
@@ -59,9 +70,12 @@ public class PBudget extends javax.swing.JPanel {
         displayGovSpendingGraph();
         
         sliders = new JSlider[]{ slider1 };
+        values = new JLabel[]{ value1 };
+        percents = new JLabel[]{ percent1 };
         
         for (int i = 0; i < sliders.length; i++) {
             addSliderListener(sliders[i], i);
+            updateValueLabels(i);
         }
         
     }
