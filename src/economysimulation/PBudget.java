@@ -1,5 +1,8 @@
 package economysimulation;
 
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
@@ -10,6 +13,8 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class PBudget extends javax.swing.JPanel {
 
+    
+    
     public static void displayGovSpendingGraph() {
         JFreeChart chart;
         DefaultPieDataset datasetPie = new DefaultPieDataset();
@@ -38,6 +43,17 @@ public class PBudget extends javax.swing.JPanel {
         Methods.addChartToPanel(chart, graphPanel);
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
+    private void addSliderListener(JSlider slider, int id) { 
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                
+            }
+        });
+        
+    }//</editor-fold> 
+    
     public PBudget() {
         initComponents();
         displayGovSpendingGraph();
