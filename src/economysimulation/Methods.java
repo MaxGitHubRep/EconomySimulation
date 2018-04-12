@@ -40,6 +40,8 @@ public class Methods {
     
     
     // Budget variables
+    public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS;
+    
     public static double ANNUAL_BUDGET, NATIONAL_DEBT, PUBLIC_SECTOR_BUDGET, POLITICAL_INFLUENCE, INFLATION, PRICE_LEVEL, REAL_GDP;
     
     public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
