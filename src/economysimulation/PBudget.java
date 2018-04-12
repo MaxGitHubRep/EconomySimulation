@@ -13,7 +13,7 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class PBudget extends javax.swing.JPanel {
 
-    
+    private JSlider[] sliders;
     
     public static void displayGovSpendingGraph() {
         JFreeChart chart;
@@ -57,6 +57,13 @@ public class PBudget extends javax.swing.JPanel {
     public PBudget() {
         initComponents();
         displayGovSpendingGraph();
+        
+        sliders = new JSlider[]{ slider1 };
+        
+        for (int i = 0; i < sliders.length; i++) {
+            addSliderListener(sliders[i], i);
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
