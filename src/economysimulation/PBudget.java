@@ -17,7 +17,7 @@ public class PBudget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     
-    private static String[] titles = new String[]{ "NHS", "Education", "TRansport", "Food", "Debt Interest", "Defence", "Science", "Benefits" }; 
+    private static String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Debt Interest", "Defence", "Science", "Benefits" }; 
     private static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
@@ -26,10 +26,8 @@ public class PBudget extends javax.swing.JPanel {
         JFreeChart chart;
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
-        //datasetPie.insertValue(0, "NHS", 200);
-        
         for (int i = 0; i < titles.length; i++) {
-            datasetPie.insertValue(i, titles[i], sliders[i].getValue());
+            //datasetPie.insertValue(i, titles[i], sliders[i].getValue());
         }
         
         if (use3D.isSelected()) {
@@ -229,7 +227,7 @@ public class PBudget extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel percent1;
-    private javax.swing.JSlider slider1;
+    private static javax.swing.JSlider slider1;
     private javax.swing.JLabel subTitle;
     private javax.swing.JLabel subTitle1;
     private static javax.swing.JCheckBox use3D;
