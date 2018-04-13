@@ -17,17 +17,20 @@ public class PBudget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     
-    private String[] titles = new String[]{ "NHS", "Education", "TRansport", "Food", "Debt Interest", "Defence", "Science", "Benefits" }; 
-    
-    private JSlider[] sliders;
-    private JLabel[] percents;
-    private JLabel[] values;
+    private static String[] titles = new String[]{ "NHS", "Education", "TRansport", "Food", "Debt Interest", "Defence", "Science", "Benefits" }; 
+    private static JSlider[] sliders;
+    private static JLabel[] percents;
+    private static JLabel[] values;
     
     public static void displayGovSpendingGraph() {
         JFreeChart chart;
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
         //datasetPie.insertValue(0, "NHS", 200);
+        
+        for (int i = 0; i < titles.length; i++) {
+            datasetPie.insertValue(i, titles[i], sliders[i].getValue());
+        }
         
         if (use3D.isSelected()) {
             chart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
