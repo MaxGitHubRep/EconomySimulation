@@ -17,6 +17,8 @@ public class PBudget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     
+    private String[] titles = new String[]{ "NHS", "Education", "TRansport", "Food", "Debt Interest", "Defence", "Science", "Benefits" }; 
+    
     private JSlider[] sliders;
     private JLabel[] percents;
     private JLabel[] values;
@@ -26,18 +28,6 @@ public class PBudget extends javax.swing.JPanel {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
         //datasetPie.insertValue(0, "NHS", 200);
-        
-        /* Spending:
-        Education
-        Housing
-        Transport
-        Food & Agriculture
-        Interest on Debt
-        Military
-        NHS
-        Science
-        Social Security & U/E
-        */
         
         if (use3D.isSelected()) {
             chart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
