@@ -42,7 +42,7 @@ public class PBudget extends javax.swing.JPanel {
 
     private void updateValueLabels(int id) {
         values[id].setText("£" + sliders[id].getValue() + "bn");
-        percents[id].setText((format.format(((double) sliders[id].getValue() / 750) * 100)) + "%");
+        percents[id].setText((format.format(((double) sliders[id].getValue() / Methods.ANNUAL_BUDGET) * 100)) + "%");
     }
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -65,10 +65,11 @@ public class PBudget extends javax.swing.JPanel {
         percents = new JLabel[]{ percent1 };
         
         for (int i = 0; i < sliders.length; i++) {
+            sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
             addSliderListener(sliders[i], i);
             updateValueLabels(i);
         }
-        
+        subTitle.setText("Annual Budget: £" + Methods.ANNUAL_BUDGET + " Billion");
     }
 
     @SuppressWarnings("unchecked")
@@ -93,7 +94,7 @@ public class PBudget extends javax.swing.JPanel {
         subTitle.setFont(new java.awt.Font("Agency FB", 1, 72)); // NOI18N
         subTitle.setForeground(new java.awt.Color(204, 0, 0));
         subTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        subTitle.setText("Annual Budget: £750 Billion");
+        subTitle.setText("Annual Budget: £X Billion");
 
         subTitle1.setFont(new java.awt.Font("Agency FB", 1, 72)); // NOI18N
         subTitle1.setForeground(new java.awt.Color(204, 0, 0));
