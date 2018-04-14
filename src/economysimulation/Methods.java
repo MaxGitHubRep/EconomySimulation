@@ -27,7 +27,7 @@ public class Methods {
     public static final String GRAPH_FONT_NAME = "Agency FB";
     
     public static String username;
-    public static final int ANNUAL_BUDGET = 1000;
+    public static final int ANNUAL_BUDGET = 750;
     public static int TICKS;
     
     // Gov variables
@@ -40,7 +40,7 @@ public class Methods {
     
     
     // Budget variables
-    public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS;
+    public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
     
     public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
