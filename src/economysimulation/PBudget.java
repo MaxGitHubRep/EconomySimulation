@@ -1,5 +1,6 @@
 package economysimulation;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
@@ -7,6 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -16,8 +18,11 @@ import org.jfree.data.general.DefaultPieDataset;
 public class PBudget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
+    private static PiePlot plot;
+    private static JFreeChart pieChart;
     
     private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
+    private static final Color[] colourGuide = new Color[]{ new Color(0, 0, 0)  };
     private static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
@@ -32,18 +37,27 @@ public class PBudget extends javax.swing.JPanel {
         return count;
     }
     
+
+    
+    private static void applyPieChartColour(JFreeChart chart) {
+        plot = (PiePlot) chart.getPlot();
+        for (int i = 0; i < colourGuide.length; i++) {
+            plot.setSectionPaint(titles[i], colourGuide[i]);
+        }
+    }
+    
     public static void displayGovSpendingGraph() {
-        JFreeChart chart;
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
         for (int i = 0; i < titles.length-1; i++) {
             datasetPie.insertValue(i, titles[i], sliders[i].getValue());
         }
         
-        chart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
+        pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
 
-        Methods.applyChartTheme(chart, false);
-        Methods.addChartToPanel(chart, graphPanel);
+        Methods.applyChartTheme(pieChart, false);
+        applyPieChartColour(pieChart);
+        Methods.addChartToPanel(pieChart, graphPanel);
     }
 
     private void updateValueLabels(int id) {
@@ -58,9 +72,7 @@ public class PBudget extends javax.swing.JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 updateValueLabels(id);
-                if (!slider.getValueIsAdjusting()) {
-                    displayGovSpendingGraph();
-                }
+                if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
         
@@ -78,7 +90,7 @@ public class PBudget extends javax.swing.JPanel {
             addSliderListener(sliders[i], i);
             updateValueLabels(i);
         }
-        
+        //applyLabelColours();
         displayGovSpendingGraph();
     }
 
