@@ -37,7 +37,12 @@ public class PBudget extends javax.swing.JPanel {
         return count;
     }
     
-
+    private static void applyLabelColours() {
+        for (int i = 0; i < colourGuide.length; i++) {
+            percents[i].setForeground(colourGuide[i]);
+            values[i].setForeground(colourGuide[i]);
+        }
+    }
     
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
@@ -90,7 +95,7 @@ public class PBudget extends javax.swing.JPanel {
             addSliderListener(sliders[i], i);
             updateValueLabels(i);
         }
-        //applyLabelColours();
+        applyLabelColours();
         displayGovSpendingGraph();
     }
 
