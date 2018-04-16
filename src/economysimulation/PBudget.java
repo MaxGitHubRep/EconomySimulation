@@ -40,12 +40,8 @@ public class PBudget extends javax.swing.JPanel {
             datasetPie.insertValue(i, titles[i], sliders[i].getValue());
         }
         
-        if (use3D.isSelected()) {
-            chart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
-        } else {
-            chart = ChartFactory.createPieChart("Annual Budget", datasetPie);
-        }
-        
+        chart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
+
         Methods.applyChartTheme(chart, false);
         Methods.addChartToPanel(chart, graphPanel);
     }
@@ -125,8 +121,6 @@ public class PBudget extends javax.swing.JPanel {
         value8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         subTitle = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        use3D = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -470,35 +464,6 @@ public class PBudget extends javax.swing.JPanel {
             .addComponent(subTitle)
         );
 
-        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
-        jPanel2.setOpaque(false);
-
-        use3D.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
-        use3D.setForeground(new java.awt.Color(255, 255, 255));
-        use3D.setSelected(true);
-        use3D.setText("3D Graph");
-        use3D.setBorder(null);
-        use3D.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        use3D.setOpaque(false);
-        use3D.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                use3DActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(use3D, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(use3D))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -532,9 +497,7 @@ public class PBudget extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -546,10 +509,7 @@ public class PBudget extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -566,15 +526,10 @@ public class PBudget extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void use3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_use3DActionPerformed
-        displayGovSpendingGraph();
-    }//GEN-LAST:event_use3DActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JPanel graphPanel;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel panel1;
@@ -603,7 +558,6 @@ public class PBudget extends javax.swing.JPanel {
     private static javax.swing.JSlider slider8;
     private javax.swing.JLabel subTitle;
     private javax.swing.JLabel subTitle1;
-    private static javax.swing.JCheckBox use3D;
     private javax.swing.JLabel value1;
     private javax.swing.JLabel value2;
     private javax.swing.JLabel value3;
