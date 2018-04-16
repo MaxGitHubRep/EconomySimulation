@@ -58,6 +58,9 @@ public class PBudget extends javax.swing.JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 updateValueLabels(id);
+                if (!slider.getValueIsAdjusting()) {
+                    displayGovSpendingGraph();
+                }
             }
         });
         
