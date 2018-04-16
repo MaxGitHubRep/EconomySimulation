@@ -17,7 +17,7 @@ public class PBudget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     
-    private static String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
+    private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
     private static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
@@ -37,7 +37,7 @@ public class PBudget extends javax.swing.JPanel {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
         for (int i = 0; i < titles.length-1; i++) {
-            //datasetPie.insertValue(i, titles[i], sliders[i].getValue());
+            datasetPie.insertValue(i, titles[i], sliders[i].getValue());
         }
         
         if (use3D.isSelected()) {
@@ -69,17 +69,18 @@ public class PBudget extends javax.swing.JPanel {
     
     public PBudget() {
         initComponents();
-        displayGovSpendingGraph();
-        
-        sliders = new JSlider[]{ slider1 };
-        values = new JLabel[]{ value1 };
-        percents = new JLabel[]{ percent1 };
-        
+
+        sliders = new JSlider[]{ slider1, slider2, slider3, slider4, slider5, slider6, slider7, slider8 };
+        values = new JLabel[]{ value1, value2, value3, value4, value5, value6, value7, value8 };
+        percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };
+
         for (int i = 0; i < sliders.length; i++) {
             sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
             addSliderListener(sliders[i], i);
             updateValueLabels(i);
         }
+        
+        displayGovSpendingGraph();
     }
 
     @SuppressWarnings("unchecked")
