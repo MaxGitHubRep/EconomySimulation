@@ -62,7 +62,7 @@ public class PBudget extends javax.swing.JPanel {
         });
         
     }//</editor-fold> 
-    
+ 
     public PBudget() {
         initComponents();
 
