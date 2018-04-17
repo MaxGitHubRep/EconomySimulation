@@ -21,7 +21,6 @@ public class PBudget extends javax.swing.JPanel {
     private static PiePlot plot;
     private static JFreeChart pieChart;
     
-    private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
     private static final Color[] colourGuide = new Color[]{
         new Color(204, 0, 0),
         new Color(204, 0, 176),
@@ -31,10 +30,13 @@ public class PBudget extends javax.swing.JPanel {
         new Color(0, 255, 188),
         new Color(0, 204, 0),
         new Color(255, 128, 0) };
+    
+    private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
     private static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
     
+    //<editor-fold defaultstate="collapsed" desc="Gets total money spent.">
     public static int getMoneySpent() {
         int count = 0;
         
@@ -43,23 +45,26 @@ public class PBudget extends javax.swing.JPanel {
         }
         
         return count;
-    }
+    }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Sets values/percents to corresponding colours on pie chart.">
     private static void applyLabelColours() {
         for (int i = 0; i < colourGuide.length; i++) {
             percents[i].setForeground(colourGuide[i]);
             values[i].setForeground(colourGuide[i]);
             sliders[i].setValue(Methods.ANNUAL_BUDGET/sliders.length);
         }
-    }
+    }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Applies colours to the pie chart sections.">
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
         for (int i = 0; i < colourGuide.length; i++) {
             plot.setSectionPaint(titles[i], colourGuide[i]);
         }
-    }
+    }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
     public static void displayGovSpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
@@ -72,8 +77,9 @@ public class PBudget extends javax.swing.JPanel {
         Methods.applyChartTheme(pieChart, false);
         applyPieChartColour(pieChart);
         Methods.addChartToPanel(pieChart, graphPanel);
-    }
+    }//</editor-fold> 
 
+    //<editor-fold defaultstate="collapsed" desc="Updates the labels & percent values of each component.">
     private void updateValueLabels() {
         int allMoney = getMoneySpent();
         for (int id = 0; id < sliders.length; id++) {
@@ -81,7 +87,7 @@ public class PBudget extends javax.swing.JPanel {
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
             subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + " Billion");
         }
-    }
+    }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
     private void addSliderListener(JSlider slider) { 
@@ -95,6 +101,7 @@ public class PBudget extends javax.swing.JPanel {
         
     }//</editor-fold> 
  
+    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
 
@@ -109,7 +116,7 @@ public class PBudget extends javax.swing.JPanel {
         updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
-    }
+    }//</editor-fold> 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
