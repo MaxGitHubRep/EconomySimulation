@@ -22,7 +22,15 @@ public class PBudget extends javax.swing.JPanel {
     private static JFreeChart pieChart;
     
     private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
-    private static final Color[] colourGuide = new Color[]{ new Color(0, 0, 0)  };
+    private static final Color[] colourGuide = new Color[]{
+        new Color(204, 0, 0),
+        new Color(204, 0, 176),
+        new Color(255, 255, 0),
+        new Color(0, 128, 255),
+        new Color(0, 255, 255),
+        new Color(0, 255, 188),
+        new Color(0, 204, 0),
+        new Color(255, 128, 0) };
     private static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
