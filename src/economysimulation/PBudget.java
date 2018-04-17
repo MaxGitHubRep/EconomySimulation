@@ -74,18 +74,21 @@ public class PBudget extends javax.swing.JPanel {
         Methods.addChartToPanel(pieChart, graphPanel);
     }
 
-    private void updateValueLabels(int id) {
-        values[id].setText("£" + sliders[id].getValue() + "bn");
-        percents[id].setText((format.format(((double) sliders[id].getValue() / Methods.ANNUAL_BUDGET) * 100)) + "%");
-        subTitle.setText("£" + getMoneySpent() + "/" + Methods.ANNUAL_BUDGET + " Billion");
+    private void updateValueLabels() {
+        int allMoney = getMoneySpent();
+        for (int id = 0; id < sliders.length; id++) {
+            values[id].setText("£" + sliders[id].getValue() + "bn");
+            percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
+            subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + " Billion");
+        }
     }
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider, int id) { 
+    private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                updateValueLabels(id);
+                updateValueLabels();
                 if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
@@ -101,9 +104,9 @@ public class PBudget extends javax.swing.JPanel {
 
         for (int i = 0; i < sliders.length; i++) {
             sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
-            addSliderListener(sliders[i], i);
-            updateValueLabels(i);
+            addSliderListener(sliders[i]);
         }
+        updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
     }
