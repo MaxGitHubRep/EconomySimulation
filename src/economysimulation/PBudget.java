@@ -102,9 +102,9 @@ public class PBudget extends javax.swing.JPanel {
         values = new JLabel[]{ value1, value2, value3, value4, value5, value6, value7, value8 };
         percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };
 
-        for (int i = 0; i < sliders.length; i++) {
-            sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
-            addSliderListener(sliders[i]);
+        for (JSlider slider : sliders) {
+            slider.setMaximum(Methods.ANNUAL_BUDGET);
+            addSliderListener(slider);
         }
         updateValueLabels();
         applyLabelColours();
