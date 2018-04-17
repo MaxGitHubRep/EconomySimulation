@@ -41,6 +41,7 @@ public class PBudget extends javax.swing.JPanel {
         for (int i = 0; i < colourGuide.length; i++) {
             percents[i].setForeground(colourGuide[i]);
             values[i].setForeground(colourGuide[i]);
+            sliders[i].setValue(Methods.ANNUAL_BUDGET/sliders.length);
         }
     }
     
