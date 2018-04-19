@@ -119,7 +119,7 @@ public class Methods {
                 try {
                     GameHold.addToFrontPanel(GameHold.backadd, panel, true);
                 } catch (Exception ex) {
-                    
+                    ex.printStackTrace();
                 }
             }
             
