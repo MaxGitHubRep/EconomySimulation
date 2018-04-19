@@ -42,6 +42,7 @@ public class Methods {
     // Budget variables
     public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
     
+    //<editor-fold defaultstate="collapsed" desc="Applies specific theme to graph."> 
     public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
@@ -67,7 +68,7 @@ public class Methods {
         }
         
         theme.apply(chart);
-    }
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Creates a graph with given data."> 
     public static void createGraph(String title, ArrayList<Double> historyList, JPanel panel) {
@@ -99,6 +100,7 @@ public class Methods {
         return new Random().nextInt((max-min)+1)+min;
     }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
     public static void addButtonFormat(JLabel label, JPanel panel) {
         label.addMouseListener(new MouseAdapter() {
 
@@ -115,15 +117,16 @@ public class Methods {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    GameHold.addToFrontPanel(panel, true);
+                    GameHold.addToFrontPanel(GameHold.backadd, panel, true);
                 } catch (Exception ex) {
                     
                 }
             }
             
         });
-    }
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Adds light grey text with a prompt until user selects text box."> 
     public static void addGhostText(JTextField field, String ghostText) {
         field.addFocusListener(new FocusListener() {
             @Override
@@ -137,6 +140,6 @@ public class Methods {
             }
 
         });
-    }
+    }//</editor-fold>
     
 }
