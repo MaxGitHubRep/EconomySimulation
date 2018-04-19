@@ -10,27 +10,35 @@ A game whereby you can simulate a real-world economy. Players can change feature
    * Interest Rates
    * Direct Consumer Taxes
    * Direct Corporation Taxes
-   * *<Unsure>*
+   * *N/A*
 
  - **Budget Deficit** - Players can view charts of the following:
    * Annual Budget
-   * National Debt
-   * Public Sector Budget
-   * Political Influence
    * Inflation/Price Level
    * Real GDP
+   * Public Sector Budget:
+     - *NHS*
+     - *Education*
+     - *Transport*
+     - *Food*
+     - *Infrastructure*
+     - *Defence*
+     - *Science/Technology*
+     - *Benefits*
+     - *Debt Interest*
    
 ***
    
 # Dependent Sectors:
- - **Corporations** - Players can view supply side, corporation components such as:
+ - **Corporations** - Players can view supply-side, corporation components such as:
    * Investment Rates
-   * Cost of Production
+   * Cost of Production (SRAS)
    * Prices
    * Supply
    * Derrived Demand for Labour
+   * Productivity
  
- - **Consumers** - Players can view demand side, consumer components such as:
+ - **Consumers** - Players can view consumer components such as:
    * Employment Rate
    * Consumption Rate
    * Demand (Elastic Goods)
@@ -41,6 +49,7 @@ A game whereby you can simulate a real-world economy. Players can change feature
    * Business Confidence
    * Standard of Living
    * Trade Unions
+   * Political Influence
    
 ***
    
