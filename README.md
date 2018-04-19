@@ -14,7 +14,6 @@ A game whereby you can simulate a real-world economy. Players can change feature
 
  - **Budget Deficit** - Players can view charts of the following:
    * Annual Budget
-   * Political Influence
    * Inflation/Price Level
    * Real GDP
    * Public Sector Budget:
@@ -31,14 +30,15 @@ A game whereby you can simulate a real-world economy. Players can change feature
 ***
    
 # Dependent Sectors:
- - **Corporations** - Players can view supply side, corporation components such as:
+ - **Corporations** - Players can view supply-side, corporation components such as:
    * Investment Rates
-   * Cost of Production
+   * Cost of Production (SRAS)
    * Prices
    * Supply
    * Derrived Demand for Labour
+   * Productivity
  
- - **Consumers** - Players can view demand side, consumer components such as:
+ - **Consumers** - Players can view consumer components such as:
    * Employment Rate
    * Consumption Rate
    * Demand (Elastic Goods)
@@ -49,6 +49,7 @@ A game whereby you can simulate a real-world economy. Players can change feature
    * Business Confidence
    * Standard of Living
    * Trade Unions
+   * Political Influence
    
 ***
    
