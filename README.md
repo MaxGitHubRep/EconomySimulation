@@ -10,15 +10,23 @@ A game whereby you can simulate a real-world economy. Players can change feature
    * Interest Rates
    * Direct Consumer Taxes
    * Direct Corporation Taxes
-   * *<Unsure>*
+   * *N/A*
 
  - **Budget Deficit** - Players can view charts of the following:
    * Annual Budget
-   * National Debt
-   * Public Sector Budget
    * Political Influence
    * Inflation/Price Level
    * Real GDP
+   * Public Sector Budget:
+     - *NHS*
+     - *Education*
+     - *Transport*
+     - *Food*
+     - *Infrastructure*
+     - *Defence*
+     - *Science/Technology*
+     - *Benefits*
+     - *Debt Interest*
    
 ***
    
