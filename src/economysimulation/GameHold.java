@@ -2,6 +2,7 @@ package economysimulation;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import javax.swing.event.ChangeListener;
 public class GameHold extends javax.swing.JPanel {
 
     public final String SPEED_FORMAT = "Speed: %s";
+    private final DecimalFormat f = new DecimalFormat("#00");
     public static int SPEED;
     public final int SPEED_MID_POINT = 100;
     
@@ -101,7 +103,7 @@ public class GameHold extends javax.swing.JPanel {
             }
         }
 
-        titleTime.setText("Time: " + times[0] + ":" + times[1] + ":" + times[2]);
+        titleTime.setText("Time: " + f.format(times[2]) + ":" + f.format(times[1]) + ":" + f.format(times[0]));
         
     }//</editor-fold>
     
@@ -194,7 +196,7 @@ public class GameHold extends javax.swing.JPanel {
         titleTime.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         titleTime.setForeground(new java.awt.Color(255, 51, 0));
         titleTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleTime.setText("Time: ss:mm:HH");
+        titleTime.setText("Time: HH:mm:ss");
         titleTime.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleTime.setOpaque(true);
 
