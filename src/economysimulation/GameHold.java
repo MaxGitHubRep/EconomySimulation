@@ -144,7 +144,6 @@ public class GameHold extends javax.swing.JPanel {
         time = new javax.swing.JSlider();
         titleTime = new javax.swing.JLabel();
         titleSpeed = new javax.swing.JLabel();
-        exit = new javax.swing.JButton();
         usernameLabel = new javax.swing.JLabel();
         sideBarBack = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -193,11 +192,6 @@ public class GameHold extends javax.swing.JPanel {
         titleSpeed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleSpeed.setOpaque(true);
 
-        exit.setBackground(new java.awt.Color(255, 255, 255));
-        exit.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        exit.setForeground(new java.awt.Color(204, 0, 0));
-        exit.setText("Exit Game");
-
         usernameLabel.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(204, 0, 0));
         usernameLabel.setText("Username: ");
@@ -212,7 +206,7 @@ public class GameHold extends javax.swing.JPanel {
         );
         sideBarBackLayout.setVerticalGroup(
             sideBarBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 336, Short.MAX_VALUE)
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Real GDP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 30), new java.awt.Color(204, 0, 0))); // NOI18N
@@ -250,7 +244,6 @@ public class GameHold extends javax.swing.JPanel {
                     .addComponent(time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
-                    .addComponent(exit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sidebarLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -280,11 +273,9 @@ public class GameHold extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideBarBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sideBarBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exit)
                 .addContainerGap())
         );
 
@@ -310,7 +301,6 @@ public class GameHold extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JButton exit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
