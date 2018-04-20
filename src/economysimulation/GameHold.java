@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -121,14 +122,13 @@ public class GameHold extends javax.swing.JPanel {
         initComponents();
         addToFrontPanel(backadd, new ZAssist(), false);
         addToFrontPanel(sideBarBack, new PSideBar(), true);
-        
+
         usernameLabel.setText("Username: " + Methods.username);
         times = new int[]{ 0, 0, 0 };
 
         addSliderListener(time);
         updateSpeed();
         updateTime();
-        
         timerStart();
     }//</editor-fold>
 
@@ -162,7 +162,7 @@ public class GameHold extends javax.swing.JPanel {
         );
         backaddLayout.setVerticalGroup(
             backaddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
 
         sidebar.setBackground(new java.awt.Color(255, 255, 255));
@@ -194,7 +194,10 @@ public class GameHold extends javax.swing.JPanel {
 
         usernameLabel.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(204, 0, 0));
+        usernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         usernameLabel.setText("Username: ");
+        usernameLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
+        usernameLabel.setIconTextGap(10);
 
         sideBarBack.setOpaque(false);
 
@@ -202,7 +205,7 @@ public class GameHold extends javax.swing.JPanel {
         sideBarBack.setLayout(sideBarBackLayout);
         sideBarBackLayout.setHorizontalGroup(
             sideBarBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
         sideBarBackLayout.setVerticalGroup(
             sideBarBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,8 +278,8 @@ public class GameHold extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sideBarBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(usernameLabel)
+                .addGap(11, 11, 11))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
