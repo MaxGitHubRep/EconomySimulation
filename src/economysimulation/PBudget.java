@@ -1,7 +1,10 @@
 package economysimulation;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -86,12 +89,14 @@ public class PBudget extends javax.swing.JPanel {
         for (int id = 0; id < sliders.length; id++) {
             values[id].setText("£" + sliders[id].getValue() + "bn");
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
-            subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + " Billion");
+            subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
             budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
+            
             for (JLabel label : colourLabels) {
                 label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
             }
         }
+        updateSpendingCap(allMoney);
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -106,6 +111,23 @@ public class PBudget extends javax.swing.JPanel {
         
     }//</editor-fold> 
  
+    public static void updateSpendingCap(int cap) {
+        spendingLimit.setEnabled(spendingCap.isSelected());
+        if (!spendingCap.isSelected()) {
+            spendingLimit.setValue(cap);
+        }
+    }
+    
+    private void applyCheckBoxListener(JCheckBox box) {
+        spendingLimit.setValue(Methods.ANNUAL_BUDGET);
+        box.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateSpendingCap((int) spendingLimit.getValue());
+            }
+        });
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
@@ -122,6 +144,8 @@ public class PBudget extends javax.swing.JPanel {
         updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
+        updateSpendingCap(getMoneySpent());
+        applyCheckBoxListener(spendingCap);
     }//</editor-fold> 
 
     @SuppressWarnings("unchecked")
@@ -165,6 +189,10 @@ public class PBudget extends javax.swing.JPanel {
         subTitle = new javax.swing.JLabel();
         budgetPercent = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        subTitle1 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        spendingCap = new javax.swing.JCheckBox();
+        spendingLimit = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -489,7 +517,7 @@ public class PBudget extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Annual Budget", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);
 
-        subTitle.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        subTitle.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         subTitle.setForeground(new java.awt.Color(204, 0, 0));
         subTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         subTitle.setText("£X bn");
@@ -500,26 +528,59 @@ public class PBudget extends javax.swing.JPanel {
         budgetPercent.setText("x%");
         budgetPercent.setToolTipText("");
 
+        subTitle1.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        subTitle1.setForeground(new java.awt.Color(204, 0, 0));
+        subTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        subTitle1.setText("±£X bn");
+
+        spendingCap.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        spendingCap.setForeground(new java.awt.Color(204, 0, 0));
+        spendingCap.setText("Spending Cap");
+        spendingCap.setToolTipText("Prevents spending over a certain amount");
+        spendingCap.setOpaque(false);
+
+        spendingLimit.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        spendingLimit.setModel(new javax.swing.SpinnerNumberModel(750, 0, null, 1));
+        spendingLimit.setToolTipText("Spending cap in billions");
+        spendingLimit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
+        spendingLimit.setEnabled(false);
+        spendingLimit.setOpaque(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-            .addComponent(budgetPercent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addComponent(budgetPercent, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+            .addComponent(subTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+            .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(spendingCap)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(spendingLimit))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(subTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addComponent(subTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(subTitle1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(budgetPercent)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spendingCap)
+                    .addComponent(spendingLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -527,12 +588,10 @@ public class PBudget extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(graphPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,7 +616,6 @@ public class PBudget extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -565,7 +623,8 @@ public class PBudget extends javax.swing.JPanel {
                     .addComponent(panel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -577,6 +636,7 @@ public class PBudget extends javax.swing.JPanel {
     private javax.swing.JLabel budgetPercent;
     private static javax.swing.JPanel graphPanel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
@@ -602,7 +662,10 @@ public class PBudget extends javax.swing.JPanel {
     private static javax.swing.JSlider slider6;
     private static javax.swing.JSlider slider7;
     private static javax.swing.JSlider slider8;
+    private static javax.swing.JCheckBox spendingCap;
+    private static javax.swing.JSpinner spendingLimit;
     private javax.swing.JLabel subTitle;
+    private javax.swing.JLabel subTitle1;
     private javax.swing.JLabel value1;
     private javax.swing.JLabel value2;
     private javax.swing.JLabel value3;
