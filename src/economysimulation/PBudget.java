@@ -115,6 +115,13 @@ public class PBudget extends javax.swing.JPanel {
         spendingLimit.setEnabled(spendingCap.isSelected());
         if (!spendingCap.isSelected()) {
             spendingLimit.setValue(cap);
+        } else {
+            if (cap > (int) spendingLimit.getValue()) {
+                int reduction = (cap - (int) spendingLimit.getValue())/sliders.length;
+                for (JSlider slider : sliders) {
+                    slider.setValue(slider.getValue() - reduction - 3);
+                }
+            }
         }
     }
     
