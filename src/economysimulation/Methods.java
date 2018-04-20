@@ -117,7 +117,7 @@ public class Methods {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    GameHold.addToFrontPanel(GameHold.backadd, panel, true);
+                    GameHold.addToFrontPanel(GameHold.backadd, panel, false);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
