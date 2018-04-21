@@ -710,11 +710,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="picState" max="32767" attributes="0"/>
                       <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                       <Component id="jSeparator1" alignment="1" max="32767" attributes="0"/>
                       <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
                       <Component id="pBarState" alignment="0" max="32767" attributes="0"/>
+                      <Component id="picState" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -737,7 +737,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pBarState" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="picState" max="32767" attributes="0"/>
+                  <Component id="picState" min="-2" pref="94" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -792,6 +792,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="picState">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
