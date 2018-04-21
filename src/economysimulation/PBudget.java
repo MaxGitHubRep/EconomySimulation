@@ -96,7 +96,6 @@ public class PBudget extends javax.swing.JPanel {
                 label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
             }
         }
-        updateSpendingCap(allMoney);
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -111,30 +110,6 @@ public class PBudget extends javax.swing.JPanel {
         
     }//</editor-fold> 
  
-    public static void updateSpendingCap(int cap) {
-        spendingLimit.setEnabled(spendingCap.isSelected());
-        if (!spendingCap.isSelected()) {
-            spendingLimit.setValue(cap);
-        } else {
-            if (cap > (int) spendingLimit.getValue()) {
-                int reduction = (cap - (int) spendingLimit.getValue())/sliders.length;
-                for (JSlider slider : sliders) {
-                    slider.setValue(slider.getValue() - reduction - 3);
-                }
-            }
-        }
-    }
-    
-    private void applyCheckBoxListener(JCheckBox box) {
-        spendingLimit.setValue(Methods.ANNUAL_BUDGET);
-        box.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateSpendingCap((int) spendingLimit.getValue());
-            }
-        });
-    }
-    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
@@ -151,8 +126,6 @@ public class PBudget extends javax.swing.JPanel {
         updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
-        updateSpendingCap(getMoneySpent());
-        applyCheckBoxListener(spendingCap);
     }//</editor-fold> 
 
     @SuppressWarnings("unchecked")
@@ -198,8 +171,6 @@ public class PBudget extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         subTitle1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        spendingCap = new javax.swing.JCheckBox();
-        spendingLimit = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -540,19 +511,6 @@ public class PBudget extends javax.swing.JPanel {
         subTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         subTitle1.setText("±£X bn");
 
-        spendingCap.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
-        spendingCap.setForeground(new java.awt.Color(204, 0, 0));
-        spendingCap.setText("Spending Cap");
-        spendingCap.setToolTipText("Prevents spending over a certain amount");
-        spendingCap.setOpaque(false);
-
-        spendingLimit.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
-        spendingLimit.setModel(new javax.swing.SpinnerNumberModel(750, 0, null, 1));
-        spendingLimit.setToolTipText("Spending cap in billions");
-        spendingLimit.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
-        spendingLimit.setEnabled(false);
-        spendingLimit.setOpaque(false);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -566,10 +524,6 @@ public class PBudget extends javax.swing.JPanel {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(spendingCap)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(spendingLimit))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,11 +537,7 @@ public class PBudget extends javax.swing.JPanel {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(budgetPercent)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spendingCap)
-                    .addComponent(spendingLimit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -669,8 +619,6 @@ public class PBudget extends javax.swing.JPanel {
     private static javax.swing.JSlider slider6;
     private static javax.swing.JSlider slider7;
     private static javax.swing.JSlider slider8;
-    private static javax.swing.JCheckBox spendingCap;
-    private static javax.swing.JSpinner spendingLimit;
     private javax.swing.JLabel subTitle;
     private javax.swing.JLabel subTitle1;
     private javax.swing.JLabel value1;
