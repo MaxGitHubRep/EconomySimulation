@@ -87,10 +87,14 @@ public class PBudget extends javax.swing.JPanel {
     private void updateValueLabels() {
         int allMoney = getMoneySpent();
         for (int id = 0; id < sliders.length; id++) {
+            pBarState.setValue(allMoney);
+            
             values[id].setText("£" + sliders[id].getValue() + "bn");
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
+            
             subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
             budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
+            difference.setText("£" + (Methods.ANNUAL_BUDGET - allMoney) + "bn");
             
             for (JLabel label : colourLabels) {
                 label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
@@ -113,11 +117,11 @@ public class PBudget extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
-
+        
         sliders = new JSlider[]{ slider1, slider2, slider3, slider4, slider5, slider6, slider7, slider8 };
         values = new JLabel[]{ value1, value2, value3, value4, value5, value6, value7, value8 };
         percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };
-        colourLabels = new JLabel[]{ subTitle, budgetPercent };
+        colourLabels = new JLabel[]{ subTitle, budgetPercent, difference };
 
         for (JSlider slider : sliders) {
             slider.setMaximum(Methods.ANNUAL_BUDGET);
@@ -169,8 +173,11 @@ public class PBudget extends javax.swing.JPanel {
         subTitle = new javax.swing.JLabel();
         budgetPercent = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        subTitle1 = new javax.swing.JLabel();
+        difference = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        pBarState = new javax.swing.JProgressBar();
+        picState = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 51, 51));
 
@@ -506,23 +513,28 @@ public class PBudget extends javax.swing.JPanel {
         budgetPercent.setText("x%");
         budgetPercent.setToolTipText("");
 
-        subTitle1.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
-        subTitle1.setForeground(new java.awt.Color(204, 0, 0));
-        subTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        subTitle1.setText("±£X bn");
+        difference.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        difference.setForeground(new java.awt.Color(204, 0, 0));
+        difference.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        difference.setText("±£X bn");
+
+        pBarState.setMaximum(750);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(budgetPercent, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-            .addComponent(subTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+            .addComponent(difference, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
             .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(picState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator3)
+                    .addComponent(pBarState, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -532,12 +544,17 @@ public class PBudget extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subTitle1)
+                .addComponent(difference)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(budgetPercent)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pBarState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(picState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -591,10 +608,13 @@ public class PBudget extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel budgetPercent;
+    private javax.swing.JLabel difference;
     private static javax.swing.JPanel graphPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JProgressBar pBarState;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
@@ -611,6 +631,7 @@ public class PBudget extends javax.swing.JPanel {
     private javax.swing.JLabel percent6;
     private javax.swing.JLabel percent7;
     private javax.swing.JLabel percent8;
+    private javax.swing.JLabel picState;
     private static javax.swing.JSlider slider1;
     private static javax.swing.JSlider slider2;
     private static javax.swing.JSlider slider3;
@@ -620,7 +641,6 @@ public class PBudget extends javax.swing.JPanel {
     private static javax.swing.JSlider slider7;
     private static javax.swing.JSlider slider8;
     private javax.swing.JLabel subTitle;
-    private javax.swing.JLabel subTitle1;
     private javax.swing.JLabel value1;
     private javax.swing.JLabel value2;
     private javax.swing.JLabel value3;
