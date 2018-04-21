@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
@@ -121,7 +120,7 @@ public class GameHold extends javax.swing.JPanel {
     public GameHold() {
         initComponents();
         addToFrontPanel(backadd, new ZAssist(), false);
-        addToFrontPanel(sideBarBack, new PSideBar(), true);
+        addToFrontPanel(sideBarBack, new QSideBar(), true);
 
         usernameLabel.setText("Username: " + Methods.username);
         times = new int[]{ 0, 0, 0 };
