@@ -117,7 +117,6 @@ public class PBudget extends javax.swing.JPanel {
         initComponents();
         GameHold.addToFrontPanel(backRatesPanel, new QBudget(), false);
         
-        
         sliders = new JSlider[]{ QBudget.slider1, QBudget.slider2, QBudget.slider3, QBudget.slider4, QBudget.slider5, QBudget.slider6, QBudget.slider7, QBudget.slider8 };
         values = new JLabel[]{ QBudget.value1, QBudget.value2, QBudget.value3, QBudget.value4, QBudget.value5, QBudget.value6, QBudget.value7, QBudget.value8 };
         percents = new JLabel[]{ QBudget.percent1, QBudget.percent2, QBudget.percent3, QBudget.percent4, QBudget.percent5, QBudget.percent6, QBudget.percent7, QBudget.percent8 };
