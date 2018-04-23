@@ -98,7 +98,7 @@ public class PGovernment extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public PGovernment() {
         initComponents();
-        GameHold.addToFrontPanel(backPanelGov, new QGovernment(), false);
+        Methods.addToFrontPanel(backPanelGov, new QGovernment(), false);
         
         graphButtons = new JButton[]{ QGovernment.historyIR, QGovernment.historyCT, QGovernment.historyCT2, QGovernment.historyP };
         sliders = new JSlider[]{ QGovernment.sliderIR, QGovernment.sliderCT, QGovernment.sliderCT2, QGovernment.sliderP };
