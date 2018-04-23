@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -41,6 +42,27 @@ public class Methods {
     
     // Budget variables
     public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
+    
+    //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
+    public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {
+        backPanel.removeAll();
+        backPanel.revalidate();
+        
+        backPanel.setLayout(new BorderLayout());
+        
+        if (scrollable) {
+            JScrollPane scrolling = new JScrollPane(panel,
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            scrolling.getVerticalScrollBar().setUnitIncrement(16);
+            
+            backPanel.add(scrolling);
+        } else {
+            backPanel.add(panel);
+        }
+
+        backPanel.repaint();
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Applies specific theme to graph."> 
     public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
@@ -117,7 +139,7 @@ public class Methods {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    GameHold.addToFrontPanel(GameHold.backadd, panel, false);
+                    Methods.addToFrontPanel(GameHold.backadd, panel, false);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
