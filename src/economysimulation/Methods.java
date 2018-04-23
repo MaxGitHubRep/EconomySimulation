@@ -37,14 +37,19 @@ public class Methods {
     // Gov variables
     public static double INTEREST_RATE, CORP_TAX, CONS_TAX, GOV_SPENDING, PENSIONS;
     
-    public static ArrayList<Double> INTEREST_RATES = new ArrayList<Double>();
-    public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<Double>();
-    public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<Double>();
-    public static ArrayList<Double> PENSIONS_LIST = new ArrayList<Double>();
+    public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
+    public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<>();
+    public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<>();
+    public static ArrayList<Double> PENSIONS_LIST = new ArrayList<>();
     
     
     // Budget variables
-    public static double NHS, EDUCATION, HOUSING, TRANSPORT, FOOD, DEBT_INTEREST, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
+    public static double[] BUDGET_VARS;
+    public static double NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
+    
+    public Methods() {
+        BUDGET_VARS = new double[]{ NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE };
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {

@@ -135,7 +135,7 @@ public class QBudget extends javax.swing.JPanel {
                 .addComponent(value2))
         );
 
-        panel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Transport", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
+        panel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Housing", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 24), new java.awt.Color(255, 255, 255))); // NOI18N
         panel3.setOpaque(false);
 
         slider3.setMaximum(750);
