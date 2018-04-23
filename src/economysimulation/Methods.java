@@ -25,6 +25,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
+    public static QBudget budgetClass;
+    public static QGovernment govClass;
+    
     public static final String GRAPH_FONT_NAME = "Agency FB";
     
     public static String username;

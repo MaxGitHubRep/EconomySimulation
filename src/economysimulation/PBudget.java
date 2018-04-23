@@ -115,7 +115,7 @@ public class PBudget extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
-        Methods.addToFrontPanel(backRatesPanel, new QBudget(), false);
+        Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         
         sliders = new JSlider[]{ QBudget.slider1, QBudget.slider2, QBudget.slider3, QBudget.slider4, QBudget.slider5, QBudget.slider6, QBudget.slider7, QBudget.slider8 };
         values = new JLabel[]{ QBudget.value1, QBudget.value2, QBudget.value3, QBudget.value4, QBudget.value5, QBudget.value6, QBudget.value7, QBudget.value8 };

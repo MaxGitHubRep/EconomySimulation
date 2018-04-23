@@ -13,7 +13,6 @@ public class MainFrame extends javax.swing.JFrame {
     public static void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
-        
         back.setLayout(new BorderLayout());
         back.add(panel);
         back.repaint();
