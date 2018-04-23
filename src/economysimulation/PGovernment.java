@@ -107,8 +107,6 @@ public class PGovernment extends javax.swing.JPanel {
         mins = new JLabel[]{ QGovernment.minIR, QGovernment.minCT, QGovernment.minCT2, QGovernment.minP };
         maxs = new JLabel[]{ QGovernment.maxIR, QGovernment.maxCT, QGovernment.maxCT2, QGovernment.maxP };
 
-        
-        
         for (int i = 0; i < graphButtons.length; i++) {
             addButtonListenerGraph(graphButtons[i], i);
             addSliderListener(sliders[i], i);

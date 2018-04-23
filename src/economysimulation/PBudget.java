@@ -32,7 +32,7 @@ public class PBudget extends javax.swing.JPanel {
         new Color(255, 128, 0) };
     
     private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
-    private static JSlider[] sliders;
+    public static JSlider[] sliders;
     private static JLabel[] percents;
     private static JLabel[] values;
     private static JLabel[] colourLabels;
@@ -101,18 +101,23 @@ public class PBudget extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider, int id) { 
+    private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 updateValueLabels();
-                Methods.BUDGET_VARS[id] = slider.getValue();
                 if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
         
     }//</editor-fold> 
  
+    public static void loadInitialValues() {
+        for (int i = 0; i < Methods.BUDGET_VARS.length; i++) {
+            
+        }
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
@@ -123,12 +128,12 @@ public class PBudget extends javax.swing.JPanel {
         percents = new JLabel[]{ QBudget.percent1, QBudget.percent2, QBudget.percent3, QBudget.percent4, QBudget.percent5, QBudget.percent6, QBudget.percent7, QBudget.percent8 };
         colourLabels = new JLabel[]{ QBudget.subTitle, QBudget.budgetPercent, QBudget.difference };
 
-        for (int i = 0; i < sliders.length; i++) {
-            sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
-            addSliderListener(sliders[i], i);
+        for (JSlider slider : sliders) {
+            slider.setMaximum(Methods.ANNUAL_BUDGET);
+            addSliderListener(slider);
         }
-
         updateValueLabels();
+        loadInitialValues();
         applyLabelColours();
         displayGovSpendingGraph();
     }//</editor-fold> 

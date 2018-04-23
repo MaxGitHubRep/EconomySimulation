@@ -8,7 +8,6 @@ public class QBudget extends javax.swing.JPanel {
 
     public QBudget() {
         initComponents();
-        
     }
 
     @SuppressWarnings("unchecked")

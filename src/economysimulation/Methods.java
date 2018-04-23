@@ -25,6 +25,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
+    public static PBudget mainBudget;
+    public static PGovernment mainGov;
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
