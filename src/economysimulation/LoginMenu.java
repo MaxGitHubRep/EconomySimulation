@@ -174,7 +174,7 @@ public class LoginMenu extends javax.swing.JPanel {
         try {
             MainFrame.addToMainFrame(new IntroPage());
         } catch (Exception ex) {
-            
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_beginActionPerformed
 
