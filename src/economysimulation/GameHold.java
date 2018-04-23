@@ -1,11 +1,8 @@
 package economysimulation;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -55,8 +52,6 @@ public class GameHold extends javax.swing.JPanel {
         timer.start();
     }//</editor-fold>
     
-    
-    
     //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 
     private void updateSpeed() {
         int speed = time.getValue();
@@ -100,8 +95,8 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
-        addToFrontPanel(backadd, new ZAssist(), false);
-        addToFrontPanel(sideBarBack, new QSideBar(), true);
+        Methods.addToFrontPanel(backadd, new ZAssist(), false);
+        Methods.addToFrontPanel(sideBarBack, new QSideBar(), true);
 
         usernameLabel.setText("Username: " + Methods.username);
         times = new int[]{ 0, 0, 0 };
