@@ -19,10 +19,7 @@ public class IntroPage extends javax.swing.JPanel {
 
     public static void preDefineVariables() {
         //Defines all variables for use in the upcomming PBudget class at game launch.
-        for (int i = 0; i < 8; i++) {
-            //Methods.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
-            Methods.NHS = QBudget.sliders[i].getValue();
-        }
+        Methods.NHS.value = QBudget.slider1.getValue();
         
         
     }

@@ -65,7 +65,6 @@ public class QBudget extends javax.swing.JPanel {
     
     public QBudget() {
         initComponents();
-        
         sliders = new JSlider[]{ slider1, slider2, slider3, slider4, slider5, slider6, slider7, slider8 };
         values = new JLabel[]{ value1, value2, value3, value4, value5, value6, value7, value8 };
         percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };

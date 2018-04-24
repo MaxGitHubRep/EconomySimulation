@@ -36,7 +36,6 @@ public class PBudget extends javax.swing.JPanel {
         for (int i = 0; i < colourGuide.length; i++) {
             QBudget.percents[i].setForeground(colourGuide[i]);
             QBudget.values[i].setForeground(colourGuide[i]);
-            QBudget.sliders[i].setValue(Methods.ANNUAL_BUDGET/QBudget.sliders.length);
         }
     }//</editor-fold> 
     
@@ -63,13 +62,6 @@ public class PBudget extends javax.swing.JPanel {
         Methods.addChartToPanel(pieChart, graphPanel);
     }//</editor-fold> 
 
-    public static void loadInitialValues() {
-        for (int i = 0; i < 8; i++) {
-            QBudget.sliders[i].setValue(Methods.NHS);
-        }
-        QBudget.slider1.setValue(Methods.NHS);
-    }
-    
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
     private void addSliderListenerGraph(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
@@ -89,11 +81,11 @@ public class PBudget extends javax.swing.JPanel {
         for (JSlider slider : QBudget.sliders) {
             addSliderListenerGraph(slider);
         }
-
-        loadInitialValues();
+        
         QBudget.updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
+        System.out.println(Methods.NHS.value);
     }//</editor-fold> 
 
     @SuppressWarnings("unchecked")
