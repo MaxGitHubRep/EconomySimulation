@@ -12,6 +12,7 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -25,8 +26,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
-    public static PBudget mainBudget;
-    public static PGovernment mainGov;
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
@@ -49,9 +48,15 @@ public class Methods {
     public static double[] BUDGET_VARS;
     public static double NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
     
+    
+    
     public Methods() {
         BUDGET_VARS = new double[]{ NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE };
+        
+        
     }
+    
+    
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {

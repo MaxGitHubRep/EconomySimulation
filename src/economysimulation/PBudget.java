@@ -1,5 +1,6 @@
 package economysimulation;
 
+import static economysimulation.QBudget.updateValueLabels;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
@@ -29,31 +30,15 @@ public class PBudget extends javax.swing.JPanel {
         new Color(0, 255, 255),
         new Color(0, 255, 188),
         new Color(0, 204, 0),
-        new Color(255, 128, 0) };
-    
-    private static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
-    public static JSlider[] sliders;
-    private static JLabel[] percents;
-    private static JLabel[] values;
-    private static JLabel[] colourLabels;
-    
-    //<editor-fold defaultstate="collapsed" desc="Gets total money spent.">
-    public static int getMoneySpent() {
-        int count = 0;
-        
-        for (JSlider slider : sliders) {
-            count += slider.getValue();
-        }
-        
-        return count;
-    }//</editor-fold> 
+        new Color(255, 128, 0)
+    };
     
     //<editor-fold defaultstate="collapsed" desc="Sets values/percents to corresponding colours on pie chart.">
     private static void applyLabelColours() {
         for (int i = 0; i < colourGuide.length; i++) {
-            percents[i].setForeground(colourGuide[i]);
-            values[i].setForeground(colourGuide[i]);
-            sliders[i].setValue(Methods.ANNUAL_BUDGET/sliders.length);
+            QBudget.percents[i].setForeground(colourGuide[i]);
+            QBudget.values[i].setForeground(colourGuide[i]);
+            QBudget.sliders[i].setValue(Methods.ANNUAL_BUDGET/QBudget.sliders.length);
         }
     }//</editor-fold> 
     
@@ -61,7 +46,7 @@ public class PBudget extends javax.swing.JPanel {
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
         for (int i = 0; i < colourGuide.length; i++) {
-            plot.setSectionPaint(titles[i], colourGuide[i]);
+            plot.setSectionPaint(QBudget.titles[i], colourGuide[i]);
         }
     }//</editor-fold> 
     
@@ -69,8 +54,8 @@ public class PBudget extends javax.swing.JPanel {
     public static void displayGovSpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
-        for (int i = 0; i < titles.length-1; i++) {
-            datasetPie.insertValue(i, titles[i], sliders[i].getValue());
+        for (int i = 0; i < QBudget.titles.length-1; i++) {
+            datasetPie.insertValue(i, QBudget.titles[i], QBudget.sliders[i].getValue());
         }
         
         pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
@@ -80,60 +65,34 @@ public class PBudget extends javax.swing.JPanel {
         Methods.addChartToPanel(pieChart, graphPanel);
     }//</editor-fold> 
 
-    //<editor-fold defaultstate="collapsed" desc="Updates the labels & percent values of each component.">
-    private void updateValueLabels() {
-        int allMoney = getMoneySpent();
-        for (int id = 0; id < sliders.length; id++) {
-            QBudget.pBarState.setValue(allMoney);
-            QBudget.picState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/" + (allMoney > Methods.ANNUAL_BUDGET ? "warning90" : "tick90") + ".png")));
-            
-            values[id].setText("£" + sliders[id].getValue() + "bn");
-            percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
-            
-            QBudget.subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
-            QBudget.budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
-            QBudget.difference.setText("£" + (Methods.ANNUAL_BUDGET - allMoney) + "bn");
-            
-            for (JLabel label : colourLabels) {
-                label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
-            }
-        }
-    }//</editor-fold> 
-    
-    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider) { 
-        slider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                updateValueLabels();
-                if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
-            }
-        });
-        
-    }//</editor-fold> 
- 
     public static void loadInitialValues() {
         for (int i = 0; i < Methods.BUDGET_VARS.length; i++) {
             
         }
     }
     
+    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
+    private void addSliderListenerGraph(JSlider slider) { 
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
+            }
+        });
+        
+    }//</editor-fold> 
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public PBudget() {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         
-        sliders = new JSlider[]{ QBudget.slider1, QBudget.slider2, QBudget.slider3, QBudget.slider4, QBudget.slider5, QBudget.slider6, QBudget.slider7, QBudget.slider8 };
-        values = new JLabel[]{ QBudget.value1, QBudget.value2, QBudget.value3, QBudget.value4, QBudget.value5, QBudget.value6, QBudget.value7, QBudget.value8 };
-        percents = new JLabel[]{ QBudget.percent1, QBudget.percent2, QBudget.percent3, QBudget.percent4, QBudget.percent5, QBudget.percent6, QBudget.percent7, QBudget.percent8 };
-        colourLabels = new JLabel[]{ QBudget.subTitle, QBudget.budgetPercent, QBudget.difference };
-
-        for (JSlider slider : sliders) {
-            slider.setMaximum(Methods.ANNUAL_BUDGET);
-            addSliderListener(slider);
+        for (JSlider slider : QBudget.sliders) {
+            addSliderListenerGraph(slider);
         }
-        updateValueLabels();
-        loadInitialValues();
+                
+        QBudget.updateValueLabels();
+        //loadInitialValues();
         applyLabelColours();
         displayGovSpendingGraph();
     }//</editor-fold> 
