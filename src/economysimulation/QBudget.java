@@ -36,22 +36,21 @@ public class QBudget extends javax.swing.JPanel {
     public static void updateValueLabels() {
         int allMoney = getMoneySpent();
         for (int id = 0; id < sliders.length; id++) {
-            QBudget.pBarState.setValue(allMoney);
+            pBarState.setValue(allMoney);
             //QBudget.picState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/" + (allMoney > Methods.ANNUAL_BUDGET ? "warning90" : "tick90") + ".png")));
             
             values[id].setText("£" + sliders[id].getValue() + "bn");
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
             
-            QBudget.subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
-            QBudget.budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
-            QBudget.difference.setText("£" + (Methods.ANNUAL_BUDGET - allMoney) + "bn");
+            subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
+            budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
+            difference.setText("£" + (Methods.ANNUAL_BUDGET - allMoney) + "bn");
             
             for (JLabel label : colourLabels) {
                 label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
             }
         }
     }//</editor-fold> 
-    
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
     private void addSliderListener(JSlider slider) { 
@@ -64,14 +63,13 @@ public class QBudget extends javax.swing.JPanel {
         
     }//</editor-fold> 
     
-    
     public QBudget() {
         initComponents();
         
         sliders = new JSlider[]{ slider1, slider2, slider3, slider4, slider5, slider6, slider7, slider8 };
         values = new JLabel[]{ value1, value2, value3, value4, value5, value6, value7, value8 };
         percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };
-        colourLabels = new JLabel[]{ QBudget.subTitle, QBudget.budgetPercent, QBudget.difference };
+        colourLabels = new JLabel[]{ subTitle, budgetPercent, difference };
         
         for (JSlider slider : sliders) {
             slider.setMaximum(Methods.ANNUAL_BUDGET);

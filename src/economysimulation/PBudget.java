@@ -1,9 +1,7 @@
 package economysimulation;
 
-import static economysimulation.QBudget.updateValueLabels;
 import java.awt.Color;
 import java.text.DecimalFormat;
-import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -66,9 +64,10 @@ public class PBudget extends javax.swing.JPanel {
     }//</editor-fold> 
 
     public static void loadInitialValues() {
-        for (int i = 0; i < Methods.BUDGET_VARS.length; i++) {
-            
+        for (int i = 0; i < 8; i++) {
+            QBudget.sliders[i].setValue(Methods.NHS);
         }
+        QBudget.slider1.setValue(Methods.NHS);
     }
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -90,9 +89,9 @@ public class PBudget extends javax.swing.JPanel {
         for (JSlider slider : QBudget.sliders) {
             addSliderListenerGraph(slider);
         }
-                
+
+        loadInitialValues();
         QBudget.updateValueLabels();
-        //loadInitialValues();
         applyLabelColours();
         displayGovSpendingGraph();
     }//</editor-fold> 

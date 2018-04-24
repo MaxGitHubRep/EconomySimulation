@@ -45,18 +45,14 @@ public class Methods {
     
     
     // Budget variables
-    public static double[] BUDGET_VARS;
-    public static double NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE;
-    
+    public static int[] BUDGET_VARS;
+    public static int NHS = 0, EDUCATION = 0, HOUSING = 0, FOOD = 0, DEFENCE = 0, SCIENCE = 0, BENEFITS = 0, INFRASTRUCTURE = 0;
     
     
     public Methods() {
-        BUDGET_VARS = new double[]{ NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE };
-        
+        BUDGET_VARS = new int[]{ NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE };
         
     }
-    
-    
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {

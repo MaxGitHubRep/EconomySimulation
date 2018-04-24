@@ -19,9 +19,10 @@ public class IntroPage extends javax.swing.JPanel {
 
     public static void preDefineVariables() {
         //Defines all variables for use in the upcomming PBudget class at game launch.
-//        for (int i = 0; i < Methods.BUDGET_VARS.length; i++) {
-//            Methods.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
-//        }
+        for (int i = 0; i < 8; i++) {
+            //Methods.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
+            Methods.NHS = QBudget.sliders[i].getValue();
+        }
         
         
     }
@@ -137,8 +138,8 @@ public class IntroPage extends javax.swing.JPanel {
 
     private void beginGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginGameActionPerformed
         try {
-            MainFrame.addToMainFrame(new GameHold());
             preDefineVariables();
+            MainFrame.addToMainFrame(new GameHold());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
