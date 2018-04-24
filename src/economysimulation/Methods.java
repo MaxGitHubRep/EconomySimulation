@@ -45,12 +45,14 @@ public class Methods {
     
     
     // Budget variables
-    public static int[] BUDGET_VARS;
-    public static int NHS = 0, EDUCATION = 0, HOUSING = 0, FOOD = 0, DEFENCE = 0, SCIENCE = 0, BENEFITS = 0, INFRASTRUCTURE = 0;
+    public static int[] BUDGET_VARS; 
     
+    public static Component NHS;
     
     public Methods() {
-        BUDGET_VARS = new int[]{ NHS, EDUCATION, HOUSING, FOOD, DEFENCE, SCIENCE, BENEFITS, INFRASTRUCTURE };
+        BUDGET_VARS = new int[]{ 0, 0, 0, 0, 0, 0, 0, 0 };
+        
+        NHS  = new Component();
         
     }
     
