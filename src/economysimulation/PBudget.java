@@ -85,7 +85,6 @@ public class PBudget extends javax.swing.JPanel {
         QBudget.updateValueLabels();
         applyLabelColours();
         displayGovSpendingGraph();
-        System.out.println(Methods.NHS.value);
     }//</editor-fold> 
 
     @SuppressWarnings("unchecked")

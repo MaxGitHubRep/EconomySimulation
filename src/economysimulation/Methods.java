@@ -12,7 +12,6 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -45,20 +44,8 @@ public class Methods {
     
     
     // Budget variables
-    public static int[] BUDGET_VARS; 
-    
-    public static Component NHS, EDUCATION, TRANSPORT, FOOD, INFRASTRUCTURE, DEFENCE, SCIENCE, BENEFITS, DEBT_INTEREST;
-    
-    public Methods() {
-        NHS  = new Component();
-        EDUCATION  = new Component();
-        TRANSPORT  = new Component();
-        FOOD  = new Component();
-        INFRASTRUCTURE  = new Component();
-        SCIENCE  = new Component();
-        BENEFITS  = new Component();
-        
-    }
+    public static int[] BUDGET_VARS = new int[8];
+
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {
