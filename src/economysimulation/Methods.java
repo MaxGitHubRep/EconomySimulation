@@ -47,12 +47,16 @@ public class Methods {
     // Budget variables
     public static int[] BUDGET_VARS; 
     
-    public static Component NHS;
+    public static Component NHS, EDUCATION, TRANSPORT, FOOD, INFRASTRUCTURE, DEFENCE, SCIENCE, BENEFITS, DEBT_INTEREST;
     
     public Methods() {
-        BUDGET_VARS = new int[]{ 0, 0, 0, 0, 0, 0, 0, 0 };
-        
         NHS  = new Component();
+        EDUCATION  = new Component();
+        TRANSPORT  = new Component();
+        FOOD  = new Component();
+        INFRASTRUCTURE  = new Component();
+        SCIENCE  = new Component();
+        BENEFITS  = new Component();
         
     }
     

@@ -1,5 +1,7 @@
 package economysimulation;
 
+import javax.swing.JSlider;
+
 /**
  *
  * @author Max Carter
@@ -20,7 +22,9 @@ public class IntroPage extends javax.swing.JPanel {
     public static void preDefineVariables() {
         //Defines all variables for use in the upcomming PBudget class at game launch.
         Methods.NHS.value = QBudget.slider1.getValue();
-        
+        for (JSlider slider : QBudget.sliders) {
+            System.out.println(slider.getValue());
+        }
         
     }
     
