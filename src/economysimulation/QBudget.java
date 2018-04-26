@@ -37,8 +37,7 @@ public class QBudget extends javax.swing.JPanel {
         int allMoney = getMoneySpent();
         for (int id = 0; id < sliders.length; id++) {
             pBarState.setValue(allMoney);
-            //QBudget.picState.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/" + (allMoney > Methods.ANNUAL_BUDGET ? "warning90" : "tick90") + ".png")));
-            
+
             values[id].setText("£" + sliders[id].getValue() + "bn");
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
             
@@ -121,7 +120,6 @@ public class QBudget extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         pBarState = new javax.swing.JProgressBar();
-        picState = new javax.swing.JLabel();
 
         setOpaque(false);
 
@@ -450,8 +448,6 @@ public class QBudget extends javax.swing.JPanel {
 
         pBarState.setMaximum(750);
 
-        picState.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -465,8 +461,7 @@ public class QBudget extends javax.swing.JPanel {
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator3)
-                    .addComponent(pBarState, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(picState, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pBarState, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -485,8 +480,7 @@ public class QBudget extends javax.swing.JPanel {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pBarState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(picState, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(101, 101, 101))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -552,7 +546,6 @@ public class QBudget extends javax.swing.JPanel {
     public static javax.swing.JLabel percent6;
     public static javax.swing.JLabel percent7;
     public static javax.swing.JLabel percent8;
-    public static javax.swing.JLabel picState;
     public static javax.swing.JSlider slider1;
     public static javax.swing.JSlider slider2;
     public static javax.swing.JSlider slider3;
