@@ -4,11 +4,11 @@ package economysimulation;
  *
  * @author Max Carter
  */
-public class PExtra extends javax.swing.JPanel {
+public class PConsumer extends javax.swing.JPanel {
 
     public static String[] titles = new String[]{ "Political Influence", "" };
     
-    public PExtra() {
+    public PConsumer() {
         initComponents();
     }
 

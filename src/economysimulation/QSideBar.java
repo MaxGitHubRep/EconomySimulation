@@ -20,7 +20,7 @@ public class QSideBar extends javax.swing.JPanel {
         opPanels = new JPanel[]{
             new PGovernment(), 
             new PBudget(),
-            new PExtra()
+            new PConsumer()
         };
         
         for (int i = 0; i < opPanels.length; i++) {
