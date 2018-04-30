@@ -16,10 +16,11 @@ public class QSideBar extends javax.swing.JPanel {
     public QSideBar() {
         initComponents();
         
-        opButtons = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleConf };
+        opButtons = new JLabel[]{ titleGov, titleBudget, titleConf, titleCorp, titleCons };
         opPanels = new JPanel[]{
             new PGovernment(), 
-            new PBudget()
+            new PBudget(),
+            new PExtra()
         };
         
         for (int i = 0; i < opPanels.length; i++) {
