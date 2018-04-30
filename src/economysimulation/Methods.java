@@ -31,7 +31,7 @@ public class Methods {
     public static final String GRAPH_FONT_NAME = "Agency FB";
     
     public static String username;
-    public static final int ANNUAL_BUDGET = 750;
+    public static int ANNUAL_BUDGET = 750;
     public static int TICKS;
     
     // Gov variables
