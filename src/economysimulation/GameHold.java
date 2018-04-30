@@ -2,6 +2,8 @@ package economysimulation;
 
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JSlider;
 import javax.swing.Timer;
@@ -16,11 +18,13 @@ public class GameHold extends javax.swing.JPanel {
 
     public final String SPEED_FORMAT = "Speed: %s";
     private final DecimalFormat f = new DecimalFormat("#00");
+    private final DecimalFormat fYear = new DecimalFormat("#0000");
+    private final int[] monthSize = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     public static int SPEED;
     public final int SPEED_MID_POINT = 100;
     
     private Timer timer;
-    private int[] times;
+    private int[] times = new int[]{ 0, 0, 0 };
     
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
@@ -68,14 +72,21 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Calculate display time."> 
     private void updateTime() {
         times[0]++;
-        for (int i = 0; i < 2; i++) {
-            if (times[i] == 60) {
-                times[i+1]++;
-                times[i] = 0;
+
+        if (times[0] == monthSize[times[1]]+1) {
+            times[0] = 0;
+            times[1]++;
+            if (times[1] == 12) {
+                times[1] = 0;
+                times[2]++;
             }
         }
 
-        titleTime.setText("Time: " + f.format(times[2]) + ":" + f.format(times[1]) + ":" + f.format(times[0]));
+        try {
+            titleTime.setText(f.format(times[0]) + "/" + f.format(times[1]) + "/" + fYear.format(times[2]));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         
     }//</editor-fold>
     
@@ -99,7 +110,6 @@ public class GameHold extends javax.swing.JPanel {
         Methods.addToFrontPanel(sideBarBack, new QSideBar(), true);
 
         usernameLabel.setText("Username: " + Methods.username);
-        times = new int[]{ 0, 0, 0 };
 
         addSliderListener(time);
         updateSpeed();
