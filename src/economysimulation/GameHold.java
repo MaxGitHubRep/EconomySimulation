@@ -77,6 +77,7 @@ public class GameHold extends javax.swing.JPanel {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
+                Methods.recalculateAnnualBudget();
             }
         }
 

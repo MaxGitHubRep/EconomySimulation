@@ -42,10 +42,12 @@ public class Methods {
     public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<>();
     public static ArrayList<Double> PENSIONS_LIST = new ArrayList<>();
     
-    
     // Budget variables
     public static int[] BUDGET_VARS = new int[8];
 
+    public static void recalculateAnnualBudget() {
+        //new budget for next year will be calculated in this method later.
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {
