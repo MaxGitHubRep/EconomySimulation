@@ -32,6 +32,7 @@ public class IntroPage extends javax.swing.JPanel {
         subTitle = new javax.swing.JLabel();
         beginGame = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         budgetPanel = new javax.swing.JPanel();
         govPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -57,15 +58,17 @@ public class IntroPage extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective of Game", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);
 
+        jLabel1.setText("<hold>");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 68, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         budgetPanel.setOpaque(false);
@@ -121,8 +124,8 @@ public class IntroPage extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(subTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(beginGame))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(govPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,6 +151,7 @@ public class IntroPage extends javax.swing.JPanel {
     private javax.swing.JButton beginGame;
     private javax.swing.JPanel budgetPanel;
     private javax.swing.JPanel govPanel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel subTitle;
