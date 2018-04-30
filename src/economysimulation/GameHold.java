@@ -2,8 +2,6 @@ package economysimulation;
 
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import javax.swing.AbstractAction;
 import javax.swing.JSlider;
 import javax.swing.Timer;
@@ -165,7 +163,7 @@ public class GameHold extends javax.swing.JPanel {
         titleTime.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
         titleTime.setForeground(new java.awt.Color(255, 51, 0));
         titleTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleTime.setText("Time: HH:mm:ss");
+        titleTime.setText("Day/Month/Year");
         titleTime.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleTime.setOpaque(true);
 
