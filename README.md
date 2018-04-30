@@ -33,20 +33,22 @@ A game whereby you can simulate a real-world economy. Players can change feature
  - **Corporations** - Players can view supply-side, corporation components such as:
    * Investment Rates
    * Cost of Production (SRAS)
+   * Profits
    * Prices
    * Supply
    * Derrived Demand for Labour
    * Productivity
+   * Business Confidence
+   * Imports
+   * Exports
  
  - **Consumers** - Players can view consumer components such as:
    * Employment Rate
    * Consumption Rate
    * Demand (Elastic Goods)
+   * Disposable Income
    * Borrowing
-   
- - **Confidence** - Players can factors that could effect decisions:
    * Consumer Confidence
-   * Business Confidence
    * Standard of Living
    * Trade Unions
    * Political Influence
