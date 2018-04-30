@@ -120,8 +120,9 @@ public class Methods {
         ChartPanel CP = new ChartPanel(chart);
         panel.add(CP, BorderLayout.CENTER);
         panel.validate();
-    }
+    }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Generates random number."> 
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
     }//</editor-fold> 
