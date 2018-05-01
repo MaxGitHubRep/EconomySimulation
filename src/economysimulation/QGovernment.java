@@ -10,7 +10,6 @@ import javax.swing.event.ChangeListener;
  * @author Max Carter
  */
 public class QGovernment extends javax.swing.JPanel {
-
     
     public static JLabel[] valueLabels;
     public static JLabel[] mins;
