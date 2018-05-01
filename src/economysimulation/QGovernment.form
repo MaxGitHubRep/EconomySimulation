@@ -219,6 +219,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="History (Graph)"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -405,6 +406,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="History (Graph)"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -591,6 +593,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="History (Graph)"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -777,6 +780,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="History (Graph)"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

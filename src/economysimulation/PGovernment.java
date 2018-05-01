@@ -4,11 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 /**
  *
  * @author Max Carter
@@ -16,15 +11,9 @@ import javax.swing.event.ChangeListener;
 public class PGovernment extends javax.swing.JPanel {
 
     private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions" };
-    private static final double[] VALUES = new double[]{ Methods.INTEREST_RATE, Methods.CONS_TAX, Methods.CORP_TAX, Methods.PENSIONS};
     private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.PENSIONS_LIST, };
     
-    private static JButton[] graphButtons;
-    private static JLabel[] valueLabels;
-    private static JLabel[] mins;
-    private static JLabel[] maxs;
-    private static JSlider[] sliders;
-    private static JSlider[] slidersDec;
+    public static JButton[] graphButtons;
     private static int graphCode = 0;
     
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
@@ -38,40 +27,6 @@ public class PGovernment extends javax.swing.JPanel {
         
     }//</editor-fold> 
 
-    //<editor-fold defaultstate="collapsed" desc="Adjusts rates of a specific component."> 
-    private void adjustRates(double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
-        minLabel.setText(tenth + "%");
-        maxLabel.setText((tenth + 1) + "%");
-        output.setText(value + "%");
-    }//</editor-fold> 
-
-    //<editor-fold defaultstate="collapsed" desc="Returns percent of a slider."> 
-    private double getSliderValue(int id) {
-        return sliders[id].getValue() + ((double) slidersDec[id].getValue() / 10);
-    }//</editor-fold> 
-    
-    //<editor-fold defaultstate="collapsed" desc="Switch case that uses slider listener ID to change component."> 
-    private void sliderEditEvent(int id) {
-        double newValue = getSliderValue(id);
-        
-        switch (id) {
-            case 0:
-                Methods.INTEREST_RATE = newValue;
-                break;
-            case 1:
-                Methods.CONS_TAX = newValue;
-                break;
-            case 2:
-                Methods.CORP_TAX = newValue;
-                break;
-            case 3:
-                Methods.PENSIONS = newValue;
-                break;
-            
-        }
-        adjustRates(newValue, valueLabels[id], mins[id], maxs[id], sliders[id].getValue());
-    }//</editor-fold> 
-    
     //<editor-fold defaultstate="collapsed" desc="Button listener to change graph type."> 
     private void addButtonListenerGraph(JButton button, int id) {
         button.addActionListener(new ActionListener() {
@@ -84,34 +39,16 @@ public class PGovernment extends javax.swing.JPanel {
         });
     }//</editor-fold> 
     
-    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider, int id) { 
-        slider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                sliderEditEvent(id);
-            }
-        });
-        
-    }//</editor-fold> 
-    
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public PGovernment() {
         initComponents();
-        Methods.addToFrontPanel(backPanelGov, new QGovernment(), false);
+        Methods.addToFrontPanel(backPanelGov, Methods.govClass, false);
         
         graphButtons = new JButton[]{ QGovernment.historyIR, QGovernment.historyCT, QGovernment.historyCT2, QGovernment.historyP };
-        sliders = new JSlider[]{ QGovernment.sliderIR, QGovernment.sliderCT, QGovernment.sliderCT2, QGovernment.sliderP };
-        slidersDec = new JSlider[]{ QGovernment.sliderIRDec, QGovernment.sliderCTDec, QGovernment.sliderCT2Dec, QGovernment.sliderPDec };
-        valueLabels = new JLabel[]{ QGovernment.valueIR, QGovernment.valueCT, QGovernment.valueCT2, QGovernment.valueP };
-        mins = new JLabel[]{ QGovernment.minIR, QGovernment.minCT, QGovernment.minCT2, QGovernment.minP };
-        maxs = new JLabel[]{ QGovernment.maxIR, QGovernment.maxCT, QGovernment.maxCT2, QGovernment.maxP };
 
         for (int i = 0; i < graphButtons.length; i++) {
+            graphButtons[i].setEnabled(true);
             addButtonListenerGraph(graphButtons[i], i);
-            addSliderListener(sliders[i], i);
-            addSliderListener(slidersDec[i], i);
-            valueLabels[i].setText(getSliderValue(i) + "%");
         }
 
         

@@ -1,14 +1,84 @@
 package economysimulation;
 
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 /**
  *
  * @author Max Carter
  */
 public class QGovernment extends javax.swing.JPanel {
 
+    
+    public static JLabel[] valueLabels;
+    public static JLabel[] mins;
+    public static JLabel[] maxs;
+    public static JSlider[] sliders;
+    public static JSlider[] slidersDec;
+    
+    //<editor-fold defaultstate="collapsed" desc="Adjusts rates of a specific component."> 
+    private void adjustRates(double value, JLabel output, JLabel minLabel, JLabel maxLabel, int tenth) {
+        minLabel.setText(tenth + "%");
+        maxLabel.setText((tenth + 1) + "%");
+        output.setText(value + "%");
+    }//</editor-fold> 
+
+    //<editor-fold defaultstate="collapsed" desc="Returns percent of a slider."> 
+    public static double getSliderValue(int id) {
+        return sliders[id].getValue() + ((double) slidersDec[id].getValue() / 10);
+    }//</editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="Switch case that uses slider listener ID to change component."> 
+    private void sliderEditEvent(int id) {
+        double newValue = getSliderValue(id);
+        
+        switch (id) {
+            case 0:
+                Methods.INTEREST_RATE = newValue;
+                break;
+            case 1:
+                Methods.CONS_TAX = newValue;
+                break;
+            case 2:
+                Methods.CORP_TAX = newValue;
+                break;
+            case 3:
+                Methods.PENSIONS = newValue;
+                break;
+            
+        }
+        adjustRates(newValue, valueLabels[id], mins[id], maxs[id], sliders[id].getValue());
+    }//</editor-fold> 
+    
+    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
+    private void addSliderListener(JSlider slider, int id) { 
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                sliderEditEvent(id);
+            }
+        });
+        
+    }//</editor-fold> 
+
+    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public QGovernment() {
         initComponents();
-    }
+
+        sliders = new JSlider[]{ sliderIR, sliderCT, sliderCT2, sliderP };
+        slidersDec = new JSlider[]{ sliderIRDec, sliderCTDec, sliderCT2Dec, sliderPDec };
+        valueLabels = new JLabel[]{ valueIR, valueCT, valueCT2, valueP };
+        mins = new JLabel[]{ minIR, minCT, minCT2, minP };
+        maxs = new JLabel[]{ maxIR, maxCT, maxCT2, maxP };
+        
+        for (int i = 0; i < sliders.length; i++) {
+            addSliderListener(sliders[i], i);
+            addSliderListener(slidersDec[i], i);
+            valueLabels[i].setText(getSliderValue(i) + "%");
+        }
+    }//</editor-fold> 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -94,6 +164,7 @@ public class QGovernment extends javax.swing.JPanel {
         historyIR.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         historyIR.setForeground(new java.awt.Color(204, 0, 0));
         historyIR.setText("History (Graph)");
+        historyIR.setEnabled(false);
 
         javax.swing.GroupLayout panelIRLayout = new javax.swing.GroupLayout(panelIR);
         panelIR.setLayout(panelIRLayout);
@@ -178,6 +249,7 @@ public class QGovernment extends javax.swing.JPanel {
         historyCT.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         historyCT.setForeground(new java.awt.Color(204, 0, 0));
         historyCT.setText("History (Graph)");
+        historyCT.setEnabled(false);
 
         javax.swing.GroupLayout panelIR3Layout = new javax.swing.GroupLayout(panelIR3);
         panelIR3.setLayout(panelIR3Layout);
@@ -262,6 +334,7 @@ public class QGovernment extends javax.swing.JPanel {
         historyCT2.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         historyCT2.setForeground(new java.awt.Color(204, 0, 0));
         historyCT2.setText("History (Graph)");
+        historyCT2.setEnabled(false);
 
         javax.swing.GroupLayout panelIR4Layout = new javax.swing.GroupLayout(panelIR4);
         panelIR4.setLayout(panelIR4Layout);
@@ -346,6 +419,7 @@ public class QGovernment extends javax.swing.JPanel {
         historyP.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         historyP.setForeground(new java.awt.Color(204, 0, 0));
         historyP.setText("History (Graph)");
+        historyP.setEnabled(false);
 
         javax.swing.GroupLayout panelPLayout = new javax.swing.GroupLayout(panelP);
         panelP.setLayout(panelPLayout);
