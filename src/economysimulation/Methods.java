@@ -45,9 +45,15 @@ public class Methods {
     // Budget variables
     public static int[] BUDGET_VARS = new int[8];
 
+    //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
+    public static String generateRandomUsername(String currentUsername) {
+        return currentUsername + "#" + randomInt(0, 9999);
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void recalculateAnnualBudget() {
         //new budget for next year will be calculated in this method later.
-    }
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {
