@@ -33,6 +33,7 @@ public class Methods {
     public static String username;
     public static int ANNUAL_BUDGET = 750;
     public static int TICKS;
+    public static final int GRAPH_TICKS = 50;
     
     // Gov variables
     public static double INTEREST_RATE, CORP_TAX, CONS_TAX, GOV_SPENDING, PENSIONS;
@@ -114,7 +115,7 @@ public class Methods {
             dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
         }
 
-        JFreeChart chart = ChartFactory.createLineChart(title, "Game Ticks", title + " (%)", dataSet);
+        JFreeChart chart = ChartFactory.createLineChart(title, "Days", title + " (%)", dataSet);
 
         Methods.applyChartTheme(chart, true);
         

@@ -16,13 +16,19 @@ public class PGovernment extends javax.swing.JPanel {
     public static JButton[] graphButtons;
     private static int graphCode = 0;
     
-    //<editor-fold defaultstate="collapsed" desc="Receives clock pulse."> 
+    //<editor-fold defaultstate="collapsed" desc="Receives clock pulse.">
     public static void globalClockPulseGov() {
         Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
         Methods.CONSUMER_TAXES.add(Methods.CONS_TAX);
         Methods.CORPORATION_TAXES.add(Methods.CORP_TAX);
         Methods.PENSIONS_LIST.add(Methods.PENSIONS);
 
+        if (Methods.INTEREST_RATES.size() == Methods.GRAPH_TICKS+1) {
+            for (ArrayList<Double> list : HISTORY) {
+                list.remove(0);
+            }
+        }
+        
         Methods.createGraph(TITLES[graphCode], HISTORY[graphCode], graphPanel);
         
     }//</editor-fold> 
