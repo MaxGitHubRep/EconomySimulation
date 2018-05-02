@@ -45,12 +45,10 @@ A game whereby you can simulate a real-world economy. Players can change feature
  - **Consumers** - Players can view consumer components such as:
    * Employment Rate
    * Consumption Rate
-   * Demand (Elastic Goods)
    * Disposable Income
    * Borrowing
    * Consumer Confidence
    * Standard of Living
-   * Trade Unions
    * Political Influence
    
 ***
