@@ -16,18 +16,25 @@ public class LoginMenu extends javax.swing.JPanel {
 
     private final int SWITCH_BACK_TICKS = 5000;
     private final int TOTAL_BACK_PICS = 4;
+    private final int ITERATOR = 2;
     private final String GHOST_TEXT = "Enter username here";
+    private int TICKS;
     
     private void addRandomImage() {
         picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(1, TOTAL_BACK_PICS) + ".png")));
     }
     
     public void timerStart() { 
-        Timer timerChart = new Timer(SWITCH_BACK_TICKS, new AbstractAction() {
+        Timer timerChart = new Timer(ITERATOR, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    addRandomImage();
+                    TICKS+=ITERATOR;
+                    if (TICKS >= SWITCH_BACK_TICKS){
+                        TICKS = 0;
+                        addRandomImage();
+                    }
+                    
                 } catch (Exception ex) {
                     
                 }
