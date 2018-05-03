@@ -16,9 +16,11 @@ public class LoginMenu extends javax.swing.JPanel {
 
     private final int SWITCH_BACK_TICKS = 5000;
     private final int TOTAL_BACK_PICS = 4;
-    private final int ITERATOR = 6;
+    public static final int ITERATOR = 4;
     private final String GHOST_TEXT = "Enter username here";
     private int TICKS;
+    
+    protected static final String[] textTitles = new String[]{ "Username", "Select Simulation Type" };
     
     private void addRandomImage() {
         picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(1, TOTAL_BACK_PICS) + ".png")));

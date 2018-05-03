@@ -10,11 +10,26 @@ public class QLogIn extends javax.swing.JPanel {
 
     public static int indexer = 255;
     public static boolean start = false;
+    private static int index = 0;
+    private static int charLength = LoginMenu.textTitles[0].length();
     
     public static void introPageTick() {
-        if (indexer >= 51 && start) {
+        if (indexer > 50 && start) {
+            
+            index++;
+            if (index == 14) {
+                index = 0;
+                charLength++;
+            }
             indexer--;
             right.setBackground(new Color(indexer, indexer, indexer));
+            String builder = "";
+            for (int i = 0; i < charLength; i++) {
+                builder+= (char) Methods.randomInt(97, 122);
+            }
+            title.setText(builder);
+        } else {
+            title.setText(LoginMenu.textTitles[(indexer == 50 ? 1 : 0)]);
         }
     }
     
@@ -28,12 +43,13 @@ public class QLogIn extends javax.swing.JPanel {
 
         right = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        logo = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
         entername = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         begin = new javax.swing.JButton();
+        imBack = new javax.swing.JPanel();
+        logo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -41,18 +57,15 @@ public class QLogIn extends javax.swing.JPanel {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/logo-gif.gif"))); // NOI18N
-
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("Username");
+        title.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        title.setForeground(new java.awt.Color(204, 0, 0));
+        title.setText("Username");
 
         entername.setForeground(new java.awt.Color(153, 153, 153));
         entername.setText("Enter username here");
         entername.setBorder(null);
-        entername.setOpaque(false);
 
         begin.setBackground(new java.awt.Color(255, 255, 255));
         begin.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
@@ -66,6 +79,21 @@ public class QLogIn extends javax.swing.JPanel {
             }
         });
 
+        imBack.setOpaque(false);
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/logo-gif.gif"))); // NOI18N
+
+        javax.swing.GroupLayout imBackLayout = new javax.swing.GroupLayout(imBack);
+        imBack.setLayout(imBackLayout);
+        imBackLayout.setHorizontalGroup(
+            imBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        imBackLayout.setVerticalGroup(
+            imBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout rightLayout = new javax.swing.GroupLayout(right);
         right.setLayout(rightLayout);
         rightLayout.setHorizontalGroup(
@@ -73,13 +101,17 @@ public class QLogIn extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
-                .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jSeparator3)
-                    .addComponent(entername, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(logo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(begin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rightLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator3)
+                            .addComponent(entername, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(begin, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)))
+                    .addGroup(rightLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(imBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
@@ -90,9 +122,9 @@ public class QLogIn extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(rightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(rightLayout.createSequentialGroup()
-                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(entername, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,9 +141,7 @@ public class QLogIn extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,26 +151,25 @@ public class QLogIn extends javax.swing.JPanel {
 
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
         Methods.username = Methods.generateRandomUsername(entername.getText());
-        try {
-            QLogIn.start = true;
-            QLogIn.right.remove(logo);
-            //Methods.addToFrontPanel(right, Methods.selectClass, false);
-            
-            //MainFrame.addToMainFrame(new IntroPage());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        
+        start = true;
+        imBack.remove(logo);
+        right.remove(begin);
+        right.remove(entername);
+        
+        Methods.addToFrontPanel(imBack, new QSelectButtons(), false);
     }//GEN-LAST:event_beginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JButton begin;
     public static javax.swing.JTextField entername;
-    private javax.swing.JLabel jLabel1;
+    public static javax.swing.JPanel imBack;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel logo;
     public static javax.swing.JPanel right;
+    public static javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
