@@ -16,7 +16,7 @@ public class LoginMenu extends javax.swing.JPanel {
 
     private final int SWITCH_BACK_TICKS = 5000;
     private final int TOTAL_BACK_PICS = 4;
-    private final int ITERATOR = 2;
+    private final int ITERATOR = 6;
     private final String GHOST_TEXT = "Enter username here";
     private int TICKS;
     
@@ -34,7 +34,7 @@ public class LoginMenu extends javax.swing.JPanel {
                         TICKS = 0;
                         addRandomImage();
                     }
-                    
+                    QSelectMode.introPageTick();
                 } catch (Exception ex) {
                     
                 }
@@ -64,6 +64,7 @@ public class LoginMenu extends javax.swing.JPanel {
     
     public LoginMenu() {
         initComponents();
+        Methods.selectClass = new QSelectMode();
         Methods.addToFrontPanel(right, new QLogIn(), false);
         
         checkTextFields(QLogIn.entername);

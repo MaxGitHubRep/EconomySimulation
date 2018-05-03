@@ -109,7 +109,9 @@ public class QLogIn extends javax.swing.JPanel {
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
         Methods.username = Methods.generateRandomUsername(entername.getText());
         try {
-            Methods.addToFrontPanel(right, new QSelectMode(), false);
+            QSelectMode.start = true;
+            Methods.addToFrontPanel(right, Methods.selectClass, false);
+            
             //MainFrame.addToMainFrame(new IntroPage());
         } catch (Exception ex) {
             ex.printStackTrace();
