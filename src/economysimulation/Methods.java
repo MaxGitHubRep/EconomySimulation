@@ -25,19 +25,20 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
+    //Classes of panels to add at intro
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
-    public static final String GRAPH_FONT_NAME = "Agency FB";
-    
-    public static String username;
-    public static int ANNUAL_BUDGET = 750;
-    public static int TICKS;
-    public static final int GRAPH_TICKS = 50;
+    public static String username; //players username
+    public static int ANNUAL_BUDGET = 750; //how much money the player has per year (in billions)
+    public static int TICKS; //how many gamer ticks / days have passed so far
+    public static final int GRAPH_TICKS = 50; //Amount of days present on graph
+    public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     
     // Gov variables
-    public static double INTEREST_RATE, CORP_TAX, CONS_TAX, GOV_SPENDING, PENSIONS;
+    public static double INTEREST_RATE, CORP_TAX, CONS_TAX;
     
+    //Stores history of rates
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
     public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<>();
     public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<>();

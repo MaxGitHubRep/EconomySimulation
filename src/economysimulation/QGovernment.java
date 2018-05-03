@@ -44,7 +44,7 @@ public class QGovernment extends javax.swing.JPanel {
                 Methods.CORP_TAX = newValue;
                 break;
             case 3:
-                Methods.PENSIONS = newValue;
+                //Methods.PENSIONS = newValue;
                 break;
             
         }
@@ -72,7 +72,7 @@ public class QGovernment extends javax.swing.JPanel {
         mins = new JLabel[]{ minIR, minCT, minCT2, minP };
         maxs = new JLabel[]{ maxIR, maxCT, maxCT2, maxP };
         
-        for (int i = 0; i < sliders.length; i++) {
+        for (int i = 0; i < sliders.length-1; i++) {
             addSliderListener(sliders[i], i);
             addSliderListener(slidersDec[i], i);
             valueLabels[i].setText(getSliderValue(i) + "%");
@@ -377,7 +377,7 @@ public class QGovernment extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelP.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pensions", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(255, 255, 255))); // NOI18N
+        panelP.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "null", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(255, 255, 255))); // NOI18N
         panelP.setOpaque(false);
 
         valueP.setFont(new java.awt.Font("Agency FB", 1, 80)); // NOI18N

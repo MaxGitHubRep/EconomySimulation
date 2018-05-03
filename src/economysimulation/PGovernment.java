@@ -21,7 +21,6 @@ public class PGovernment extends javax.swing.JPanel {
         Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
         Methods.CONSUMER_TAXES.add(Methods.CONS_TAX);
         Methods.CORPORATION_TAXES.add(Methods.CORP_TAX);
-        Methods.PENSIONS_LIST.add(Methods.PENSIONS);
 
         if (Methods.INTEREST_RATES.size() == Methods.GRAPH_TICKS+1) {
             for (ArrayList<Double> list : HISTORY) {
