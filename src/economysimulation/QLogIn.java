@@ -1,11 +1,23 @@
 package economysimulation;
 
+import java.awt.Color;
+
 /**
  *
  * @author Max Carter
  */
 public class QLogIn extends javax.swing.JPanel {
 
+    public static int indexer = 255;
+    public static boolean start = false;
+    
+    public static void introPageTick() {
+        if (indexer >= 51 && start) {
+            indexer--;
+            right.setBackground(new Color(indexer, indexer, indexer));
+        }
+    }
+    
     public QLogIn() {
         initComponents();
     }
@@ -40,6 +52,7 @@ public class QLogIn extends javax.swing.JPanel {
         entername.setForeground(new java.awt.Color(153, 153, 153));
         entername.setText("Enter username here");
         entername.setBorder(null);
+        entername.setOpaque(false);
 
         begin.setBackground(new java.awt.Color(255, 255, 255));
         begin.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
@@ -109,8 +122,9 @@ public class QLogIn extends javax.swing.JPanel {
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
         Methods.username = Methods.generateRandomUsername(entername.getText());
         try {
-            QSelectMode.start = true;
-            Methods.addToFrontPanel(right, Methods.selectClass, false);
+            QLogIn.start = true;
+            QLogIn.right.remove(logo);
+            //Methods.addToFrontPanel(right, Methods.selectClass, false);
             
             //MainFrame.addToMainFrame(new IntroPage());
         } catch (Exception ex) {

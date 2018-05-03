@@ -28,7 +28,6 @@ public class Methods {
     //Classes of panels to add at intro
     public static QBudget budgetClass;
     public static QGovernment govClass;
-    public static QSelectMode selectClass;
     
     public static String username; //players username
     public static int ANNUAL_BUDGET = 750; //how much money the player has per year (in billions)

@@ -34,7 +34,7 @@ public class LoginMenu extends javax.swing.JPanel {
                         TICKS = 0;
                         addRandomImage();
                     }
-                    QSelectMode.introPageTick();
+                    QLogIn.introPageTick();
                 } catch (Exception ex) {
                     
                 }
@@ -64,7 +64,6 @@ public class LoginMenu extends javax.swing.JPanel {
     
     public LoginMenu() {
         initComponents();
-        Methods.selectClass = new QSelectMode();
         Methods.addToFrontPanel(right, new QLogIn(), false);
         
         checkTextFields(QLogIn.entername);
