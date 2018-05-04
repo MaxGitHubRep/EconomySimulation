@@ -1,5 +1,8 @@
-package economysimulation;
+package economysimulation.classes;
 
+import economysimulation.classes.panelsfront.QBudget;
+import economysimulation.classes.panelsfront.QGovernment;
+import economysimulation.classes.fronter.GameHold;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;

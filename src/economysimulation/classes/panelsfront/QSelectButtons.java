@@ -1,4 +1,7 @@
-package economysimulation;
+package economysimulation.classes.panelsfront;
+
+import economysimulation.classes.MainFrame;
+import economysimulation.classes.fronter.IntroPage;
 
 /**
  *

@@ -1,5 +1,9 @@
-package economysimulation;
+package economysimulation.classes.panelsfront;
 
+import economysimulation.classes.Methods;
+import economysimulation.classes.panelsback.PBudget;
+import economysimulation.classes.panelsback.PConsumer;
+import economysimulation.classes.panelsback.PGovernment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -43,7 +47,7 @@ public class QSideBar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Panel", 0, 0, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Control Panel", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);
 
         titleGov.setBackground(new java.awt.Color(102, 102, 102));
@@ -51,7 +55,7 @@ public class QSideBar extends javax.swing.JPanel {
         titleGov.setForeground(new java.awt.Color(255, 51, 0));
         titleGov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleGov.setText("Government");
-        titleGov.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleGov.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleGov.setOpaque(true);
 
         titleBudget.setBackground(new java.awt.Color(102, 102, 102));
@@ -59,7 +63,7 @@ public class QSideBar extends javax.swing.JPanel {
         titleBudget.setForeground(new java.awt.Color(255, 51, 0));
         titleBudget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleBudget.setText("Budget");
-        titleBudget.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleBudget.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleBudget.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -82,7 +86,7 @@ public class QSideBar extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Determinants", 0, 0, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Determinants", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel2.setOpaque(false);
 
         titleCorp.setBackground(new java.awt.Color(102, 102, 102));
@@ -90,7 +94,7 @@ public class QSideBar extends javax.swing.JPanel {
         titleCorp.setForeground(new java.awt.Color(255, 51, 0));
         titleCorp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleCorp.setText("Corporations");
-        titleCorp.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleCorp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleCorp.setOpaque(true);
 
         titleCons.setBackground(new java.awt.Color(102, 102, 102));
@@ -98,7 +102,7 @@ public class QSideBar extends javax.swing.JPanel {
         titleCons.setForeground(new java.awt.Color(255, 51, 0));
         titleCons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleCons.setText("Consumers");
-        titleCons.setBorder(new javax.swing.border.SoftBevelBorder(0));
+        titleCons.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleCons.setOpaque(true);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

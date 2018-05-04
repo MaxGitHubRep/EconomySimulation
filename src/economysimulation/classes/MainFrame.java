@@ -1,5 +1,6 @@
-package economysimulation;
+package economysimulation.classes;
 
+import economysimulation.classes.fronter.LoginMenu;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.UIManager;

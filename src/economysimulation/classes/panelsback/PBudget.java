@@ -1,5 +1,7 @@
-package economysimulation;
+package economysimulation.classes.panelsback;
 
+import economysimulation.classes.Methods;
+import economysimulation.classes.panelsfront.QBudget;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JSlider;

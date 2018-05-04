@@ -1,5 +1,6 @@
-package economysimulation;
+package economysimulation.classes.panelsfront;
 
+import economysimulation.classes.Methods;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;

@@ -1,4 +1,9 @@
-package economysimulation;
+package economysimulation.classes.fronter;
+
+import economysimulation.classes.MainFrame;
+import economysimulation.classes.Methods;
+import economysimulation.classes.panelsfront.QBudget;
+import economysimulation.classes.panelsfront.QGovernment;
 
 /**
  *

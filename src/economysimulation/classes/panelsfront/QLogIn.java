@@ -1,5 +1,7 @@
-package economysimulation;
+package economysimulation.classes.panelsfront;
 
+import economysimulation.classes.Methods;
+import economysimulation.classes.fronter.LoginMenu;
 import java.awt.Color;
 
 /**

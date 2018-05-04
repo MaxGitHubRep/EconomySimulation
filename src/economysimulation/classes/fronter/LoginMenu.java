@@ -1,5 +1,7 @@
-package economysimulation;
+package economysimulation.classes.fronter;
 
+import economysimulation.classes.Methods;
+import economysimulation.classes.panelsfront.QLogIn;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -20,7 +22,7 @@ public class LoginMenu extends javax.swing.JPanel {
     private final String GHOST_TEXT = "Enter username here";
     private int TICKS;
     
-    protected static final String[] textTitles = new String[]{ "Username", "Select Simulation Type" };
+    public static final String[] textTitles = new String[]{ "Username", "Select Simulation Type" };
     
     private void addRandomImage() {
         picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(1, TOTAL_BACK_PICS) + ".png")));

@@ -1,5 +1,7 @@
-package economysimulation;
+package economysimulation.classes.panelsback;
 
+import economysimulation.classes.Methods;
+import economysimulation.classes.panelsfront.QGovernment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

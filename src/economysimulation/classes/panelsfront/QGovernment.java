@@ -1,5 +1,6 @@
-package economysimulation;
+package economysimulation.classes.panelsfront;
 
+import economysimulation.classes.Methods;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
