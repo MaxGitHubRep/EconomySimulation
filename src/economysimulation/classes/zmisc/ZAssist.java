@@ -1,4 +1,4 @@
-package economysimulation.classes.misc;
+package economysimulation.classes.zmisc;
 
 /**
  *

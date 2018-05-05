@@ -3,7 +3,7 @@ package economysimulation.classes.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.panelsback.PGovernment;
 import economysimulation.classes.panelsfront.QSideBar;
-import economysimulation.classes.misc.ZAssist;
+import economysimulation.classes.zmisc.ZAssist;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
