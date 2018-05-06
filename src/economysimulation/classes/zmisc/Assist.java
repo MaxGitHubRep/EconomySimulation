@@ -4,9 +4,9 @@ package economysimulation.classes.zmisc;
  *
  * @author Max Carter
  */
-public class ZAssist extends javax.swing.JPanel {
+public class Assist extends javax.swing.JPanel {
 
-    public ZAssist() {
+    public Assist() {
         initComponents();
     }
 

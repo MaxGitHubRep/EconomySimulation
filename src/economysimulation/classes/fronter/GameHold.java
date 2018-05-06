@@ -3,7 +3,7 @@ package economysimulation.classes.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.panelsback.PGovernment;
 import economysimulation.classes.panelsfront.QSideBar;
-import economysimulation.classes.zmisc.ZAssist;
+import economysimulation.classes.zmisc.Assist;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
@@ -109,7 +109,7 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
-        Methods.addToFrontPanel(backadd, new ZAssist(), false);
+        Methods.addToFrontPanel(backadd, new Assist(), false);
         Methods.addToFrontPanel(sideBarBack, new QSideBar(), true);
 
         usernameLabel.setText("Username: " + Methods.username);
