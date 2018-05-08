@@ -53,11 +53,12 @@ public class QBudget extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
-    private void addSliderListener(JSlider slider) { 
+    private void addSliderListener(JSlider slider, int id) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 updateValueLabels();
+                Methods.BUDGET_VARS[id] = slider.getValue();
             }
         });
         
@@ -70,9 +71,9 @@ public class QBudget extends javax.swing.JPanel {
         percents = new JLabel[]{ percent1, percent2, percent3, percent4, percent5, percent6, percent7, percent8 };
         colourLabels = new JLabel[]{ subTitle, budgetPercent, difference };
         
-        for (JSlider slider : sliders) {
-            slider.setMaximum(Methods.ANNUAL_BUDGET);
-            addSliderListener(slider);
+        for (int i = 0; i < sliders.length; i++) {
+            sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
+            addSliderListener(sliders[i], i);
         }
         
     }
