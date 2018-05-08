@@ -38,13 +38,14 @@ public class Methods {
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     
+    public static double PRICE_LEVEL = 1;
     public static double
             INTEREST_RATE, CORP_TAX, CONS_TAX,
-            UNEMPLOYMENT, PRICE_LEVEL;
+            UNEMPLOYMENT, REAL_GDP;
     public static int 
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
             DISPOSABLE_INCOME, CBORROWING,
-            REAL_GDP, GBORROWING, TAXATION;
+            GBORROWING, TAXATION;
     
     //Stores history of rates
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
@@ -65,13 +66,12 @@ public class Methods {
         for (int i = 0; i < BUDGET_VARS.length; i++) {
             value+=BUDGET_VARS[i];
         }
-        System.out.println("total: " + value);
         return value;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
     public static void recalculateRealGDP() {
-        REAL_GDP = CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS);
+        REAL_GDP = PRICE_LEVEL * (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
