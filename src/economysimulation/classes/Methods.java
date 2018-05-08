@@ -181,5 +181,22 @@ public class Methods {
 
         });
     }//</editor-fold>
-    
+
+    public static void resetGame() {
+        INTEREST_RATE = 0;
+        CORP_TAX = 0;
+        CONS_TAX = 0;
+        ANNUAL_BUDGET = 0;
+        
+        for (int i = 0; i < BUDGET_VARS.length; i++) {
+            BUDGET_VARS[i] = 0;
+        }
+        
+        for (int i = 0; i < TICKS; i++) {
+            INTEREST_RATES.remove(0);
+            CONSUMER_TAXES.remove(0);
+            CORPORATION_TAXES.remove(0);
+        }
+        TICKS = 0;
+    }
 }
