@@ -38,9 +38,13 @@ public class Methods {
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     
-    // Gov variables
-    public static double INTEREST_RATE, CORP_TAX, CONS_TAX;
-    public static int CONSUMPTION, INVESTMENT, GSPENDING, EXPORTS, IMPORTS;
+    public static double
+            INTEREST_RATE, CORP_TAX, CONS_TAX,
+            UNEMPLOYMENT, PRICE_LEVEL;
+    public static int 
+            CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
+            DISPOSABLE_INCOME, CBORROWING,
+            REAL_GDP, GBORROWING, TAXATION;
     
     //Stores history of rates
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
@@ -51,14 +55,33 @@ public class Methods {
     // Budget variables
     public static int[] BUDGET_VARS = new int[8];
 
+    public static void updateRealGDPLabel() {
+        recalculateRealGDP();
+        GameHold.labelGDP.setText("£" + REAL_GDP + "bn");
+    }
+    
+    public static int getPublicSpendingTotal() {
+        int value = 0;
+        for (int i = 0; i < BUDGET_VARS.length; i++) {
+            value+=BUDGET_VARS[i];
+        }
+        System.out.println("total: " + value);
+        return value;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
+    public static void recalculateRealGDP() {
+        REAL_GDP = CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS);
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
+    public static void recalculateAnnualBudget() {
+        ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal();
+    }//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {
         return currentUsername + "#" + randomInt(0, 9999);
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
-    public static void recalculateAnnualBudget() {
-        ANNUAL_BUDGET = CONSUMPTION = INVESTMENT + GSPENDING + (EXPORTS - IMPORTS);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
@@ -183,6 +206,7 @@ public class Methods {
         });
     }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Reset game variables."> 
     public static void resetGame() {
         INTEREST_RATE = 0;
         CORP_TAX = 0;
@@ -193,11 +217,13 @@ public class Methods {
             BUDGET_VARS[i] = 0;
         }
         
-        for (int i = 0; i < TICKS; i++) {
+        int size = INTEREST_RATES.size();
+        
+        for (int i = 0; i < size; i++) {
             INTEREST_RATES.remove(0);
             CONSUMER_TAXES.remove(0);
             CORPORATION_TAXES.remove(0);
         }
         TICKS = 0;
-    }
+    }//</editor-fold>
 }
