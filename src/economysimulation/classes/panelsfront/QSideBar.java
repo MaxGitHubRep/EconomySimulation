@@ -1,6 +1,7 @@
 package economysimulation.classes.panelsfront;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.panelsback.PBankruptcy;
 import economysimulation.classes.panelsback.PBudget;
 import economysimulation.classes.panelsback.PConsumer;
 import economysimulation.classes.panelsback.PGovernment;
@@ -20,11 +21,12 @@ public class QSideBar extends javax.swing.JPanel {
     public QSideBar() {
         initComponents();
         
-        opButtons = new JLabel[]{ titleGov, titleBudget, titleCons, titleCorp };
+        opButtons = new JLabel[]{ titleGov, titleBudget, titleCons, titleBankr };
         opPanels = new JPanel[]{
             new PGovernment(), 
             new PBudget(),
-            new PConsumer()
+            new PConsumer(),
+            new PBankruptcy()
         };
         
         for (int i = 0; i < opPanels.length; i++) {
@@ -46,8 +48,8 @@ public class QSideBar extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
-        titleCorp1 = new javax.swing.JLabel();
-        titleCons2 = new javax.swing.JLabel();
+        titleBankr = new javax.swing.JLabel();
+        titleBankOverv = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -132,21 +134,21 @@ public class QSideBar extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Other", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel3.setOpaque(false);
 
-        titleCorp1.setBackground(new java.awt.Color(102, 102, 102));
-        titleCorp1.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
-        titleCorp1.setForeground(new java.awt.Color(255, 51, 0));
-        titleCorp1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleCorp1.setText("Bankruptcy");
-        titleCorp1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        titleCorp1.setOpaque(true);
+        titleBankr.setBackground(new java.awt.Color(102, 102, 102));
+        titleBankr.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleBankr.setForeground(new java.awt.Color(255, 51, 0));
+        titleBankr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleBankr.setText("Bankruptcy");
+        titleBankr.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleBankr.setOpaque(true);
 
-        titleCons2.setBackground(new java.awt.Color(102, 102, 102));
-        titleCons2.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
-        titleCons2.setForeground(new java.awt.Color(255, 51, 0));
-        titleCons2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleCons2.setText("Overview");
-        titleCons2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        titleCons2.setOpaque(true);
+        titleBankOverv.setBackground(new java.awt.Color(102, 102, 102));
+        titleBankOverv.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        titleBankOverv.setForeground(new java.awt.Color(255, 51, 0));
+        titleBankOverv.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleBankOverv.setText("Overview");
+        titleBankOverv.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        titleBankOverv.setOpaque(true);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -155,16 +157,16 @@ public class QSideBar extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleCorp1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(titleCons2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(titleBankr, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                    .addComponent(titleBankOverv, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(titleCorp1)
+                .addComponent(titleBankr)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(titleCons2)
+                .addComponent(titleBankOverv)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -206,11 +208,11 @@ public class QSideBar extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel titleBankOverv;
+    private javax.swing.JLabel titleBankr;
     private javax.swing.JLabel titleBudget;
     private javax.swing.JLabel titleCons;
-    private javax.swing.JLabel titleCons2;
     private javax.swing.JLabel titleCorp;
-    private javax.swing.JLabel titleCorp1;
     private javax.swing.JLabel titleGov;
     // End of variables declaration//GEN-END:variables
 }
