@@ -31,6 +31,7 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
         Methods.TICKS++;
+        Methods.updateRealGDPLabel();
         PGovernment.globalClockPulseGov();
     }//</editor-fold>
     
@@ -135,7 +136,7 @@ public class GameHold extends javax.swing.JPanel {
         usernameLabel = new javax.swing.JLabel();
         sideBarBack = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelGDP = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -203,10 +204,10 @@ public class GameHold extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Real GDP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 30), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("£xxxxx bn");
+        labelGDP.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
+        labelGDP.setForeground(new java.awt.Color(204, 0, 0));
+        labelGDP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelGDP.setText("£xxxxx bn");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,12 +215,12 @@ public class GameHold extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+            .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
@@ -292,11 +293,11 @@ public class GameHold extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    public static javax.swing.JLabel labelGDP;
     private javax.swing.JLabel picHold;
     private static javax.swing.JPanel sideBarBack;
     private javax.swing.JPanel sidebar;
