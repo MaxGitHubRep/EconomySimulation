@@ -40,6 +40,7 @@ public class Methods {
     
     // Gov variables
     public static double INTEREST_RATE, CORP_TAX, CONS_TAX;
+    public static int CONSUMPTION, INVESTMENT, GSPENDING, EXPORTS, IMPORTS;
     
     //Stores history of rates
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
@@ -57,7 +58,7 @@ public class Methods {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void recalculateAnnualBudget() {
-        //new budget for next year will be calculated in this method later.
+        ANNUAL_BUDGET = CONSUMPTION = INVESTMENT + GSPENDING + (EXPORTS - IMPORTS);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
