@@ -69,12 +69,12 @@ public class Methods {
         return value;
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
+    //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void recalculateRealGDP() {
         REAL_GDP = PRICE_LEVEL * (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget - ."> 
+    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void recalculateAnnualBudget() {
         ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal();
     }//</editor-fold>
