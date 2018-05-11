@@ -71,7 +71,7 @@ public class Methods {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void recalculateRealGDP() {
-        REAL_GDP = PRICE_LEVEL * (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS));
+        REAL_GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS)) / PRICE_LEVEL;
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
