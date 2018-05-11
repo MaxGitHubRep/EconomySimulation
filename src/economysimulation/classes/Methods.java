@@ -37,15 +37,14 @@ public class Methods {
     public static int TICKS; //how many gamer ticks / days have passed so far
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
-    
-    public static double PRICE_LEVEL = 1;
+
     public static double
-            INTEREST_RATE, CORP_TAX, CONS_TAX,
-            UNEMPLOYMENT, REAL_GDP;
+            INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
+            UNEMPLOYMENT = 4.2, REAL_GDP, PRICE_LEVEL = 1, MPC;
     public static int 
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
-            DISPOSABLE_INCOME, CBORROWING,
-            GBORROWING, TAXATION;
+            DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
+            GOV_BORROWING, TAXATION;
     
     //Stores history of rates
     public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
@@ -67,6 +66,10 @@ public class Methods {
             value+=BUDGET_VARS[i];
         }
         return value;
+    }
+    
+    public static void calculateAD() {
+        CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME); //Consumption = Autonomous Spending + (Marginal Propensity to Consume * Disposable Income)
     }
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
