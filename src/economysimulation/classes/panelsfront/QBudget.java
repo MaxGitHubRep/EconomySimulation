@@ -15,6 +15,7 @@ import javax.swing.event.ChangeListener;
 public class QBudget extends javax.swing.JPanel {
 
     public static DecimalFormat format = new DecimalFormat("0");
+    public static final int SPENDING_CAP_PER_SECTOR = 300;
     
     public static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits", "Debt Interest" }; 
     public static JSlider[] sliders;
@@ -72,7 +73,7 @@ public class QBudget extends javax.swing.JPanel {
         colourLabels = new JLabel[]{ subTitle, budgetPercent, difference };
         
         for (int i = 0; i < sliders.length; i++) {
-            sliders[i].setMaximum(Methods.ANNUAL_BUDGET);
+            sliders[i].setMaximum(SPENDING_CAP_PER_SECTOR);
             addSliderListener(sliders[i], i);
         }
         
