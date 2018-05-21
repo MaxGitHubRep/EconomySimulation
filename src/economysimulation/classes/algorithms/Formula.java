@@ -27,17 +27,17 @@ public class Formula {
         return value;
     }
     
-    public static void calculateAD() {
+    public static void calculateConsumption() {
         CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME); //Consumption = Autonomous Spending + (Marginal Propensity to Consume * Disposable Income)
     }
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
-    public static void recalculateRealGDP() {
+    public static void calculateRealGDP() {
         REAL_GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS)) / PRICE_LEVEL;
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
-    public static void recalculateAnnualBudget() {
+    public static void calculateAnnualBudget() {
         ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal();
     }//</editor-fold>
     

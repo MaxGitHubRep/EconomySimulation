@@ -40,7 +40,7 @@ public class Methods {
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
 
     public static void updateRealGDPLabel() {
-        Formula.recalculateRealGDP();
+        Formula.calculateRealGDP();
         GameHold.labelGDP.setText("£" + Component.REAL_GDP + "bn");
     }
     
