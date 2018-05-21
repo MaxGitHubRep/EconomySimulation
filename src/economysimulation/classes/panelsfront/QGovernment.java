@@ -1,6 +1,6 @@
 package economysimulation.classes.panelsfront;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.algorithms.Component;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -36,13 +36,13 @@ public class QGovernment extends javax.swing.JPanel {
         
         switch (id) {
             case 0:
-                Methods.INTEREST_RATE = newValue;
+                Component.INTEREST_RATE = newValue;
                 break;
             case 1:
-                Methods.CONS_TAX = newValue;
+                Component.CONS_TAX = newValue;
                 break;
             case 2:
-                Methods.CORP_TAX = newValue;
+                Component.CORP_TAX = newValue;
                 break;
             case 3:
                 //Methods.PENSIONS = newValue;

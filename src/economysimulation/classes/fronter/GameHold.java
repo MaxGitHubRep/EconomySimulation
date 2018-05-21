@@ -1,6 +1,7 @@
 package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.panelsback.PGovernment;
 import economysimulation.classes.panelsfront.QSideBar;
 import economysimulation.classes.zmisc.Assist;
@@ -82,7 +83,7 @@ public class GameHold extends javax.swing.JPanel {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
-                Methods.recalculateAnnualBudget();
+                Formula.recalculateAnnualBudget();
             }
         }
 

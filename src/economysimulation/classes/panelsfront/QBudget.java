@@ -1,6 +1,6 @@
 package economysimulation.classes.panelsfront;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.algorithms.Component;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
@@ -43,12 +43,12 @@ public class QBudget extends javax.swing.JPanel {
             values[id].setText("£" + sliders[id].getValue() + "bn");
             percents[id].setText((format.format(((double) sliders[id].getValue() / allMoney) * 100)) + "%");
             
-            subTitle.setText("£" + allMoney + "/" + Methods.ANNUAL_BUDGET + "bn");
-            budgetPercent.setText(format.format(((double)allMoney/Methods.ANNUAL_BUDGET) * 100) +  "%");
-            difference.setText("£" + (Methods.ANNUAL_BUDGET - allMoney) + "bn");
+            subTitle.setText("£" + allMoney + "/" + Component.ANNUAL_BUDGET + "bn");
+            budgetPercent.setText(format.format(((double)allMoney/Component.ANNUAL_BUDGET) * 100) +  "%");
+            difference.setText("£" + (Component.ANNUAL_BUDGET - allMoney) + "bn");
             
             for (JLabel label : colourLabels) {
-                label.setForeground(allMoney > Methods.ANNUAL_BUDGET ? Color.red : Color.green);
+                label.setForeground(allMoney > Component.ANNUAL_BUDGET ? Color.red : Color.green);
             }
         }
     }//</editor-fold> 
@@ -59,7 +59,7 @@ public class QBudget extends javax.swing.JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 updateValueLabels();
-                Methods.BUDGET_VARS[id] = slider.getValue();
+                Component.BUDGET_VARS[id] = slider.getValue();
             }
         });
         

@@ -1,6 +1,7 @@
 package economysimulation.classes.panelsback;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.panelsfront.QGovernment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,18 +14,18 @@ import javax.swing.JButton;
 public class PGovernment extends javax.swing.JPanel {
 
     private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions" };
-    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Methods.INTEREST_RATES, Methods.CONSUMER_TAXES, Methods.CORPORATION_TAXES, Methods.PENSIONS_LIST, };
+    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Component.INTEREST_RATES, Component.CONSUMER_TAXES, Component.CORPORATION_TAXES, Component.PENSIONS_LIST, };
     
     public static JButton[] graphButtons;
     private static int graphCode = 0;
     
     //<editor-fold defaultstate="collapsed" desc="Receives clock pulse.">
     public static void globalClockPulseGov() {
-        Methods.INTEREST_RATES.add(Methods.INTEREST_RATE);
-        Methods.CONSUMER_TAXES.add(Methods.CONS_TAX);
-        Methods.CORPORATION_TAXES.add(Methods.CORP_TAX);
+        Component.INTEREST_RATES.add(Component.INTEREST_RATE);
+        Component.CONSUMER_TAXES.add(Component.CONS_TAX);
+        Component.CORPORATION_TAXES.add(Component.CORP_TAX);
 
-        if (Methods.INTEREST_RATES.size() == Methods.GRAPH_TICKS+1) {
+        if (Component.INTEREST_RATES.size() == Methods.GRAPH_TICKS+1) {
             for (ArrayList<Double> list : HISTORY) {
                 list.remove(0);
             }

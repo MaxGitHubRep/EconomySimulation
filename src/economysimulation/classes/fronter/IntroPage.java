@@ -2,6 +2,7 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
+import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.panelsfront.QBudget;
 import economysimulation.classes.panelsfront.QGovernment;
 
@@ -25,12 +26,12 @@ public class IntroPage extends javax.swing.JPanel {
     public static void preDefineVariables() {
         //Defines all variables for use in the upcomming PBudget class at game launch.
         for (int i = 0; i < 8; i++) {
-            Methods.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
+            Component.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
         }
 
-        Methods.INTEREST_RATE = QGovernment.getSliderValue(0);
-        Methods.CORP_TAX = QGovernment.getSliderValue(1);
-        Methods.CONS_TAX = QGovernment.getSliderValue(2);
+        Component.INTEREST_RATE = QGovernment.getSliderValue(0);
+        Component.CORP_TAX = QGovernment.getSliderValue(1);
+        Component.CONS_TAX = QGovernment.getSliderValue(2);
         //Methods.PENSIONS = QGovernment.getSliderValue(3);
     }
     
