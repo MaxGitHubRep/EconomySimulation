@@ -1,5 +1,7 @@
 package economysimulation.classes;
 
+import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.panelsfront.QBudget;
 import economysimulation.classes.panelsfront.QGovernment;
 import economysimulation.classes.fronter.GameHold;
@@ -33,54 +35,16 @@ public class Methods {
     public static QGovernment govClass;
     
     public static String username; //players username
-    public static int ANNUAL_BUDGET = 750; //how much money the player has per year (in billions)
     public static int TICKS; //how many gamer ticks / days have passed so far
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
 
-    public static double
-            INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
-            UNEMPLOYMENT = 4.2, REAL_GDP, PRICE_LEVEL = 1, MPC;
-    public static int 
-            CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
-            DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
-            GOV_BORROWING, TAXATION;
-    
-    //Stores history of rates
-    public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
-    public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<>();
-    public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<>();
-    public static ArrayList<Double> PENSIONS_LIST = new ArrayList<>();
-    
-    // Budget variables
-    public static int[] BUDGET_VARS = new int[8];
-
     public static void updateRealGDPLabel() {
-        recalculateRealGDP();
-        GameHold.labelGDP.setText("£" + REAL_GDP + "bn");
+        Formula.recalculateRealGDP();
+        GameHold.labelGDP.setText("£" + Component.REAL_GDP + "bn");
     }
     
-    public static int getPublicSpendingTotal() {
-        int value = 0;
-        for (int i = 0; i < BUDGET_VARS.length; i++) {
-            value+=BUDGET_VARS[i];
-        }
-        return value;
-    }
     
-    public static void calculateAD() {
-        CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME); //Consumption = Autonomous Spending + (Marginal Propensity to Consume * Disposable Income)
-    }
-    
-    //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
-    public static void recalculateRealGDP() {
-        REAL_GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS)) / PRICE_LEVEL;
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
-    public static void recalculateAnnualBudget() {
-        ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal();
-    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {
@@ -211,21 +175,21 @@ public class Methods {
 
     //<editor-fold defaultstate="collapsed" desc="Reset game variables."> 
     public static void resetGame() {
-        INTEREST_RATE = 0;
-        CORP_TAX = 0;
-        CONS_TAX = 0;
-        ANNUAL_BUDGET = 0;
+        Component.INTEREST_RATE = 0;
+        Component.CORP_TAX = 0;
+        Component.CONS_TAX = 0;
+        Component.ANNUAL_BUDGET = 0;
         
-        for (int i = 0; i < BUDGET_VARS.length; i++) {
-            BUDGET_VARS[i] = 0;
+        for (int i = 0; i < Component.BUDGET_VARS.length; i++) {
+            Component.BUDGET_VARS[i] = 0;
         }
         
-        int size = INTEREST_RATES.size();
+        int size = Component.INTEREST_RATES.size();
         
         for (int i = 0; i < size; i++) {
-            INTEREST_RATES.remove(0);
-            CONSUMER_TAXES.remove(0);
-            CORPORATION_TAXES.remove(0);
+            Component.INTEREST_RATES.remove(0);
+            Component.CONSUMER_TAXES.remove(0);
+            Component.CORPORATION_TAXES.remove(0);
         }
         TICKS = 0;
     }//</editor-fold>
