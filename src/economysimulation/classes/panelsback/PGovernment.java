@@ -14,7 +14,7 @@ import javax.swing.JButton;
 public class PGovernment extends javax.swing.JPanel {
 
     private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions" };
-    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Component.INTEREST_RATES, Component.CONSUMER_TAXES, Component.CORPORATION_TAXES, Component.PENSIONS_LIST, };
+    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Component.INTEREST_RATES, Component.CONSUMER_TAXES, Component.CORPORATION_TAXES, };
     
     public static JButton[] graphButtons;
     private static int graphCode = 0;
