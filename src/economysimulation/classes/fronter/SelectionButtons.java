@@ -1,6 +1,7 @@
 package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
+import economysimulation.classes.Mode;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -175,6 +176,7 @@ public class SelectionButtons extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void launchsimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchsimActionPerformed
+        new Mode(3-chooseMode.getValue());
         MainFrame.addToMainFrame(new IntroPage());
     }//GEN-LAST:event_launchsimActionPerformed
 
