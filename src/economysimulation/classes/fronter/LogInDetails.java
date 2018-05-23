@@ -1,4 +1,4 @@
-package economysimulation.classes.panelsfront;
+package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.fronter.LoginMenu;
@@ -8,7 +8,7 @@ import java.awt.Color;
  *
  * @author Max Carter
  */
-public class QLogIn extends javax.swing.JPanel {
+public class LogInDetails extends javax.swing.JPanel {
 
     public static int indexer = 255;
     public static boolean start = false;
@@ -35,8 +35,9 @@ public class QLogIn extends javax.swing.JPanel {
         }
     }
     
-    public QLogIn() {
+    public LogInDetails() {
         initComponents();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -159,7 +160,7 @@ public class QLogIn extends javax.swing.JPanel {
         right.remove(begin);
         right.remove(entername);
         
-        Methods.addToFrontPanel(imBack, new QSelectButtons(), false);
+        Methods.addToFrontPanel(imBack, new SelectionButtons(), false);
     }//GEN-LAST:event_beginActionPerformed
 
 

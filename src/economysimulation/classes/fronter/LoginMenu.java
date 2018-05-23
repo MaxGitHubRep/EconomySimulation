@@ -1,7 +1,6 @@
 package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.panelsfront.QLogIn;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -38,7 +37,7 @@ public class LoginMenu extends javax.swing.JPanel {
                         TICKS = 0;
                         addRandomImage();
                     }
-                    QLogIn.introPageTick();
+                    LogInDetails.introPageTick();
                 } catch (Exception ex) {
                     
                 }
@@ -60,7 +59,7 @@ public class LoginMenu extends javax.swing.JPanel {
             }
 
             public void execute() {
-                QLogIn.begin.setEnabled(!"".equals(QLogIn.entername.getText()) && !GHOST_TEXT.equals(QLogIn.entername.getText()));
+                LogInDetails.begin.setEnabled(!"".equals(LogInDetails.entername.getText()) && !GHOST_TEXT.equals(LogInDetails.entername.getText()));
             }
         });
         
@@ -68,10 +67,10 @@ public class LoginMenu extends javax.swing.JPanel {
     
     public LoginMenu() {
         initComponents();
-        Methods.addToFrontPanel(right, new QLogIn(), false);
+        Methods.addToFrontPanel(right, new LogInDetails(), false);
         
-        checkTextFields(QLogIn.entername);
-        Methods.addGhostText(QLogIn.entername, GHOST_TEXT);
+        checkTextFields(LogInDetails.entername);
+        Methods.addGhostText(LogInDetails.entername, GHOST_TEXT);
         timerStart();   
     }
 

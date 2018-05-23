@@ -1,4 +1,4 @@
-package economysimulation.classes.panelsfront;
+package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.fronter.IntroPage;
@@ -7,9 +7,9 @@ import economysimulation.classes.fronter.IntroPage;
  *
  * @author Max Carter
  */
-public class QSelectButtons extends javax.swing.JPanel {
+public class SelectionButtons extends javax.swing.JPanel {
 
-    public QSelectButtons() {
+    public SelectionButtons() {
         initComponents();
     }
 
