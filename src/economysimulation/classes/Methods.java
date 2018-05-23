@@ -38,6 +38,7 @@ public class Methods {
     public static int TICKS; //how many gamer ticks / days have passed so far
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
+    public static int MAX_USERNAME_LENGTH = 8;
 
     public static void updateRealGDPLabel() {
         Formula.calculateRealGDP();

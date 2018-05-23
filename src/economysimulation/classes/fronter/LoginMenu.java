@@ -20,6 +20,7 @@ public class LoginMenu extends javax.swing.JPanel {
     public static final int ITERATOR = 4;
     private final String GHOST_TEXT = "Enter username here";
     private int TICKS;
+    private String text;
     
     public static final String[] textTitles = new String[]{ "Username", "Select Simulation Type" };
     
@@ -59,7 +60,8 @@ public class LoginMenu extends javax.swing.JPanel {
             }
 
             public void execute() {
-                LogInDetails.begin.setEnabled(!"".equals(LogInDetails.entername.getText()) && !GHOST_TEXT.equals(LogInDetails.entername.getText()));
+                text = LogInDetails.entername.getText();
+                LogInDetails.begin.setEnabled(!"".equals(text) && !GHOST_TEXT.equals(text) && text.length() <= Methods.MAX_USERNAME_LENGTH);
             }
         });
         

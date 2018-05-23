@@ -1,7 +1,6 @@
 package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.fronter.LoginMenu;
 import java.awt.Color;
 
 /**
@@ -37,7 +36,7 @@ public class LogInDetails extends javax.swing.JPanel {
     
     public LogInDetails() {
         initComponents();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -153,7 +152,7 @@ public class LogInDetails extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void beginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginActionPerformed
-        Methods.username = Methods.generateRandomUsername(entername.getText());
+        Methods.username = Methods.generateRandomUsername(entername.getText().trim().replaceAll(" ", "-"));
         
         start = true;
         imBack.remove(logo);
