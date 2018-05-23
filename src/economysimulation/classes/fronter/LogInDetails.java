@@ -61,7 +61,7 @@ public class LogInDetails extends javax.swing.JPanel {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        title.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        title.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title.setForeground(new java.awt.Color(204, 0, 0));
         title.setText("Username");
 
@@ -70,7 +70,7 @@ public class LogInDetails extends javax.swing.JPanel {
         entername.setBorder(null);
 
         begin.setBackground(new java.awt.Color(255, 255, 255));
-        begin.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        begin.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         begin.setForeground(new java.awt.Color(204, 0, 0));
         begin.setMnemonic('\r');
         begin.setText("Get Started");
