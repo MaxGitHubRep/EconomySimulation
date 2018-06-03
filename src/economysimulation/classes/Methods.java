@@ -2,8 +2,8 @@ package economysimulation.classes;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.algorithms.Formula;
-import economysimulation.classes.panelsfront.QBudget;
-import economysimulation.classes.panelsfront.QGovernment;
+import economysimulation.classes.subpanels.QBudget;
+import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.fronter.GameHold;
 import java.awt.BorderLayout;
 import java.awt.Color;

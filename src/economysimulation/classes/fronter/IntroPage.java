@@ -3,8 +3,8 @@ package economysimulation.classes.fronter;
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.panelsfront.QBudget;
-import economysimulation.classes.panelsfront.QGovernment;
+import economysimulation.classes.subpanels.QBudget;
+import economysimulation.classes.subpanels.QGovernment;
 
 /**
  *

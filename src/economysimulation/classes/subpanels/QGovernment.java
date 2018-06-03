@@ -1,4 +1,4 @@
-package economysimulation.classes.panelsfront;
+package economysimulation.classes.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import javax.swing.JLabel;

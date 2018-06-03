@@ -2,8 +2,8 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Formula;
-import economysimulation.classes.panelsback.PGovernment;
-import economysimulation.classes.panelsfront.QSideBar;
+import economysimulation.classes.mainpanels.PGovernment;
+import economysimulation.classes.subpanels.QSideBar;
 import economysimulation.classes.zmisc.Assist;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;

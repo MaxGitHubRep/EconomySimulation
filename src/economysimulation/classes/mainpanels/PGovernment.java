@@ -1,8 +1,8 @@
-package economysimulation.classes.panelsback;
+package economysimulation.classes.mainpanels;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.panelsfront.QGovernment;
+import economysimulation.classes.subpanels.QGovernment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

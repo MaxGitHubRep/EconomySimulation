@@ -1,10 +1,10 @@
-package economysimulation.classes.panelsfront;
+package economysimulation.classes.subpanels;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.panelsback.PBankruptcy;
-import economysimulation.classes.panelsback.PBudget;
-import economysimulation.classes.panelsback.PConsumer;
-import economysimulation.classes.panelsback.PGovernment;
+import economysimulation.classes.mainpanels.PBankruptcy;
+import economysimulation.classes.mainpanels.PBudget;
+import economysimulation.classes.mainpanels.PConsumer;
+import economysimulation.classes.mainpanels.PGovernment;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 

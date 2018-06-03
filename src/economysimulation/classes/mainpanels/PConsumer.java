@@ -1,4 +1,4 @@
-package economysimulation.classes.panelsback;
+package economysimulation.classes.mainpanels;
 
 /**
  *
