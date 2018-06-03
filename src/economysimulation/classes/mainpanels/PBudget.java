@@ -1,7 +1,8 @@
 package economysimulation.classes.mainpanels;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.subpanels.QBudget;
+import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.subpanels.QBud;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JSlider;
@@ -33,19 +34,11 @@ public class PBudget extends javax.swing.JPanel {
         new Color(255, 128, 0)
     };
     
-    //<editor-fold defaultstate="collapsed" desc="Sets values/percents to corresponding colours on pie chart.">
-    private static void applyLabelColours() {
-        for (int i = 0; i < colourGuide.length; i++) {
-            QBudget.percents[i].setForeground(colourGuide[i]);
-            QBudget.values[i].setForeground(colourGuide[i]);
-        }
-    }//</editor-fold> 
-    
     //<editor-fold defaultstate="collapsed" desc="Applies colours to the pie chart sections.">
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
         for (int i = 0; i < colourGuide.length; i++) {
-            plot.setSectionPaint(QBudget.titles[i], colourGuide[i]);
+            plot.setSectionPaint(QBud.titles[i], colourGuide[i]);
         }
     }//</editor-fold> 
     
@@ -53,8 +46,8 @@ public class PBudget extends javax.swing.JPanel {
     public static void displayGovSpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
-        for (int i = 0; i < QBudget.titles.length-1; i++) {
-            datasetPie.insertValue(i, QBudget.titles[i], QBudget.sliders[i].getValue());
+        for (int i = 0; i < QBud.titles.length; i++) {
+            datasetPie.insertValue(i, QBud.titles[i], Component.BUDGET_VARS[i]);
         }
         
         pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
@@ -69,7 +62,7 @@ public class PBudget extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (!slider.getValueIsAdjusting()) displayGovSpendingGraph();
+                if (!QBud.slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
         
@@ -80,12 +73,8 @@ public class PBudget extends javax.swing.JPanel {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         
-        for (JSlider slider : QBudget.sliders) {
-            addSliderListenerGraph(slider);
-        }
+        addSliderListenerGraph(QBud.slider);
         
-        QBudget.updateValueLabels();
-        applyLabelColours();
         displayGovSpendingGraph();
     }//</editor-fold> 
 
@@ -124,7 +113,7 @@ public class PBudget extends javax.swing.JPanel {
         );
         backRatesPanelLayout.setVerticalGroup(
             backRatesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 341, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -142,7 +131,7 @@ public class PBudget extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(backRatesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
                 .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );

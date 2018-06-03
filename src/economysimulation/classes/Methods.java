@@ -2,8 +2,8 @@ package economysimulation.classes;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.algorithms.Formula;
-import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.fronter.GameHold;
+import economysimulation.classes.subpanels.QBud;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.subpanels.QSideBar;
 import java.awt.BorderLayout;
@@ -30,7 +30,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Methods {
 
     //Classes of panels to add at intro
-    public static QBudget budgetClass;
+    public static QBud budgetClass;
     public static QGovernment govClass;
     
     public static String username; //players username
@@ -44,6 +44,8 @@ public class Methods {
     public static final Color frontLabelColor = new Color(102, 102, 102);
     
     public static JLabel[] allLabels;
+    
+    public static final int DEFAULT_SPENDING = 50;
 
     public static void updateRealGDPLabel() {
         Formula.calculateRealGDP();
@@ -174,13 +176,6 @@ public class Methods {
             Component.BUDGET_VARS[i] = 0;
         }
         
-        int size = Component.INTEREST_RATES.size();
-        
-        for (int i = 0; i < size; i++) {
-            Component.INTEREST_RATES.remove(0);
-            Component.CONSUMER_TAXES.remove(0);
-            Component.CORPORATION_TAXES.remove(0);
-        }
         TICKS = 0;
     }//</editor-fold>
 }

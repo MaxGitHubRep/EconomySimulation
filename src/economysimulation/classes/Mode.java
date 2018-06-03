@@ -9,7 +9,6 @@ public class Mode {
     public static boolean SINGLE_CLASSIC, COOP_CLASSIC, SINGLE_COMP, COOP_COMP;
     
     public Mode(int number) {
-        System.out.println("oof " + number);
         switch (number) {
             case 0:
                 SINGLE_CLASSIC = true;

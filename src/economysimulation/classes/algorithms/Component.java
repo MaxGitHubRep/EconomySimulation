@@ -1,7 +1,5 @@
 package economysimulation.classes.algorithms;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Max Carter
@@ -16,13 +14,7 @@ public class Component {
             DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
             GOV_BORROWING, TAXATION, ANNUAL_BUDGET = 750;
     
-    //Stores history of rates
-    public static ArrayList<Double> INTEREST_RATES = new ArrayList<>();
-    public static ArrayList<Double> CONSUMER_TAXES = new ArrayList<>();
-    public static ArrayList<Double> CORPORATION_TAXES = new ArrayList<>();
-    public static ArrayList<Double> PENSIONS_LIST = new ArrayList<>();
-    
     // Budget variables
-    public static int[] BUDGET_VARS = new int[8];
+    public static int[] BUDGET_VARS = new int[]{ 50, 50, 50, 50, 50, 50, 50, 50 };
     
 }

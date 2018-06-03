@@ -2,8 +2,7 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
-import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.subpanels.QBudget;
+import economysimulation.classes.subpanels.QBud;
 import economysimulation.classes.subpanels.QGovernment;
 
 /**
@@ -15,19 +14,12 @@ public class IntroPage extends javax.swing.JPanel {
     public IntroPage() {
         initComponents();
 
-        Methods.budgetClass = new QBudget();
+        Methods.budgetClass = new QBud();
         Methods.govClass = new QGovernment();
         
         Methods.addToFrontPanel(govPanel, Methods.govClass, false);
         Methods.addToFrontPanel(budgetPanel, Methods.budgetClass, false);
           
-    }
-
-    public static void preDefineVariables() {
-        //Defines all variables for use in the upcomming PBudget class at game launch.
-        for (int i = 0; i < 8; i++) {
-            Component.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
-        }
     }
     
     @SuppressWarnings("unchecked")
@@ -88,7 +80,7 @@ public class IntroPage extends javax.swing.JPanel {
         );
         budgetPanelLayout.setVerticalGroup(
             budgetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGap(0, 348, Short.MAX_VALUE)
         );
 
         govPanel.setOpaque(false);
@@ -118,7 +110,7 @@ public class IntroPage extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1079, Short.MAX_VALUE))
                     .addComponent(govPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(budgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -135,18 +127,19 @@ public class IntroPage extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(beginGame))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 37, Short.MAX_VALUE)
                         .addComponent(govPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(budgetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(budgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void beginGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_beginGameActionPerformed
         try {
-            preDefineVariables();
             MainFrame.addToMainFrame(new GameHold());
         } catch (Exception ex) {
             ex.printStackTrace();
