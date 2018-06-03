@@ -120,6 +120,9 @@ public class GameHold extends javax.swing.JPanel {
         updateSpeed();
         updateTime();
         timerStart();
+        
+        Methods.changeComponenetColour();
+        
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")
@@ -142,7 +145,7 @@ public class GameHold extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(204, 204, 204));
 
-        backadd.setBackground(new java.awt.Color(51, 51, 51));
+        backadd.setBackground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout backaddLayout = new javax.swing.GroupLayout(backadd);
         backadd.setLayout(backaddLayout);
@@ -303,8 +306,8 @@ public class GameHold extends javax.swing.JPanel {
     private static javax.swing.JPanel sideBarBack;
     private javax.swing.JPanel sidebar;
     private javax.swing.JSlider time;
-    private javax.swing.JLabel titleSpeed;
-    private javax.swing.JLabel titleTime;
+    public static javax.swing.JLabel titleSpeed;
+    public static javax.swing.JLabel titleTime;
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

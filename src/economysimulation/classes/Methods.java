@@ -5,6 +5,7 @@ import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.fronter.GameHold;
+import economysimulation.classes.subpanels.QSideBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -39,13 +40,29 @@ public class Methods {
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     public static int MAX_USERNAME_LENGTH = 8;
+    
+    public static final Color backPanelColor = new Color(102, 102, 102);
+    public static final Color backLabelColor = new Color(102, 102, 102);
+    public static final Color frontLabelColor = new Color(102, 102, 102);
+    
+    public static JLabel[] allLabels;
 
     public static void updateRealGDPLabel() {
         Formula.calculateRealGDP();
         GameHold.labelGDP.setText("£" + Component.REAL_GDP + "bn");
     }
     
-    
+    public static void changeComponenetColour() {
+        allLabels = new JLabel[]{ GameHold.labelGDP, GameHold.titleSpeed, GameHold.titleTime,
+            QSideBar.titleOverview, QSideBar.titleBankr, QSideBar.titleBudget, QSideBar.titleCons, QSideBar.titleCons, QSideBar.titleCorp, QSideBar.titleGov };
+        
+        for (JLabel label : allLabels) {
+            //label.setBackground(new Color(55,153,255));
+            //label.setForeground(new Color(255,255,255));
+            
+        }
+        //GameHold.backadd.setBackground(new Color(55, 153, 255));
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {
@@ -131,32 +148,6 @@ public class Methods {
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
     }//</editor-fold> 
-    
-    //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
-    public static void addButtonFormat(JLabel label, JPanel panel) {
-        label.addMouseListener(new MouseAdapter() {
-
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                label.setForeground(Color.green);
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                label.setForeground(new Color(255, 55, 0));
-            }
-            
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                try {
-                    Methods.addToFrontPanel(GameHold.backadd, panel, false);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-            
-        });
-    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Adds light grey text with a prompt until user selects text box."> 
     public static void addGhostText(JTextField field, String ghostText) {

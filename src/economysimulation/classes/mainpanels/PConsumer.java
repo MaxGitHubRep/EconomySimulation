@@ -41,6 +41,7 @@ public class PConsumer extends javax.swing.JPanel {
         valueBo1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 51, 51));
+        setOpaque(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consumption", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);

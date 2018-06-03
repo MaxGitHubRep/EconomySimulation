@@ -97,8 +97,10 @@ public class PBudget extends javax.swing.JPanel {
         backRatesPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(51, 51, 51));
+        setOpaque(false);
 
         graphPanel.setBackground(new java.awt.Color(51, 51, 51));
+        graphPanel.setOpaque(false);
 
         javax.swing.GroupLayout graphPanelLayout = new javax.swing.GroupLayout(graphPanel);
         graphPanel.setLayout(graphPanelLayout);
@@ -112,6 +114,7 @@ public class PBudget extends javax.swing.JPanel {
         );
 
         backRatesPanel.setBackground(new java.awt.Color(51, 51, 51));
+        backRatesPanel.setOpaque(false);
 
         javax.swing.GroupLayout backRatesPanelLayout = new javax.swing.GroupLayout(backRatesPanel);
         backRatesPanel.setLayout(backRatesPanelLayout);

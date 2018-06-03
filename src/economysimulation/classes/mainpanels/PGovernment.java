@@ -70,6 +70,7 @@ public class PGovernment extends javax.swing.JPanel {
         backPanelGov = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(51, 51, 51));
+        setOpaque(false);
 
         graphPanel.setOpaque(false);
 
