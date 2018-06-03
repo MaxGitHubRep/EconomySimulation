@@ -112,9 +112,9 @@ public class GameHold extends javax.swing.JPanel {
     public GameHold() {
         initComponents();
         Methods.addToFrontPanel(backadd, new Assist(), false);
-        Methods.addToFrontPanel(sideBarBack, new QSideBar(), true);
+        Methods.addToFrontPanel(sideBarBack, new QSideBar(), false);
 
-        usernameLabel.setText("Username: " + Methods.username);
+        //usernameLabel.setText("Username: " + Methods.username);
 
         addSliderListener(time);
         updateSpeed();
@@ -132,16 +132,12 @@ public class GameHold extends javax.swing.JPanel {
         backadd = new javax.swing.JPanel();
         sidebar = new javax.swing.JPanel();
         picHold = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         time = new javax.swing.JSlider();
         titleTime = new javax.swing.JLabel();
         titleSpeed = new javax.swing.JLabel();
-        usernameLabel = new javax.swing.JLabel();
         sideBarBack = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         labelGDP = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -167,6 +163,7 @@ public class GameHold extends javax.swing.JPanel {
         time.setMaximum(200);
         time.setMinimum(1);
         time.setValue(100);
+        time.setFocusable(false);
         time.setOpaque(false);
 
         titleTime.setBackground(new java.awt.Color(102, 102, 102));
@@ -185,13 +182,6 @@ public class GameHold extends javax.swing.JPanel {
         titleSpeed.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         titleSpeed.setOpaque(true);
 
-        usernameLabel.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        usernameLabel.setForeground(new java.awt.Color(204, 0, 0));
-        usernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        usernameLabel.setText("Username: ");
-        usernameLabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
-        usernameLabel.setIconTextGap(10);
-
         sideBarBack.setOpaque(false);
 
         javax.swing.GroupLayout sideBarBackLayout = new javax.swing.GroupLayout(sideBarBack);
@@ -202,30 +192,13 @@ public class GameHold extends javax.swing.JPanel {
         );
         sideBarBackLayout.setVerticalGroup(
             sideBarBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 336, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Real GDP", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 30), new java.awt.Color(204, 0, 0))); // NOI18N
-        jPanel1.setOpaque(false);
 
         labelGDP.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         labelGDP.setForeground(new java.awt.Color(204, 0, 0));
         labelGDP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelGDP.setText("£xxxxx bn");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-        );
+        labelGDP.setText("Real GDP: £xxxxx bn");
 
         javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
         sidebar.setLayout(sidebarLayout);
@@ -234,45 +207,39 @@ public class GameHold extends javax.swing.JPanel {
             .addComponent(picHold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sideBarBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidebarLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(jSeparator2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(sidebarLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(20, 20, 20)
+                        .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(sidebarLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 12, Short.MAX_VALUE))
-                    .addComponent(jSeparator3))
+                            .addComponent(time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(sidebarLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(titleSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 12, Short.MAX_VALUE))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         sidebarLayout.setVerticalGroup(
             sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidebarLayout.createSequentialGroup()
-                .addComponent(picHold, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(picHold, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleTime, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(time, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideBarBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(usernameLabel)
-                .addGap(11, 11, 11))
+                .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(sideBarBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -297,10 +264,7 @@ public class GameHold extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JLabel labelGDP;
     private javax.swing.JLabel picHold;
     private static javax.swing.JPanel sideBarBack;
@@ -308,6 +272,5 @@ public class GameHold extends javax.swing.JPanel {
     private javax.swing.JSlider time;
     public static javax.swing.JLabel titleSpeed;
     public static javax.swing.JLabel titleTime;
-    private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -61,6 +61,7 @@ public class SelectionButtons extends javax.swing.JPanel {
         launchsim.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         launchsim.setForeground(new java.awt.Color(204, 0, 0));
         launchsim.setText("Launch: Classic");
+        launchsim.setFocusable(false);
         launchsim.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 launchsimActionPerformed(evt);
@@ -85,8 +86,7 @@ public class SelectionButtons extends javax.swing.JPanel {
 
         chooseMode.setMaximum(3);
         chooseMode.setOrientation(javax.swing.JSlider.VERTICAL);
-        chooseMode.setValue(3);
-        chooseMode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 0, 0), 1, true));
+        chooseMode.setFocusable(false);
         chooseMode.setOpaque(false);
 
         jLabel5.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N

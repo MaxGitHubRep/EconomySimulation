@@ -48,6 +48,7 @@ public class IntroPage extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(51, 51, 51));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1400, 800));
 
         subTitle.setFont(new java.awt.Font("Agency FB", 1, 64)); // NOI18N
@@ -56,16 +57,17 @@ public class IntroPage extends javax.swing.JPanel {
         subTitle.setText("How To Play");
 
         beginGame.setBackground(new java.awt.Color(51, 51, 51));
-        beginGame.setFont(new java.awt.Font("Agency FB", 1, 36)); // NOI18N
+        beginGame.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         beginGame.setForeground(new java.awt.Color(204, 0, 0));
         beginGame.setText("Launch Simulation");
+        beginGame.setFocusable(false);
         beginGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 beginGameActionPerformed(evt);
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective of Game", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 1, 36), new java.awt.Color(204, 0, 0))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Objective of Game", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Agency FB", 0, 36), new java.awt.Color(204, 0, 0))); // NOI18N
         jPanel1.setOpaque(false);
 
         jLabel1.setText("<hold>");

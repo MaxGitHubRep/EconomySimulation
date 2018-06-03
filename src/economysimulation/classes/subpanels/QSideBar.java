@@ -98,13 +98,15 @@ public class QSideBar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        backPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         titleGov.setBackground(new java.awt.Color(255, 255, 255));
-        titleGov.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleGov.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleGov.setForeground(new java.awt.Color(204, 0, 0));
         titleGov.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleGov.setText("Government");
 
-        colorPanel1.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel1Layout = new javax.swing.GroupLayout(colorPanel1);
         colorPanel1.setLayout(colorPanel1Layout);
@@ -129,17 +131,22 @@ public class QSideBar extends javax.swing.JPanel {
         );
         backPanel1Layout.setVerticalGroup(
             backPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleGov, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel1Layout.createSequentialGroup()
+                .addGroup(backPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleGov, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(colorPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
+        backPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
         titleBudget.setBackground(new java.awt.Color(255, 255, 255));
-        titleBudget.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleBudget.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleBudget.setForeground(new java.awt.Color(204, 0, 0));
         titleBudget.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleBudget.setText("Budget");
 
-        colorPanel2.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel2Layout = new javax.swing.GroupLayout(colorPanel2);
         colorPanel2.setLayout(colorPanel2Layout);
@@ -164,17 +171,22 @@ public class QSideBar extends javax.swing.JPanel {
         );
         backPanel2Layout.setVerticalGroup(
             backPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleBudget, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel2Layout.createSequentialGroup()
+                .addGroup(backPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(colorPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleBudget, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
+        backPanel3.setBackground(new java.awt.Color(255, 255, 255));
+
         titleCorp.setBackground(new java.awt.Color(255, 255, 255));
-        titleCorp.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleCorp.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleCorp.setForeground(new java.awt.Color(204, 0, 0));
         titleCorp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleCorp.setText("Corporations");
 
-        colorPanel3.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel3Layout = new javax.swing.GroupLayout(colorPanel3);
         colorPanel3.setLayout(colorPanel3Layout);
@@ -193,23 +205,28 @@ public class QSideBar extends javax.swing.JPanel {
             backPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel3Layout.createSequentialGroup()
                 .addComponent(colorPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(titleCorp)
                 .addContainerGap())
         );
         backPanel3Layout.setVerticalGroup(
             backPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleCorp, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel3Layout.createSequentialGroup()
+                .addGroup(backPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleCorp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(colorPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
+        backPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
         titleCons.setBackground(new java.awt.Color(255, 255, 255));
-        titleCons.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleCons.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleCons.setForeground(new java.awt.Color(204, 0, 0));
         titleCons.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleCons.setText("Consumers");
 
-        colorPanel4.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel4Layout = new javax.swing.GroupLayout(colorPanel4);
         colorPanel4.setLayout(colorPanel4Layout);
@@ -234,17 +251,22 @@ public class QSideBar extends javax.swing.JPanel {
         );
         backPanel4Layout.setVerticalGroup(
             backPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleCons, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel4Layout.createSequentialGroup()
+                .addGroup(backPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleCons, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(colorPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
+        backPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
         titleBankr.setBackground(new java.awt.Color(255, 255, 255));
-        titleBankr.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleBankr.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleBankr.setForeground(new java.awt.Color(204, 0, 0));
         titleBankr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleBankr.setText("Bankruptcy");
 
-        colorPanel5.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel5Layout = new javax.swing.GroupLayout(colorPanel5);
         colorPanel5.setLayout(colorPanel5Layout);
@@ -269,17 +291,22 @@ public class QSideBar extends javax.swing.JPanel {
         );
         backPanel5Layout.setVerticalGroup(
             backPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleBankr, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel5Layout.createSequentialGroup()
+                .addGroup(backPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(colorPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(titleBankr, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
+        backPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
         titleOverview.setBackground(new java.awt.Color(255, 255, 255));
-        titleOverview.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
+        titleOverview.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titleOverview.setForeground(new java.awt.Color(204, 0, 0));
         titleOverview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleOverview.setText("Overview");
 
-        colorPanel6.setBackground(new java.awt.Color(204, 0, 0));
+        colorPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout colorPanel6Layout = new javax.swing.GroupLayout(colorPanel6);
         colorPanel6.setLayout(colorPanel6Layout);
@@ -304,8 +331,11 @@ public class QSideBar extends javax.swing.JPanel {
         );
         backPanel6Layout.setVerticalGroup(
             backPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(colorPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(titleOverview, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel6Layout.createSequentialGroup()
+                .addGroup(backPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleOverview, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(colorPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -322,7 +352,7 @@ public class QSideBar extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
+                .addGap(0, 0, 0)
                 .addComponent(backPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,7 +364,7 @@ public class QSideBar extends javax.swing.JPanel {
                 .addComponent(backPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -75,6 +75,7 @@ public class LogInDetails extends javax.swing.JPanel {
         begin.setMnemonic('\r');
         begin.setText("Get Started");
         begin.setEnabled(false);
+        begin.setFocusable(false);
         begin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 beginActionPerformed(evt);
