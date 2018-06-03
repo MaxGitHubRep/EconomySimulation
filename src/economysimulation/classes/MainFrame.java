@@ -48,7 +48,7 @@ public class MainFrame extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        back.setBackground(new java.awt.Color(102, 102, 102));
+        back.setBackground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
         back.setLayout(backLayout);
