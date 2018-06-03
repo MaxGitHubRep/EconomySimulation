@@ -25,7 +25,7 @@ public class LoginMenu extends javax.swing.JPanel {
     public static final String[] textTitles = new String[]{ "Username", "Select Simulation Type" };
     
     private void addRandomImage() {
-        picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(1, TOTAL_BACK_PICS) + ".png")));
+        picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/background/back" + Methods.randomInt(3, 5) + ".png")));
     }
     
     public void timerStart() { 
@@ -40,7 +40,7 @@ public class LoginMenu extends javax.swing.JPanel {
                     }
                     LogInDetails.introPageTick();
                 } catch (Exception ex) {
-                    
+                    ex.printStackTrace();
                 }
             }
         }); 
@@ -99,7 +99,7 @@ public class LoginMenu extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        picHold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/background/back1.png"))); // NOI18N
+        picHold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/background/back5.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
