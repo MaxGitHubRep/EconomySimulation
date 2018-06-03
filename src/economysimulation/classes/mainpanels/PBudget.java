@@ -2,7 +2,7 @@ package economysimulation.classes.mainpanels;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.subpanels.QBud;
+import economysimulation.classes.subpanels.QBudget;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JSlider;
@@ -38,7 +38,7 @@ public class PBudget extends javax.swing.JPanel {
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
         for (int i = 0; i < colourGuide.length; i++) {
-            plot.setSectionPaint(QBud.titles[i], colourGuide[i]);
+            plot.setSectionPaint(QBudget.titles[i], colourGuide[i]);
         }
     }//</editor-fold> 
     
@@ -46,8 +46,8 @@ public class PBudget extends javax.swing.JPanel {
     public static void displayGovSpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
-        for (int i = 0; i < QBud.titles.length; i++) {
-            datasetPie.insertValue(i, QBud.titles[i], Component.BUDGET_VARS[i]);
+        for (int i = 0; i < QBudget.titles.length; i++) {
+            datasetPie.insertValue(i, QBudget.titles[i], Component.BUDGET_VARS[i]);
         }
         
         pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
@@ -62,7 +62,7 @@ public class PBudget extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (!QBud.slider.getValueIsAdjusting()) displayGovSpendingGraph();
+                if (!QBudget.slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
         
@@ -73,7 +73,7 @@ public class PBudget extends javax.swing.JPanel {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         
-        addSliderListenerGraph(QBud.slider);
+        addSliderListenerGraph(QBudget.slider);
         
         displayGovSpendingGraph();
     }//</editor-fold> 

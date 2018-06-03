@@ -3,7 +3,7 @@ package economysimulation.classes;
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.fronter.GameHold;
-import economysimulation.classes.subpanels.QBud;
+import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.subpanels.QSideBar;
 import java.awt.BorderLayout;
@@ -30,7 +30,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Methods {
 
     //Classes of panels to add at intro
-    public static QBud budgetClass;
+    public static QBudget budgetClass;
     public static QGovernment govClass;
     
     public static String username; //players username

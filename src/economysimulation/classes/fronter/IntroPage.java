@@ -2,7 +2,7 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
-import economysimulation.classes.subpanels.QBud;
+import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 
 /**
@@ -14,7 +14,7 @@ public class IntroPage extends javax.swing.JPanel {
     public IntroPage() {
         initComponents();
 
-        Methods.budgetClass = new QBud();
+        Methods.budgetClass = new QBudget();
         Methods.govClass = new QGovernment();
         
         Methods.addToFrontPanel(govPanel, Methods.govClass, false);

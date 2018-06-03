@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class QBud extends javax.swing.JPanel {
+public class QBudget extends javax.swing.JPanel {
 
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
@@ -111,7 +111,7 @@ public class QBud extends javax.swing.JPanel {
         
     }
     
-    public QBud() {
+    public QBudget() {
         initComponents();
         
         backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
