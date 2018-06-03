@@ -28,11 +28,6 @@ public class IntroPage extends javax.swing.JPanel {
         for (int i = 0; i < 8; i++) {
             Component.BUDGET_VARS[i] = QBudget.sliders[i].getValue();
         }
-
-        Component.INTEREST_RATE = QGovernment.getSliderValue(0);
-        Component.CORP_TAX = QGovernment.getSliderValue(1);
-        Component.CONS_TAX = QGovernment.getSliderValue(2);
-        //Methods.PENSIONS = QGovernment.getSliderValue(3);
     }
     
     @SuppressWarnings("unchecked")

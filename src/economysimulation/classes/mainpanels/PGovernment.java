@@ -1,64 +1,16 @@
 package economysimulation.classes.mainpanels;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.subpanels.QGovernment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import javax.swing.JButton;
 /**
  *
  * @author Max Carter
  */
 public class PGovernment extends javax.swing.JPanel {
 
-    private static final String[] TITLES = new String[]{ "Interest Rates", "Consumer Taxes", "Corporation Taxes", "Pensions" };
-    private static final ArrayList<Double>[] HISTORY = new ArrayList[]{ Component.INTEREST_RATES, Component.CONSUMER_TAXES, Component.CORPORATION_TAXES, };
-    
-    public static JButton[] graphButtons;
-    private static int graphCode = 0;
-    
-    //<editor-fold defaultstate="collapsed" desc="Receives clock pulse.">
-    public static void globalClockPulseGov() {
-        Component.INTEREST_RATES.add(Component.INTEREST_RATE);
-        Component.CONSUMER_TAXES.add(Component.CONS_TAX);
-        Component.CORPORATION_TAXES.add(Component.CORP_TAX);
-
-        if (Component.INTEREST_RATES.size() == Methods.GRAPH_TICKS+1) {
-            for (ArrayList<Double> list : HISTORY) {
-                list.remove(0);
-            }
-        }
-        
-        Methods.createGraph(TITLES[graphCode], HISTORY[graphCode], graphPanel);
-        
-    }//</editor-fold> 
-
-    //<editor-fold defaultstate="collapsed" desc="Button listener to change graph type."> 
-    private void addButtonListenerGraph(JButton button, int id) {
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                graphButtons[graphCode].setEnabled(true);
-                graphCode = id;
-                graphButtons[id].setEnabled(false);
-            }
-        });
-    }//</editor-fold> 
-    
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public PGovernment() {
         initComponents();
         Methods.addToFrontPanel(backPanelGov, Methods.govClass, false);
-        
-        graphButtons = new JButton[]{ QGovernment.historyIR, QGovernment.historyCT, QGovernment.historyCT2, QGovernment.historyP };
-
-        for (int i = 0; i < graphButtons.length; i++) {
-            graphButtons[i].setEnabled(true);
-            addButtonListenerGraph(graphButtons[i], i);
-        }
-
         
     }//</editor-fold>
 

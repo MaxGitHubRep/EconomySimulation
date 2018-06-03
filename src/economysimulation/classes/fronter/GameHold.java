@@ -33,7 +33,6 @@ public class GameHold extends javax.swing.JPanel {
     public static void globalClockTick() {
         Methods.TICKS++;
         Methods.updateRealGDPLabel();
-        PGovernment.globalClockPulseGov();
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
