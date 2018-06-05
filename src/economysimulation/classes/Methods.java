@@ -46,10 +46,11 @@ public class Methods {
     public static JLabel[] allLabels;
     
     public static final int DEFAULT_SPENDING = 50;
+    public static boolean oneQuarterPassed = false;
 
     public static void updateRealGDPLabel() {
-        Formula.calculateRealGDP();
-        GameHold.labelGDP.setText("£" + Component.REAL_GDP + "bn");
+        Formula.calculateGDP();
+        GameHold.labelGDP.setText("£" + Component.GDP + "bn");
     }
     
     public static void changeComponenetColour() {

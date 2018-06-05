@@ -8,9 +8,9 @@ import static economysimulation.classes.algorithms.Component.EXPORTS;
 import static economysimulation.classes.algorithms.Component.IMPORTS;
 import static economysimulation.classes.algorithms.Component.INVESTMENT;
 import static economysimulation.classes.algorithms.Component.MPC;
-import static economysimulation.classes.algorithms.Component.PRICE_LEVEL;
 import static economysimulation.classes.algorithms.Component.TAXATION;
 import static economysimulation.classes.algorithms.Component.REAL_GDP;
+import static economysimulation.classes.algorithms.Component.GDP;
 import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
 
 /**
@@ -30,10 +30,10 @@ public class Formula {
     public static void calculateConsumption() {
         CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME); //Consumption = Autonomous Spending + (Marginal Propensity to Consume * Disposable Income)
     }
-    
+      
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
-    public static void calculateRealGDP() {
-        REAL_GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS)) / PRICE_LEVEL;
+    public static void calculateGDP() {
+        GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
