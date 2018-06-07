@@ -19,10 +19,14 @@ import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
  */
 public class Formula {
     
-    public static int getPublicSpendingTotal() {
+    /**
+    * @param includeTransfer
+    *            Return result with transfer payments included (benefits)
+    */
+    public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0;
         for (int i = 0; i < BUDGET_VARS.length; i++) {
-            value+=BUDGET_VARS[i];
+            if (!includeTransfer && i == BUDGET_VARS.length-1) value+=BUDGET_VARS[i];
         }
         return value;
     }
@@ -33,12 +37,12 @@ public class Formula {
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void calculateGDP() {
-        GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal() + (EXPORTS - IMPORTS));
+        GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void calculateAnnualBudget() {
-        ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal();
+        ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
     }//</editor-fold>
     
 }

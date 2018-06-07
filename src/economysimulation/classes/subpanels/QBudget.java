@@ -106,7 +106,7 @@ public class QBudget extends javax.swing.JPanel {
     
     private static void updatePercent() {
         spending.setText("£" + slider.getValue() + "bn");
-        int tempSpending = getPublicSpendingTotal();
+        int tempSpending = getPublicSpendingTotal(true);
         total.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + format.format(((double) tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
         
     }
