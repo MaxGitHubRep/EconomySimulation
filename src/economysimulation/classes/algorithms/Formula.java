@@ -12,6 +12,15 @@ import static economysimulation.classes.algorithms.Component.TAXATION;
 import static economysimulation.classes.algorithms.Component.REAL_GDP;
 import static economysimulation.classes.algorithms.Component.GDP;
 import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
+import static economysimulation.classes.algorithms.Component.CORP_CONFIDENCE;
+import static economysimulation.classes.algorithms.Component.CORP_TAX;
+import static economysimulation.classes.algorithms.Component.COST_OF_PRODUCTION;
+import static economysimulation.classes.algorithms.Component.DEMAND;
+import static economysimulation.classes.algorithms.Component.FIRM_PROFITS;
+import static economysimulation.classes.algorithms.Component.PRICE_PER_UNIT;
+import static economysimulation.classes.algorithms.Component.RESOURCE_COST;
+import static economysimulation.classes.algorithms.Component.SUPPLY;
+import static economysimulation.classes.algorithms.Component.WAGES;
 
 /**
  *
@@ -32,7 +41,7 @@ public class Formula {
     }
     
     public static void calculateConsumption() {
-        CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME); //Consumption = Autonomous Spending + (Marginal Propensity to Consume * Disposable Income)
+        CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME);
     }
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
@@ -45,4 +54,15 @@ public class Formula {
         ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
     }//</editor-fold>
     
+    public static void calculateComponents() {
+        COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
+        FIRM_PROFITS = (int) (((SUPPLY > DEMAND ? DEMAND : SUPPLY ) * PRICE_PER_UNIT) - COST_OF_PRODUCTION) * (int) (CORP_TAX/100);
+        
+        INVESTMENT = (int) (FIRM_PROFITS * CORP_CONFIDENCE);
+        
+        
+    }
+    
 }
+        
+        
