@@ -8,7 +8,7 @@ public class Component {
     
     public static double
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
-            UNEMPLOYMENT = 4.2, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
+            UNEMPLOYMENT = 0.042, EMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
             PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1;
     
     public static int 

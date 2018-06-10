@@ -20,6 +20,8 @@ import static economysimulation.classes.algorithms.Component.FIRM_PROFITS;
 import static economysimulation.classes.algorithms.Component.PRICE_PER_UNIT;
 import static economysimulation.classes.algorithms.Component.RESOURCE_COST;
 import static economysimulation.classes.algorithms.Component.SUPPLY;
+import static economysimulation.classes.algorithms.Component.UNEMPLOYMENT;
+import static economysimulation.classes.algorithms.Component.EMPLOYMENT;
 import static economysimulation.classes.algorithms.Component.WAGES;
 
 /**
@@ -55,10 +57,13 @@ public class Formula {
     }//</editor-fold>
     
     public static void calculateComponents() {
+        
+        EMPLOYMENT = 1 - UNEMPLOYMENT;
+        
         COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
         FIRM_PROFITS = (int) (((SUPPLY > DEMAND ? DEMAND : SUPPLY ) * PRICE_PER_UNIT) - COST_OF_PRODUCTION) * (int) (CORP_TAX/100);
         
-        INVESTMENT = (int) (FIRM_PROFITS * CORP_CONFIDENCE);
+        INVESTMENT = (int) (FIRM_PROFITS * CORP_CONFIDENCE); //corp confidence can be between 0 to 1 (double)
         
         
     }
