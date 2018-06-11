@@ -98,6 +98,7 @@ public class QBudget extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+                saveChanges.setText("Save Changes");
                 updatePercent();
             }
         });
