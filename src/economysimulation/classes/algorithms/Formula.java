@@ -33,14 +33,14 @@ public class Formula {
     /**
     * @param includeTransfer
     *            Return result with transfer payments included (benefits)
+     * @return Sum of budget
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0;
         for (int i = 0; i < BUDGET_VARS.length; i++) {
-//            if (includeTransfer && i == BUDGET_VARS.length-1) {
-//                value+=BUDGET_VARS[i];
-//            }
-//            value+=BUDGET_VARS[i]; NEED TO FINISH
+            if (!(!includeTransfer && i == BUDGET_VARS.length-1)) {
+                value+=BUDGET_VARS[i];
+            }
         }
         
         return value;
