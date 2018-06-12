@@ -1,8 +1,10 @@
 package economysimulation.classes;
 
 import economysimulation.classes.algorithms.Component;
+import static economysimulation.classes.algorithms.Component.historyGDP;
 import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.fronter.GameHold;
+import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.subpanels.QSideBar;
@@ -51,6 +53,8 @@ public class Methods {
     public static void updateRealGDPLabel() {
         Formula.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
+        historyGDP.add(Component.GDP);
+        createGraph("GDP", historyGDP, PGovernment.graphPanel);
     }
     
     public static void changeComponenetColour() {
@@ -126,10 +130,10 @@ public class Methods {
         int size = historyList.size();
         
         for (int i = 0; i < size; i++) {
-            dataSet.addValue(historyList.get(i), title + " (%)", (i+1) + "");
+            dataSet.addValue(historyList.get(i), title + " (£bn)", (i+1) + "");
         }
 
-        JFreeChart chart = ChartFactory.createLineChart(title, "Days", title + " (%)", dataSet);
+        JFreeChart chart = ChartFactory.createBarChart(title, "Quarters", title + " (£bn)", dataSet);
 
         Methods.applyChartTheme(chart, true);
         

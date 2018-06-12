@@ -31,6 +31,8 @@ public class GameHold extends javax.swing.JPanel {
     private final int[] monthSize = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     public static int SPEED;
     public final int SPEED_MID_POINT = 100;
+    public static final int TICKS_IN_QUARTER = 90;
+    public static int TICKS_PER_QUARTER = 0;
     
     private Timer timer;
     private int[] times = new int[]{ 0, 0, 0 };
@@ -56,7 +58,11 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
         Methods.TICKS++;
-        Methods.updateRealGDPLabel();
+        TICKS_PER_QUARTER++;
+        if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
+            TICKS_PER_QUARTER = 0;
+            Methods.updateRealGDPLabel();
+        }
         int tempSpending = getPublicSpendingTotal(true);
         labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format(((double) tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
     }//</editor-fold>
@@ -103,7 +109,7 @@ public class GameHold extends javax.swing.JPanel {
         times[0]++;
 
         if (times[0] == monthSize[times[1]]+1) {
-            times[0] = 0;
+            times[0] = 1;
             times[1]++;
             if (times[1] == 12) {
                 times[1] = 0;

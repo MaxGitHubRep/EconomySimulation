@@ -73,6 +73,6 @@ public class PGovernment extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backPanelGov;
-    private static javax.swing.JPanel graphPanel;
+    public static javax.swing.JPanel graphPanel;
     // End of variables declaration//GEN-END:variables
 }
