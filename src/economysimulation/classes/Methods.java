@@ -47,7 +47,7 @@ public class Methods {
     
     public static final int DEFAULT_SPENDING = 50;
     public static boolean oneQuarterPassed = false;
-
+    
     public static void updateRealGDPLabel() {
         Formula.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
