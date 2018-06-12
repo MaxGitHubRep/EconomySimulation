@@ -1,5 +1,7 @@
 package economysimulation.classes.algorithms;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Max Carter
@@ -19,5 +21,7 @@ public class Component {
     
     // Budget variables
     public static int[] BUDGET_VARS = new int[]{ 50, 50, 50, 50, 50, 50, 50, 50 };
+    
+    public static ArrayList<Double> historyGDP = new ArrayList<>();
     
 }
