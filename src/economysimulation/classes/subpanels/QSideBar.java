@@ -6,6 +6,7 @@ import economysimulation.classes.mainpanels.PBankruptcy;
 import economysimulation.classes.mainpanels.PBudget;
 import economysimulation.classes.mainpanels.PConsumer;
 import economysimulation.classes.mainpanels.PCorporation;
+import economysimulation.classes.mainpanels.PDesktop;
 import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.mainpanels.POverview;
 import java.awt.Color;
@@ -30,7 +31,9 @@ public class QSideBar extends javax.swing.JPanel {
         "View the performance of firms in your economy",
         "View consumer behaviour in your economy",
         "Declare bankcruptcy and end the game",
-        "View a basic overview of all the components in your economy"
+        "View a basic overview of all the components in your economy",
+        "Check out the leaderboards against fellow economists",
+        "Quit the simulation and return to desktop"
     
     };
 
@@ -78,7 +81,8 @@ public class QSideBar extends javax.swing.JPanel {
             new PCorporation(),
             new PConsumer(),
             new PBankruptcy(),
-            new POverview()
+            new POverview(),
+            new PDesktop()
         };
         
         for (int i = 0; i < opPanels.length; i++) {
