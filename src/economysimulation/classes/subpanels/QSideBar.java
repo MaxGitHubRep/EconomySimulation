@@ -37,6 +37,12 @@ public class QSideBar extends javax.swing.JPanel {
     
     };
 
+    public static void selectOption(JPanel backPanel, JLabel title, String description) {
+        Methods.addToFrontPanel(GameHold.backadd, backPanel, false);
+        GameHold.title.setText("Currently Showing: " + title.getText() );
+        GameHold.description.setText("<html>" + description + ". </html>");
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
     public static void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
@@ -56,9 +62,7 @@ public class QSideBar extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    Methods.addToFrontPanel(GameHold.backadd, opPanels[id], false);
-                    GameHold.title.setText("Currently Showing: " + titles[id].getText() );
-                    GameHold.description.setText("<html>" + descriptions[id] + ". </html>");
+                    selectOption(opPanels[id], titles[id], descriptions[id]);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
