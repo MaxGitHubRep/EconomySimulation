@@ -32,6 +32,11 @@ public class PDesktop extends javax.swing.JPanel {
         jLabel1.setText("Are you Sure?");
 
         bp1.setBackground(new java.awt.Color(255, 255, 255));
+        bp1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bp1MouseClicked(evt);
+            }
+        });
 
         cp1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -101,6 +106,10 @@ public class PDesktop extends javax.swing.JPanel {
                 .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bp1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bp1MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_bp1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
