@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JLabel;
@@ -68,6 +70,24 @@ public class Methods {
         }
         //GameHold.backadd.setBackground(new Color(55, 153, 255));
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Formats the labels."> 
+    public static void addButtonFormat(JPanel backPanel, JPanel colorPanel) {
+        backPanel.addMouseListener(new MouseAdapter() {
+
+            @Override 
+            public void mouseEntered(MouseEvent e) {
+                backPanel.setBackground(new Color(240, 240, 240));
+                colorPanel.setBackground(new Color(204, 0, 0));
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backPanel.setBackground(Color.white);
+                colorPanel.setBackground(Color.white);
+            }
+        });
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {

@@ -37,24 +37,6 @@ public class GameHold extends javax.swing.JPanel {
     private Timer timer;
     private int[] times = new int[]{ 0, 0, 0 };
     
-    //<editor-fold defaultstate="collapsed" desc="Formats the labels."> 
-    public static void addButtonFormat(JPanel backPanel, JPanel colorPanel) {
-        backPanel.addMouseListener(new MouseAdapter() {
-
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(new Color(240, 240, 240));
-                colorPanel.setBackground(new Color(204, 0, 0));
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(Color.white);
-                colorPanel.setBackground(Color.white);
-            }
-        });
-    }//</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
         Methods.TICKS++;
@@ -152,8 +134,8 @@ public class GameHold extends javax.swing.JPanel {
         updateTime();
         timerStart();
         
-        addButtonFormat(panel1, color1);
-        addButtonFormat(panel2, color2);
+        Methods.addButtonFormat(panel1, color1);
+        Methods.addButtonFormat(panel2, color2);
         
         Methods.changeComponenetColour();
         
