@@ -246,7 +246,7 @@ public class PDesktop extends javax.swing.JPanel {
     }//GEN-LAST:event_bp1MouseClicked
 
     private void bp2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bp2MouseClicked
-        QSideBar.selectOption(new PBankruptcy(), QSideBar.titleBankr, QSideBar.descriptions[7]);
+        QSideBar.selectOption(QSideBar.opPanels[7], QSideBar.titleBankr, QSideBar.descriptions[7]);
     }//GEN-LAST:event_bp2MouseClicked
 
 

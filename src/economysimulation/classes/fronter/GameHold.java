@@ -7,13 +7,9 @@ import static economysimulation.classes.algorithms.Formula.getPublicSpendingTota
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QSideBar;
 import economysimulation.classes.zmisc.Assist;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
@@ -358,12 +354,12 @@ public class GameHold extends javax.swing.JPanel {
         labelGDP.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         labelGDP.setForeground(new java.awt.Color(255, 255, 255));
         labelGDP.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelGDP.setText("£xxxx");
+        labelGDP.setText("Uncalculated");
 
         labelBudget.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         labelBudget.setForeground(new java.awt.Color(255, 255, 255));
         labelBudget.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelBudget.setText("£xxxx");
+        labelBudget.setText("Uncalculated");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
