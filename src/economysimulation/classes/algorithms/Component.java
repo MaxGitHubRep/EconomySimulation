@@ -11,9 +11,9 @@ public class Component {
     public static double
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
             UNEMPLOYMENT = 4.2, EMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
-            PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1;
-    
-    public static int 
+            PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
+            MIN_WAGE = 0.000008, POPULATION = 60, WORKERS,
+            
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
             DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
             GOV_BORROWING, TAXATION, ANNUAL_BUDGET = 750, FIRM_PROFITS,
@@ -24,7 +24,9 @@ public class Component {
     
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     
-    
+    // ----------
+    //  FORMULAS
+    // ----------
     
     
     /**
@@ -49,7 +51,8 @@ public class Component {
     }
     
     public static void calculateConsumption() {
-        CONSUMPTION = AUTO_CONS + (int) (MPC*DISPOSABLE_INCOME) * (1 - (int) (CONS_TAX/100));
+
+        CONSUMPTION = (AUTO_CONS + (MPC*DISPOSABLE_INCOME)) * (1 - (CONS_TAX/100));
     }
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
@@ -62,24 +65,38 @@ public class Component {
         ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
     }//</editor-fold>
     
-    public static void calculateComponents() {
+    public static void calcComp() {
+
+        //FIRMS AND COP
+        IMPORTS = 0;
+        RESOURCE_COST = IMPORTS;
+        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST;
         
         EMPLOYMENT = 100 - UNEMPLOYMENT;
         
-        WAGES = 
-        RESOURCE_COST = IMPORTS;
-        
-        COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
-        //((SUPPLY > DEMAND ? DEMAND : SUPPLY ) * PRICE_PER_UNIT)
-        FIRM_PROFITS = (int) (CONSUMPTION - COST_OF_PRODUCTION) * (1 - (int) (CORP_TAX/100));
-        
-        INVESTMENT = (int) (FIRM_PROFITS * CORP_CONFIDENCE); //corp confidence can be between 0 to 1 (double)
+        WORKERS = POPULATION * (EMPLOYMENT/100);
         
         
-    }
-    
-    public static void calcComp() {
+        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION) * (1 - (CORP_TAX/100));
+        
+        
+        
+        INVESTMENT = FIRM_PROFITS > 0 ? FIRM_PROFITS * CORP_CONFIDENCE : 0;
+        
 
+        
+        //WAGES & CONSUMERS
+        
+        
+        DISPOSABLE_INCOME = (WAGES * (1 - CONS_TAX/100));
+        
+        MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
+        
+        System.out.println("MPC: " + MPC + ", DI: " + DISPOSABLE_INCOME + ", CONS: " + CONSUMPTION);
+        System.out.println("FP: " + FIRM_PROFITS + ", wag: " + WAGES + ", Inv: " + INVESTMENT);
+        
+        CONSUMPTION = MPC * ( DISPOSABLE_INCOME );
+        
         
     }
     

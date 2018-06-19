@@ -2,6 +2,7 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
+import static economysimulation.classes.algorithms.Component.calcComp;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QSideBar;
 import economysimulation.classes.zmisc.Assist;
@@ -40,7 +41,10 @@ public class GameHold extends javax.swing.JPanel {
             Methods.updateRealGDPLabel();
         }
         int tempSpending = Component.getPublicSpendingTotal(true);
-        labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format(((double) tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
+        labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
+        
+        calcComp();
+        
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
