@@ -2,8 +2,6 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.algorithms.Formula;
-import static economysimulation.classes.algorithms.Formula.getPublicSpendingTotal;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QSideBar;
 import economysimulation.classes.zmisc.Assist;
@@ -41,7 +39,7 @@ public class GameHold extends javax.swing.JPanel {
             TICKS_PER_QUARTER = 0;
             Methods.updateRealGDPLabel();
         }
-        int tempSpending = getPublicSpendingTotal(true);
+        int tempSpending = Component.getPublicSpendingTotal(true);
         labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format(((double) tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
     }//</editor-fold>
     
@@ -92,7 +90,7 @@ public class GameHold extends javax.swing.JPanel {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
-                Formula.calculateAnnualBudget();
+                Component.calculateAnnualBudget();
             }
         }
 

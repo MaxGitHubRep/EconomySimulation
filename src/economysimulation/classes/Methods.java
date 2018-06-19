@@ -2,7 +2,6 @@ package economysimulation.classes;
 
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
-import economysimulation.classes.algorithms.Formula;
 import economysimulation.classes.fronter.GameHold;
 import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.subpanels.QBudget;
@@ -53,7 +52,7 @@ public class Methods {
     public static boolean oneQuarterPassed = false;
     
     public static void updateRealGDPLabel() {
-        Formula.calculateGDP();
+        Component.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
         createGraph("GDP", historyGDP, PGovernment.graphPanel);

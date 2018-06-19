@@ -1,8 +1,6 @@
 package economysimulation.classes.subpanels;
 
-import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import static economysimulation.classes.algorithms.Formula.getPublicSpendingTotal;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -108,7 +106,7 @@ public class QBudget extends javax.swing.JPanel {
     
     private static void updatePercent() {
         spending.setText("£" + slider.getValue() + "bn");
-        int tempSpending = getPublicSpendingTotal(true);
+        int tempSpending = Component.getPublicSpendingTotal(true);
         total.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + format.format(((double) tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
         
     }
