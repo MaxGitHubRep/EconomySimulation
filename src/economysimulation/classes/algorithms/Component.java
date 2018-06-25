@@ -70,7 +70,7 @@ public class Component {
         //FIRMS AND COP
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
-        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST;
+        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST - (BUDGET_VARS[6]*1000) - (BUDGET_VARS[4]*1000);
         
         EMPLOYMENT = 100 - UNEMPLOYMENT;
         
@@ -95,7 +95,7 @@ public class Component {
         System.out.println("MPC: " + MPC + ", DI: " + DISPOSABLE_INCOME + ", CONS: " + CONSUMPTION);
         System.out.println("FP: " + FIRM_PROFITS + ", wag: " + WAGES + ", Inv: " + INVESTMENT);
         
-        CONSUMPTION = MPC * ( DISPOSABLE_INCOME );
+        CONSUMPTION = MPC * ( DISPOSABLE_INCOME + BUDGET_VARS[7] );
         
         
     }
