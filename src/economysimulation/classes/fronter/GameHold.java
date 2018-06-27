@@ -38,6 +38,21 @@ public class GameHold extends javax.swing.JPanel {
     public static JLabel[] hintTitles;
     public static JLabel[] hintDescs;
     public static final int MAX_HINTS = 3;
+      
+    public static void addHint(String title, String desc) {
+
+        for (int i = MAX_HINTS-1; i >= 0; i--) {
+            if (i+1 < MAX_HINTS) {
+                hintTitles[i+1].setText(hintTitles[i].getText());
+                hintDescs[i+1].setText(hintDescs[i].getText());
+            }
+            
+        }
+        
+        hintTitles[0].setText(title);
+        hintDescs[0].setText(desc);
+        
+    }
   
     public static void clearHints() {
         for (int i = 0; i < hintTitles.length; i++) {
@@ -57,6 +72,8 @@ public class GameHold extends javax.swing.JPanel {
         }
         int tempSpending = Component.getPublicSpendingTotal(true);
         labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
+        
+        addHint("Yesn't" + Methods.TICKS, "the mindful nut");
         
         calcComp();
         
@@ -155,6 +172,8 @@ public class GameHold extends javax.swing.JPanel {
         hintBacks = new JPanel[]{ hintBack1, hintBack2, hintBack3 };
         hintTitles = new JLabel[]{ hintTitle1, hintTitle2, hintTitle3 };
         hintDescs = new JLabel[]{ hintDesc1, hintDesc2, hintDesc3 };
+
+        clearHints();
         
     }//</editor-fold>
 
