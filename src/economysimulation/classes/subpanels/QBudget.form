@@ -97,7 +97,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="title1" pref="243" max="32767" attributes="0"/>
+                  <Component id="title1" min="-2" pref="243" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="color1" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -157,6 +157,9 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="NHS"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[243, 80]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

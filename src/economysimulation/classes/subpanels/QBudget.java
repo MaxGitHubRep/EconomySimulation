@@ -204,6 +204,7 @@ public class QBudget extends javax.swing.JPanel {
         title1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title1.setForeground(new java.awt.Color(204, 0, 0));
         title1.setText("NHS");
+        title1.setPreferredSize(new java.awt.Dimension(243, 80));
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -211,7 +212,7 @@ public class QBudget extends javax.swing.JPanel {
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
