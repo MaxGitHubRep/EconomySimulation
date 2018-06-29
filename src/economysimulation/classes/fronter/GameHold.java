@@ -45,12 +45,14 @@ public class GameHold extends javax.swing.JPanel {
             if (i+1 < MAX_HINTS) {
                 hintTitles[i+1].setText(hintTitles[i].getText());
                 hintDescs[i+1].setText(hintDescs[i].getText());
+                hintBacks[i+1].setOpaque(true);
             }
             
         }
         
         hintTitles[0].setText(title);
         hintDescs[0].setText(desc);
+        hintBacks[0].setOpaque(true);
         
     }
   
@@ -72,8 +74,6 @@ public class GameHold extends javax.swing.JPanel {
         }
         int tempSpending = Component.getPublicSpendingTotal(true);
         labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
-        
-        addHint("Yesn't" + Methods.TICKS, "the mindful nut");
         
         calcComp();
         
