@@ -1,6 +1,7 @@
 package economysimulation.classes.fronter;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -72,7 +73,7 @@ public class LoginMenu extends javax.swing.JPanel {
         Methods.addToFrontPanel(right, new LogInDetails(), false);
         
         checkTextFields(LogInDetails.entername);
-        Methods.addGhostText(LogInDetails.entername, GHOST_TEXT);
+        CompFormat.addGhostText(LogInDetails.entername, GHOST_TEXT);
         timerStart();   
     }
 

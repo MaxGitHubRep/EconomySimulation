@@ -154,22 +154,6 @@ public class Methods {
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
     }//</editor-fold> 
-    
-    //<editor-fold defaultstate="collapsed" desc="Adds light grey text with a prompt until user selects text box."> 
-    public static void addGhostText(JTextField field, String ghostText) {
-        field.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                field.setText(field.getText().replace(ghostText, ""));
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if ("".equals(field.getText())) field.setText(ghostText);
-            }
-
-        });
-    }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Reset game variables."> 
     public static void resetGame() {
