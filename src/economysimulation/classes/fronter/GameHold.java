@@ -3,6 +3,7 @@ package economysimulation.classes.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.calcComp;
+import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QSideBar;
 import economysimulation.classes.zmisc.Assist;
@@ -164,8 +165,8 @@ public class GameHold extends javax.swing.JPanel {
         updateTime();
         timerStart();
         
-        Methods.addButtonFormat(panel1, color1);
-        Methods.addButtonFormat(panel2, color2);
+        CompFormat.addButtonFormat(panel1, color1);
+        CompFormat.addButtonFormat(panel2, color2);
         
         Methods.changeComponenetColour();
         

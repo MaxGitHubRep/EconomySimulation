@@ -2,6 +2,7 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
+import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import javax.swing.JPanel;
@@ -28,7 +29,7 @@ public class IntroPage extends javax.swing.JPanel {
         colors = new JPanel[]{ col1, col2, col3 };
         
         for (int i = 0; i < backs.length; i++) {
-            Methods.addButtonFormat(backs[i], colors[i]);
+            CompFormat.addButtonFormat(backs[i], colors[i]);
         }
         
     }

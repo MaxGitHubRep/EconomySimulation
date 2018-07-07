@@ -1,6 +1,6 @@
 package economysimulation.classes.mainpanels;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QSideBar;
 
 /**
@@ -11,8 +11,8 @@ public class PDesktop extends javax.swing.JPanel {
 
     public PDesktop() {
         initComponents();
-        Methods.addButtonFormat(bp1, cp1);
-        Methods.addButtonFormat(bp2, cp2);
+        CompFormat.addButtonFormat(bp1, cp1);
+        CompFormat.addButtonFormat(bp2, cp2);
         
     }
 
