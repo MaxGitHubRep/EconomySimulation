@@ -32,7 +32,6 @@ public class CompFormat {
         });
     }//</editor-fold>
     
-    
     //<editor-fold defaultstate="collapsed" desc="Adds light grey text with a prompt until user selects text box."> 
     public static void addGhostText(JTextField field, String ghostText) {
         field.addFocusListener(new FocusListener() {
