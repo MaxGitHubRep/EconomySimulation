@@ -2,9 +2,11 @@ package economysimulation.classes.fronter;
 
 import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
+import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -32,6 +34,8 @@ public class IntroPage extends javax.swing.JPanel {
             CompFormat.addButtonFormat(backs[i], colors[i]);
         }
         
+        Theme.applyPanelThemes(new JPanel[]{}, new JPanel[]{}, backs, colors);
+        Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous }, new JLabel[]{});
     }
     
     @SuppressWarnings("unchecked")
@@ -39,7 +43,7 @@ public class IntroPage extends javax.swing.JPanel {
     private void initComponents() {
 
         subTitle = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        slideshowPanel = new javax.swing.JPanel();
         budgetPanel = new javax.swing.JPanel();
         govPanel = new javax.swing.JPanel();
         back1 = new javax.swing.JPanel();
@@ -47,10 +51,10 @@ public class IntroPage extends javax.swing.JPanel {
         titleLaunch = new javax.swing.JLabel();
         back2 = new javax.swing.JPanel();
         col2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        previous = new javax.swing.JLabel();
         back3 = new javax.swing.JPanel();
         col3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        next = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(51, 51, 51));
         setOpaque(false);
@@ -61,16 +65,16 @@ public class IntroPage extends javax.swing.JPanel {
         subTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         subTitle.setText("How To Play");
 
-        jPanel1.setOpaque(false);
+        slideshowPanel.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout slideshowPanelLayout = new javax.swing.GroupLayout(slideshowPanel);
+        slideshowPanel.setLayout(slideshowPanelLayout);
+        slideshowPanelLayout.setHorizontalGroup(
+            slideshowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        slideshowPanelLayout.setVerticalGroup(
+            slideshowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -154,10 +158,10 @@ public class IntroPage extends javax.swing.JPanel {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Previous");
+        previous.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        previous.setForeground(new java.awt.Color(204, 0, 0));
+        previous.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        previous.setText("Previous");
 
         javax.swing.GroupLayout back2Layout = new javax.swing.GroupLayout(back2);
         back2.setLayout(back2Layout);
@@ -166,12 +170,12 @@ public class IntroPage extends javax.swing.JPanel {
             .addGroup(back2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(col2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(previous, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         back2Layout.setVerticalGroup(
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addComponent(previous, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(col2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -191,10 +195,10 @@ public class IntroPage extends javax.swing.JPanel {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        jLabel2.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Next");
+        next.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        next.setForeground(new java.awt.Color(204, 0, 0));
+        next.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        next.setText("Next");
 
         javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
         back3.setLayout(back3Layout);
@@ -203,12 +207,12 @@ public class IntroPage extends javax.swing.JPanel {
             .addGroup(back3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(col3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(next, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         back3Layout.setVerticalGroup(
             back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(next, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(col3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -222,7 +226,7 @@ public class IntroPage extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(slideshowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(subTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(60, 60, 60)
@@ -250,7 +254,7 @@ public class IntroPage extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(subTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(slideshowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(back2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -284,9 +288,9 @@ public class IntroPage extends javax.swing.JPanel {
     private javax.swing.JPanel col2;
     private javax.swing.JPanel col3;
     private javax.swing.JPanel govPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel next;
+    private javax.swing.JLabel previous;
+    private javax.swing.JPanel slideshowPanel;
     private javax.swing.JLabel subTitle;
     private javax.swing.JLabel titleLaunch;
     // End of variables declaration//GEN-END:variables

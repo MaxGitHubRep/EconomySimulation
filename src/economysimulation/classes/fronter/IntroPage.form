@@ -30,7 +30,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel1" max="32767" attributes="0"/>
+                          <Component id="slideshowPanel" max="32767" attributes="0"/>
                           <Component id="subTitle" pref="702" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -70,7 +70,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="subTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
+              <Component id="slideshowPanel" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="back2" max="32767" attributes="0"/>
@@ -102,7 +102,7 @@
         <Property name="text" type="java.lang.String" value="How To Play"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="slideshowPanel">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -231,13 +231,13 @@
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="col2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Component id="jLabel1" max="32767" attributes="0"/>
+              <Component id="previous" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jLabel1" pref="64" max="32767" attributes="0"/>
+                  <Component id="previous" pref="64" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="col2" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -265,7 +265,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="previous">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Agency FB" size="30" style="0"/>
@@ -293,13 +293,13 @@
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="col3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+              <Component id="next" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jLabel2" max="32767" attributes="0"/>
+                  <Component id="next" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="col3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -327,7 +327,7 @@
             </DimensionLayout>
           </Layout>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="next">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Agency FB" size="30" style="0"/>

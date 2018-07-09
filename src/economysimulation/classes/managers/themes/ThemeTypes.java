@@ -16,7 +16,7 @@ public class ThemeTypes {
         new Color(255, 255, 255), //secondaryText
         new Color(153, 0, 0), //ghostText
 
-        new Color(153, 153, 153), //primaryHover
+        new Color(240, 240, 240), //primaryHover
         new Color(204, 0, 0) //secondaryHover
     
     };

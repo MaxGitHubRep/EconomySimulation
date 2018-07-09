@@ -3,6 +3,7 @@ package economysimulation.classes.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.calcComp;
+import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QSideBar;
@@ -176,6 +177,9 @@ public class GameHold extends javax.swing.JPanel {
 
         clearHints();
         
+        Theme.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
+        Theme.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
+        
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")
@@ -183,7 +187,7 @@ public class GameHold extends javax.swing.JPanel {
     private void initComponents() {
 
         backadd = new javax.swing.JPanel();
-        sidebar = new javax.swing.JPanel();
+        leftBar = new javax.swing.JPanel();
         picHold = new javax.swing.JLabel();
         time = new javax.swing.JSlider();
         sideBarBack = new javax.swing.JPanel();
@@ -194,7 +198,7 @@ public class GameHold extends javax.swing.JPanel {
         panel2 = new javax.swing.JPanel();
         titleSpeed = new javax.swing.JLabel();
         color2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        rightBar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         hintBack1 = new javax.swing.JPanel();
         hintTitle1 = new javax.swing.JLabel();
@@ -233,8 +237,8 @@ public class GameHold extends javax.swing.JPanel {
             .addGap(0, 850, Short.MAX_VALUE)
         );
 
-        sidebar.setBackground(new java.awt.Color(255, 255, 255));
-        sidebar.setPreferredSize(new java.awt.Dimension(400, 100));
+        leftBar.setBackground(new java.awt.Color(255, 255, 255));
+        leftBar.setPreferredSize(new java.awt.Dimension(400, 100));
 
         picHold.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         picHold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/border280.png"))); // NOI18N
@@ -337,24 +341,24 @@ public class GameHold extends javax.swing.JPanel {
             .addComponent(color2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
-        sidebar.setLayout(sidebarLayout);
-        sidebarLayout.setHorizontalGroup(
-            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout leftBarLayout = new javax.swing.GroupLayout(leftBar);
+        leftBar.setLayout(leftBarLayout);
+        leftBarLayout.setHorizontalGroup(
+            leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(picHold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sideBarBack, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-            .addGroup(sidebarLayout.createSequentialGroup()
+            .addGroup(leftBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        sidebarLayout.setVerticalGroup(
-            sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sidebarLayout.createSequentialGroup()
+        leftBarLayout.setVerticalGroup(
+            leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftBarLayout.createSequentialGroup()
                 .addComponent(picHold, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -369,7 +373,7 @@ public class GameHold extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        rightBar.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setText("new sidebar right");
 
@@ -470,13 +474,13 @@ public class GameHold extends javax.swing.JPanel {
         jLabel2.setText("~ Hints ~");
         jLabel2.setOpaque(true);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout rightBarLayout = new javax.swing.GroupLayout(rightBar);
+        rightBar.setLayout(rightBarLayout);
+        rightBarLayout.setHorizontalGroup(
+            rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rightBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                     .addComponent(hintBack1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(hintBack2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -485,9 +489,9 @@ public class GameHold extends javax.swing.JPanel {
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        rightBarLayout.setVerticalGroup(
+            rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rightBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -589,17 +593,17 @@ public class GameHold extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                .addComponent(leftBar, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(backadd, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(rightBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(leftBar, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
+            .addComponent(rightBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(topBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
@@ -624,7 +628,6 @@ public class GameHold extends javax.swing.JPanel {
     private javax.swing.JLabel hintTitle3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -633,11 +636,12 @@ public class GameHold extends javax.swing.JPanel {
     public static javax.swing.JLabel label2;
     public static javax.swing.JLabel labelBudget;
     public static javax.swing.JLabel labelGDP;
+    private javax.swing.JPanel leftBar;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JLabel picHold;
+    private javax.swing.JPanel rightBar;
     private static javax.swing.JPanel sideBarBack;
-    private javax.swing.JPanel sidebar;
     private javax.swing.JSlider time;
     public static javax.swing.JLabel title;
     public static javax.swing.JLabel titleSpeed;

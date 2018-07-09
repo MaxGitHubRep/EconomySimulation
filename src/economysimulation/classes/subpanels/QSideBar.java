@@ -10,6 +10,7 @@ import economysimulation.classes.mainpanels.PDesktop;
 import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.mainpanels.PLeaderboards;
 import economysimulation.classes.mainpanels.POverview;
+import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -83,6 +84,9 @@ public class QSideBar extends javax.swing.JPanel {
             CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
             addButtonFormat(i);
         }
+        
+        Theme.applyPanelThemes(new JPanel[]{ this }, new JPanel[]{},backPanels, colorPanels);
+        Theme.applyTextThemes(titles, new JLabel[]{});
         
     }//</editor-fold>
 

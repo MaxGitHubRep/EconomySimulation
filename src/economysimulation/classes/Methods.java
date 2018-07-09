@@ -32,7 +32,7 @@ public class Methods {
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
-    public static Color[] theme = ThemeTypes.THEME_OCEAN;
+    public static Color[] theme = ThemeTypes.THEME_WHITE;
     public static int mode = 0;
     public static String username; //players username
     public static int TICKS; //how many gamer ticks / days have passed so far

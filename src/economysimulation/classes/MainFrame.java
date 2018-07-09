@@ -27,12 +27,10 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() {
         initComponents();
-        try {
-            Theme.applySelectedTheme(Methods.theme);
-            addToMainFrame(new WelcomePanel());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        
+        Theme.applySelectedTheme(Methods.theme);
+        Theme.applyPanelThemes(new JPanel[]{ back }, new JPanel[]{}, new JPanel[]{}, new JPanel[]{});
+        addToMainFrame(new WelcomePanel());
     }
 
     @SuppressWarnings("unchecked")
@@ -43,9 +41,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Economy Simulation");
+        setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1800, 1000));
         setResizable(false);
 
         back.setBackground(new java.awt.Color(255, 255, 255));
