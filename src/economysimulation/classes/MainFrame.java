@@ -1,6 +1,5 @@
 package economysimulation.classes;
 
-import economysimulation.classes.startup.LoginMenu;
 import economysimulation.classes.startup.WelcomePanel;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -28,7 +27,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         try {
-            //addToMainFrame(new LoginMenu());
             addToMainFrame(new WelcomePanel());
         } catch (Exception ex) {
             ex.printStackTrace();

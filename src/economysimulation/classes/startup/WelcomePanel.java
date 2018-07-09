@@ -1,6 +1,8 @@
 package economysimulation.classes.startup;
 
+import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
+import economysimulation.classes.fronter.IntroPage;
 import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.Color;
 import java.awt.Font;
@@ -99,13 +101,18 @@ public class WelcomePanel extends javax.swing.JPanel {
                 public void mouseEntered(MouseEvent e) {
                     titleLabels[id].setText("<html>" + DESCS[id] + ".</html>");
                     titleLabels[id].setFont(new Font("Agency FB", 0, 24));
-
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
                     titleLabels[id].setText(TITLES[id]);
                     titleLabels[id].setFont(new Font("Agency FB", 0, 48));
+                }
+                
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Methods.mode = id + 1;
+                    MainFrame.addToMainFrame(new IntroPage());
                 }
 
             });

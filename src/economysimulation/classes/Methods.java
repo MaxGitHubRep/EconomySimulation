@@ -10,16 +10,11 @@ import economysimulation.classes.subpanels.QSideBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -36,6 +31,7 @@ public class Methods {
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
+    public static int mode = 0;
     public static String username; //players username
     public static int TICKS; //how many gamer ticks / days have passed so far
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
