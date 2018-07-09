@@ -393,6 +393,11 @@ public class WelcomePanel extends javax.swing.JPanel {
         );
 
         back6.setBackground(new java.awt.Color(255, 255, 255));
+        back6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back6MouseClicked(evt);
+            }
+        });
 
         co6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -504,6 +509,10 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addComponent(animBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void back6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back6MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_back6MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
