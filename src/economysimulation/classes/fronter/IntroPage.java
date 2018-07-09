@@ -100,6 +100,7 @@ public class IntroPage extends javax.swing.JPanel {
             .addGap(0, 322, Short.MAX_VALUE)
         );
 
+        back1.setBackground(new java.awt.Color(255, 255, 255));
         back1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back1MouseClicked(evt);
@@ -138,6 +139,10 @@ public class IntroPage extends javax.swing.JPanel {
             .addComponent(titleLaunch, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
+        back2.setBackground(new java.awt.Color(255, 255, 255));
+
+        col2.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout col2Layout = new javax.swing.GroupLayout(col2);
         col2.setLayout(col2Layout);
         col2Layout.setHorizontalGroup(
@@ -170,6 +175,10 @@ public class IntroPage extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(col2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        back3.setBackground(new java.awt.Color(255, 255, 255));
+
+        col3.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout col3Layout = new javax.swing.GroupLayout(col3);
         col3.setLayout(col3Layout);
@@ -229,7 +238,7 @@ public class IntroPage extends javax.swing.JPanel {
                                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(govPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 10, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(budgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

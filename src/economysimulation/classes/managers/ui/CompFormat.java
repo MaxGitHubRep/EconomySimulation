@@ -38,11 +38,13 @@ public class CompFormat {
             @Override
             public void focusGained(FocusEvent e) {
                 field.setText(field.getText().replace(ghostText, ""));
+                field.setForeground(new Color(204, 0, 0));
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 if ("".equals(field.getText())) field.setText(ghostText);
+                field.setForeground(new Color(153, 153, 153));
             }
 
         });
