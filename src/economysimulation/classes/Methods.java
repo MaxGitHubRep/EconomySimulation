@@ -7,6 +7,7 @@ import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.subpanels.QSideBar;
+import economysimulation.classes.managers.themes.ThemeTypes;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -31,12 +32,13 @@ public class Methods {
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
+    public static Color[] theme = ThemeTypes.THEME_OCEAN;
     public static int mode = 0;
     public static String username; //players username
     public static int TICKS; //how many gamer ticks / days have passed so far
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
-    public static int MAX_USERNAME_LENGTH = 8;
+    public static final int MAX_USERNAME_LENGTH = 8;
     
     public static final Color backPanelColor = new Color(102, 102, 102);
     public static final Color backLabelColor = new Color(102, 102, 102);

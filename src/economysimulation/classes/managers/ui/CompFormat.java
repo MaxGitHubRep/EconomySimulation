@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.ui;
 
+import economysimulation.classes.managers.themes.Theme;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -20,14 +21,14 @@ public class CompFormat {
 
             @Override 
             public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(new Color(240, 240, 240));
-                colorPanel.setBackground(new Color(204, 0, 0));
+                backPanel.setBackground(Theme.primaryHover);
+                colorPanel.setBackground(Theme.secondaryHover);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(Color.white);
-                colorPanel.setBackground(Color.white);
+                backPanel.setBackground(Theme.primaryBack);
+                colorPanel.setBackground(Theme.primaryBack);
             }
         });
     }//</editor-fold>
@@ -38,13 +39,13 @@ public class CompFormat {
             @Override
             public void focusGained(FocusEvent e) {
                 field.setText(field.getText().replace(ghostText, ""));
-                field.setForeground(new Color(204, 0, 0));
+                field.setForeground(Theme.primaryText);
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 if ("".equals(field.getText())) field.setText(ghostText);
-                field.setForeground(new Color(153, 153, 153));
+                field.setForeground(Theme.ghostText);
             }
 
         });
