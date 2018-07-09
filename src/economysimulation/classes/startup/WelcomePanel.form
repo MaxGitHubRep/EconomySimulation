@@ -47,6 +47,9 @@
           <Dimension value="[500, 100]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -124,6 +127,9 @@
             </Property>
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
         </Component>
@@ -133,6 +139,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -199,6 +208,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -265,6 +277,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -331,6 +346,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -397,6 +415,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -404,7 +425,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="co5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="title5" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="author" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="7" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -415,7 +436,7 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="co5" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="title5" max="32767" attributes="0"/>
+                  <Component id="author" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -440,7 +461,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="javax.swing.JLabel" name="title5">
+            <Component class="javax.swing.JLabel" name="author">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="24" style="0"/>
@@ -470,7 +491,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      <Component id="title6" pref="125" max="32767" attributes="0"/>
+                      <Component id="leave" pref="125" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="co6" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -482,7 +503,7 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="co6" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="title6" alignment="0" max="32767" attributes="0"/>
+                  <Component id="leave" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -507,7 +528,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="javax.swing.JLabel" name="title6">
+            <Component class="javax.swing.JLabel" name="leave">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="24" style="0"/>

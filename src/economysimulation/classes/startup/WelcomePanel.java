@@ -4,6 +4,7 @@ import economysimulation.classes.MainFrame;
 import economysimulation.classes.Methods;
 import economysimulation.classes.fronter.IntroPage;
 import economysimulation.classes.managers.ui.CompFormat;
+import economysimulation.classes.managers.themes.Theme;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,6 @@ public class WelcomePanel extends javax.swing.JPanel {
     private static JPanel[] colorPanels;
     private static JPanel[] backPanels;
     
-
     private void update() {
         timer.stop();
         animBack.add(signals[index]);
@@ -111,8 +111,13 @@ public class WelcomePanel extends javax.swing.JPanel {
                 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Methods.mode = id + 1;
-                    MainFrame.addToMainFrame(new IntroPage());
+                    if (enterUsername.getText().length() > Methods.MAX_USERNAME_LENGTH) {
+                        titleLabels[id].setText("<html>Username must be less than " + Methods.MAX_USERNAME_LENGTH + " characters to proceed.</html>");
+                        
+                    } else {
+                        Methods.mode = id + 1;
+                        MainFrame.addToMainFrame(new IntroPage());
+                    }
                 }
 
             });
@@ -127,7 +132,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         
         backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
         colorPanels = new JPanel[]{ co1, co2, co3, co4, co5, co6 };
-        titleLabels = new JLabel[]{ title1, title2, title3, title4, title5, title6 };
+        titleLabels = new JLabel[]{ title1, title2, title3, title4, author, leave };
         
         for (int i = 0; i < backPanels.length; i++) {
             CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
@@ -136,7 +141,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             }
         }
         
-        title5.setText("<html>Created by<br>Max Carter</html>");
+        author.setText("<html>Created by<br>Max Carter</html>");
         CompFormat.addGhostText(enterUsername, "Username");
         
         signals = new JLabel[max];
@@ -151,6 +156,9 @@ public class WelcomePanel extends javax.swing.JPanel {
 
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
+        
+        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{}, backPanels, colorPanels);
+        Theme.applyTextThemes(titleLabels, new JLabel[]{});
         
         timerStart();
         
@@ -178,10 +186,10 @@ public class WelcomePanel extends javax.swing.JPanel {
         title4 = new javax.swing.JLabel();
         back5 = new javax.swing.JPanel();
         co5 = new javax.swing.JPanel();
-        title5 = new javax.swing.JLabel();
+        author = new javax.swing.JLabel();
         back6 = new javax.swing.JPanel();
         co6 = new javax.swing.JPanel();
-        title6 = new javax.swing.JLabel();
+        leave = new javax.swing.JLabel();
         animBack = new javax.swing.JPanel();
         gdPic = new javax.swing.JLabel();
 
@@ -375,11 +383,11 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        title5.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        title5.setForeground(new java.awt.Color(204, 0, 0));
-        title5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        title5.setText("Max Carter");
-        title5.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        author.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        author.setForeground(new java.awt.Color(204, 0, 0));
+        author.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        author.setText("Max Carter");
+        author.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout back5Layout = new javax.swing.GroupLayout(back5);
         back5.setLayout(back5Layout);
@@ -388,7 +396,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addGroup(back5Layout.createSequentialGroup()
                 .addComponent(co5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(title5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 7, Short.MAX_VALUE))
         );
         back5Layout.setVerticalGroup(
@@ -396,7 +404,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addGroup(back5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(co5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(title5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(author, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         back6.setBackground(new java.awt.Color(255, 255, 255));
@@ -419,9 +427,9 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        title6.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        title6.setForeground(new java.awt.Color(204, 0, 0));
-        title6.setText("Leave");
+        leave.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        leave.setForeground(new java.awt.Color(204, 0, 0));
+        leave.setText("Leave");
 
         javax.swing.GroupLayout back6Layout = new javax.swing.GroupLayout(back6);
         back6.setLayout(back6Layout);
@@ -429,7 +437,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             back6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(back6Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(title6, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                .addComponent(leave, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(co6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -438,7 +446,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             .addGroup(back6Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(co6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(title6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(leave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout sideBarLeftLayout = new javax.swing.GroupLayout(sideBarLeft);
@@ -524,11 +532,12 @@ public class WelcomePanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel animBack;
-    private javax.swing.JPanel back1;
-    private javax.swing.JPanel back2;
-    private javax.swing.JPanel back3;
-    private javax.swing.JPanel back4;
-    private javax.swing.JPanel back5;
+    private javax.swing.JLabel author;
+    public static javax.swing.JPanel back1;
+    public static javax.swing.JPanel back2;
+    public static javax.swing.JPanel back3;
+    public static javax.swing.JPanel back4;
+    public static javax.swing.JPanel back5;
     private javax.swing.JPanel back6;
     private javax.swing.JPanel co1;
     private javax.swing.JPanel co2;
@@ -536,16 +545,15 @@ public class WelcomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel co4;
     private javax.swing.JPanel co5;
     private javax.swing.JPanel co6;
-    private javax.swing.JTextField enterUsername;
+    public static javax.swing.JTextField enterUsername;
     private javax.swing.JLabel gdPic;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPanel sideBarLeft;
+    private javax.swing.JLabel leave;
+    public static javax.swing.JPanel sideBarLeft;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;
     private javax.swing.JLabel title3;
     private javax.swing.JLabel title4;
-    private javax.swing.JLabel title5;
-    private javax.swing.JLabel title6;
     // End of variables declaration//GEN-END:variables
 }

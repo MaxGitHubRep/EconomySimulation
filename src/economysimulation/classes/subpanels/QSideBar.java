@@ -10,6 +10,7 @@ import economysimulation.classes.mainpanels.PDesktop;
 import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.mainpanels.PLeaderboards;
 import economysimulation.classes.mainpanels.POverview;
+import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -47,19 +48,6 @@ public class QSideBar extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
     public static void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
-
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanels[id].setBackground(new Color(240, 240, 240));
-                colorPanels[id].setBackground(new Color(204, 0, 0));
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanels[id].setBackground(Color.white);
-                colorPanels[id].setBackground(Color.white);
-            }
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -92,6 +80,7 @@ public class QSideBar extends javax.swing.JPanel {
         };
         
         for (int i = 0; i < opPanels.length; i++) {
+            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
             addButtonFormat(i);
         }
         
