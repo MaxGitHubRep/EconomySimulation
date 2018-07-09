@@ -39,6 +39,7 @@ public class Methods {
     public static final int GRAPH_TICKS = 50; //Amount of days present on graph
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     public static final int MAX_USERNAME_LENGTH = 8;
+    public static final int MIN_USERNAME_LENGTH = 4;
     
     public static final Color backPanelColor = new Color(102, 102, 102);
     public static final Color backLabelColor = new Color(102, 102, 102);

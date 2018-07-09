@@ -32,6 +32,8 @@ public class WelcomePanel extends javax.swing.JPanel {
     private static int length = 0;
     private Timer timer;
     
+    private static final String USERNAME_GHOST_TEXT = "Username";
+    
     private static final String[] TITLES = new String[]{ "Solo Classic", "Coop Classic", "Solo Competitive", "Coop Competitive" };
     private static final String[] DESCS = new String[]{
         "Model an economy on your own, stats are not saved",
@@ -111,9 +113,15 @@ public class WelcomePanel extends javax.swing.JPanel {
                 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if (enterUsername.getText().length() > Methods.MAX_USERNAME_LENGTH) {
+                    if (enterUsername.getText().equals(USERNAME_GHOST_TEXT)) {
+                        titleLabels[id].setText("<html>" + USERNAME_GHOST_TEXT + " is not a valid username.</html>");
+                        
+                    } else if (enterUsername.getText().length() > Methods.MAX_USERNAME_LENGTH) {
                         titleLabels[id].setText("<html>Username must be less than " + Methods.MAX_USERNAME_LENGTH + " characters to proceed.</html>");
                         
+                    } else if (enterUsername.getText().length() < Methods.MIN_USERNAME_LENGTH) {
+                        titleLabels[id].setText("<html>Username must be more than " + Methods.MIN_USERNAME_LENGTH + " characters to proceed.</html>");
+                    
                     } else {
                         Methods.mode = id + 1;
                         MainFrame.addToMainFrame(new IntroPage());
@@ -142,7 +150,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         }
         
         author.setText("<html>Created by<br>Max Carter</html>");
-        CompFormat.addGhostText(enterUsername, "Username");
+        CompFormat.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         
         signals = new JLabel[max];
         
