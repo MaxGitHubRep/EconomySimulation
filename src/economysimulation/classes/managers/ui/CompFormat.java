@@ -1,7 +1,6 @@
 package economysimulation.classes.managers.ui;
 
 import economysimulation.classes.managers.themes.Theme;
-import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -44,8 +43,11 @@ public class CompFormat {
 
             @Override
             public void focusLost(FocusEvent e) {
-                if ("".equals(field.getText())) field.setText(ghostText);
-                field.setForeground(Theme.ghostText);
+                if ("".equals(field.getText())) {
+                    field.setText(ghostText);
+                    field.setForeground(Theme.ghostText);
+                }
+                
             }
 
         });

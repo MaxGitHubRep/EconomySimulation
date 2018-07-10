@@ -86,7 +86,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     }
     
     public void timerStart() { 
-        timer = new Timer(3, new AbstractAction() {
+        timer = new Timer(10, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -173,7 +173,6 @@ public class WelcomePanel extends javax.swing.JPanel {
         Theme.applyTextThemes(titleLabels, new JLabel[]{});
         
         timerStart();
-        
     }
 
     @SuppressWarnings("unchecked")
