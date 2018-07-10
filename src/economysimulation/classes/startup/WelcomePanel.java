@@ -62,10 +62,14 @@ public class WelcomePanel extends javax.swing.JPanel {
                 index = 0;
                 length = 0;
             }
+            
         } else if (index != 0) {
             int newHeight = signals[index-1].getY()+(int) Math.round(Math.cos(0.02*length)*15) + Methods.randomInt(-size*2, size*2);
             signals[index].setLocation(length, newHeight);
             signals[index].setBackground(newHeight < signals[index-1].getY() ? Color.green : Color.red);
+            int potY = Math.abs(newHeight - signals[index-1].getY());
+            signals[index + (newHeight < signals[index-1].getY() ? +0 : -1)].setSize(size, potY > size ? potY : size);
+            
         } else {
             signals[index].setLocation(0, height/2);
         }
@@ -82,7 +86,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     }
     
     public void timerStart() { 
-        timer = new Timer(5, new AbstractAction() {
+        timer = new Timer(3, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
