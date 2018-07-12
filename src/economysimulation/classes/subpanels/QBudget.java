@@ -1,6 +1,7 @@
 package economysimulation.classes.subpanels;
 
 import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.managers.themes.Theme;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,14 +41,14 @@ public class QBudget extends javax.swing.JPanel {
 
             @Override 
             public void mouseEntered(MouseEvent e) {
-                backPanels[id].setBackground(new Color(240, 240, 240));
-                colorPanels[id].setBackground(new Color(240, 240, 240));
+                backPanels[id].setBackground(Theme.primaryHover);
+                colorPanels[id].setBackground(Theme.secondaryHover);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                backPanels[id].setBackground(Color.white);
-                colorPanels[id].setBackground(Color.white);
+                backPanels[id].setBackground(Theme.primaryBack);
+                colorPanels[id].setBackground(Theme.primaryBack);
             }
             
             @Override
@@ -72,14 +73,14 @@ public class QBudget extends javax.swing.JPanel {
 
             @Override 
             public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(new Color(240, 240, 240));
-                picPanel.setBackground(new Color(204, 0, 0));
+                backPanel.setBackground(Theme.primaryHover);
+                picPanel.setBackground(Theme.secondaryHover);
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(Color.white);
-                picPanel.setBackground(Color.white);
+                backPanel.setBackground(Theme.primaryBack);
+                picPanel.setBackground(Theme.primaryBack);
             }
             
             @Override
@@ -126,6 +127,9 @@ public class QBudget extends javax.swing.JPanel {
         }
         
         applySelectedType(0);
+        
+        Theme.applyPanelThemes(new JPanel[]{ this, subBack, saveChangesPanel, picPanel }, new JPanel[]{}, backPanels, colorPanels);
+        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, total, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, new JLabel[]{});
     }
 
     @SuppressWarnings("unchecked")
@@ -141,7 +145,7 @@ public class QBudget extends javax.swing.JPanel {
         arrow2 = new javax.swing.JLabel();
         title2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        subBack = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         slider = new javax.swing.JSlider();
         jSeparator1 = new javax.swing.JSeparator();
@@ -149,7 +153,7 @@ public class QBudget extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         min = new javax.swing.JLabel();
         max = new javax.swing.JLabel();
-        min1 = new javax.swing.JLabel();
+        bud = new javax.swing.JLabel();
         total = new javax.swing.JLabel();
         saveChangesPanel = new javax.swing.JPanel();
         saveChanges = new javax.swing.JLabel();
@@ -187,14 +191,13 @@ public class QBudget extends javax.swing.JPanel {
         panel1.setBackground(new java.awt.Color(255, 255, 255));
 
         color1.setBackground(new java.awt.Color(255, 255, 255));
-
-        arrow1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow140.png"))); // NOI18N
+        color1.setMinimumSize(new java.awt.Dimension(40, 80));
 
         javax.swing.GroupLayout color1Layout = new javax.swing.GroupLayout(color1);
         color1.setLayout(color1Layout);
         color1Layout.setHorizontalGroup(
             color1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(arrow1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(arrow1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
         color1Layout.setVerticalGroup(
             color1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,7 +217,7 @@ public class QBudget extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(color1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,7 +268,7 @@ public class QBudget extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(204, 0, 0));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        subBack.setBackground(new java.awt.Color(255, 255, 255));
 
         title.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title.setForeground(new java.awt.Color(204, 0, 0));
@@ -289,9 +292,9 @@ public class QBudget extends javax.swing.JPanel {
         max.setForeground(new java.awt.Color(204, 0, 0));
         max.setText("£300bn");
 
-        min1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        min1.setForeground(new java.awt.Color(204, 0, 0));
-        min1.setText("Budget:");
+        bud.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        bud.setForeground(new java.awt.Color(204, 0, 0));
+        bud.setText("Budget:");
 
         total.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         total.setForeground(new java.awt.Color(204, 0, 0));
@@ -335,50 +338,50 @@ public class QBudget extends javax.swing.JPanel {
             .addComponent(saveChanges, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout subBackLayout = new javax.swing.GroupLayout(subBack);
+        subBack.setLayout(subBackLayout);
+        subBackLayout.setHorizontalGroup(
+            subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subBackLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(saveChangesPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(subBackLayout.createSequentialGroup()
+                        .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(subBackLayout.createSequentialGroup()
+                                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jSeparator1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(spending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jSeparator2)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(subBackLayout.createSequentialGroup()
                                 .addComponent(min)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(max))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(min1)
+                            .addGroup(subBackLayout.createSequentialGroup()
+                                .addComponent(bud)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        subBackLayout.setVerticalGroup(
+            subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(subBackLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(spending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(min, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(slider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(max, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -387,8 +390,8 @@ public class QBudget extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(min1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -399,14 +402,14 @@ public class QBudget extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(subBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(subBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -650,10 +653,9 @@ public class QBudget extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -703,7 +705,8 @@ public class QBudget extends javax.swing.JPanel {
     public static javax.swing.JLabel arrow6;
     public static javax.swing.JLabel arrow7;
     public static javax.swing.JLabel arrow8;
-    private javax.swing.JPanel color1;
+    private javax.swing.JLabel bud;
+    private static javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
     private javax.swing.JPanel color3;
     private javax.swing.JPanel color4;
@@ -711,14 +714,12 @@ public class QBudget extends javax.swing.JPanel {
     private javax.swing.JPanel color6;
     private javax.swing.JPanel color7;
     private javax.swing.JPanel color8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel max;
     private javax.swing.JLabel min;
-    private javax.swing.JLabel min1;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
@@ -733,6 +734,7 @@ public class QBudget extends javax.swing.JPanel {
     private javax.swing.JPanel saveChangesPanel;
     public static javax.swing.JSlider slider;
     public static javax.swing.JLabel spending;
+    private javax.swing.JPanel subBack;
     public static javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;

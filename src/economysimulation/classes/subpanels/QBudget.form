@@ -26,11 +26,9 @@
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="panel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="panel2" min="-2" max="-2" attributes="0"/>
                       <Component id="panel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="panel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="panel4" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -99,7 +97,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="title1" min="-2" pref="243" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="color1" min="-2" max="-2" attributes="0"/>
+                  <Component id="color1" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,12 +119,18 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[40, 80]"/>
+            </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+          </AuxValues>
 
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="arrow1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="arrow1" alignment="1" pref="40" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -137,11 +141,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JLabel" name="arrow1">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/economysimulation/resources/misc/arrow140.png"/>
-                </Property>
-              </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
               </AuxValues>
@@ -247,7 +246,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="subBack" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -256,14 +255,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+                  <Component id="subBack" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="subBack">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -299,7 +298,7 @@
                                       <Component id="max" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="min1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bud" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="total" max="32767" attributes="0"/>
                                   </Group>
@@ -335,7 +334,7 @@
                       <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="min1" max="32767" attributes="0"/>
+                          <Component id="bud" max="32767" attributes="0"/>
                           <Component id="total" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -412,7 +411,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa3;300bn"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="min1">
+            <Component class="javax.swing.JLabel" name="bud">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Agency FB" size="36" style="0"/>

@@ -169,8 +169,6 @@ public class GameHold extends javax.swing.JPanel {
         CompFormat.addButtonFormat(panel1, color1);
         CompFormat.addButtonFormat(panel2, color2);
         
-        Methods.changeComponenetColour();
-        
         hintBacks = new JPanel[]{ hintBack1, hintBack2, hintBack3 };
         hintTitles = new JLabel[]{ hintTitle1, hintTitle2, hintTitle3 };
         hintDescs = new JLabel[]{ hintDesc1, hintDesc2, hintDesc3 };

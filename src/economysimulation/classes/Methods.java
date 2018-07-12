@@ -32,7 +32,7 @@ public class Methods {
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
-    public static Color[] theme = ThemeTypes.THEME_WHITE;
+    public static Color[] theme = ThemeTypes.THEME_DARK;
     public static int mode = 0;
     public static String username; //players username
     public static int TICKS; //how many gamer ticks / days have passed so far
@@ -40,12 +40,6 @@ public class Methods {
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     public static final int MAX_USERNAME_LENGTH = 8;
     public static final int MIN_USERNAME_LENGTH = 4;
-    
-    public static final Color backPanelColor = new Color(102, 102, 102);
-    public static final Color backLabelColor = new Color(102, 102, 102);
-    public static final Color frontLabelColor = new Color(102, 102, 102);
-    
-    public static JLabel[] allLabels;
     
     public static final int DEFAULT_SPENDING = 50;
     public static boolean oneQuarterPassed = false;
@@ -55,18 +49,6 @@ public class Methods {
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
         createGraph("GDP", historyGDP, PGovernment.graphPanel);
-    }
-    
-    public static void changeComponenetColour() {
-        allLabels = new JLabel[]{ GameHold.labelGDP, GameHold.titleSpeed, GameHold.titleTime,
-            QSideBar.titleOverview, QSideBar.titleBankr, QSideBar.titleBudget, QSideBar.titleCons, QSideBar.titleCons, QSideBar.titleCorp, QSideBar.titleGov };
-        
-        for (JLabel label : allLabels) {
-            //label.setBackground(new Color(55,153,255));
-            //label.setForeground(new Color(255,255,255));
-            
-        }
-        //GameHold.backadd.setBackground(new Color(55, 153, 255));
     }
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
