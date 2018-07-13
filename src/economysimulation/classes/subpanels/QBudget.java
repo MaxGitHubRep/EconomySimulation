@@ -2,6 +2,7 @@ package economysimulation.classes.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,18 +40,6 @@ public class QBudget extends javax.swing.JPanel {
     public static void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
 
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanels[id].setBackground(Theme.primaryHover);
-                colorPanels[id].setBackground(Theme.secondaryHover);
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanels[id].setBackground(Theme.primaryBack);
-                colorPanels[id].setBackground(Theme.primaryBack);
-            }
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 applySelectedType(id);
@@ -71,18 +60,6 @@ public class QBudget extends javax.swing.JPanel {
     public static void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
 
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(Theme.primaryHover);
-                picPanel.setBackground(Theme.secondaryHover);
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(Theme.primaryBack);
-                picPanel.setBackground(Theme.primaryBack);
-            }
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 Component.BUDGET_VARS[selectedType] = slider.getValue();
@@ -124,7 +101,9 @@ public class QBudget extends javax.swing.JPanel {
         
         for (int i = 0; i < backPanels.length; i++) {
             addButtonFormat(i);
+            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
         }
+        CompFormat.addButtonFormat(saveChangesPanel, picPanel);
         
         applySelectedType(0);
         

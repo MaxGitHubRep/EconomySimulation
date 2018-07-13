@@ -1,6 +1,8 @@
 package economysimulation.classes.subpanels;
 
 import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.ui.CompFormat;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -50,18 +52,6 @@ public class QGovernment extends javax.swing.JPanel {
     public static void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
 
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanels[id].setBackground(new Color(240, 240, 240));
-                colorPanels[id].setBackground(new Color(240, 240, 240));
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanels[id].setBackground(Color.white);
-                colorPanels[id].setBackground(Color.white);
-            }
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 applySelectedType(id);
@@ -82,18 +72,6 @@ public class QGovernment extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
     public static void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
-
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(new Color(240, 240, 240));
-                picPanel.setBackground(new Color(204, 0, 0));
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(Color.white);
-                picPanel.setBackground(Color.white);
-            }
             
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -147,10 +125,14 @@ public class QGovernment extends javax.swing.JPanel {
         
         for (int i = 0; i < backPanels.length; i++) {
             addButtonFormat(i);
+            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
         }
+        CompFormat.addButtonFormat(saveChangesPanel, panelPic);
         
         applySelectedType(0);
         
+        Theme.applyPanelThemes(new JPanel[]{ this, displayPanel }, new JPanel[]{},  new JPanel[]{ panel1, panel2, panel3, saveChangesPanel },  new JPanel[]{ color1, color2, color3, panelPic });
+        Theme.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, new JLabel[]{});
     }
 
     @SuppressWarnings("unchecked")
