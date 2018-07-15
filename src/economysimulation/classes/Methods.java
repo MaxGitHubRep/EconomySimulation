@@ -2,6 +2,7 @@ package economysimulation.classes;
 
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
+import static economysimulation.classes.algorithms.Component.quarterIndex;
 import economysimulation.classes.fronter.GameHold;
 import economysimulation.classes.mainpanels.PGovernment;
 import economysimulation.classes.subpanels.QBudget;
@@ -30,7 +31,7 @@ public class Methods {
     public static QBudget budgetClass;
     public static QGovernment govClass;
     
-    public static Color[] theme = ThemeTypes.THEME_DARK;
+    public static Color[] theme = ThemeTypes.THEME_WHITE;
     public static int mode = 0;
     public static String username; //players username
     public static int TICKS; //how many gamer ticks / days have passed so far
@@ -47,6 +48,7 @@ public class Methods {
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
         createGraph("GDP", historyGDP, PGovernment.graphPanel);
+        quarterIndex++;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 

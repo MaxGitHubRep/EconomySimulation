@@ -12,7 +12,7 @@ public class Component {
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
             UNEMPLOYMENT = 4.2, EMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
             PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
-            MIN_WAGE = 0.000008, POPULATION = 60, WORKERS,
+            MIN_WAGE = 0.000000008, POPULATION = 100000000, WORKERS,
             
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
             DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
@@ -23,6 +23,7 @@ public class Component {
     public static int[] BUDGET_VARS = new int[]{ 50, 50, 50, 50, 50, 50, 50, 50 };
     
     public static ArrayList<Double> historyGDP = new ArrayList<>();
+    public static int quarterIndex = 0;
     
     // ----------
     //  FORMULAS
@@ -49,11 +50,6 @@ public class Component {
     public static int getPublicSpendingSector(int id) {
         return BUDGET_VARS[id];
     }
-    
-    public static void calculateConsumption() {
-
-        CONSUMPTION = (AUTO_CONS + (MPC*DISPOSABLE_INCOME)) * (1 - (CONS_TAX/100));
-    }
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void calculateGDP() {
@@ -62,40 +58,46 @@ public class Component {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void calculateAnnualBudget() {
-        ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
+        //ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
     }//</editor-fold>
+    
+    private static double getConsConfidence() {
+        double confidence = 1;
+        
+        confidence = confidence * (EMPLOYMENT/100);//change in gdp/growth
+        
+        return confidence;
+    }
     
     public static void calcComp() {
 
         //FIRMS AND COP
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
-        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST - (BUDGET_VARS[6]*1000) - (BUDGET_VARS[4]*1000);
+        
+        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST;
         
         EMPLOYMENT = 100 - UNEMPLOYMENT;
         
         WORKERS = POPULATION * (EMPLOYMENT/100);
         
-        
-        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION) * (1 - (CORP_TAX/100));
-        
-        
-        
-        INVESTMENT = FIRM_PROFITS > 0 ? FIRM_PROFITS * CORP_CONFIDENCE : 0;
-        
+        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1);
 
+        if (COST_OF_PRODUCTION > CONSUMPTION) {
+            UNEMPLOYMENT++;
+        }
         
-        //WAGES & CONSUMERS
+        CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
+        CONS_CONFIDENCE = getConsConfidence();
         
-        
-        DISPOSABLE_INCOME = (WAGES * (1 - CONS_TAX/100));
-        
+        INVESTMENT = FIRM_PROFITS * CORP_CONFIDENCE;
+
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
         
-        System.out.println("MPC: " + MPC + ", DI: " + DISPOSABLE_INCOME + ", CONS: " + CONSUMPTION);
+        System.out.println("MPC: " + MPC + ", CONS: " + CONSUMPTION + ", COP: " + COST_OF_PRODUCTION);
         System.out.println("FP: " + FIRM_PROFITS + ", wag: " + WAGES + ", Inv: " + INVESTMENT);
         
-        CONSUMPTION = MPC * ( DISPOSABLE_INCOME + BUDGET_VARS[7] );
+        CONSUMPTION = MPC * ( (MIN_WAGE * 8 * POPULATION) + BUDGET_VARS[7] ) * (1 - (CONS_TAX/100));
         
         
     }
