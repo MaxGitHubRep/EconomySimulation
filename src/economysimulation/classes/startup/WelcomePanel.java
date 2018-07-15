@@ -169,7 +169,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
         
-        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{}, backPanels, colorPanels);
+        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
         Theme.applyTextThemes(titleLabels, new JLabel[]{});
         
         timerStart();
@@ -202,7 +202,6 @@ public class WelcomePanel extends javax.swing.JPanel {
         co6 = new javax.swing.JPanel();
         leave = new javax.swing.JLabel();
         animBack = new javax.swing.JPanel();
-        gdPic = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -512,11 +511,11 @@ public class WelcomePanel extends javax.swing.JPanel {
         animBack.setLayout(animBackLayout);
         animBackLayout.setHorizontalGroup(
             animBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gdPic, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
+            .addGap(0, 1300, Short.MAX_VALUE)
         );
         animBackLayout.setVerticalGroup(
             animBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gdPic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -557,7 +556,6 @@ public class WelcomePanel extends javax.swing.JPanel {
     private javax.swing.JPanel co5;
     private javax.swing.JPanel co6;
     public static javax.swing.JTextField enterUsername;
-    private javax.swing.JLabel gdPic;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel leave;

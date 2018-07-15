@@ -10,7 +10,7 @@ public class ThemeTypes {
     
     public static final Color[] THEME_WHITE = new Color[]{
         new Color(255, 255, 255), //primaryBack
-        new Color(102, 102, 102), //secondaryBack
+        new Color(180, 180, 180), //secondaryBack
 
         new Color(204, 0, 0), //primaryText
         new Color(255, 255, 255), //secondaryText
@@ -23,7 +23,7 @@ public class ThemeTypes {
     
     public static final Color[] THEME_DARK = new Color[]{
         new Color(51, 51, 51), //primaryBack
-        new Color(0, 0, 0), //secondaryBack
+        new Color(41, 41, 41), //secondaryBack
 
         new Color(255, 255, 255), //primaryText
         new Color(255, 255, 255), //secondaryText
