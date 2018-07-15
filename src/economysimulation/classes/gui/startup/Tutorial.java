@@ -16,9 +16,9 @@ import javax.swing.JPanel;
  */
 public class Tutorial extends javax.swing.JPanel {
 
-    private static JPanel[] backs;
-    private static JPanel[] colors;
-    
+    private static JPanel[] backPanels;
+    private static JPanel[] colorPanels;
+
     public Tutorial() {
         initComponents();
 
@@ -28,14 +28,14 @@ public class Tutorial extends javax.swing.JPanel {
         Methods.addToFrontPanel(govPanel, Methods.govClass, false);
         Methods.addToFrontPanel(budgetPanel, Methods.budgetClass, false);
         
-        backs = new JPanel[]{ back1, back2, back3 };
-        colors = new JPanel[]{ col1, col2, col3 };
+        backPanels = new JPanel[]{ back1, back2, back3 };
+        colorPanels = new JPanel[]{ col1, col2, col3 };
         
-        for (int i = 0; i < backs.length; i++) {
-            Format.addButtonFormat(backs[i], colors[i]);
+        for (int i = 0; i < backPanels.length; i++) {
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
-        Theme.applyPanelThemes(new JPanel[]{}, new JPanel[]{}, backs, colors);
+        Theme.applyPanelThemes(new JPanel[]{}, new JPanel[]{}, backPanels, colorPanels);
         Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous }, new JLabel[]{});
     }
     
