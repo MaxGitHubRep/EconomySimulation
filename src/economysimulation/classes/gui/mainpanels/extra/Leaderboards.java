@@ -1,12 +1,12 @@
-package economysimulation.classes.mainpanels.extra;
+package economysimulation.classes.gui.mainpanels.extra;
 
 /**
  *
  * @author Max Carter
  */
-public class PLeaderboards extends javax.swing.JPanel {
+public class Leaderboards extends javax.swing.JPanel {
 
-    public PLeaderboards() {
+    public Leaderboards() {
         initComponents();
         
         

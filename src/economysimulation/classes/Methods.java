@@ -3,10 +3,10 @@ package economysimulation.classes;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
 import static economysimulation.classes.algorithms.Component.quarterIndex;
-import economysimulation.classes.fronter.GameHold;
-import economysimulation.classes.mainpanels.sim.PGovernment;
-import economysimulation.classes.subpanels.QBudget;
-import economysimulation.classes.subpanels.QGovernment;
+import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.sim.Rate;
+import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.managers.themes.ThemeTypes;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,8 +28,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Methods {
 
     //Classes of panels to add at intro
-    public static QBudget budgetClass;
-    public static QGovernment govClass;
+    public static BudgetList budgetClass;
+    public static RateList govClass;
     
     public static Color[] theme = ThemeTypes.THEME_WHITE;
     public static int mode = 0;
@@ -47,7 +47,7 @@ public class Methods {
         Component.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
-        createGraph("GDP", historyGDP, PGovernment.graphPanel);
+        createGraph("GDP", historyGDP, Rate.graphPanel);
         quarterIndex++;
     }
     

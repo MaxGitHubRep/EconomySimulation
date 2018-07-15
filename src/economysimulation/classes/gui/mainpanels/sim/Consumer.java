@@ -1,15 +1,15 @@
-package economysimulation.classes.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.sim;
 
 /**
  *
  * @author Max Carter
  */
-public class PConsumer extends javax.swing.JPanel {
+public class Consumer extends javax.swing.JPanel {
 
     //                                              percentage           int                               int                         int                  pbar              pbar                pbar
     public static String[] titles = new String[]{ "Employment Rate", "Consumption per Capita", "Disposable Income per Capita", "Borrowing per Capita", "Confidence", "Standard of Living", "Politcal Influence" };
     
-    public PConsumer() {
+    public Consumer() {
         initComponents();
         
         

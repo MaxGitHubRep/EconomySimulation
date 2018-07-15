@@ -1,14 +1,14 @@
-package economysimulation.classes.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.Methods;
 /**
  *
  * @author Max Carter
  */
-public class PGovernment extends javax.swing.JPanel {
+public class Rate extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public PGovernment() {
+    public Rate() {
         initComponents();
         Methods.addToFrontPanel(backPanelGov, Methods.govClass, false);
         

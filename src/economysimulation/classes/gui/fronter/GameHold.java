@@ -1,13 +1,11 @@
-package economysimulation.classes.fronter;
+package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.calcComp;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.CompFormat;
-import economysimulation.classes.subpanels.QBudget;
-import economysimulation.classes.subpanels.QSideBar;
-import economysimulation.classes.zmisc.Assist;
+import economysimulation.classes.managers.ui.Format;
+import economysimulation.classes.gui.subpanels.BudgetList;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
@@ -42,20 +40,17 @@ public class GameHold extends javax.swing.JPanel {
     public static final int MAX_HINTS = 3;
       
     public static void addHint(String title, String desc) {
-
         for (int i = MAX_HINTS-1; i >= 0; i--) {
             if (i+1 < MAX_HINTS) {
                 hintTitles[i+1].setText(hintTitles[i].getText());
                 hintDescs[i+1].setText(hintDescs[i].getText());
                 hintBacks[i+1].setOpaque(true);
             }
-            
         }
         
         hintTitles[0].setText(title);
         hintDescs[0].setText(desc);
         hintBacks[0].setOpaque(true);
-        
     }
   
     public static void clearHints() {
@@ -75,7 +70,7 @@ public class GameHold extends javax.swing.JPanel {
             Methods.updateRealGDPLabel();
         }
         int tempSpending = Component.getPublicSpendingTotal(true);
-        labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + QBudget.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
+        labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + BudgetList.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
         
         calcComp();
         
@@ -156,8 +151,7 @@ public class GameHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
-        Methods.addToFrontPanel(backadd, new Assist(), false);
-        Methods.addToFrontPanel(sideBarBack, new QSideBar(), false);
+        Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
 
         //usernameLabel.setText("Username: " + Methods.username);
 
@@ -166,8 +160,8 @@ public class GameHold extends javax.swing.JPanel {
         updateTime();
         timerStart();
         
-        CompFormat.addButtonFormat(panel1, color1);
-        CompFormat.addButtonFormat(panel2, color2);
+        Format.addButtonFormat(panel1, color1);
+        Format.addButtonFormat(panel2, color2);
         
         hintBacks = new JPanel[]{ hintBack1, hintBack2, hintBack3 };
         hintTitles = new JLabel[]{ hintTitle1, hintTitle2, hintTitle3 };

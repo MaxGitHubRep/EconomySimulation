@@ -1,18 +1,18 @@
-package economysimulation.classes.mainpanels.extra;
+package economysimulation.classes.gui.mainpanels.extra;
 
-import economysimulation.classes.managers.ui.CompFormat;
-import economysimulation.classes.subpanels.QSideBar;
+import economysimulation.classes.managers.ui.Format;
+import economysimulation.classes.gui.fronter.SideBar;
 
 /**
  *
  * @author Max Carter
  */
-public class PDesktop extends javax.swing.JPanel {
+public class QuitSim extends javax.swing.JPanel {
 
-    public PDesktop() {
+    public QuitSim() {
         initComponents();
-        CompFormat.addButtonFormat(bp1, cp1);
-        CompFormat.addButtonFormat(bp2, cp2);
+        Format.addButtonFormat(bp1, cp1);
+        Format.addButtonFormat(bp2, cp2);
         
     }
 
@@ -246,7 +246,7 @@ public class PDesktop extends javax.swing.JPanel {
     }//GEN-LAST:event_bp1MouseClicked
 
     private void bp2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bp2MouseClicked
-        QSideBar.selectOption(QSideBar.opPanels[4], QSideBar.titleBankr, QSideBar.descriptions[4]);
+        SideBar.selectOption(SideBar.opPanels[4], SideBar.titleBankr, SideBar.descriptions[4]);
     }//GEN-LAST:event_bp2MouseClicked
 
 

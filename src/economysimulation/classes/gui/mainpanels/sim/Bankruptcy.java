@@ -1,4 +1,4 @@
-package economysimulation.classes.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.Methods;
 
@@ -6,9 +6,9 @@ import economysimulation.classes.Methods;
  *
  * @author Max Carter
  */
-public class PBankruptcy extends javax.swing.JPanel {
+public class Bankruptcy extends javax.swing.JPanel {
 
-    public PBankruptcy() {
+    public Bankruptcy() {
         initComponents();
     }
 

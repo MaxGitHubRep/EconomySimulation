@@ -1,8 +1,8 @@
-package economysimulation.classes.subpanels;
+package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.CompFormat;
+import economysimulation.classes.managers.ui.Format;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,7 +17,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class QBudget extends javax.swing.JPanel {
+public class BudgetList extends javax.swing.JPanel {
 
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
@@ -89,7 +89,7 @@ public class QBudget extends javax.swing.JPanel {
         
     }
     
-    public QBudget() {
+    public BudgetList() {
         initComponents();
         
         backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
@@ -101,9 +101,9 @@ public class QBudget extends javax.swing.JPanel {
         
         for (int i = 0; i < backPanels.length; i++) {
             addButtonFormat(i);
-            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
-        CompFormat.addButtonFormat(saveChangesPanel, picPanel);
+        Format.addButtonFormat(saveChangesPanel, picPanel);
         
         applySelectedType(0);
         

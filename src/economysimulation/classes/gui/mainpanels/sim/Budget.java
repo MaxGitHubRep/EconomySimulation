@@ -1,8 +1,8 @@
-package economysimulation.classes.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
-import economysimulation.classes.subpanels.QBudget;
+import economysimulation.classes.gui.subpanels.BudgetList;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import javax.swing.JSlider;
@@ -17,7 +17,7 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Max Carter
  */
-public class PBudget extends javax.swing.JPanel {
+public class Budget extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     private static PiePlot plot;
@@ -38,7 +38,7 @@ public class PBudget extends javax.swing.JPanel {
     private static void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
         for (int i = 0; i < colourGuide.length; i++) {
-            plot.setSectionPaint(QBudget.titles[i], colourGuide[i]);
+            plot.setSectionPaint(BudgetList.titles[i], colourGuide[i]);
         }
     }//</editor-fold> 
     
@@ -46,8 +46,8 @@ public class PBudget extends javax.swing.JPanel {
     public static void displayGovSpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
-        for (int i = 0; i < QBudget.titles.length; i++) {
-            datasetPie.insertValue(i, QBudget.titles[i], Component.BUDGET_VARS[i]);
+        for (int i = 0; i < BudgetList.titles.length; i++) {
+            datasetPie.insertValue(i, BudgetList.titles[i], Component.BUDGET_VARS[i]);
         }
         
         pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
@@ -62,18 +62,18 @@ public class PBudget extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (!QBudget.slider.getValueIsAdjusting()) displayGovSpendingGraph();
+                if (!BudgetList.slider.getValueIsAdjusting()) displayGovSpendingGraph();
             }
         });
         
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public PBudget() {
+    public Budget() {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         
-        addSliderListenerGraph(QBudget.slider);
+        addSliderListenerGraph(BudgetList.slider);
         
         displayGovSpendingGraph();
     }//</editor-fold> 

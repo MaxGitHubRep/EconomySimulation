@@ -1,8 +1,8 @@
-package economysimulation.classes.subpanels;
+package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.CompFormat;
+import economysimulation.classes.managers.ui.Format;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class QGovernment extends javax.swing.JPanel {
+public class RateList extends javax.swing.JPanel {
 
     public static int selectedType = 0;
     
@@ -112,7 +112,7 @@ public class QGovernment extends javax.swing.JPanel {
         
     }
     
-    public QGovernment() {
+    public RateList() {
         initComponents();
         
         backPanels = new JPanel[]{ panel1, panel2, panel3 };
@@ -125,9 +125,9 @@ public class QGovernment extends javax.swing.JPanel {
         
         for (int i = 0; i < backPanels.length; i++) {
             addButtonFormat(i);
-            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
-        CompFormat.addButtonFormat(saveChangesPanel, panelPic);
+        Format.addButtonFormat(saveChangesPanel, panelPic);
         
         applySelectedType(0);
         
@@ -235,7 +235,7 @@ public class QGovernment extends javax.swing.JPanel {
         panel2Layout.setHorizontalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
-                .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -273,7 +273,7 @@ public class QGovernment extends javax.swing.JPanel {
         panel3Layout.setHorizontalGroup(
             panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel3Layout.createSequentialGroup()
-                .addComponent(title3, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(title3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

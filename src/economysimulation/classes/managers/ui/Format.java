@@ -12,7 +12,7 @@ import javax.swing.JTextField;
  *
  * @author Max Carter
  */
-public class CompFormat {
+public class Format {
     
     //<editor-fold defaultstate="collapsed" desc="Formats the labels."> 
     public static void addButtonFormat(JPanel backPanel, JPanel colorPanel) {

@@ -1,9 +1,8 @@
-package economysimulation.classes.startup;
+package economysimulation.classes.gui.startup;
 
-import economysimulation.classes.MainFrame;
+import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.Methods;
-import economysimulation.classes.fronter.IntroPage;
-import economysimulation.classes.managers.ui.CompFormat;
+import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.themes.Theme;
 import java.awt.Color;
 import java.awt.Font;
@@ -128,7 +127,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                     
                     } else {
                         Methods.mode = id + 1;
-                        MainFrame.addToMainFrame(new IntroPage());
+                        MainFrame.addToMainFrame(new Tutorial());
                     }
                 }
 
@@ -147,14 +146,14 @@ public class WelcomePanel extends javax.swing.JPanel {
         titleLabels = new JLabel[]{ title1, title2, title3, title4, author, leave };
         
         for (int i = 0; i < backPanels.length; i++) {
-            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
             if (i < backPanels.length-2) {
                 addPanelHoverEvent(backPanels[i], i);
             }
         }
         
         author.setText("<html>Created by<br>Max Carter</html>");
-        CompFormat.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
+        Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         
         signals = new JLabel[max];
         

@@ -1,11 +1,12 @@
-package economysimulation.classes.fronter;
+package economysimulation.classes.gui.startup;
 
-import economysimulation.classes.MainFrame;
+import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.Methods;
+import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.CompFormat;
-import economysimulation.classes.subpanels.QBudget;
-import economysimulation.classes.subpanels.QGovernment;
+import economysimulation.classes.managers.ui.Format;
+import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.gui.subpanels.RateList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,16 +14,16 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class IntroPage extends javax.swing.JPanel {
+public class Tutorial extends javax.swing.JPanel {
 
     private static JPanel[] backs;
     private static JPanel[] colors;
     
-    public IntroPage() {
+    public Tutorial() {
         initComponents();
 
-        Methods.budgetClass = new QBudget();
-        Methods.govClass = new QGovernment();
+        Methods.budgetClass = new BudgetList();
+        Methods.govClass = new RateList();
         
         Methods.addToFrontPanel(govPanel, Methods.govClass, false);
         Methods.addToFrontPanel(budgetPanel, Methods.budgetClass, false);
@@ -31,7 +32,7 @@ public class IntroPage extends javax.swing.JPanel {
         colors = new JPanel[]{ col1, col2, col3 };
         
         for (int i = 0; i < backs.length; i++) {
-            CompFormat.addButtonFormat(backs[i], colors[i]);
+            Format.addButtonFormat(backs[i], colors[i]);
         }
         
         Theme.applyPanelThemes(new JPanel[]{}, new JPanel[]{}, backs, colors);

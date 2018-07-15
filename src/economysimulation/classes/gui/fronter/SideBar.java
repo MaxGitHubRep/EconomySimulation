@@ -1,18 +1,18 @@
-package economysimulation.classes.subpanels;
+package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.fronter.GameHold;
-import economysimulation.classes.mainpanels.sim.PBankruptcy;
-import economysimulation.classes.mainpanels.sim.PBudget;
-import economysimulation.classes.mainpanels.sim.PConsumer;
-import economysimulation.classes.mainpanels.sim.PCorporation;
-import economysimulation.classes.mainpanels.extra.PDesktop;
-import economysimulation.classes.mainpanels.sim.PGovernment;
-import economysimulation.classes.mainpanels.extra.PLeaderboards;
-import economysimulation.classes.mainpanels.extra.Preferences;
-import economysimulation.classes.mainpanels.sim.POverview;
+import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
+import economysimulation.classes.gui.mainpanels.sim.Budget;
+import economysimulation.classes.gui.mainpanels.sim.Consumer;
+import economysimulation.classes.gui.mainpanels.sim.Corporation;
+import economysimulation.classes.gui.mainpanels.extra.QuitSim;
+import economysimulation.classes.gui.mainpanels.sim.Rate;
+import economysimulation.classes.gui.mainpanels.extra.Leaderboards;
+import economysimulation.classes.gui.mainpanels.extra.Preferences;
+import economysimulation.classes.gui.mainpanels.sim.Overview;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.CompFormat;
+import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -22,7 +22,7 @@ import javax.swing.JPanel;
  *
  * @author Max
  */
-public class QSideBar extends javax.swing.JPanel {
+public class SideBar extends javax.swing.JPanel {
 
     public static JPanel[] backPanels;
     public static JPanel[] colorPanels;
@@ -63,7 +63,7 @@ public class QSideBar extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public QSideBar() {
+    public SideBar() {
         initComponents();
         
         titles = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit };
@@ -71,19 +71,19 @@ public class QSideBar extends javax.swing.JPanel {
         colorPanels = new JPanel[]{ colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9 };
 
         opPanels = new JPanel[]{
-            new PGovernment(), 
-            new PBudget(),
-            new PCorporation(),
-            new PConsumer(),
-            new PBankruptcy(),
-            new POverview(),
-            new PLeaderboards(),
+            new Rate(), 
+            new Budget(),
+            new Corporation(),
+            new Consumer(),
+            new Bankruptcy(),
+            new Overview(),
+            new Leaderboards(),
             new Preferences(),
-            new PDesktop()
+            new QuitSim()
         };
         
         for (int i = 0; i < opPanels.length; i++) {
-            CompFormat.addButtonFormat(backPanels[i], colorPanels[i]);
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
             addButtonFormat(i);
         }
         

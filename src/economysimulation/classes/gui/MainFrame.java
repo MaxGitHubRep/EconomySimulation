@@ -1,7 +1,8 @@
-package economysimulation.classes;
+package economysimulation.classes.gui;
 
+import economysimulation.classes.Methods;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.startup.WelcomePanel;
+import economysimulation.classes.gui.startup.WelcomePanel;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
