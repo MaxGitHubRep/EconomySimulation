@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.themes;
 
+import economysimulation.classes.gui.fronter.GameHold;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

@@ -607,8 +607,8 @@ public class GameHold extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JPanel color1;
-    private javax.swing.JPanel color2;
+    public static javax.swing.JPanel color1;
+    public static javax.swing.JPanel color2;
     public static javax.swing.JLabel description;
     private javax.swing.JPanel hintBack1;
     private javax.swing.JPanel hintBack2;
@@ -629,16 +629,16 @@ public class GameHold extends javax.swing.JPanel {
     public static javax.swing.JLabel label2;
     public static javax.swing.JLabel labelBudget;
     public static javax.swing.JLabel labelGDP;
-    private javax.swing.JPanel leftBar;
-    private javax.swing.JPanel panel1;
-    private javax.swing.JPanel panel2;
+    public static javax.swing.JPanel leftBar;
+    public static javax.swing.JPanel panel1;
+    public static javax.swing.JPanel panel2;
     private javax.swing.JLabel picHold;
-    private javax.swing.JPanel rightBar;
+    public static javax.swing.JPanel rightBar;
     private static javax.swing.JPanel sideBarBack;
     private javax.swing.JSlider time;
     public static javax.swing.JLabel title;
     public static javax.swing.JLabel titleSpeed;
     public static javax.swing.JLabel titleTime;
-    private javax.swing.JPanel topBar;
+    public static javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 }

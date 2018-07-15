@@ -8,7 +8,7 @@ import java.awt.Color;
  */
 public class ThemeTypes {
     
-    public static final Color[] THEME_WHITE = new Color[]{
+    public static final Color[] WHITE = new Color[]{
         new Color(255, 255, 255), //primaryBack
         new Color(180, 180, 180), //secondaryBack
 
@@ -21,7 +21,7 @@ public class ThemeTypes {
     
     };
     
-    public static final Color[] THEME_DARK = new Color[]{
+    public static final Color[] DARK = new Color[]{
         new Color(51, 51, 51), //primaryBack
         new Color(41, 41, 41), //secondaryBack
 
@@ -34,7 +34,7 @@ public class ThemeTypes {
         
     };
     
-    public static final Color[] THEME_OCEAN = new Color[]{
+    public static final Color[] OCEAN = new Color[]{
         new Color(0, 102, 153), //primaryBack
         new Color(0, 153, 204), //secondaryBack
 
@@ -44,6 +44,19 @@ public class ThemeTypes {
 
         new Color(0, 153, 204), //primaryHover
         new Color(0, 140, 255) //secondaryHover
+        
+    };
+    
+    public static final Color[] NATURE = new Color[]{
+        new Color(153, 255, 153), //primaryBack
+        new Color(0, 153, 204), //secondaryBack
+
+        new Color(0, 102, 153), //primaryText
+        new Color(255, 255, 255), //secondaryText
+        new Color(240, 240, 240), //ghostText
+
+        new Color(51, 255, 153), //primaryHover
+        new Color(102, 204, 51) //secondaryHover
         
     };
     
