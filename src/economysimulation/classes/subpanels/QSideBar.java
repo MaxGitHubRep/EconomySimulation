@@ -2,17 +2,17 @@ package economysimulation.classes.subpanels;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.fronter.GameHold;
-import economysimulation.classes.mainpanels.PBankruptcy;
-import economysimulation.classes.mainpanels.PBudget;
-import economysimulation.classes.mainpanels.PConsumer;
-import economysimulation.classes.mainpanels.PCorporation;
-import economysimulation.classes.mainpanels.PDesktop;
-import economysimulation.classes.mainpanels.PGovernment;
-import economysimulation.classes.mainpanels.PLeaderboards;
-import economysimulation.classes.mainpanels.POverview;
+import economysimulation.classes.mainpanels.sim.PBankruptcy;
+import economysimulation.classes.mainpanels.sim.PBudget;
+import economysimulation.classes.mainpanels.sim.PConsumer;
+import economysimulation.classes.mainpanels.sim.PCorporation;
+import economysimulation.classes.mainpanels.extra.PDesktop;
+import economysimulation.classes.mainpanels.sim.PGovernment;
+import economysimulation.classes.mainpanels.extra.PLeaderboards;
+import economysimulation.classes.mainpanels.extra.Preferences;
+import economysimulation.classes.mainpanels.sim.POverview;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.CompFormat;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -36,6 +36,7 @@ public class QSideBar extends javax.swing.JPanel {
         "Declare bankcruptcy and end the game",
         "View a basic overview of all the components in your economy",
         "Check out the leaderboards against fellow economists",
+        "Alter your personal preferences",
         "Quit the simulation and return to desktop"
     
     };
@@ -65,9 +66,9 @@ public class QSideBar extends javax.swing.JPanel {
     public QSideBar() {
         initComponents();
         
-        titles = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titleExit };
-        backPanels = new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8 };
-        colorPanels = new JPanel[]{ colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8 };
+        titles = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit };
+        backPanels = new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8, backPanel9 };
+        colorPanels = new JPanel[]{ colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9 };
 
         opPanels = new JPanel[]{
             new PGovernment(), 
@@ -77,6 +78,7 @@ public class QSideBar extends javax.swing.JPanel {
             new PBankruptcy(),
             new POverview(),
             new PLeaderboards(),
+            new Preferences(),
             new PDesktop()
         };
         
@@ -117,11 +119,14 @@ public class QSideBar extends javax.swing.JPanel {
         titleLB = new javax.swing.JLabel();
         colorPanel7 = new javax.swing.JPanel();
         backPanel8 = new javax.swing.JPanel();
-        titleExit = new javax.swing.JLabel();
+        titlePreferences = new javax.swing.JLabel();
         colorPanel8 = new javax.swing.JPanel();
+        backPanel9 = new javax.swing.JPanel();
+        titleExit = new javax.swing.JLabel();
+        colorPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(400, 605));
+        setPreferredSize(new java.awt.Dimension(400, 685));
 
         backPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -405,11 +410,11 @@ public class QSideBar extends javax.swing.JPanel {
 
         backPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        titleExit.setBackground(new java.awt.Color(255, 255, 255));
-        titleExit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titleExit.setForeground(new java.awt.Color(204, 0, 0));
-        titleExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleExit.setText("Quit to Desktop");
+        titlePreferences.setBackground(new java.awt.Color(255, 255, 255));
+        titlePreferences.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        titlePreferences.setForeground(new java.awt.Color(204, 0, 0));
+        titlePreferences.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titlePreferences.setText("Preferences");
 
         colorPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -430,16 +435,56 @@ public class QSideBar extends javax.swing.JPanel {
             backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
                 .addComponent(colorPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleExit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addComponent(titlePreferences)
                 .addContainerGap())
         );
         backPanel8Layout.setVerticalGroup(
             backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
                 .addGroup(backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(titlePreferences, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addComponent(colorPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
+        );
+
+        backPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        titleExit.setBackground(new java.awt.Color(255, 255, 255));
+        titleExit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        titleExit.setForeground(new java.awt.Color(204, 0, 0));
+        titleExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleExit.setText("Quit to Desktop");
+
+        colorPanel9.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout colorPanel9Layout = new javax.swing.GroupLayout(colorPanel9);
+        colorPanel9.setLayout(colorPanel9Layout);
+        colorPanel9Layout.setHorizontalGroup(
+            colorPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 32, Short.MAX_VALUE)
+        );
+        colorPanel9Layout.setVerticalGroup(
+            colorPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout backPanel9Layout = new javax.swing.GroupLayout(backPanel9);
+        backPanel9.setLayout(backPanel9Layout);
+        backPanel9Layout.setHorizontalGroup(
+            backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel9Layout.createSequentialGroup()
+                .addComponent(colorPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(titleExit)
+                .addContainerGap())
+        );
+        backPanel9Layout.setVerticalGroup(
+            backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel9Layout.createSequentialGroup()
+                .addGroup(backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(titleExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(colorPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
@@ -459,11 +504,11 @@ public class QSideBar extends javax.swing.JPanel {
                 .addComponent(jSeparator1)
                 .addContainerGap())
             .addComponent(backPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +525,10 @@ public class QSideBar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(backPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(backPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -494,6 +542,7 @@ public class QSideBar extends javax.swing.JPanel {
     private javax.swing.JPanel backPanel6;
     private javax.swing.JPanel backPanel7;
     private javax.swing.JPanel backPanel8;
+    private javax.swing.JPanel backPanel9;
     private javax.swing.JPanel colorPanel1;
     private javax.swing.JPanel colorPanel2;
     private javax.swing.JPanel colorPanel3;
@@ -502,6 +551,7 @@ public class QSideBar extends javax.swing.JPanel {
     private javax.swing.JPanel colorPanel6;
     private javax.swing.JPanel colorPanel7;
     private javax.swing.JPanel colorPanel8;
+    private javax.swing.JPanel colorPanel9;
     private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JLabel titleBankr;
     public static javax.swing.JLabel titleBudget;
@@ -511,5 +561,6 @@ public class QSideBar extends javax.swing.JPanel {
     public static javax.swing.JLabel titleGov;
     public static javax.swing.JLabel titleLB;
     public static javax.swing.JLabel titleOverview;
+    public static javax.swing.JLabel titlePreferences;
     // End of variables declaration//GEN-END:variables
 }
