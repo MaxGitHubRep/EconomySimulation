@@ -1,4 +1,4 @@
-package economysimulation.classes.mainpanels;
+package economysimulation.classes.mainpanels.sim;
 
 import economysimulation.classes.Methods;
 /**

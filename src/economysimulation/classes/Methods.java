@@ -4,7 +4,7 @@ import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
 import static economysimulation.classes.algorithms.Component.quarterIndex;
 import economysimulation.classes.fronter.GameHold;
-import economysimulation.classes.mainpanels.PGovernment;
+import economysimulation.classes.mainpanels.sim.PGovernment;
 import economysimulation.classes.subpanels.QBudget;
 import economysimulation.classes.subpanels.QGovernment;
 import economysimulation.classes.managers.themes.ThemeTypes;

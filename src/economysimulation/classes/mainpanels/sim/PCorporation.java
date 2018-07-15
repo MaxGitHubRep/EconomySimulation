@@ -1,15 +1,13 @@
-package economysimulation.classes.mainpanels;
+package economysimulation.classes.mainpanels.sim;
 
 /**
  *
  * @author Max Carter
  */
-public class PLeaderboards extends javax.swing.JPanel {
+public class PCorporation extends javax.swing.JPanel {
 
-    public PLeaderboards() {
+    public PCorporation() {
         initComponents();
-        
-        
     }
 
     @SuppressWarnings("unchecked")

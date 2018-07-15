@@ -1,4 +1,4 @@
-package economysimulation.classes.mainpanels;
+package economysimulation.classes.mainpanels.extra;
 
 import economysimulation.classes.managers.ui.CompFormat;
 import economysimulation.classes.subpanels.QSideBar;

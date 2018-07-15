@@ -1,12 +1,12 @@
-package economysimulation.classes.mainpanels;
+package economysimulation.classes.mainpanels.sim;
 
 /**
  *
  * @author Max Carter
  */
-public class PCorporation extends javax.swing.JPanel {
+public class POverview extends javax.swing.JPanel {
 
-    public PCorporation() {
+    public POverview() {
         initComponents();
     }
 
