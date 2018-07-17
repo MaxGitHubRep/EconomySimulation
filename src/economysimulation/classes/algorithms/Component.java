@@ -81,10 +81,12 @@ public class Component {
         
         WORKERS = POPULATION * (EMPLOYMENT/100);
         
-        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1);
+        FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1))/365;
 
         if (COST_OF_PRODUCTION > CONSUMPTION) {
             UNEMPLOYMENT++;
+        } else {
+            EMPLOYMENT++;
         }
         
         CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
