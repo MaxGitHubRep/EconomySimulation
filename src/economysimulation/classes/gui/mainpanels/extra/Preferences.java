@@ -29,13 +29,17 @@ public class Preferences extends javax.swing.JPanel {
                 order[i] = order[i+1];
             }
             order[order.length-1] = firstOrder;
-            for (int i = 0; i < labels.length; i++) {
-                labels[i].setText(order[i]);
-            }
+            
         } else {
+            String lastOrder = order[order.length-1];
+            for (int i = order.length-1; i > 0; i--) {
+                order[i] = order[i-1];
+            }
+            order[0] = lastOrder;
             
-            
-            
+        }
+        for (int i = 0; i < labels.length; i++) {
+            labels[i].setText(order[i]);
         }
     }
     
@@ -43,20 +47,25 @@ public class Preferences extends javax.swing.JPanel {
         for (int i = 0; i < labels.length; i++) {
             labels[i].setText(themes[i]);
         }
-        order = themes;
+        
+        order = new String[themes.length];
+        for (int i = 0; i < themes.length; i++) {
+            order[i] = themes[i];
+        }
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
-    public static void addButtonFormat(JLabel button, boolean up, boolean apply) {
+    public static void addButtonFunction(JLabel button, boolean up, boolean apply) {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (apply) {
                     applyBtn.setText("Applied");
-                    for (int i = 0; i < order.length; i++) {
-                        if (applyBtn.getText().equals(themes[i])) {
+                    for (int i = 0; i < themes.length; i++) {
+                        if (middle.getText().equals(themes[i])) {
                             Methods.theme = colors[i];
                             Theme.applySelectedTheme(Methods.theme);
+                            Theme.updateAllPanelThemes();
                             break;
                         }
                     }
@@ -65,24 +74,20 @@ public class Preferences extends javax.swing.JPanel {
                     moveSpinner(up);
                 }
             }
-            
         });
     }//</editor-fold>
     
-    
-    
+
     public Preferences() {
         initComponents();
 
         labels = new JLabel[]{ top, middle, bottom };
         
-        addButtonFormat(up, true, false);
-        addButtonFormat(down, false, false);
-        addButtonFormat(applyBtn, false, true);
+        addButtonFunction(up, true, false);
+        addButtonFunction(down, false, false);
+        addButtonFunction(applyBtn, false, true);
         
         formatSpinner();
-        
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -184,11 +189,11 @@ public class Preferences extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JLabel applyBtn;
-    private javax.swing.JLabel bottom;
-    private javax.swing.JLabel down;
-    private javax.swing.JLabel middle;
+    public static javax.swing.JLabel bottom;
+    public static javax.swing.JLabel down;
+    public static javax.swing.JLabel middle;
     private javax.swing.JPanel themeSwapperPanel;
-    private javax.swing.JLabel top;
-    private javax.swing.JLabel up;
+    public static javax.swing.JLabel top;
+    public static javax.swing.JLabel up;
     // End of variables declaration//GEN-END:variables
 }
