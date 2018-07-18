@@ -149,12 +149,16 @@ public class GameHold extends javax.swing.JPanel {
         
     }//</editor-fold> 
 
+    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
+    public static void updateTheme() {
+        Theme.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
+        Theme.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
+    }//</editor-fold> 
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() {
         initComponents();
         Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
-
-        //usernameLabel.setText("Username: " + Methods.username);
 
         addSliderListener(time);
         updateSpeed();
@@ -168,11 +172,8 @@ public class GameHold extends javax.swing.JPanel {
         hintTitles = new JLabel[]{ hintTitle1, hintTitle2, hintTitle3 };
         hintDescs = new JLabel[]{ hintDesc1, hintDesc2, hintDesc3 };
 
-        clearHints();
-        
-        Theme.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
-        Theme.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
-        
+        updateTheme();
+        clearHints();   
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")

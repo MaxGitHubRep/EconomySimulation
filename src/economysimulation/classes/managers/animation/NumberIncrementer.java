@@ -10,9 +10,7 @@ import javax.swing.Timer;
  * @author Max Carter
  */
 public class NumberIncrementer {
-    
-    // EXPERIMENTAL CLASS - DOESN'T ALL WORK YET
-    
+
     private Timer timer;
     
     private JLabel label;

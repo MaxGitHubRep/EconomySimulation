@@ -35,8 +35,8 @@ public class Tutorial extends javax.swing.JPanel {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
-        Theme.applyPanelThemes(new JPanel[]{}, new JPanel[]{}, backPanels, colorPanels);
-        Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous, titleQuit }, new JLabel[]{});
+        Theme.applyPanelThemes(null, new JPanel[]{}, backPanels, colorPanels);
+        Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous, titleQuit }, null);
     }
     
     @SuppressWarnings("unchecked")

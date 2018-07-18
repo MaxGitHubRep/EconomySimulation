@@ -80,9 +80,13 @@ public class BudgetList extends javax.swing.JPanel {
     private static void updatePercent(boolean animate) {
         if (!animate) total.setText("£" + Component.getPublicSpendingTotal(true) + "/" + format.format(Component.ANNUAL_BUDGET) + "bn");
         spending.setText("£" + slider.getValue() + "bn");
-        
-        
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
+    public static void updateTheme() {
+        Theme.applyPanelThemes(new JPanel[]{ subBack, saveChangesPanel, picPanel }, null, backPanels, colorPanels);
+        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, total, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
+    }//</editor-fold> 
     
     public BudgetList() {
         initComponents();
@@ -102,8 +106,7 @@ public class BudgetList extends javax.swing.JPanel {
         addSliderListener(slider);
         applySelectedType(0);
         
-        Theme.applyPanelThemes(new JPanel[]{ this, subBack, saveChangesPanel, picPanel }, new JPanel[]{}, backPanels, colorPanels);
-        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, total, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, new JLabel[]{});
+        updateTheme();
     }
 
     @SuppressWarnings("unchecked")
@@ -118,7 +121,7 @@ public class BudgetList extends javax.swing.JPanel {
         color2 = new javax.swing.JPanel();
         arrow2 = new javax.swing.JLabel();
         title2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        mainBack = new javax.swing.JPanel();
         subBack = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         slider = new javax.swing.JSlider();
@@ -240,7 +243,7 @@ public class BudgetList extends javax.swing.JPanel {
                     .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBackground(new java.awt.Color(204, 0, 0));
+        mainBack.setBackground(new java.awt.Color(204, 0, 0));
 
         subBack.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -370,18 +373,18 @@ public class BudgetList extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout mainBackLayout = new javax.swing.GroupLayout(mainBack);
+        mainBack.setLayout(mainBackLayout);
+        mainBackLayout.setHorizontalGroup(
+            mainBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainBackLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(subBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        mainBackLayout.setVerticalGroup(
+            mainBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainBackLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(subBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -632,7 +635,7 @@ public class BudgetList extends javax.swing.JPanel {
                         .addComponent(panel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -645,7 +648,7 @@ public class BudgetList extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -679,7 +682,7 @@ public class BudgetList extends javax.swing.JPanel {
     public static javax.swing.JLabel arrow6;
     public static javax.swing.JLabel arrow7;
     public static javax.swing.JLabel arrow8;
-    private javax.swing.JLabel bud;
+    public static javax.swing.JLabel bud;
     private static javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
     private javax.swing.JPanel color3;
@@ -688,12 +691,12 @@ public class BudgetList extends javax.swing.JPanel {
     private javax.swing.JPanel color6;
     private javax.swing.JPanel color7;
     private javax.swing.JPanel color8;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JLabel max;
-    private javax.swing.JLabel min;
+    private javax.swing.JPanel mainBack;
+    public static javax.swing.JLabel max;
+    public static javax.swing.JLabel min;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JPanel panel3;
@@ -703,21 +706,21 @@ public class BudgetList extends javax.swing.JPanel {
     private javax.swing.JPanel panel7;
     private javax.swing.JPanel panel8;
     private javax.swing.JLabel picHold;
-    private javax.swing.JPanel picPanel;
+    public static javax.swing.JPanel picPanel;
     public static javax.swing.JLabel saveChanges;
-    private javax.swing.JPanel saveChangesPanel;
+    public static javax.swing.JPanel saveChangesPanel;
     public static javax.swing.JSlider slider;
     public static javax.swing.JLabel spending;
-    private javax.swing.JPanel subBack;
+    public static javax.swing.JPanel subBack;
     public static javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
-    private javax.swing.JLabel title2;
-    private javax.swing.JLabel title3;
-    private javax.swing.JLabel title4;
-    private javax.swing.JLabel title5;
-    private javax.swing.JLabel title6;
-    private javax.swing.JLabel title7;
-    private javax.swing.JLabel title8;
+    public static javax.swing.JLabel title1;
+    public static javax.swing.JLabel title2;
+    public static javax.swing.JLabel title3;
+    public static javax.swing.JLabel title4;
+    public static javax.swing.JLabel title5;
+    public static javax.swing.JLabel title6;
+    public static javax.swing.JLabel title7;
+    public static javax.swing.JLabel title8;
     public static javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
 }

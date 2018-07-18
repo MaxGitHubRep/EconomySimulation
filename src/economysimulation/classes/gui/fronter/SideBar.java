@@ -62,6 +62,12 @@ public class SideBar extends javax.swing.JPanel {
         });
     }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
+    public static void updateTheme() {
+        Theme.applyPanelThemes(null, null, backPanels, colorPanels);
+        Theme.applyTextThemes(titles, null);
+    }//</editor-fold> 
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public SideBar() {
         initComponents();
@@ -87,9 +93,7 @@ public class SideBar extends javax.swing.JPanel {
             addButtonFormat(i);
         }
         
-        Theme.applyPanelThemes(new JPanel[]{ this }, new JPanel[]{},backPanels, colorPanels);
-        Theme.applyTextThemes(titles, new JLabel[]{});
-        
+        updateTheme();
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")
@@ -126,6 +130,7 @@ public class SideBar extends javax.swing.JPanel {
         colorPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(400, 685));
 
         backPanel1.setBackground(new java.awt.Color(255, 255, 255));

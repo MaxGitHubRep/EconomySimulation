@@ -109,8 +109,13 @@ public class RateList extends javax.swing.JPanel {
     
     private static void updatePercent() {
         percent.setText((double) slider.getValue() / 10 + "%");
-        
     }
+    
+    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
+    public static void updateTheme() {
+        Theme.applyPanelThemes(new JPanel[]{ displayPanel }, null,  new JPanel[]{ panel1, panel2, panel3, saveChangesPanel },  new JPanel[]{ color1, color2, color3, panelPic });
+        Theme.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
+    }//</editor-fold> 
     
     public RateList() {
         initComponents();
@@ -129,10 +134,8 @@ public class RateList extends javax.swing.JPanel {
         }
         Format.addButtonFormat(saveChangesPanel, panelPic);
         
+        updateTheme();
         applySelectedType(0);
-        
-        Theme.applyPanelThemes(new JPanel[]{ this, displayPanel }, new JPanel[]{},  new JPanel[]{ panel1, panel2, panel3, saveChangesPanel },  new JPanel[]{ color1, color2, color3, panelPic });
-        Theme.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, new JLabel[]{});
     }
 
     @SuppressWarnings("unchecked")
@@ -448,22 +451,22 @@ public class RateList extends javax.swing.JPanel {
     public static javax.swing.JPanel color1;
     public static javax.swing.JPanel color2;
     public static javax.swing.JPanel color3;
-    private javax.swing.JPanel displayPanel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel max;
-    private javax.swing.JLabel min;
-    private javax.swing.JPanel panel1;
-    private javax.swing.JPanel panel2;
-    private javax.swing.JPanel panel3;
-    private javax.swing.JPanel panelPic;
+    public static javax.swing.JPanel displayPanel;
+    public static javax.swing.JPanel jPanel1;
+    public static javax.swing.JLabel max;
+    public static javax.swing.JLabel min;
+    public static javax.swing.JPanel panel1;
+    public static javax.swing.JPanel panel2;
+    public static javax.swing.JPanel panel3;
+    public static javax.swing.JPanel panelPic;
     public static javax.swing.JLabel percent;
     public static javax.swing.JLabel saveChanges;
-    private javax.swing.JPanel saveChangesPanel;
+    public static javax.swing.JPanel saveChangesPanel;
     public static javax.swing.JSlider slider;
-    private javax.swing.JLabel tickHold;
+    public static javax.swing.JLabel tickHold;
     public static javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
-    private javax.swing.JLabel title2;
-    private javax.swing.JLabel title3;
+    public static javax.swing.JLabel title1;
+    public static javax.swing.JLabel title2;
+    public static javax.swing.JLabel title3;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,9 @@
 package economysimulation.classes.managers.themes;
 
 import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.fronter.SideBar;
+import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.gui.subpanels.RateList;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,35 +27,52 @@ public class Theme {
         
     }
     
+    public static void updateAllPanelThemes() {
+        GameHold.updateTheme();
+        SideBar.updateTheme();
+        BudgetList.updateTheme();
+        RateList.updateTheme();
+    }
+    
     public static void applyTextThemes(JLabel[] primaryTextLabels, JLabel[] secondaryTextLabels) {
-        
-        for (JLabel text : primaryTextLabels) {
-            text.setForeground(primaryText);
+        if (primaryTextLabels != null) {
+            for (JLabel text : primaryTextLabels) {
+                text.setForeground(primaryText);
+            }
         }
         
-        for (JLabel text : secondaryTextLabels) {
-            text.setForeground(secondaryText);
+        if (secondaryTextLabels != null) {
+            for (JLabel text : secondaryTextLabels) {
+                text.setForeground(secondaryText);
+            }
         }
-        
+ 
     }
     
     public static void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels, JPanel[] primaryHoverPanels, JPanel[] secondaryHoverPanels) {
-        for (JPanel panel : primaryBackPanels) {
-            panel.setBackground(primaryBack);
+        if (primaryBackPanels != null) {
+            for (JPanel panel : primaryBackPanels) {
+                panel.setBackground(primaryBack);
+            }
+        }
+         
+        if (secondaryBackPanels != null) {
+            for (JPanel panel : secondaryBackPanels) {
+                panel.setBackground(secondaryBack);
+            }
         }
         
-        for (JPanel panel : secondaryBackPanels) {
-            panel.setBackground(secondaryBack);
+        if (primaryHoverPanels != null) {
+            for (JPanel panel : primaryHoverPanels) {
+                panel.setBackground(primaryBack);
+            }
         }
         
-        for (JPanel panel : primaryHoverPanels) {
-            panel.setBackground(primaryBack);
-        }
-        
-        for (JPanel panel : secondaryHoverPanels) {
-            panel.setBackground(primaryBack);
+        if (secondaryHoverPanels != null) {
+            for (JPanel panel : secondaryHoverPanels) {
+                panel.setBackground(primaryBack);
+            }
         }
     }
-    
-    
+     
 }
