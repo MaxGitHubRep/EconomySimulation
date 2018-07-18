@@ -17,17 +17,16 @@ public class NumberIncrementer {
     
     private JLabel label;
     private String text;
-    private int start, end, tickDelay, index;
+    private int start, end, tickDelay;
     private boolean increase;
     
-    public NumberIncrementer(JLabel label, String text, int start, int end, int msTime) {
+    public NumberIncrementer(JLabel label, String text, int start, int end, int tickDelay) {
         this.label = label;
         this.text = text;
         this.start = start;
         this.end = end;
         this.increase = start < end;
-        this.tickDelay = msTime / (Math.abs(end - start) == 0 ? 1 : Math.abs(end - start));
-        this.index = increase ? start : end;
+        this.tickDelay = tickDelay;
     }
     
     public void startIncrementer() { 
@@ -36,16 +35,16 @@ public class NumberIncrementer {
             public void actionPerformed(ActionEvent e) {
                 if (increase) {
                     if (start < end) {
-                        index++;
-                        label.setText(String.format(text, index));
+                        start++;
+                        label.setText(String.format(text, start));
                         startIncrementer();
                     } else {
                         timer.stop();
                     } 
                 } else {
-                    if (end > start) {
-                        index--;
-                        label.setText(String.format(text, index));
+                    if (start > end) {
+                        start--;
+                        label.setText(String.format(text, start));
                         startIncrementer();
                     } else {
                         timer.stop();
