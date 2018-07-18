@@ -4,7 +4,6 @@ import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -28,6 +27,7 @@ public class BudgetList extends javax.swing.JPanel {
     private static JLabel[] arrowLabels;
     public static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits" }; 
     
+    //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 
     private static void applySelectedType(int id) {
         selectedType = id;
         title.setText(titles[id]);
@@ -35,7 +35,7 @@ public class BudgetList extends javax.swing.JPanel {
         saveChanges.setText("Save Changes");
         updatePercent(false);
         
-    }
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to change slider type."> 
     public static void addButtonFormat(int id) {
@@ -72,15 +72,17 @@ public class BudgetList extends javax.swing.JPanel {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (!saveChanges.getText().equals("Save Changes")) saveChanges.setText("Save Changes");
+                updatePercent(true);
             }
         });
         
     }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Updates the value of money displayed."> 
     private static void updatePercent(boolean animate) {
         if (!animate) total.setText("£" + Component.getPublicSpendingTotal(true) + "/" + format.format(Component.ANNUAL_BUDGET) + "bn");
         spending.setText("£" + slider.getValue() + "bn");
-    }
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
@@ -88,6 +90,7 @@ public class BudgetList extends javax.swing.JPanel {
         Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, total, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
     }//</editor-fold> 
     
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public BudgetList() {
         initComponents();
         
@@ -107,7 +110,7 @@ public class BudgetList extends javax.swing.JPanel {
         applySelectedType(0);
         
         updateTheme();
-    }
+    }//</editor-fold>
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
