@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.Color;
@@ -32,41 +33,36 @@ public class BudgetList extends javax.swing.JPanel {
         title.setText(titles[id]);
         slider.setValue(Component.BUDGET_VARS[id]);
         saveChanges.setText("Save Changes");
-        updatePercent();
+        updatePercent(false);
         
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to change slider type."> 
     public static void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
+                arrowLabels[selectedType].setIcon(null);
+                arrowLabels[id].setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow" + (id > 3 ? 2 : 1) + "40.png")));
                 applySelectedType(id);
-                
-                for (int i = 0; i < colorPanels.length; i++) {
-                    if (i == id) {
-                        arrowLabels[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow" + (id > 3 ? 2 : 1) + "40.png")));
-                    } else {
-                        arrowLabels[i].setIcon(null);
-                    }
-                }
+
             }
-            
         });
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
     public static void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
-                Component.BUDGET_VARS[selectedType] = slider.getValue();
-                updatePercent();
-                saveChanges.setText("Changes Saved");
+                if (Component.BUDGET_VARS[selectedType] != slider.getValue()) {
+                    int spending = Component.getPublicSpendingTotal(true);
+                    new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET), spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
+                    Component.BUDGET_VARS[selectedType] = slider.getValue();
+                    updatePercent(true);
+                    saveChanges.setText("Changes Saved");
+                }
             }
-            
         });
     }//</editor-fold>
     
@@ -75,17 +71,16 @@ public class BudgetList extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                saveChanges.setText("Save Changes");
-                updatePercent();
+                if (!saveChanges.getText().equals("Save Changes")) saveChanges.setText("Save Changes");
             }
         });
         
     }//</editor-fold>
     
-    private static void updatePercent() {
+    private static void updatePercent(boolean animate) {
+        if (!animate) total.setText("£" + Component.getPublicSpendingTotal(true) + "/" + format.format(Component.ANNUAL_BUDGET) + "bn");
         spending.setText("£" + slider.getValue() + "bn");
-        int tempSpending = Component.getPublicSpendingTotal(true);
-        total.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
+        
         
     }
     
@@ -97,14 +92,14 @@ public class BudgetList extends javax.swing.JPanel {
         arrowLabels = new JLabel[]{ arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8 };
         
         addSaveChangesFormat(picPanel, saveChangesPanel);
-        addSliderListener(slider);
-        
+        Format.addButtonFormat(saveChangesPanel, picPanel);
+
         for (int i = 0; i < backPanels.length; i++) {
             addButtonFormat(i);
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
-        Format.addButtonFormat(saveChangesPanel, picPanel);
-        
+
+        addSliderListener(slider);
         applySelectedType(0);
         
         Theme.applyPanelThemes(new JPanel[]{ this, subBack, saveChangesPanel, picPanel }, new JPanel[]{}, backPanels, colorPanels);
