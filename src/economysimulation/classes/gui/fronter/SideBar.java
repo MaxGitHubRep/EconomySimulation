@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
 import economysimulation.classes.gui.mainpanels.hold.Budget;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
@@ -11,10 +10,12 @@ import economysimulation.classes.gui.mainpanels.hold.Rate;
 import economysimulation.classes.gui.mainpanels.extra.Leaderboards;
 import economysimulation.classes.gui.mainpanels.extra.Preferences;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
+import economysimulation.classes.managers.popup.PopUpFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -24,6 +25,8 @@ import javax.swing.JPanel;
  */
 public class SideBar extends javax.swing.JPanel {
 
+    public static PopUpFrame[] frames;
+    public static boolean[] framed;
     public static JPanel[] backPanels;
     public static JPanel[] colorPanels;
     public static JPanel[] opPanels;
@@ -52,13 +55,34 @@ public class SideBar extends javax.swing.JPanel {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (id <= 1) {
+                    if (framed[id]) {
+                        framed[id] = false;
+                        frames[id].dispose();
+                    }
+                }
                 try {
                     selectOption(opPanels[id], titles[id], descriptions[id]);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-            
+        });
+        
+        if (id <= 1)
+        backPanels[id].addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (!framed[id]) {
+                    framed[id] = true;
+                    try {
+                        frames[id] = new PopUpFrame(opPanels[id], titles[id].getText());
+                        frames[id].createPopUpFrame();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
         });
     }//</editor-fold>
     
@@ -87,6 +111,12 @@ public class SideBar extends javax.swing.JPanel {
             new Preferences(),
             new QuitSim()
         };
+        
+        frames = new PopUpFrame[2];
+        framed = new boolean[2];
+        for (int i = 0; i < framed.length; i++) {
+            framed[i] = false;
+        }
         
         for (int i = 0; i < opPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
