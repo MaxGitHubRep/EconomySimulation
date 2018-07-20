@@ -4,6 +4,7 @@ import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.fronter.SideBar;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.managers.popup.PopUpFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +33,9 @@ public class Theme {
         SideBar.updateTheme();
         BudgetList.updateTheme();
         RateList.updateTheme();
+        for (int i = 0; i < SideBar.framed.length; i++) {
+            if (SideBar.framed[i]) SideBar.frames[i].updateTheme();
+        }
     }
     
     public static void applyTextThemes(JLabel[] primaryTextLabels, JLabel[] secondaryTextLabels) {
