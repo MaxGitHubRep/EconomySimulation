@@ -57,7 +57,7 @@ public class BudgetList extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (Component.BUDGET_VARS[selectedType] != slider.getValue()) {
                     int spending = Component.getPublicSpendingTotal(true);
-                    new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET), spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
+                    new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
                     Component.BUDGET_VARS[selectedType] = slider.getValue();
                     updatePercent(true);
                     saveChanges.setText("Changes Saved");
@@ -279,7 +279,7 @@ public class BudgetList extends javax.swing.JPanel {
         total.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         total.setForeground(new java.awt.Color(204, 0, 0));
         total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        total.setText("£850/750bn (99%)");
+        total.setText("£850/750bn");
 
         saveChangesPanel.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -449,7 +449,7 @@
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="&#xa3;850/750bn (99%)"/>
+                <Property name="text" type="java.lang.String" value="&#xa3;850/750bn"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
