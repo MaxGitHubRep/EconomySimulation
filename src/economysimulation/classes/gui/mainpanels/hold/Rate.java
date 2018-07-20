@@ -1,4 +1,4 @@
-package economysimulation.classes.gui.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.Methods;
 /**

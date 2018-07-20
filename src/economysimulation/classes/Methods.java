@@ -4,7 +4,7 @@ import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
 import static economysimulation.classes.algorithms.Component.quarterIndex;
 import economysimulation.classes.gui.fronter.GameHold;
-import economysimulation.classes.gui.mainpanels.sim.Rate;
+import economysimulation.classes.gui.mainpanels.hold.Rate;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.managers.themes.ThemeTypes;
