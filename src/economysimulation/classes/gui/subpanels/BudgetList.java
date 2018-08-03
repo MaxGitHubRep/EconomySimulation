@@ -169,6 +169,7 @@ public class BudgetList extends javax.swing.JPanel {
         setOpaque(false);
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
+        panel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color1.setBackground(new java.awt.Color(255, 255, 255));
         color1.setMinimumSize(new java.awt.Dimension(40, 80));
@@ -209,6 +210,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel2.setBackground(new java.awt.Color(255, 255, 255));
+        panel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -282,6 +284,7 @@ public class BudgetList extends javax.swing.JPanel {
         total.setText("£850/750bn");
 
         saveChangesPanel.setBackground(new java.awt.Color(255, 255, 255));
+        saveChangesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         saveChanges.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         saveChanges.setForeground(new java.awt.Color(204, 0, 0));
@@ -394,6 +397,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel3.setBackground(new java.awt.Color(255, 255, 255));
+        panel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -432,6 +436,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel4.setBackground(new java.awt.Color(255, 255, 255));
+        panel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -470,6 +475,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel5.setBackground(new java.awt.Color(255, 255, 255));
+        panel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -509,6 +515,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel6.setBackground(new java.awt.Color(255, 255, 255));
+        panel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -548,6 +555,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel7.setBackground(new java.awt.Color(255, 255, 255));
+        panel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -587,6 +595,7 @@ public class BudgetList extends javax.swing.JPanel {
         );
 
         panel8.setBackground(new java.awt.Color(255, 255, 255));
+        panel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         color8.setBackground(new java.awt.Color(255, 255, 255));
 

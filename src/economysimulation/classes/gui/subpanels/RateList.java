@@ -170,6 +170,7 @@ public class RateList extends javax.swing.JPanel {
         setOpaque(false);
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
+        panel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         title1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title1.setForeground(new java.awt.Color(204, 0, 0));
@@ -200,8 +201,8 @@ public class RateList extends javax.swing.JPanel {
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panel1Layout.setVerticalGroup(
@@ -211,6 +212,7 @@ public class RateList extends javax.swing.JPanel {
         );
 
         panel2.setBackground(new java.awt.Color(255, 255, 255));
+        panel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel2.setPreferredSize(new java.awt.Dimension(337, 100));
 
         title2.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -249,6 +251,7 @@ public class RateList extends javax.swing.JPanel {
         );
 
         panel3.setBackground(new java.awt.Color(255, 255, 255));
+        panel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel3.setPreferredSize(new java.awt.Dimension(337, 100));
 
         title3.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -305,6 +308,7 @@ public class RateList extends javax.swing.JPanel {
         slider.setOpaque(false);
 
         saveChangesPanel.setBackground(new java.awt.Color(255, 255, 255));
+        saveChangesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         panelPic.setBackground(new java.awt.Color(255, 255, 255));
 

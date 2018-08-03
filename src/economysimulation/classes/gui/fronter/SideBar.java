@@ -164,6 +164,7 @@ public class SideBar extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(400, 685));
 
         backPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleGov.setBackground(new java.awt.Color(255, 255, 255));
         titleGov.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -204,6 +205,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleBudget.setBackground(new java.awt.Color(255, 255, 255));
         titleBudget.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -244,6 +246,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleCorp.setBackground(new java.awt.Color(255, 255, 255));
         titleCorp.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -284,6 +287,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleCons.setBackground(new java.awt.Color(255, 255, 255));
         titleCons.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -324,6 +328,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleBankr.setBackground(new java.awt.Color(255, 255, 255));
         titleBankr.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -364,6 +369,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleOverview.setBackground(new java.awt.Color(255, 255, 255));
         titleOverview.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -404,6 +410,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleLB.setBackground(new java.awt.Color(255, 255, 255));
         titleLB.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -444,6 +451,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titlePreferences.setBackground(new java.awt.Color(255, 255, 255));
         titlePreferences.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
@@ -484,6 +492,7 @@ public class SideBar extends javax.swing.JPanel {
         );
 
         backPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        backPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         titleExit.setBackground(new java.awt.Color(255, 255, 255));
         titleExit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N

@@ -126,16 +126,19 @@ public class Preferences extends javax.swing.JPanel {
         down.setForeground(new java.awt.Color(204, 0, 0));
         down.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         down.setText("\\/");
+        down.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         up.setFont(new java.awt.Font("Agency FB", 1, 48)); // NOI18N
         up.setForeground(new java.awt.Color(204, 0, 0));
         up.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         up.setText("/\\");
+            up.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
             applyBtn.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
             applyBtn.setForeground(new java.awt.Color(204, 0, 0));
             applyBtn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             applyBtn.setText("Apply");
+            applyBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
             javax.swing.GroupLayout themeSwapperPanelLayout = new javax.swing.GroupLayout(themeSwapperPanel);
             themeSwapperPanel.setLayout(themeSwapperPanelLayout);

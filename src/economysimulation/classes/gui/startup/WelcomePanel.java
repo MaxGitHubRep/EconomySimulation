@@ -215,9 +215,11 @@ public class WelcomePanel extends javax.swing.JPanel {
         enterUsername.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         enterUsername.setText("Username");
         enterUsername.setBorder(null);
+        enterUsername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         enterUsername.setOpaque(false);
 
         back1.setBackground(new java.awt.Color(255, 255, 255));
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         co1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -258,6 +260,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         );
 
         back2.setBackground(new java.awt.Color(255, 255, 255));
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         co2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -298,6 +301,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         );
 
         back3.setBackground(new java.awt.Color(255, 255, 255));
+        back3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         co3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -338,6 +342,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         );
 
         back4.setBackground(new java.awt.Color(255, 255, 255));
+        back4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         co4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -417,6 +422,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         );
 
         back6.setBackground(new java.awt.Color(255, 255, 255));
+        back6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back6MouseClicked(evt);

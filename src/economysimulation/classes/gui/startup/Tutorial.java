@@ -109,6 +109,7 @@ public class Tutorial extends javax.swing.JPanel {
         );
 
         back1.setBackground(new java.awt.Color(255, 255, 255));
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back1MouseClicked(evt);
@@ -148,6 +149,7 @@ public class Tutorial extends javax.swing.JPanel {
         );
 
         back2.setBackground(new java.awt.Color(255, 255, 255));
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         col2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -185,6 +187,7 @@ public class Tutorial extends javax.swing.JPanel {
         );
 
         back3.setBackground(new java.awt.Color(255, 255, 255));
+        back3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         col3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -222,6 +225,7 @@ public class Tutorial extends javax.swing.JPanel {
         );
 
         back4.setBackground(new java.awt.Color(255, 255, 255));
+        back4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back4MouseClicked(evt);
@@ -286,7 +290,7 @@ public class Tutorial extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(govPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 6, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +311,7 @@ public class Tutorial extends javax.swing.JPanel {
                         .addComponent(govPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(budgetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
