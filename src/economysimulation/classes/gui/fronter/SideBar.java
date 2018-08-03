@@ -25,11 +25,17 @@ import javax.swing.JPanel;
  */
 public class SideBar extends javax.swing.JPanel {
 
+    private static int selectedOption = 999;
+    private static boolean[] loaded;
+    
+      private static int dragPanels = 6;  
     public static PopUpFrame[] frames;
     public static boolean[] framed;
+    
     public static JPanel[] backPanels;
     public static JPanel[] colorPanels;
     public static JPanel[] opPanels;
+    
     public static JLabel[] titles;
     public static String[] descriptions = new String[]{
         "Change the tax rates for consumers and firms, and change interest rates.<br>You can also check out the economic quarterly growth pattern",
@@ -55,12 +61,15 @@ public class SideBar extends javax.swing.JPanel {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (id <= 1) {
+                if (id < dragPanels) {
+                    if (!loaded[id]) loaded[id] = true;
+                    
                     if (framed[id]) {
                         framed[id] = false;
                         frames[id].dispose();
                     }
                 }
+                selectedOption = id;
                 try {
                     selectOption(opPanels[id], titles[id], descriptions[id]);
                 } catch (Exception ex) {
@@ -69,11 +78,12 @@ public class SideBar extends javax.swing.JPanel {
             }
         });
         
-        if (id <= 1)
+        if (id < dragPanels)
         backPanels[id].addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (!framed[id]) {
+                if (!framed[id] && selectedOption != id && loaded[id]) {
+                    
                     framed[id] = true;
                     try {
                         frames[id] = new PopUpFrame(opPanels[id], titles[id].getText());
@@ -112,8 +122,10 @@ public class SideBar extends javax.swing.JPanel {
             new QuitSim()
         };
         
-        frames = new PopUpFrame[2];
-        framed = new boolean[2];
+        loaded = new boolean[titles.length];
+        
+        frames = new PopUpFrame[dragPanels];
+        framed = new boolean[dragPanels];
         for (int i = 0; i < framed.length; i++) {
             framed[i] = false;
         }
