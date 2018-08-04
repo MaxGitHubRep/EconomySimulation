@@ -12,12 +12,14 @@ public class Component {
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
             UNEMPLOYMENT = 4.2, EMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
             PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
-            MIN_WAGE = 0.000000008, POPULATION = 100000000, WORKERS,
+            MIN_WAGE = 0.000000008, POPULATION = 1000000, WORKERS,
             
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
             DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
             GOV_BORROWING, TAXATION, ANNUAL_BUDGET = 750, FIRM_PROFITS,
             DEMAND, SUPPLY, COST_OF_PRODUCTION, WAGES, RESOURCE_COST;
+    
+    //variables that make up gdp will need a "current" variable, and a "total" variable (latter for gdp count)
     
     // Budget variables
     public static int[] BUDGET_VARS = new int[]{ 50, 50, 50, 50, 50, 50, 50, 50 };
@@ -64,7 +66,7 @@ public class Component {
     private static double getConsConfidence() {
         double confidence = 1;
         
-        confidence = confidence * (EMPLOYMENT/100);//change in gdp/growth
+        //confidence = confidence * (EMPLOYMENT/100);//change in gdp/growth
         
         return confidence;
     }
@@ -83,23 +85,23 @@ public class Component {
         
         FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1))/365;
 
-        if (COST_OF_PRODUCTION > CONSUMPTION) {
+        if (COST_OF_PRODUCTION > FIRM_PROFITS && UNEMPLOYMENT < 99) {
             UNEMPLOYMENT++;
-        } else {
-            EMPLOYMENT++;
+        } else if (UNEMPLOYMENT > 1) {
+            UNEMPLOYMENT--;
         }
         
         CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
         CONS_CONFIDENCE = getConsConfidence();
-        
-        INVESTMENT = FIRM_PROFITS * CORP_CONFIDENCE;
+
+        INVESTMENT = (FIRM_PROFITS * CORP_CONFIDENCE) - COST_OF_PRODUCTION;
 
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
         
-        System.out.println("MPC: " + MPC + ", CONS: " + CONSUMPTION + ", COP: " + COST_OF_PRODUCTION);
+        System.out.println("MPC: " + MPC + ", CONS: " + CONSUMPTION + ", COP: " + COST_OF_PRODUCTION + ", E/U: " + UNEMPLOYMENT);
         System.out.println("FP: " + FIRM_PROFITS + ", wag: " + WAGES + ", Inv: " + INVESTMENT);
         
-        CONSUMPTION = MPC * ( (MIN_WAGE * 8 * POPULATION) + BUDGET_VARS[7] ) * (1 - (CONS_TAX/100));
+        CONSUMPTION = MPC * ( (MIN_WAGE * 8 * WORKERS) + BUDGET_VARS[7] ) * (1 - (CONS_TAX/100));
         
         
     }
