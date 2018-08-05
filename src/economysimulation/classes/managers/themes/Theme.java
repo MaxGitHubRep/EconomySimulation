@@ -4,7 +4,6 @@ import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.fronter.SideBar;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
-import economysimulation.classes.managers.popup.PopUpFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -39,43 +38,35 @@ public class Theme {
     }
     
     public static void applyTextThemes(JLabel[] primaryTextLabels, JLabel[] secondaryTextLabels) {
-        if (primaryTextLabels != null) {
+        if (primaryTextLabels != null && secondaryTextLabels != null) {
             for (JLabel text : primaryTextLabels) {
                 text.setForeground(primaryText);
             }
-        }
-        
-        if (secondaryTextLabels != null) {
             for (JLabel text : secondaryTextLabels) {
                 text.setForeground(secondaryText);
             }
+            
+        } else {
+            throw new NullPointerException();
         }
- 
     }
     
     public static void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels, JPanel[] primaryHoverPanels, JPanel[] secondaryHoverPanels) {
-        if (primaryBackPanels != null) {
+        if (primaryBackPanels != null && secondaryBackPanels != null && primaryHoverPanels != null && secondaryHoverPanels != null) {
             for (JPanel panel : primaryBackPanels) {
                 panel.setBackground(primaryBack);
             }
-        }
-         
-        if (secondaryBackPanels != null) {
             for (JPanel panel : secondaryBackPanels) {
                 panel.setBackground(secondaryBack);
             }
-        }
-        
-        if (primaryHoverPanels != null) {
             for (JPanel panel : primaryHoverPanels) {
                 panel.setBackground(primaryBack);
             }
-        }
-        
-        if (secondaryHoverPanels != null) {
             for (JPanel panel : secondaryHoverPanels) {
                 panel.setBackground(primaryBack);
             }
+        } else {
+            throw new NullPointerException();
         }
     }
      
