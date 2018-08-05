@@ -38,35 +38,42 @@ public class Theme {
     }
     
     public static void applyTextThemes(JLabel[] primaryTextLabels, JLabel[] secondaryTextLabels) {
-        if (primaryTextLabels != null && secondaryTextLabels != null) {
+        if (primaryTextLabels != null) {
             for (JLabel text : primaryTextLabels) {
                 text.setForeground(primaryText);
             }
+        }
+        
+        if (secondaryTextLabels != null) {
             for (JLabel text : secondaryTextLabels) {
                 text.setForeground(secondaryText);
             }
-            
-        } else {
-            throw new NullPointerException();
         }
     }
     
     public static void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels, JPanel[] primaryHoverPanels, JPanel[] secondaryHoverPanels) {
-        if (primaryBackPanels != null && secondaryBackPanels != null && primaryHoverPanels != null && secondaryHoverPanels != null) {
+        if (primaryBackPanels != null) {
             for (JPanel panel : primaryBackPanels) {
                 panel.setBackground(primaryBack);
             }
+        }
+         
+        if (secondaryBackPanels != null) {
             for (JPanel panel : secondaryBackPanels) {
                 panel.setBackground(secondaryBack);
             }
+        }
+        
+        if (primaryHoverPanels != null) {
             for (JPanel panel : primaryHoverPanels) {
                 panel.setBackground(primaryBack);
             }
+        }
+        
+        if (secondaryHoverPanels != null) {
             for (JPanel panel : secondaryHoverPanels) {
                 panel.setBackground(primaryBack);
             }
-        } else {
-            throw new NullPointerException();
         }
     }
      
