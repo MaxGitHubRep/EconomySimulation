@@ -10,7 +10,7 @@ public class Component {
     
     public static double
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
-            UNEMPLOYMENT = 4.2, EMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
+            UNEMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
             PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
             MIN_WAGE = 0.000000008, POPULATION = 1000000, WORKERS,
             
@@ -79,9 +79,7 @@ public class Component {
         
         COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST;
         
-        EMPLOYMENT = 100 - UNEMPLOYMENT;
-        
-        WORKERS = POPULATION * (EMPLOYMENT/100);
+        WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
         
         FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1))/365;
 

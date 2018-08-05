@@ -8,7 +8,6 @@ import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -51,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         
         Theme.applySelectedTheme(Methods.theme);
-        Theme.applyPanelThemes(new JPanel[]{ back }, new JPanel[]{}, new JPanel[]{}, new JPanel[]{});
+        Theme.applyPanelThemes(new JPanel[]{ back }, null, null, null);
         addToMainFrame(new WelcomePanel());
     }
 
