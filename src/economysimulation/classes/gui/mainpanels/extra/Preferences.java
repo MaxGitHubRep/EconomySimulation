@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.themes.ThemeTypes;
 import java.awt.Color;
@@ -77,11 +78,14 @@ public class Preferences extends javax.swing.JPanel {
         });
     }//</editor-fold>
     
-
-    public Preferences() {
+    public Preferences() throws InvalidThemeSetupException {
         initComponents();
 
         labels = new JLabel[]{ top, middle, bottom };
+        
+        if (colors.length != themes.length) {
+            throw new InvalidThemeSetupException(themes.length, colors.length);
+        }
         
         addButtonFunction(up, true, false);
         addButtonFunction(down, false, false);

@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.animation;
 
+import economysimulation.classes.managers.exception.IllegalTickValueException;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
@@ -18,7 +19,10 @@ public class NumberIncrementer {
     private int start, end, tickDelay;
     private boolean increase;
     
-    public NumberIncrementer(JLabel label, String text, int start, int end, int tickDelay) {
+    public NumberIncrementer(JLabel label, String text, int start, int end, int tickDelay) throws IllegalTickValueException {
+        if (tickDelay < 1) {
+            throw new IllegalTickValueException(tickDelay);
+        }
         this.label = label;
         this.text = text;
         this.start = start;
