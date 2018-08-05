@@ -3,6 +3,7 @@ package economysimulation.classes;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.historyGDP;
 import static economysimulation.classes.algorithms.Component.quarterIndex;
+import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.hold.Rate;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -48,6 +49,15 @@ public class Methods {
         historyGDP.add(Component.GDP);
         createGraph("GDP", historyGDP, Rate.graphPanel);
         quarterIndex++;
+    }
+    
+    public static void addDraggablePanel(JPanel[] panels) {
+        if (panels == null) {
+            throw new NullPointerException();
+        }
+        for (JPanel dragPanel : panels) {
+            MainFrame.frameDragged(dragPanel);
+        }
     }
     
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 

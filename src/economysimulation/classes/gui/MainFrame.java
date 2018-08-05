@@ -4,6 +4,11 @@ import economysimulation.classes.Methods;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.gui.startup.WelcomePanel;
 import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
@@ -13,6 +18,8 @@ import javax.swing.UIManager;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private static int pX, pY;
+    
     public static void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
@@ -22,8 +29,22 @@ public class MainFrame extends javax.swing.JFrame {
         
     }
 
-    public void shut() {
-        System.exit(0);
+    public static void frameDragged(JPanel dragPanel) {
+        dragPanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                pX = me.getX();
+                pY = me.getY();
+
+            }
+        });
+                
+        dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent me) {
+                for (Frame frame : MainFrame.getFrames()) {
+                    frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
+                } 
+            }
+        });
     }
     
     public MainFrame() {
