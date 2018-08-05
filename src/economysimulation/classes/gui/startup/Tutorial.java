@@ -37,6 +37,7 @@ public class Tutorial extends javax.swing.JPanel {
         
         Theme.applyPanelThemes(null, new JPanel[]{}, backPanels, colorPanels);
         Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous, titleQuit }, null);
+        Methods.addDraggablePanel(new JPanel[]{ this });
     }
     
     @SuppressWarnings("unchecked")

@@ -3,7 +3,7 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.calcComp;
-import economysimulation.classes.gui.mainpanels.sim.Corporation;
+import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -173,7 +173,8 @@ public class GameHold extends javax.swing.JPanel {
         hintDescs = new JLabel[]{ hintDesc1, hintDesc2, hintDesc3 };
 
         updateTheme();
-        clearHints();   
+        clearHints(); 
+        Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")

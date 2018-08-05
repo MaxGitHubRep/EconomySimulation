@@ -171,6 +171,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
         Theme.applyTextThemes(titleLabels, new JLabel[]{});
         
+        Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         timerStart();
     }
 
