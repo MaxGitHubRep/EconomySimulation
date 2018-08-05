@@ -10,6 +10,8 @@ import economysimulation.classes.gui.mainpanels.hold.Rate;
 import economysimulation.classes.gui.mainpanels.extra.Leaderboards;
 import economysimulation.classes.gui.mainpanels.extra.Preferences;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
+import economysimulation.classes.managers.exception.InvalidThemeSetupException;
+import economysimulation.classes.managers.popup.PopUpFrame;
 import economysimulation.classes.managers.popup.PopUpFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
@@ -28,7 +30,7 @@ public class SideBar extends javax.swing.JPanel {
     private static int selectedOption = 999;
     private static boolean[] loaded;
     
-      private static int dragPanels = 6;  
+    private static int dragPanels = 6;  
     public static PopUpFrame[] frames;
     public static boolean[] framed;
     
@@ -103,7 +105,7 @@ public class SideBar extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public SideBar() {
+    public SideBar() throws InvalidThemeSetupException {
         initComponents();
         
         titles = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit };

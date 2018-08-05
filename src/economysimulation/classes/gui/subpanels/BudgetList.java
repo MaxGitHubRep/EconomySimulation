@@ -2,6 +2,7 @@ package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import economysimulation.classes.managers.animation.NumberIncrementer;
+import economysimulation.classes.managers.exception.IllegalTickValueException;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
@@ -57,7 +58,11 @@ public class BudgetList extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (Component.BUDGET_VARS[selectedType] != slider.getValue()) {
                     int spending = Component.getPublicSpendingTotal(true);
-                    new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
+                    try {
+                        new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
+                    } catch (IllegalTickValueException ex) {
+                        ex.printStackTrace();
+                    }
                     Component.BUDGET_VARS[selectedType] = slider.getValue();
                     updatePercent(true);
                     saveChanges.setText("Changes Saved");

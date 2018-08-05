@@ -7,6 +7,7 @@ import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
@@ -156,7 +157,7 @@ public class GameHold extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public GameHold() {
+    public GameHold() throws InvalidThemeSetupException {
         initComponents();
         Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
 
