@@ -21,30 +21,36 @@ import javax.swing.Timer;
  */
 public class WelcomePanel extends javax.swing.JPanel {
 
-    private static final int height = 1000;
-    private static final int width = 1300;
-    private static final int size = 6;
-    private static JLabel[] signals;
-    private static final int max = width/2;
+    private static int
+            height = 1000,
+            width = 1300,
+            size = 6,
+            max = width/2,
+            index = 0,
+            length = 0;
+
+    private static JPanel[] colorPanels, backPanels;
+    private static JLabel[] signals, titleLabels;
+    
     private static boolean rotate = false;
-    private static int index = 0;
-    private static int length = 0;
     private Timer timer;
     
     private static final String USERNAME_GHOST_TEXT = "Username";
-    
-    private static final String[] TITLES = new String[]{ "Solo Classic", "Coop Classic", "Solo Competitive", "Coop Competitive" };
-    private static final String[] DESCS = new String[]{
+    private static final String[]
+            TITLES = new String[]{
+        "Solo Classic", "Coop Classic", "Solo Competitive", "Coop Competitive" },
+            
+            DESCS = new String[]{
         "Model an economy on your own, stats are not saved",
         "Model an economy with a friend, stats are not saved",
         "Single player experience where your stats are saved on the leaderboards",
         "Cooperative experience with a friend where your stats are saved on the leaderboards"
     };
     
-    private static JLabel[] titleLabels;
-    private static JPanel[] colorPanels;
-    private static JPanel[] backPanels;
-    
+    //<editor-fold defaultstate="collapsed" desc="Graph builder."> 
+    /**
+    * Draws the next pixel of graph.
+    */
     private void update() {
         timer.stop();
         animBack.add(signals[index]);
@@ -82,8 +88,13 @@ public class WelcomePanel extends javax.swing.JPanel {
         }
         
         timerStart();
-    }
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Graph timer."> 
+    /**
+    * Initiates the timer to iterate the graph
+    * creation sequence.
+    */
     public void timerStart() { 
         timer = new Timer(10, new AbstractAction() {
             @Override
@@ -97,11 +108,18 @@ public class WelcomePanel extends javax.swing.JPanel {
             }
         }); 
         timer.start();
-    }
+    }//</editor-fold>
     
-    private static void addPanelHoverEvent(JPanel panel, int id) {
+    //<editor-fold defaultstate="collapsed" desc="Panel hover event to display button descritpion."> 
+    /**
+    * Changes the text and font size of the button
+    * to display a description of it's purpose.
+    * 
+    * @param id index of the panel list
+    */
+    private static void addPanelHoverEvent(int id) {
         try {
-            panel.addMouseListener(new MouseAdapter() {
+            backPanels[id].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     titleLabels[id].setText("<html>" + DESCS[id] + ".</html>");
@@ -135,9 +153,9 @@ public class WelcomePanel extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-    }
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public WelcomePanel() {
         initComponents();
         
@@ -148,7 +166,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             if (i < backPanels.length-2) {
-                addPanelHoverEvent(backPanels[i], i);
+                addPanelHoverEvent(i);
             }
         }
         
@@ -169,11 +187,11 @@ public class WelcomePanel extends javax.swing.JPanel {
         sideBarLeft.add(btn);
         
         Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
-        Theme.applyTextThemes(titleLabels, new JLabel[]{});
+        Theme.applyTextThemes(titleLabels, null);
         
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         timerStart();
-    }
+    }//</editor-fold>
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -10,14 +10,13 @@ public class Component {
     
     public static double
             INTEREST_RATE = 0.5, CORP_TAX = 0.5, CONS_TAX = 0.5,
-            UNEMPLOYMENT, REAL_GDP, GDP, CPI_BASE = 1, CPI = 1, MPC,
-            PRICE_PER_UNIT = 1, CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
+            UNEMPLOYMENT, REAL_GDP, GDP, MPC,
+            CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1,
             MIN_WAGE = 0.000000008, POPULATION = 1000000, WORKERS,
             
-            CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS,
-            DISPOSABLE_INCOME, CONS_BORROWING, AUTO_CONS,
-            GOV_BORROWING, TAXATION, ANNUAL_BUDGET = 750, FIRM_PROFITS,
-            DEMAND, SUPPLY, COST_OF_PRODUCTION, WAGES, RESOURCE_COST;
+            CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS, WORK_HOURS_PER_DAY = 8,
+            TAXATION, ANNUAL_BUDGET = 750, FIRM_PROFITS,
+            COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME;
     
     //variables that make up gdp will need a "current" variable, and a "total" variable (latter for gdp count)
     
@@ -33,8 +32,7 @@ public class Component {
     
     
     /**
-    * @param includeTransfer
-    *            Return result with transfer payments included (benefits)
+    * @param includeTransfer Return result with transfer payments included (benefits)
     * @return Sum of budget
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
@@ -77,13 +75,18 @@ public class Component {
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
         
-        COST_OF_PRODUCTION = (MIN_WAGE * WORKERS * 8) + RESOURCE_COST;
+        WAGES = (MIN_WAGE * WORKERS * WORK_HOURS_PER_DAY);
+        COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
         
         WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
         
         FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION) * (FIRM_PROFITS > 0 ? 1 - (CORP_TAX/100) : 1))/365;
 
         if (COST_OF_PRODUCTION > FIRM_PROFITS && UNEMPLOYMENT < 99) {
+            double diff = COST_OF_PRODUCTION - FIRM_PROFITS;
+            if (diff > WAGES) {
+                
+            }
             UNEMPLOYMENT++;
         } else if (UNEMPLOYMENT > 1) {
             UNEMPLOYMENT--;
@@ -99,7 +102,7 @@ public class Component {
         System.out.println("MPC: " + MPC + ", CONS: " + CONSUMPTION + ", COP: " + COST_OF_PRODUCTION + ", E/U: " + UNEMPLOYMENT);
         System.out.println("FP: " + FIRM_PROFITS + ", wag: " + WAGES + ", Inv: " + INVESTMENT);
         
-        CONSUMPTION = MPC * ( (MIN_WAGE * 8 * WORKERS) + BUDGET_VARS[7] ) * (1 - (CONS_TAX/100));
+        CONSUMPTION = MPC * ( WAGES + BUDGET_VARS[7] ) * (1 - (CONS_TAX/100));
         
         
     }
