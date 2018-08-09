@@ -41,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent me) {
                 for (Frame frame : MainFrame.getFrames()) {
-                    if (!frame.getTitle().contains("Hint: "))
+                    if (!frame.getTitle().contains("Hint"))
                     frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
                 } 
             }

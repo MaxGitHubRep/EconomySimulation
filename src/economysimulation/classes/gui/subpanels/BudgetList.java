@@ -74,7 +74,7 @@ public class BudgetList extends javax.swing.JPanel {
                     saveChanges.setText(saveTexts[1]);
                 } else {
                     saveChanges.setText(saveTexts[2]);
-                    new PopUpHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM).createHint();
+                    new PopUpHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
                 }
             }
         });
