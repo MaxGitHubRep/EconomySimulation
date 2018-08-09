@@ -3,7 +3,6 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.calcComp;
-import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -24,45 +23,19 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel {
 
+    private final DecimalFormat
+            f = new DecimalFormat("#00"),
+            fYear = new DecimalFormat("#0000");
+    
+    private final int[]
+            monthSize = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+            times = new int[]{ 0, 0, 0 };
+    
+    public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
+    public static int TICKS_PER_QUARTER = 0, SPEED;
     public final String SPEED_FORMAT = "Speed: %s";
-    private final DecimalFormat f = new DecimalFormat("#00");
-    private final DecimalFormat fYear = new DecimalFormat("#0000");
-    private final int[] monthSize = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    public static int SPEED;
-    public final int SPEED_MID_POINT = 100;
-    public static final int TICKS_IN_QUARTER = 90;
-    public static int TICKS_PER_QUARTER = 0;
-    
     private Timer timer;
-    private int[] times = new int[]{ 0, 0, 0 };
-    
-    public static JPanel[] hintBacks;
-    public static JLabel[] hintTitles;
-    public static JLabel[] hintDescs;
-    public static final int MAX_HINTS = 3;
-      
-    public static void addHint(String title, String desc) {
-        for (int i = MAX_HINTS-1; i >= 0; i--) {
-            if (i+1 < MAX_HINTS) {
-                hintTitles[i+1].setText(hintTitles[i].getText());
-                hintDescs[i+1].setText(hintDescs[i].getText());
-                hintBacks[i+1].setOpaque(true);
-            }
-        }
-        
-        hintTitles[0].setText(title);
-        hintDescs[0].setText(desc);
-        hintBacks[0].setOpaque(true);
-    }
-  
-    public static void clearHints() {
-        for (int i = 0; i < hintTitles.length; i++) {
-            hintTitles[i].setText("");
-            hintDescs[i].setText("");
-            hintBacks[i].setOpaque(false);
-        }
-    }
-    
+
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() {
         Methods.TICKS++;
@@ -168,13 +141,8 @@ public class GameHold extends javax.swing.JPanel {
         
         Format.addButtonFormat(panel1, color1);
         Format.addButtonFormat(panel2, color2);
-        
-        hintBacks = new JPanel[]{ hintBack1, hintBack2, hintBack3 };
-        hintTitles = new JLabel[]{ hintTitle1, hintTitle2, hintTitle3 };
-        hintDescs = new JLabel[]{ hintDesc1, hintDesc2, hintDesc3 };
 
         updateTheme();
-        clearHints(); 
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
 
@@ -196,17 +164,6 @@ public class GameHold extends javax.swing.JPanel {
         color2 = new javax.swing.JPanel();
         rightBar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        hintBack1 = new javax.swing.JPanel();
-        hintTitle1 = new javax.swing.JLabel();
-        hintDesc1 = new javax.swing.JLabel();
-        hintBack2 = new javax.swing.JPanel();
-        hintTitle2 = new javax.swing.JLabel();
-        hintDesc2 = new javax.swing.JLabel();
-        hintBack3 = new javax.swing.JPanel();
-        hintTitle3 = new javax.swing.JLabel();
-        hintDesc3 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
         topBar = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         description = new javax.swing.JLabel();
@@ -373,116 +330,13 @@ public class GameHold extends javax.swing.JPanel {
 
         jLabel1.setText("new sidebar right");
 
-        hintTitle1.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        hintTitle1.setForeground(new java.awt.Color(204, 0, 0));
-        hintTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintTitle1.setText("Your consumption rate is low!");
-
-        hintDesc1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        hintDesc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintDesc1.setText("<hint>");
-        hintDesc1.setToolTipText("");
-        hintDesc1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        javax.swing.GroupLayout hintBack1Layout = new javax.swing.GroupLayout(hintBack1);
-        hintBack1.setLayout(hintBack1Layout);
-        hintBack1Layout.setHorizontalGroup(
-            hintBack1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hintBack1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(hintBack1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hintDesc1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hintTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
-        );
-        hintBack1Layout.setVerticalGroup(
-            hintBack1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(hintBack1Layout.createSequentialGroup()
-                .addComponent(hintTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintDesc1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
-        );
-
-        hintTitle2.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        hintTitle2.setForeground(new java.awt.Color(204, 0, 0));
-        hintTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintTitle2.setText("Your consumption rate is low!");
-
-        hintDesc2.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        hintDesc2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintDesc2.setText("<hint>");
-        hintDesc2.setToolTipText("");
-        hintDesc2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        javax.swing.GroupLayout hintBack2Layout = new javax.swing.GroupLayout(hintBack2);
-        hintBack2.setLayout(hintBack2Layout);
-        hintBack2Layout.setHorizontalGroup(
-            hintBack2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hintBack2Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(hintBack2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hintDesc2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hintTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
-        );
-        hintBack2Layout.setVerticalGroup(
-            hintBack2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(hintBack2Layout.createSequentialGroup()
-                .addComponent(hintTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintDesc2, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
-        );
-
-        hintTitle3.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        hintTitle3.setForeground(new java.awt.Color(204, 0, 0));
-        hintTitle3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintTitle3.setText("Your consumption rate is low!");
-
-        hintDesc3.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        hintDesc3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        hintDesc3.setText("<hint>");
-        hintDesc3.setToolTipText("");
-        hintDesc3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        javax.swing.GroupLayout hintBack3Layout = new javax.swing.GroupLayout(hintBack3);
-        hintBack3.setLayout(hintBack3Layout);
-        hintBack3Layout.setHorizontalGroup(
-            hintBack3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hintBack3Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(hintBack3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(hintDesc3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hintTitle3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
-        );
-        hintBack3Layout.setVerticalGroup(
-            hintBack3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(hintBack3Layout.createSequentialGroup()
-                .addComponent(hintTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintDesc3, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
-        );
-
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("~ Hints ~");
-        jLabel2.setOpaque(true);
-
         javax.swing.GroupLayout rightBarLayout = new javax.swing.GroupLayout(rightBar);
         rightBar.setLayout(rightBarLayout);
         rightBarLayout.setHorizontalGroup(
             rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                    .addComponent(hintBack1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hintBack2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(hintBack3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator4)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                 .addContainerGap())
         );
         rightBarLayout.setVerticalGroup(
@@ -490,17 +344,7 @@ public class GameHold extends javax.swing.JPanel {
             .addGroup(rightBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintBack1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintBack2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(hintBack3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         topBar.setBackground(new java.awt.Color(102, 102, 102));
@@ -614,21 +458,10 @@ public class GameHold extends javax.swing.JPanel {
     public static javax.swing.JPanel color1;
     public static javax.swing.JPanel color2;
     public static javax.swing.JLabel description;
-    private javax.swing.JPanel hintBack1;
-    private javax.swing.JPanel hintBack2;
-    private javax.swing.JPanel hintBack3;
-    private javax.swing.JLabel hintDesc1;
-    private javax.swing.JLabel hintDesc2;
-    private javax.swing.JLabel hintDesc3;
-    private javax.swing.JLabel hintTitle1;
-    private javax.swing.JLabel hintTitle2;
-    private javax.swing.JLabel hintTitle3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
     public static javax.swing.JLabel label1;
     public static javax.swing.JLabel label2;
     public static javax.swing.JLabel labelBudget;
