@@ -33,14 +33,18 @@ public class Methods {
     public static RateList govClass;
     
     public static Color[] theme = ThemeTypes.WHITE;
-    public static int mode = 0;
-    public static String username; //players username
-    public static int TICKS; //how many gamer ticks / days have passed so far
-    public static final int GRAPH_TICKS = 50; //Amount of days present on graph
-    public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
-    public static final int MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3;
+    public static int
+            mode = 0,
+            TICKS,
+            totalHints = 0;
+    public static final int
+            MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3,
+            DEFAULT_SPENDING = 50,
+            GRAPH_TICKS = 50;
     
-    public static final int DEFAULT_SPENDING = 50;
+    public static String username; //players username
+    public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
+    
     public static boolean oneQuarterPassed = false;
     
     public static void updateRealGDPLabel() {
