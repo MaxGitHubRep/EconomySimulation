@@ -1,5 +1,8 @@
 package economysimulation.classes.managers.popup.hint;
 
+import economysimulation.classes.managers.themes.Theme;
+import java.awt.Color;
+
 /**
  *
  * @author Max Carter
@@ -10,8 +13,7 @@ public class Urgency {
             LOW = 0,
             MEDIUM = 1,
             HIGH = 2,
-            SEVERE = 3,
-            NULL = 4;
+            NULL = 3;
     
     public static String getUrgencyString(int urgency) {
         switch (urgency) {
@@ -21,10 +23,21 @@ public class Urgency {
                 return "Medium";
             case HIGH:
                 return "High";
-            case SEVERE:
-                return "Severe";
             default:
                 return "N/A";
+        }
+    }
+    
+    public static Color getUrgencyColor(int urgency) {
+        switch (urgency) {
+            case Urgency.LOW:
+                return new Color(0, 204, 0);
+            case Urgency.MEDIUM:
+                return Color.orange;
+            case Urgency.HIGH:
+                return Color.red;
+            default:
+                return Theme.secondaryHover;
         }
     }
 }
