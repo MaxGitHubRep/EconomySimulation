@@ -1,10 +1,14 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
+import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
+import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.IllegalTickValueException;
+import economysimulation.classes.managers.popup.hint.PopUpHint;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
+import economysimulation.classes.managers.popup.hint.Urgency;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -23,8 +27,9 @@ public class BudgetList extends javax.swing.JPanel {
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
     
-    private static JPanel[] backPanels;
-    private static JPanel[] colorPanels;
+    public static String[] saveTexts = new String[]{ "Spend Money", "Money Spent", "Insufficient Funds" };
+    
+    private static JPanel[] backPanels, colorPanels;
     private static JLabel[] arrowLabels;
     public static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits" }; 
     
@@ -32,8 +37,8 @@ public class BudgetList extends javax.swing.JPanel {
     private static void applySelectedType(int id) {
         selectedType = id;
         title.setText(titles[id]);
-        slider.setValue(Component.BUDGET_VARS[id]);
-        saveChanges.setText("Save Changes");
+        slider.setValue(0);
+        saveChanges.setText(saveTexts[0]);
         updatePercent(false);
         
     }//</editor-fold>
@@ -56,16 +61,20 @@ public class BudgetList extends javax.swing.JPanel {
         backPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (Component.BUDGET_VARS[selectedType] != slider.getValue()) {
-                    int spending = Component.getPublicSpendingTotal(true);
+                int spending = Component.getPublicSpendingTotal(true);
+                if (spending + slider.getValue() <= ANNUAL_BUDGET) { 
                     try {
-                        new NumberIncrementer(total, "£%s/" + format.format(Component.ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue() - Component.BUDGET_VARS[selectedType]), 30).startIncrementer();
+                        new NumberIncrementer(total, "£%s/" + format.format(ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue()), 30).startIncrementer();
                     } catch (IllegalTickValueException ex) {
                         ex.printStackTrace();
                     }
-                    Component.BUDGET_VARS[selectedType] = slider.getValue();
+                    Component.BUDGET_VARS[selectedType]+= slider.getValue();
+                    slider.setValue(0);
                     updatePercent(true);
-                    saveChanges.setText("Changes Saved");
+                    saveChanges.setText(saveTexts[1]);
+                } else {
+                    saveChanges.setText(saveTexts[2]);
+                    new PopUpHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM).createHint();
                 }
             }
         });
@@ -76,7 +85,7 @@ public class BudgetList extends javax.swing.JPanel {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (!saveChanges.getText().equals("Save Changes")) saveChanges.setText("Save Changes");
+                if (!saveChanges.getText().equals(saveTexts[0])) saveChanges.setText(saveTexts[0]);
                 updatePercent(true);
             }
         });
@@ -281,19 +290,19 @@ public class BudgetList extends javax.swing.JPanel {
 
         bud.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         bud.setForeground(new java.awt.Color(204, 0, 0));
-        bud.setText("Budget:");
+        bud.setText("Total Budget:");
 
         total.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         total.setForeground(new java.awt.Color(204, 0, 0));
         total.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        total.setText("£850/750bn");
+        total.setText("£0/250bn");
 
         saveChangesPanel.setBackground(new java.awt.Color(255, 255, 255));
         saveChangesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         saveChanges.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         saveChanges.setForeground(new java.awt.Color(204, 0, 0));
-        saveChanges.setText("Save Changes");
+        saveChanges.setText("Spend Money");
 
         picPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -350,11 +359,12 @@ public class BudgetList extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(max))
+                                .addComponent(max)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(subBackLayout.createSequentialGroup()
-                                .addComponent(bud)
+                                .addComponent(bud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         subBackLayout.setVerticalGroup(

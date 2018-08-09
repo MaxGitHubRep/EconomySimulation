@@ -1,4 +1,4 @@
-package economysimulation.classes.managers.popup;
+package economysimulation.classes.managers.popup.frame;
 
 import economysimulation.classes.managers.themes.Theme;
 import javax.swing.JFrame;
