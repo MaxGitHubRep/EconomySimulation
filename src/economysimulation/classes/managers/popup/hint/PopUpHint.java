@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,6 +25,8 @@ public class PopUpHint extends javax.swing.JFrame {
     
     public PopUpHint(String title, String description, int urgency) {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
+        
         this.title = title;
         this.description = description;
         this.urgency = urgency;

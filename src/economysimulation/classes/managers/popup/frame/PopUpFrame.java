@@ -1,6 +1,7 @@
 package economysimulation.classes.managers.popup.frame;
 
 import economysimulation.classes.managers.themes.Theme;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,6 +18,8 @@ public class PopUpFrame extends JFrame {
         if (panel == null || title == null) {
             throw new NullPointerException();
         }
+        
+        setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
         
         this.panel = panel;
         this.title = title;
