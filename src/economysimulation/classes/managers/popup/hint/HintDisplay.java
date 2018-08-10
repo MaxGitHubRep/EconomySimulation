@@ -12,8 +12,8 @@ public class HintDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public int pixels = 5, urgency;
-    public String title, description;
+    private int urgency;
+    private String title, description;
     
     public HintDisplay(String title, String description, int urgency) {
         initComponents();
@@ -24,7 +24,7 @@ public class HintDisplay extends JPanel {
         createHint();
     }
 
-    public void createHint() {
+    private void createHint() {
         titleLabel.setText((urgency < Urgency.NULL ? "[" + Urgency.getUrgencyString(urgency).toUpperCase() + "] " : "") + "Hint: " + title);
         descLabel.setText("<html>" + description + "</html>");
         

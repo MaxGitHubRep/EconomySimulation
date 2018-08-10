@@ -2,7 +2,6 @@ package economysimulation.classes.managers.popup.hint;
 
 import economysimulation.classes.Methods;
 import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.ui.Format;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -22,13 +21,12 @@ import javax.swing.Timer;
 public class PopUpHint extends javax.swing.JFrame {
 
     private Timer timer;
-    private boolean isRising = true;
+    protected static boolean isRising = false, isShowing = false;
     
-    public static int
-            urgency, pX, pY,
+    private static int
+            pX, pY,
             hintDisplayTime = 5000, risingDelay = 40,
             xCoord = 900;
-    public String title, description;
     
     public PopUpHint(String title, String description, int urgency) {
         initComponents();
@@ -42,13 +40,14 @@ public class PopUpHint extends javax.swing.JFrame {
         this.setTitle("Economy Simulation: Hint #" + Methods.totalHints);
         this.setLocation(1280, 900);
 
+        isShowing = true;
         isRising = true;
         xCoord = 900;
         updateTheme();
         initTimer(isRising);
     }
     
-    public static void frameDragged(JPanel dragPanel) {
+    protected static void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 pX = me.getX();
@@ -71,7 +70,14 @@ public class PopUpHint extends javax.swing.JFrame {
         Theme.applyTextThemes(new JLabel[]{ HintDisplay.descLabel }, null);
     }
     
-    public void close() {
+    private void close() {
+        if (HintManager.titleList.size() > 0) {
+            HintManager.titleList.remove(0);
+            HintManager.descList.remove(0);
+            HintManager.urgencyList.remove(0);
+        }
+        isShowing = false;
+        HintManager.hintDisplayReady();
         this.dispose();
     }
     
@@ -87,7 +93,7 @@ public class PopUpHint extends javax.swing.JFrame {
         initTimer(isRising);
     }
     
-    public void initTimer(boolean rise) {
+    private void initTimer(boolean rise) {
         timer = new Timer(rise ? risingDelay : hintDisplayTime, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {

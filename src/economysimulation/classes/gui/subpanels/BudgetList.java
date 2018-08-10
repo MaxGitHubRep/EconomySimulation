@@ -2,10 +2,9 @@ package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.algorithms.Component;
 import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
-import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.IllegalTickValueException;
-import economysimulation.classes.managers.popup.hint.PopUpHint;
+import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.popup.hint.Urgency;
@@ -74,7 +73,7 @@ public class BudgetList extends javax.swing.JPanel {
                     saveChanges.setText(saveTexts[1]);
                 } else {
                     saveChanges.setText(saveTexts[2]);
-                    new PopUpHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
+                    HintManager.createNewHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
                 }
             }
         });
