@@ -21,7 +21,13 @@ import javax.swing.Timer;
  */
 public class PopUpHint extends javax.swing.JFrame {
 
-    public static int urgency, pX, pY, hintDisplayTime = 5000;
+    private Timer timer;
+    private boolean isRising = true;
+    
+    public static int
+            urgency, pX, pY,
+            hintDisplayTime = 5000, risingDelay = 40,
+            xCoord = 900;
     public String title, description;
     
     public PopUpHint(String title, String description, int urgency) {
@@ -34,10 +40,12 @@ public class PopUpHint extends javax.swing.JFrame {
         Methods.totalHints++;
         this.setVisible(true);
         this.setTitle("Economy Simulation: Hint #" + Methods.totalHints);
-        this.setLocation(1280, 880);
+        this.setLocation(1280, 900);
 
+        isRising = true;
+        xCoord = 900;
         updateTheme();
-        initTimer();
+        initTimer(isRising);
     }
     
     public static void frameDragged(JPanel dragPanel) {
@@ -67,18 +75,32 @@ public class PopUpHint extends javax.swing.JFrame {
         this.dispose();
     }
     
-    public void initTimer() {
-        Timer timer = new Timer(hintDisplayTime, new AbstractAction() {
+    private void exec() {
+        timer.stop();
+        if (xCoord > 880) {
+            xCoord--;
+            this.setLocation(1280, xCoord);
+        } else {
+            isRising = false;
+        }
+        
+        initTimer(isRising);
+    }
+    
+    public void initTimer(boolean rise) {
+        timer = new Timer(rise ? risingDelay : hintDisplayTime, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                close();
+                if (rise) {
+                    exec();
+                } else {
+                    close();
+                }
             }
         }); 
         timer.start();
     }
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
