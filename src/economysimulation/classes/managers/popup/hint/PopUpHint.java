@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.popup.hint;
 
+import economysimulation.classes.managers.shadow.ShadowPanel;
 import economysimulation.classes.Methods;
 import economysimulation.classes.managers.themes.Theme;
 import java.awt.Color;
@@ -26,19 +27,19 @@ public class PopUpHint extends javax.swing.JFrame {
     private static int
             pX, pY,
             hintDisplayTime = 5000, risingDelay = 40,
-            xCoord = 900;
+            xCoord = 900, yCoord = 1280;
     
     public PopUpHint(String title, String description, int urgency) {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
         
         this.setBackground(new Color(0, 0, 0, 0));
-        this.add(new ShadowPanel(10, title, description, urgency));
+        this.add(new ShadowPanel(10, this.getWidth(), this.getHeight(), new HintDisplay(title, description, urgency)));
         
         Methods.totalHints++;
         this.setVisible(true);
         this.setTitle("Economy Simulation: Hint #" + Methods.totalHints);
-        this.setLocation(1280, 900);
+        this.setLocation(yCoord, 900);
 
         isShowing = true;
         isRising = true;
@@ -85,7 +86,7 @@ public class PopUpHint extends javax.swing.JFrame {
         timer.stop();
         if (xCoord > 880) {
             xCoord--;
-            this.setLocation(1280, xCoord);
+            this.setLocation(yCoord, xCoord);
         } else {
             isRising = false;
         }

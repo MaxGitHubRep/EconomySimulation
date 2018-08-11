@@ -1,4 +1,4 @@
-package economysimulation.classes.managers.popup.hint;
+package economysimulation.classes.managers.shadow;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,18 +16,16 @@ public class ShadowPanel extends JPanel {
 
     public int pixels;
 
-    public ShadowPanel(int pix, String title, String description, int urgency) {
+    public ShadowPanel(int pix, int width, int height, JPanel panel) {
         this.pixels = pix;
-        this.setSize(520, 120);
+        setSize(width, height);
         
-        JPanel hintPanel = new HintDisplay(title, description, urgency);
-        this.add(hintPanel);
-        hintPanel.setSize(500, 100);
-        hintPanel.setLocation(pixels, pixels);
+        add(panel);
+        panel.setSize(width - (pixels * 2), height - (pixels * 2));
+        panel.setLocation(pixels, pixels);
         
-        javax.swing.border.Border border = BorderFactory.createEmptyBorder(pixels, pixels, pixels, pixels);
-        this.setBorder(BorderFactory.createCompoundBorder(this.getBorder(), border));
-        this.setLayout(new BorderLayout());
+        setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(pixels, pixels, pixels, pixels)));
+        setLayout(new BorderLayout());
     }
 
     @Override
