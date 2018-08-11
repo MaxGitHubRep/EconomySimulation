@@ -1,5 +1,6 @@
 package economysimulation.classes.algorithms;
 
+import economysimulation.classes.managers.exception.InvalidSectorException;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +17,13 @@ public class Component {
             
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS, WORK_HOURS_PER_DAY = 8,
             TAXATION, ANNUAL_BUDGET = 250, FIRM_PROFITS,
+            TOTAL_CORP_PROFITS, TOTAL_INVESTMENT, TOTAL_CONSUMPTION, 
             COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME;
     
     //variables that make up gdp will need a "current" variable, and a "total" variable (latter for gdp count)
     
     // Budget variables
-    public static int[] BUDGET_VARS = new int[]{ 0, 0, 0 ,0 ,0 ,0 ,0 ,0 };
+    public static int[] BUDGET_VARS = new int[]{ 0, 0, 0, 0, 0, 0, 0, 0 };
     
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     public static int quarterIndex = 0;
@@ -47,13 +49,16 @@ public class Component {
     }
     
     //NHS, Education, Transport, Food, Infrastructure, Defence, Science, Benefits
-    public static int getPublicSpendingSector(int id) {
+    public static int getPublicSpendingSector(int id) throws InvalidSectorException {
+        if (id < 0 || id > BUDGET_VARS.length) {
+            throw new InvalidSectorException();
+        }
         return BUDGET_VARS[id];
     }
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void calculateGDP() {
-        GDP = (CONSUMPTION + INVESTMENT + getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
+        GDP = (TOTAL_CONSUMPTION + TOTAL_INVESTMENT + getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
@@ -65,7 +70,7 @@ public class Component {
     private static double getConsConfidence() {
         double confidence = 1;
         
-        //confidence = confidence * (EMPLOYMENT/100);//change in gdp/growth
+        //if (BUDGET_VARS[0])
         
         return confidence;
     }
@@ -81,15 +86,18 @@ public class Component {
         WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
         
         FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION))/365;
-        CONSUMPTION = MPC * ( WAGES + BUDGET_VARS[7] );
+        CONSUMPTION = MPC * ( WAGES + BUDGET_VARS[Sector.BENEFITS] );
 
         double corpTax = (FIRM_PROFITS * (FIRM_PROFITS > 0 ? (CORP_TAX/100) : 0)),
                consTax = CONSUMPTION * (CONSUMPTION > 0 ? (CONS_TAX/100) : 0);
         
         FIRM_PROFITS -= corpTax;
         CONSUMPTION -= consTax;
-        
         TAXATION += corpTax + consTax;
+        
+        TOTAL_CORP_PROFITS += FIRM_PROFITS;
+        TOTAL_INVESTMENT += INVESTMENT;
+        TOTAL_CONSUMPTION += CONSUMPTION;
                 
         if (COST_OF_PRODUCTION > FIRM_PROFITS && UNEMPLOYMENT < 99) {
             UNEMPLOYMENT++;
@@ -100,7 +108,7 @@ public class Component {
         CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
         CONS_CONFIDENCE = getConsConfidence();
 
-        INVESTMENT = (FIRM_PROFITS - COST_OF_PRODUCTION) * CORP_CONFIDENCE;
+        if ((FIRM_PROFITS - COST_OF_PRODUCTION) > 0) INVESTMENT = (FIRM_PROFITS - COST_OF_PRODUCTION) * CORP_CONFIDENCE;
 
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
         
