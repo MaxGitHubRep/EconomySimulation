@@ -1,7 +1,13 @@
 package economysimulation.classes.managers.popup.hint;
 
-import static economysimulation.classes.managers.popup.hint.PopUpHint.frameDragged;
+import economysimulation.classes.managers.shadow.ShadowFrame;
+import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
+import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -10,29 +16,47 @@ import javax.swing.JPanel;
  */
 public class HintDisplay extends JPanel {
 
-    private static final long serialVersionUID = 1L;
-
-    private int urgency;
-    private String title, description;
-    
-    public HintDisplay(String title, String description, int urgency) {
+    private static int pX, pY;
+            
+    public HintDisplay() {
         initComponents();
+        setSize(500, 100);
         
-        this.title = title;
-        this.description = description;
-        this.urgency = urgency;
-        createHint();
-    }
-
-    private void createHint() {
-        titleLabel.setText((urgency < Urgency.NULL ? "[" + Urgency.getUrgencyString(urgency).toUpperCase() + "] " : "") + "Hint: " + title);
-        descLabel.setText("<html>" + description + "</html>");
-        
-        top.setBackground(Urgency.getUrgencyColor(urgency));
         Format.addButtonFormat(bottom, new JPanel());
+        updateTheme();
         frameDragged(top);
     }
+    
+    protected void createHint(String title, String description, int urgency) {
+        titleLabel.setText((urgency < Urgency.NULL ? "[" + Urgency.getUrgencyString(urgency).toUpperCase() + "] " : "") + "Hint: " + title);
+        descLabel.setText("<html>" + description + "</html>");
+        updateTheme();
+        top.setBackground(Urgency.getUrgencyColor(urgency));
+    }
+    
+    protected static void frameDragged(JPanel dragPanel) {
+        dragPanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                pX = me.getX();
+                pY = me.getY();
+            }
+        });
+                
+        dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent me) {
+                for (Frame frame : ShadowFrame.getFrames()) {
+                    if (frame.getTitle().contains("Hint"))
+                    frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
+                } 
+            }
+        });
+    }
 
+    public static void updateTheme() {
+        Theme.applyPanelThemes(new JPanel[]{ bottom }, null, null, null);
+        Theme.applyTextThemes(new JLabel[]{ descLabel }, null);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,9 +108,7 @@ public class HintDisplay extends JPanel {
         );
         bottomLayout.setVerticalGroup(
             bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(bottomLayout.createSequentialGroup()
-                .addComponent(descLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(descLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -101,8 +123,7 @@ public class HintDisplay extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

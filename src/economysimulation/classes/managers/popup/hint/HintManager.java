@@ -1,6 +1,10 @@
 package economysimulation.classes.managers.popup.hint;
 
-import java.util.ArrayList;
+import economysimulation.classes.Methods;
+import economysimulation.classes.managers.shadow.Duration;
+import economysimulation.classes.managers.shadow.Position;
+import economysimulation.classes.managers.shadow.ShadowFrame;
+import economysimulation.classes.managers.shadow.ShadowSize;
 
 /**
  *
@@ -8,24 +12,21 @@ import java.util.ArrayList;
  */
 public class HintManager {
     
-    protected static ArrayList<String>
-            titleList = new ArrayList<>(),
-            descList = new ArrayList<>();
-    protected static ArrayList<Integer>
-            urgencyList = new ArrayList<>();
-    
+    protected static HintDisplay hintDisplay = new HintDisplay();
+    public static boolean isShowing = false;
+
     public static void createNewHint(String title, String desc, int urgency) {
-        titleList.add(title);
-        descList.add(desc);
-        urgencyList.add(urgency);
-        
-        hintDisplayReady();
+
+        if (!isShowing) {
+            isShowing = true;
+            Methods.totalHints++;
+            hintDisplay.createHint(title, desc, urgency);
+            new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Duration.MEDIUM);
+        }
     }
     
-    protected static void hintDisplayReady() {
-        if (!PopUpHint.isShowing && titleList.size() > 0) {
-            new PopUpHint(titleList.get(0), descList.get(0), urgencyList.get(0));
-        }
+    public static void hintDisplayEnded() {
+        isShowing = false;
     }
     
 }
