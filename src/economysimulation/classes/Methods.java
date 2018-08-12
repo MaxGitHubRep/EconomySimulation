@@ -1,8 +1,8 @@
 package economysimulation.classes;
 
-import economysimulation.classes.algorithms.Component;
-import static economysimulation.classes.algorithms.Component.historyGDP;
-import static economysimulation.classes.algorithms.Component.quarterIndex;
+import economysimulation.classes.economy.Component;
+import static economysimulation.classes.economy.Component.historyGDP;
+import static economysimulation.classes.economy.Component.quarterIndex;
 import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.hold.Rate;
@@ -34,7 +34,6 @@ public class Methods {
     
     public static Color[] theme = ThemeTypes.WHITE;
     public static int
-            mode = 0,
             TICKS,
             totalHints = 0;
     public static final int
