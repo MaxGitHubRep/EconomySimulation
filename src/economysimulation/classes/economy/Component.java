@@ -1,4 +1,4 @@
-package economysimulation.classes.algorithms;
+package economysimulation.classes.economy;
 
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import java.util.ArrayList;

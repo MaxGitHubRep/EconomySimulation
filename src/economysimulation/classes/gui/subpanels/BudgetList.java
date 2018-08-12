@@ -1,7 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
-import economysimulation.classes.algorithms.Component;
-import static economysimulation.classes.algorithms.Component.ANNUAL_BUDGET;
+import economysimulation.classes.economy.Component;
+import static economysimulation.classes.economy.Component.ANNUAL_BUDGET;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.IllegalTickValueException;
 import economysimulation.classes.managers.popup.hint.HintManager;

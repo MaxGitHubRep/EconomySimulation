@@ -1,8 +1,8 @@
 package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.algorithms.Component;
-import static economysimulation.classes.algorithms.Component.calcComp;
+import economysimulation.classes.economy.Component;
+import static economysimulation.classes.economy.Component.calcComp;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;

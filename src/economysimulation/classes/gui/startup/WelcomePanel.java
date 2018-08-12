@@ -4,6 +4,7 @@ import economysimulation.classes.gui.MainFrame;
 import economysimulation.classes.Methods;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.mode.Mode;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -144,7 +145,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                         titleLabels[id].setText("<html>Username must be more than " + Methods.MIN_USERNAME_LENGTH + " characters to proceed.</html>");
                     
                     } else {
-                        Methods.mode = id + 1;
+                        Mode.MODE = id + 1;
                         MainFrame.addToMainFrame(new Tutorial());
                     }
                 }

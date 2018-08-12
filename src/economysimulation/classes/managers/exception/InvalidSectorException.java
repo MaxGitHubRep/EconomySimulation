@@ -1,6 +1,6 @@
 package economysimulation.classes.managers.exception;
 
-import economysimulation.classes.algorithms.Component;
+import economysimulation.classes.economy.Component;
 
 /**
  *
