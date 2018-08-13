@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.shadow;
 
+import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,7 +33,17 @@ public class ShadowFrame extends JFrame {
             animationGap;
     protected static JPanel panel;
     
-    public ShadowFrame(String frameTitle, JPanel panel, int panelPosition, int shadowSize, int durationInSeconds) {
+    public ShadowFrame(String frameTitle, JPanel panel, int panelPosition, int shadowSize, int durationInSeconds) throws InvalidPanelSizeException {
+        if (panelPosition > 4 || panelPosition < 0) {
+            throw new IllegalArgumentException("Panel position must be between 0 and 4.");
+            
+        } else if (shadowSize < 0) {
+            throw new IllegalArgumentException("The size of the shadow must be greater than 0.");
+            
+        } else if (panel.getWidth() > frameWidth - (shadowedMargin * 2) || panel.getHeight() > frameHeight - (shadowedMargin * 2)) {
+            throw new InvalidPanelSizeException();
+        }
+        
         this.shadowSize = shadowSize;
         this.panel = panel;
         this.duration = durationInSeconds * 1000;

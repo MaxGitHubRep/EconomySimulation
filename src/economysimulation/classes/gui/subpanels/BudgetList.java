@@ -3,7 +3,7 @@ package economysimulation.classes.gui.subpanels;
 import economysimulation.classes.economy.Component;
 import static economysimulation.classes.economy.Component.ANNUAL_BUDGET;
 import economysimulation.classes.managers.animation.NumberIncrementer;
-import economysimulation.classes.managers.exception.IllegalTickValueException;
+import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
@@ -64,7 +64,7 @@ public class BudgetList extends javax.swing.JPanel {
                 if (spending + slider.getValue() <= ANNUAL_BUDGET) { 
                     try {
                         new NumberIncrementer(total, "£%s/" + format.format(ANNUAL_BUDGET) + "bn", spending, (spending + slider.getValue()), 30).startIncrementer();
-                    } catch (IllegalTickValueException ex) {
+                    } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }
                     Component.BUDGET_VARS[selectedType]+= slider.getValue();

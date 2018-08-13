@@ -65,6 +65,8 @@ public class Component {
     public static void calculateAnnualBudget() {
         ANNUAL_BUDGET = TAXATION - getPublicSpendingTotal(true);
         TAXATION = 0;
+        TOTAL_INVESTMENT = 0;
+        TOTAL_CONSUMPTION = 0;
     }//</editor-fold>
     
     private static double getConsConfidence() {

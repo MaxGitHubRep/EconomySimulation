@@ -1,7 +1,7 @@
 package economysimulation.classes.managers.popup.hint;
 
 import economysimulation.classes.Methods;
-import economysimulation.classes.managers.shadow.Duration;
+import economysimulation.classes.managers.shadow.Speed;
 import economysimulation.classes.managers.shadow.Position;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.shadow.ShadowSize;
@@ -21,7 +21,7 @@ public class HintManager {
             isShowing = true;
             Methods.totalHints++;
             hintDisplay.createHint(title, desc, urgency);
-            new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Duration.MEDIUM);
+            new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM);
         }
     }
     
