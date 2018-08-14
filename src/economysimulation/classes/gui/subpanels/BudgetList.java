@@ -2,7 +2,11 @@ package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.Component;
 import static economysimulation.classes.economy.Component.ANNUAL_BUDGET;
+import static economysimulation.classes.economy.Component.CONS_INJECTION;
+import economysimulation.classes.economy.Sector;
 import economysimulation.classes.managers.animation.NumberIncrementer;
+import economysimulation.classes.managers.exception.InvalidPanelSizeException;
+import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.themes.Theme;
@@ -67,13 +71,23 @@ public class BudgetList extends javax.swing.JPanel {
                     } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }
+                    Component.MONEY_TO_SPEND+= slider.getValue();
                     Component.BUDGET_VARS[selectedType]+= slider.getValue();
                     slider.setValue(0);
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
+                    if (selectedType == Sector.BENEFITS) try {
+                        CONS_INJECTION = Component.getSectorSpending(Sector.BENEFITS);
+                    } catch (InvalidSectorException ex) {
+                        ex.printStackTrace();
+                    }
                 } else {
                     saveChanges.setText(saveTexts[2]);
-                    HintManager.createNewHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
+                    try {
+                        HintManager.createNewHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
+                    } catch (InvalidPanelSizeException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });

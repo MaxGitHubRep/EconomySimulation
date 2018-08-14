@@ -54,7 +54,7 @@ public class Budget extends javax.swing.JPanel {
 
         Methods.applyChartTheme(pieChart, false);
         applyPieChartColour(pieChart);
-        Methods.addChartToPanel(pieChart, graphPanel);
+        Methods.addChartToPanel(pieChart, taxResultPanel);
     }//</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Slider Event">   
@@ -82,23 +82,23 @@ public class Budget extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        graphPanel = new javax.swing.JPanel();
+        taxResultPanel = new javax.swing.JPanel();
         backRatesPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(51, 51, 51));
         setOpaque(false);
 
-        graphPanel.setBackground(new java.awt.Color(51, 51, 51));
-        graphPanel.setOpaque(false);
+        taxResultPanel.setBackground(new java.awt.Color(51, 51, 51));
+        taxResultPanel.setOpaque(false);
 
-        javax.swing.GroupLayout graphPanelLayout = new javax.swing.GroupLayout(graphPanel);
-        graphPanel.setLayout(graphPanelLayout);
-        graphPanelLayout.setHorizontalGroup(
-            graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout taxResultPanelLayout = new javax.swing.GroupLayout(taxResultPanel);
+        taxResultPanel.setLayout(taxResultPanelLayout);
+        taxResultPanelLayout.setHorizontalGroup(
+            taxResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1076, Short.MAX_VALUE)
         );
-        graphPanelLayout.setVerticalGroup(
-            graphPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        taxResultPanelLayout.setVerticalGroup(
+            taxResultPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 411, Short.MAX_VALUE)
         );
 
@@ -123,7 +123,7 @@ public class Budget extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(taxResultPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(backRatesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -133,7 +133,7 @@ public class Budget extends javax.swing.JPanel {
                 .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(backRatesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(taxResultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -141,6 +141,6 @@ public class Budget extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backRatesPanel;
-    private static javax.swing.JPanel graphPanel;
+    private static javax.swing.JPanel taxResultPanel;
     // End of variables declaration//GEN-END:variables
 }

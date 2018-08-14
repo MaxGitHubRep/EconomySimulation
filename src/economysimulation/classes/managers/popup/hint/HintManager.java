@@ -1,6 +1,7 @@
 package economysimulation.classes.managers.popup.hint;
 
 import economysimulation.classes.Methods;
+import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.shadow.Speed;
 import economysimulation.classes.managers.shadow.Position;
 import economysimulation.classes.managers.shadow.ShadowFrame;
@@ -15,7 +16,7 @@ public class HintManager {
     protected static HintDisplay hintDisplay = new HintDisplay();
     public static boolean isShowing = false;
 
-    public static void createNewHint(String title, String desc, int urgency) {
+    public static void createNewHint(String title, String desc, int urgency) throws InvalidPanelSizeException {
 
         if (!isShowing) {
             isShowing = true;

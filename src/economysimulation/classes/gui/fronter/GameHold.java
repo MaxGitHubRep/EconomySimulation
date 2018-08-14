@@ -3,9 +3,11 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.Methods;
 import economysimulation.classes.economy.Component;
 import static economysimulation.classes.economy.Component.calcComp;
+import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
@@ -37,7 +39,7 @@ public class GameHold extends javax.swing.JPanel {
     private Timer timer;
 
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
-    public static void globalClockTick() {
+    public static void globalClockTick() throws InvalidSectorException {
         Methods.TICKS++;
         TICKS_PER_QUARTER++;
         if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
@@ -46,13 +48,14 @@ public class GameHold extends javax.swing.JPanel {
         }
         int tempSpending = Component.getPublicSpendingTotal(true);
         labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + BudgetList.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
-        
+        Component.calculateBudget(false);
         calcComp();
+        Consumer.updatestuff();
         
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
-    public void updateFunction() {
+    public void updateFunction() throws InvalidSectorException {
         timer.stop();
         updateTime();
         updateSpeed();
@@ -98,7 +101,7 @@ public class GameHold extends javax.swing.JPanel {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
-                Component.calculateAnnualBudget();
+                Component.calculateBudget(true);
             }
         }
 

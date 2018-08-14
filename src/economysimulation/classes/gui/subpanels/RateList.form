@@ -269,7 +269,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Consumer Tax"/>
+            <Property name="text" type="java.lang.String" value="Income Tax"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

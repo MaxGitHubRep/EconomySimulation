@@ -22,12 +22,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="graphPanel" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
           <Component id="backPanelGov" alignment="1" max="32767" attributes="0"/>
+          <Component id="taxResultPanel" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -36,13 +32,13 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="backPanelGov" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="31" max="32767" attributes="0"/>
-              <Component id="graphPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="taxResultPanel" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="graphPanel">
+    <Container class="javax.swing.JPanel" name="taxResultPanel">
       <Properties>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -53,7 +49,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1076" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -71,7 +67,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1100" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">

@@ -50,7 +50,7 @@ public class Methods {
         Component.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
-        createGraph("GDP", historyGDP, Rate.graphPanel);
+        createGraph("GDP", historyGDP, Rate.taxResultPanel);
         quarterIndex++;
     }
     
@@ -148,17 +148,4 @@ public class Methods {
         return new Random().nextInt((max-min)+1)+min;
     }//</editor-fold> 
 
-    //<editor-fold defaultstate="collapsed" desc="Reset game variables."> 
-    public static void resetGame() {
-        Component.INTEREST_RATE = 0;
-        Component.CORP_TAX = 0;
-        Component.CONS_TAX = 0;
-        Component.ANNUAL_BUDGET = 0;
-        
-        for (int i = 0; i < Component.BUDGET_VARS.length; i++) {
-            Component.BUDGET_VARS[i] = 0;
-        }
-        
-        TICKS = 0;
-    }//</editor-fold>
 }

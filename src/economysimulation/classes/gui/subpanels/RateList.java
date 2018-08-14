@@ -3,7 +3,6 @@ package economysimulation.classes.gui.subpanels;
 import economysimulation.classes.economy.Component;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
-import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -23,7 +22,7 @@ public class RateList extends javax.swing.JPanel {
     private static JPanel[] backPanels;
     private static JPanel[] colorPanels;
     private static JLabel[] arrowLabels;
-    private static final String[] titles = new String[]{ "Interest Rates", "Corporation Tax", "Consumer Tax" };
+    private static final String[] titles = new String[]{ "Interest Rates", "Corporation Tax", "Income Tax" };
     
     private static void applySelectedType(int id) {
         selectedType = id;
@@ -40,7 +39,7 @@ public class RateList extends javax.swing.JPanel {
                 newValue = Component.CORP_TAX;
                 break;
             case 2:
-                newValue = Component.CONS_TAX;
+                newValue = Component.INCOME_TAX;
                 break;
         }
         slider.setValue((int) newValue * 10);
@@ -85,7 +84,7 @@ public class RateList extends javax.swing.JPanel {
                         Component.CORP_TAX = newValue;
                         break;
                     case 2:
-                        Component.CONS_TAX = newValue;
+                        Component.INCOME_TAX = newValue;
                         break;
                     
                 }
@@ -257,7 +256,7 @@ public class RateList extends javax.swing.JPanel {
         title3.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title3.setForeground(new java.awt.Color(204, 0, 0));
         title3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        title3.setText("Consumer Tax");
+        title3.setText("Income Tax");
 
         color3.setBackground(new java.awt.Color(255, 255, 255));
 
