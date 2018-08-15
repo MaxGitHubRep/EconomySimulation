@@ -11,13 +11,13 @@ public class Component {
     
     public static double
             INTEREST_RATE = 0.5, CORP_TAX = 0, INCOME_TAX = 0,
-            UNEMPLOYMENT, REAL_GDP, GDP, MPC, SAVINGS = 0.0001, INCOME,
+            UNEMPLOYMENT, REAL_GDP, GDP, MPC, SAVINGS = 50, INCOME,
             CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1, CONS_INJECTION,
             MIN_WAGE = 0.000000008, POPULATION = 1000000, WORKERS,
-            MONEY_TO_SPEND, 
+            MONEY_TO_SPEND, D_INCOME, TOTAL_SAVINGS, 
             CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS, WORK_HOURS_PER_DAY = 8,
             TAXATION, ANNUAL_BUDGET = 250, FIRM_PROFITS,
-            TOTAL_CORP_PROFITS = 25, TOTAL_INVESTMENT, TOTAL_CONSUMPTION, 
+            TOTAL_CORP_PROFITS = 50, TOTAL_INVESTMENT, TOTAL_CONSUMPTION, 
             COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME;
     
     //variables that make up gdp will need a "current" variable, and a "total" variable (latter for gdp count)
@@ -27,11 +27,6 @@ public class Component {
     
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     public static int quarterIndex = 0;
-    
-    // ----------
-    //  FORMULAS
-    // ----------
-    
     
     /**
     * @param includeTransfer Return result with transfer payments included (benefits)
@@ -85,8 +80,10 @@ public class Component {
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
         
+        WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
         WAGES = (MIN_WAGE * WORKERS * WORK_HOURS_PER_DAY);
         INCOME = WAGES;
+        D_INCOME = INCOME;
         COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
         
         if (COST_OF_PRODUCTION > TOTAL_CORP_PROFITS && UNEMPLOYMENT < 99) {
@@ -94,34 +91,28 @@ public class Component {
         } else if (UNEMPLOYMENT > 1) {
             UNEMPLOYMENT--;
         }
+
+        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
         
-        WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
-        
-        FIRM_PROFITS = ((CONSUMPTION - COST_OF_PRODUCTION));
-        
-        double corpTax = FIRM_PROFITS * (FIRM_PROFITS > 0 ? (CORP_TAX/100) : 0),
-               incTax = INCOME * (INCOME > 0 ? (INCOME_TAX/100) : 0);
+        double corpTax = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 ? (CORP_TAX/100) : 0),
+               incTax = INCOME * (INCOME > 0 && INCOME_TAX > 0 ? (INCOME_TAX/100) : 0);
         
         FIRM_PROFITS -= corpTax;
-        INCOME -= incTax;
+        D_INCOME -= incTax;
         TAXATION += corpTax + incTax;
 
-        if (INCOME < (0.00001*POPULATION) && SAVINGS > (0.00001*POPULATION)) {
-            INCOME+=(0.00001*POPULATION);
-            SAVINGS-=(0.00001*POPULATION);
-        }
-        
         CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
         CONS_CONFIDENCE = getConsConfidence();
         
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
-        CONSUMPTION = MPC * ( INCOME + (CONS_INJECTION > 0 ? CONS_INJECTION : 0));
+        CONSUMPTION = MPC * ( D_INCOME + (CONS_INJECTION > 0 ? CONS_INJECTION : 0) + 0.5);
         SAVINGS = (1 - MPC) * ( INCOME + (CONS_INJECTION > 0 ? CONS_INJECTION : 0));
         if (CONS_INJECTION > 0) CONS_INJECTION = 0;
 
         INVESTMENT = (FIRM_PROFITS - COST_OF_PRODUCTION) > 0 ? (FIRM_PROFITS - COST_OF_PRODUCTION) * CORP_CONFIDENCE : 0;
-        //FIRM_PROFITS -= INVESTMENT;
+        FIRM_PROFITS -= INVESTMENT;
         
+        TOTAL_SAVINGS += SAVINGS;
         TOTAL_CORP_PROFITS += FIRM_PROFITS;
         TOTAL_INVESTMENT += INVESTMENT;
         TOTAL_CONSUMPTION += CONSUMPTION;
