@@ -25,7 +25,8 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel {
 
-    private final DecimalFormat
+    private static final DecimalFormat
+            m = new DecimalFormat("0"),
             f = new DecimalFormat("#00"),
             fYear = new DecimalFormat("#0000");
     
@@ -46,11 +47,11 @@ public class GameHold extends javax.swing.JPanel {
             TICKS_PER_QUARTER = 0;
             Methods.updateRealGDPLabel();
         }
-        int tempSpending = Component.getPublicSpendingTotal(true);
-        labelBudget.setText("£" + tempSpending + "/" + Component.ANNUAL_BUDGET + "bn (" + BudgetList.format.format((tempSpending/Component.ANNUAL_BUDGET)*100) + "%)");
         Component.calculateBudget(false);
         calcComp();
         Consumer.updatestuff();
+        labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
+        BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
         
     }//</editor-fold>
     
@@ -382,7 +383,7 @@ public class GameHold extends javax.swing.JPanel {
 
         label2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         label2.setForeground(new java.awt.Color(255, 255, 255));
-        label2.setText("Annual Budget:");
+        label2.setText("Budget:");
 
         javax.swing.GroupLayout topBarLayout = new javax.swing.GroupLayout(topBar);
         topBar.setLayout(topBarLayout);
@@ -403,7 +404,7 @@ public class GameHold extends javax.swing.JPanel {
                 .addGroup(topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(labelGDP, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
                     .addComponent(labelBudget, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
