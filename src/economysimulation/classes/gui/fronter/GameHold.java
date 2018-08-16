@@ -7,8 +7,10 @@ import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
+import economysimulation.classes.managers.misc.TaxRevUpdate;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;
@@ -45,6 +47,7 @@ public class GameHold extends javax.swing.JPanel {
         TICKS_PER_QUARTER++;
         if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
             TICKS_PER_QUARTER = 0;
+            TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_QUARTER);
             Methods.updateRealGDPLabel();
         }
         Component.calculateBudget(false);
@@ -52,7 +55,7 @@ public class GameHold extends javax.swing.JPanel {
         Consumer.updatestuff();
         labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
         BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
-        
+        TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_DAY);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
@@ -102,6 +105,7 @@ public class GameHold extends javax.swing.JPanel {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
+                TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_YEAR);
                 Component.calculateBudget(true);
             }
         }

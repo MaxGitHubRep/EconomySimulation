@@ -50,7 +50,9 @@ public class Methods {
         Component.calculateGDP();
         GameHold.labelGDP.setText("£" + Component.GDP + "bn");
         historyGDP.add(Component.GDP);
-        createGraph("GDP", historyGDP, Rate.taxResultPanel);
+        //createGraph("GDP", historyGDP, Rate.taxResultPanel);
+        Component.QUARTER_CORP_TAX = 0;
+        Component.QUARTER_INCOME_TAX = 0;
         quarterIndex++;
     }
     

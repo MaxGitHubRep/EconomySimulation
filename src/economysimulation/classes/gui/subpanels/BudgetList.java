@@ -69,9 +69,9 @@ public class BudgetList extends javax.swing.JPanel {
                     } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }
-                    Component.MONEY_TO_SPEND+= slider.getValue();
                     Component.BUDGET_VARS[selectedType]+= slider.getValue();
                     if (selectedType == Sector.BENEFITS) Component.CONS_INJECTION += slider.getValue();
+                    Component.ANNUAL_BUDGET -= slider.getValue();
                     
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
