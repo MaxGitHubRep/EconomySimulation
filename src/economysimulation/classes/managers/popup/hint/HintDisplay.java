@@ -22,7 +22,7 @@ public class HintDisplay extends JPanel {
         initComponents();
         setSize(500, 100);
         
-        Format.addButtonFormat(bottom, new JPanel());
+        Format.addButtonFormat(bottom, null);
         updateTheme();
         frameDragged(top);
     }

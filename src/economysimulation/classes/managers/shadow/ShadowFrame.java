@@ -33,7 +33,19 @@ public class ShadowFrame extends JFrame {
             animationGap;
     protected static JPanel panel;
     
+    /**
+    * Creates an undecorated frame with a given panel and specified parameters.
+    *
+    * @param frameTitle The title of the frame.
+    * @param panel The panel that will be applied to the frame.
+    * @param panelPosition The location of the frame on the screen.
+    * @param shadowSize Size of the shadow.
+    * @param durationInSeconds How long the panel will stay on screen for.
+    * 
+    * @throws InvalidPanelSizeException When the panel dimensions have invalid lengths.
+    */
     public ShadowFrame(String frameTitle, JPanel panel, int panelPosition, int shadowSize, int durationInSeconds) throws InvalidPanelSizeException {
+        super("Economy Simulation: " + frameTitle);
         if (panelPosition > 4 || panelPosition < 0) {
             throw new IllegalArgumentException("Panel position must be between 0 and 4.");
             
@@ -53,11 +65,10 @@ public class ShadowFrame extends JFrame {
         isRising = true;
         
         // Creates the frame
-        setUndecorated(true);
-        setSize(panel.getWidth() + (shadowSize * 2), panel.getHeight() + (shadowSize * 2));
-        setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
-        setBackground(new Color(0, 0, 0, 0));
-        setTitle("Economy Simulation: " + frameTitle);
+        super.setUndecorated(true);
+        super.setSize(panel.getWidth() + (shadowSize * 2), panel.getHeight() + (shadowSize * 2));
+        super.setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
+        super.setBackground(new Color(0, 0, 0, 0));
         this.add(new ShadowPanel());
         
         setLocationInFrame(panelPosition);
@@ -135,13 +146,12 @@ public class ShadowFrame extends JFrame {
     class ShadowPanel extends JPanel {
 
         public ShadowPanel() {
-            setSize(panel.getWidth() + (shadowSize * 2), panel.getHeight() + (shadowSize * 2));
-            add(panel);
+            super.add(panel);
             panel.setLocation(shadowSize, shadowSize);
 
-            setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(
+            super.setBorder(BorderFactory.createCompoundBorder(this.getBorder(), BorderFactory.createEmptyBorder(
                     shadowSize, shadowSize, shadowSize, shadowSize)));
-            setLayout(new BorderLayout());
+            super.setLayout(new BorderLayout());
         }
 
         @Override
