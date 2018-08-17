@@ -1,6 +1,6 @@
 package economysimulation.classes.managers.popup.hint;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.shadow.Speed;
 import economysimulation.classes.managers.shadow.Position;

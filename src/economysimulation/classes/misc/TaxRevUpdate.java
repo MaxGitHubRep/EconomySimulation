@@ -1,4 +1,4 @@
-package economysimulation.classes.managers.misc;
+package economysimulation.classes.misc;
 
 /**
  *

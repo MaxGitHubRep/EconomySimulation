@@ -1,9 +1,9 @@
-package economysimulation.classes;
+package economysimulation.classes.global;
 
 import economysimulation.classes.economy.Component;
 import static economysimulation.classes.economy.Component.historyGDP;
 import static economysimulation.classes.economy.Component.quarterIndex;
-import economysimulation.classes.gui.MainFrame;
+import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.hold.Rate;
 import economysimulation.classes.gui.subpanels.BudgetList;

@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.themes.ThemeTypes;

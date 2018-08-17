@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 
 /**
  *

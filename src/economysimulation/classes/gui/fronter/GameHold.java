@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.fronter;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.Component;
 import static economysimulation.classes.economy.Component.calcComp;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
@@ -10,7 +10,7 @@ import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
-import economysimulation.classes.managers.misc.TaxRevUpdate;
+import economysimulation.classes.misc.TaxRevUpdate;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import javax.swing.AbstractAction;

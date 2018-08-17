@@ -1,7 +1,7 @@
 package economysimulation.classes.gui.startup;
 
-import economysimulation.classes.gui.MainFrame;
-import economysimulation.classes.Methods;
+import economysimulation.classes.gui.frame.MainFrame;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.mode.Mode;

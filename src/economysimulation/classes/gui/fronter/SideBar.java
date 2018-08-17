@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.fronter;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
 import economysimulation.classes.gui.mainpanels.hold.Budget;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
