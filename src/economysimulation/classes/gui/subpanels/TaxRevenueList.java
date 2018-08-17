@@ -1,8 +1,11 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.Component;
-import economysimulation.classes.managers.misc.TaxRevUpdate;
+import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.misc.TaxRevUpdate;
 import economysimulation.classes.managers.ui.Format;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,11 +15,15 @@ import javax.swing.JPanel;
  */
 public class TaxRevenueList extends javax.swing.JPanel {
 
+    private static final String[]
+            taxTexts = new String[]{ "Tax Break", "Taxes Frozen" };
+    
     private static JLabel[]
             perDay,
             perQuarter,
             perYear,
-            total;
+            total,
+            taxBreaks;
     
     private static JPanel[]
             backPanels,
@@ -32,14 +39,15 @@ public class TaxRevenueList extends javax.swing.JPanel {
         perQuarter = new JLabel[]{ ct2 };
         perYear = new JLabel[]{ ct3 };
         total = new JLabel[]{ ct4 };
-
+        taxBreaks = new JLabel[]{ tb1 };
+        
         backPanels = new JPanel[]{ subback1 };
         colorPanels = new JPanel[]{ subcolor1 };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
+            taxBreakClicked(i);
         }
-        
     }
 
     public static void updateTaxationLabels(int updater) {
@@ -68,12 +76,18 @@ public class TaxRevenueList extends javax.swing.JPanel {
                 total[index].setText(String.format("£%sm", Math.round(value*1000)));
                 index++;
             }
-            
         }
-        
-        
-        
-        
+    }
+    
+    private static void taxBreakClicked(int id) {
+        backPanels[id].addMouseListener(new MouseAdapter() {
+            @Override 
+            public void mouseClicked(MouseEvent e) {
+                boolean nowBreaking = taxBreaks[id].getText().equals(taxTexts[0]);
+                Component.TAX_BREAK[id] = nowBreaking;
+                taxBreaks[id].setText(taxTexts[nowBreaking ? 1 : 0]);
+            }
+        });
     }
     
     @SuppressWarnings("unchecked")

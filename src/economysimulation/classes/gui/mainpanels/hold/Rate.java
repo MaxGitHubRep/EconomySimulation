@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
-import economysimulation.classes.Methods;
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 /**
  *

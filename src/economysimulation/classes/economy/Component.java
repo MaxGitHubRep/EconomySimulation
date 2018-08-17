@@ -31,6 +31,8 @@ public class Component {
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     public static int quarterIndex = 0;
     
+    public static boolean[] TAX_BREAK = new boolean[]{ false, false };
+    
     /**
     * @param includeTransfer Return result with transfer payments included (benefits)
     * @return Sum of budget
@@ -91,8 +93,8 @@ public class Component {
         
         FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
 
-        TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 ? (CORP_TAX/100) : 0);
-        TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 ? (INCOME_TAX/100) : 0);
+        TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 && !TAX_BREAK[0] ? (CORP_TAX/100) : 0);
+        TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
         
         FIRM_PROFITS -= TAXED_CORP;
         D_INCOME -= TAXED_INCOME;
