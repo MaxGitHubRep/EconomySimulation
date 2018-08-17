@@ -4,6 +4,7 @@ import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.fronter.SideBar;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +33,7 @@ public class Theme {
         SideBar.updateTheme();
         BudgetList.updateTheme();
         RateList.updateTheme();
+        TaxRevenueList.updateTheme();
         for (int i = 0; i < SideBar.framed.length; i++) {
             if (SideBar.framed[i]) SideBar.frames[i].updateTheme();
         }
