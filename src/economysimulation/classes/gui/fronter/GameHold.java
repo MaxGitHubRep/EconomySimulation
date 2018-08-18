@@ -8,6 +8,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
+import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.misc.TaxRevUpdate;
@@ -42,7 +43,7 @@ public class GameHold extends javax.swing.JPanel {
     private Timer timer;
 
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
-    public static void globalClockTick() throws InvalidSectorException {
+    public static void globalClockTick() throws InvalidSectorException, InvalidPanelSizeException {
         Methods.TICKS++;
         TICKS_PER_QUARTER++;
         if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
@@ -59,7 +60,7 @@ public class GameHold extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
-    public void updateFunction() throws InvalidSectorException {
+    public void updateFunction() throws InvalidSectorException, InvalidPanelSizeException {
         timer.stop();
         updateTime();
         updateSpeed();

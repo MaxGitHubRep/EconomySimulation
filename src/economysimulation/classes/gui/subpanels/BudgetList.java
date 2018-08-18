@@ -7,6 +7,7 @@ import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.popup.hint.Urgency;
@@ -81,7 +82,7 @@ public class BudgetList extends javax.swing.JPanel {
                 } else {
                     saveChanges.setText(saveTexts[2]);
                     try {
-                        HintManager.createNewHint("Insufficient Funds for Desired Payment!", "Increase taxes to obtain more money.", Urgency.MEDIUM);
+                        HintManager.createNewHint(Hints.INSUFFICIENT_FUNDS);
                     } catch (InvalidPanelSizeException ex) {
                         ex.printStackTrace();
                     }

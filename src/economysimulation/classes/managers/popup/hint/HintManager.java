@@ -16,13 +16,16 @@ public class HintManager {
     protected static HintDisplay hintDisplay = new HintDisplay();
     public static boolean isShowing = false;
 
-    public static void createNewHint(String title, String desc, int urgency) throws InvalidPanelSizeException {
-
-        if (!isShowing) {
-            isShowing = true;
+    public static void createNewHint(int id) throws InvalidPanelSizeException {
+        if (id > HintCooldown.cdTime.length) {
+            throw new NullPointerException();
+            
+        } else if (!Hints.isOnCooldown(id)) {
+            HintCooldown.cdTime[id] = HintCooldown.DURATION;
+            HintCooldown.initCooldown(id);
             Methods.totalHints++;
-            hintDisplay.createHint(title, desc, urgency);
-            new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM);
+            hintDisplay.createHint(Hints.getHintTitle(id), Hints.getHintDescription(id), Hints.getHintUrgency(id));
+            new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM, true);
         }
     }
     
