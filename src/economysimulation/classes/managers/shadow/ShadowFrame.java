@@ -113,9 +113,6 @@ public class ShadowFrame extends JFrame {
     
     private void close() {
         this.dispose();
-        if (getTitle().contains("Hint #")) {
-            HintManager.hintDisplayEnded();
-        }
     }
     
     private void exec() {

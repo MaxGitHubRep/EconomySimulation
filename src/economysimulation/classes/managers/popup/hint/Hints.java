@@ -42,7 +42,7 @@ public class Hints {
     
     
     public static boolean isOnCooldown(int id) {
-        return HintCooldown.cdTime[id] != HintCooldown.DURATION;
+        return HintCooldown.cdTime[id] != HintManager.DURATION;
     }
     
 }

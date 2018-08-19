@@ -14,23 +14,18 @@ import economysimulation.classes.managers.shadow.ShadowSize;
 public class HintManager {
     
     protected static HintDisplay hintDisplay = new HintDisplay();
-    public static boolean isShowing = false;
+    protected static final int DURATION = 80;
 
     public static void createNewHint(int id) throws InvalidPanelSizeException {
         if (id > HintCooldown.cdTime.length) {
             throw new NullPointerException();
             
         } else if (!Hints.isOnCooldown(id)) {
-            HintCooldown.cdTime[id] = HintCooldown.DURATION;
-            HintCooldown.initCooldown(id);
+            HintCooldown.cdTime[id] = DURATION;
+            new HintCooldown(id);
             Methods.totalHints++;
             hintDisplay.createHint(Hints.getHintTitle(id), Hints.getHintDescription(id), Hints.getHintUrgency(id));
             new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM, true);
         }
     }
-    
-    public static void hintDisplayEnded() {
-        isShowing = false;
-    }
-    
 }
