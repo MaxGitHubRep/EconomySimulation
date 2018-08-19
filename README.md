@@ -1,16 +1,17 @@
 # Economy Simulation  
 
-A game whereby you can simulate a real-world economy. Players can change features of an economy, which will stimulate a change in other determinants.  
+The Economy Simulation allows you to simulate a real-world economy. Players can change features of an economy, which will stimulate a change in other determinants. The simulation demonstrates why politicians make certain decisions, and compromises. 
 
 ***
 # Independent Sectors:
 
  - **Government** - Players can edit & view:
    * Interest Rates
-   * Direct Consumer Taxes
-   * Direct Corporation Taxes
+   * Income Tax
+   * Corporation Tax
+   * Tax Breaks
    
-![Budget](https://i.gyazo.com/58b062a18af2e95ddaf716018464bc12.png)
+![Rates](https://i.gyazo.com/58b062a18af2e95ddaf716018464bc12.png)
 
  - **Budget** - Players can also view & edit:
    * Public Sector Budget:
@@ -22,28 +23,28 @@ A game whereby you can simulate a real-world economy. Players can change feature
      - *Defence*
      - *Science/Technology*
      - *Benefits*
-     - *Debt Interest*
    
-![Budget](https://i.gyazo.com/266bd70e1872e26f1acc9123ad39ba7e.png)
+![Budget](https://i.gyazo.com/998a4a1ef4bf83a96abda9ab31d1c8e2.png)
    
 ***
    
 # Dependent Sectors:
  - **Corporations** - Players can view corporation components such as:
    * Investment Rates
-   * Cost of Production (SRAS)
+   * Cost of Production
    * Profits
-   * Prices
-   * Supply
    * Business Confidence
    * Imports
    * Exports
+   * Wages
  
  - **Consumers** - Players can view consumer components such as:
+   * Population
    * Employment Rate
-   * Consumption Rate
+   * Consumption
+   * Income
    * Disposable Income
-   * Borrowing
+   * Savings
    * Consumer Confidence
    * Standard of Living
    * Political Influence
