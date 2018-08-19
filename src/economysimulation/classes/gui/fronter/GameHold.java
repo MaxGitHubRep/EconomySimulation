@@ -2,7 +2,6 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.Component;
-import static economysimulation.classes.economy.Component.calcComp;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
@@ -42,6 +41,34 @@ public class GameHold extends javax.swing.JPanel {
     public final String SPEED_FORMAT = "Speed: %s";
     private Timer timer;
 
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    public GameHold() throws InvalidThemeSetupException {
+        initComponents();
+        Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
+
+        addSliderListener(time);
+        updateSpeed();
+        updateTime();
+        timerStart();
+        
+        Format.addButtonFormat(panel1, color1);
+        Format.addButtonFormat(panel2, color2);
+
+        updateTheme();
+        Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
+    public static void updateRealGDPLabel() {
+        Component.calculateGDP();
+        GameHold.labelGDP.setText("£" + m.format(Component.GDP) + "bn");
+        Component.historyGDP.add(Component.GDP);
+        //createGraph("GDP", historyGDP, Rate.taxResultPanel);
+        Component.QUARTER_CORP_TAX = 0;
+        Component.QUARTER_INCOME_TAX = 0;
+        Component.quarterIndex++;
+    }//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
     public static void globalClockTick() throws InvalidSectorException, InvalidPanelSizeException {
         Methods.TICKS++;
@@ -49,10 +76,10 @@ public class GameHold extends javax.swing.JPanel {
         if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
             TICKS_PER_QUARTER = 0;
             TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_QUARTER);
-            Methods.updateRealGDPLabel();
+            updateRealGDPLabel();
         }
         Component.calculateBudget(false);
-        calcComp();
+        Component.calcComp();
         Consumer.updatestuff();
         labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
         BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
@@ -138,23 +165,6 @@ public class GameHold extends javax.swing.JPanel {
         Theme.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
     }//</editor-fold> 
     
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public GameHold() throws InvalidThemeSetupException {
-        initComponents();
-        Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
-
-        addSliderListener(time);
-        updateSpeed();
-        updateTime();
-        timerStart();
-        
-        Format.addButtonFormat(panel1, color1);
-        Format.addButtonFormat(panel2, color2);
-
-        updateTheme();
-        Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
-    }//</editor-fold>
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

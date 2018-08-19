@@ -45,17 +45,7 @@ public class Methods {
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     
     public static boolean oneQuarterPassed = false;
-    
-    public static void updateRealGDPLabel() {
-        Component.calculateGDP();
-        GameHold.labelGDP.setText("£" + Component.GDP + "bn");
-        historyGDP.add(Component.GDP);
-        //createGraph("GDP", historyGDP, Rate.taxResultPanel);
-        Component.QUARTER_CORP_TAX = 0;
-        Component.QUARTER_INCOME_TAX = 0;
-        quarterIndex++;
-    }
-    
+
     public static void addDraggablePanel(JPanel[] panels) {
         if (panels == null) {
             throw new NullPointerException();
