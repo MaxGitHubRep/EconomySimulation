@@ -4,13 +4,11 @@ import economysimulation.classes.economy.Component;
 import economysimulation.classes.economy.Sector;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
-import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.managers.popup.hint.Urgency;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -66,7 +64,7 @@ public class BudgetList extends javax.swing.JPanel {
                 if (slider.getValue() <= Component.ANNUAL_BUDGET) { 
                     int spending = Component.getPublicSpendingTotal(true);
                     try {
-                        new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 30).startIncrementer();
+                        new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
                     } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }

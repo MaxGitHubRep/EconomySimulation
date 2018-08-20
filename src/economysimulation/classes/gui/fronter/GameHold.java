@@ -104,13 +104,8 @@ public class GameHold extends javax.swing.JPanel {
         updateTime();
         updateSpeed();
         globalClockTick();
-        try {
-            confidenceBar.percent = Component.CONS_CONFIDENCE;
-            repaint();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        confidenceBar.percent = Component.CONS_CONFIDENCE;
+        repaint();
         timerStart();
     }//</editor-fold>
     

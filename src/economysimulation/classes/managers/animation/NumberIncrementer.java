@@ -12,6 +12,7 @@ import javax.swing.Timer;
  */
 public class NumberIncrementer {
 
+    private Thread NIThread;
     private Timer timer;
     
     private JLabel label;
@@ -32,29 +33,28 @@ public class NumberIncrementer {
     }
     
     public void startIncrementer() { 
-        timer = new Timer(tickDelay, new AbstractAction() {
+        
+        int difference = Math.abs(start - end);
+        
+        NIThread = new Thread(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (increase) {
-                    if (start < end) {
-                        start++;
+            public void run() {
+                try {
+                    for (int i = 0; i < difference; i++) {
+                        if (increase) {
+                            start++;
+                        } else {
+                            start--;
+                        }
                         label.setText(String.format(text, start));
-                        startIncrementer();
-                    } else {
-                        timer.stop();
-                    } 
-                } else {
-                    if (start > end) {
-                        start--;
-                        label.setText(String.format(text, start));
-                        startIncrementer();
-                    } else {
-                        timer.stop();
+                        Thread.sleep(tickDelay/difference);
                     }
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
                 }
             }
-        }); 
-        timer.start();
+        });  
+        NIThread.start();
     }
     
 }
