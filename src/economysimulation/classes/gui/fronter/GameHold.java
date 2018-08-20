@@ -3,24 +3,20 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.Component;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
+import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.customcomp.CircleProgressBar;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.misc.TaxRevUpdate;
-import java.awt.event.ActionEvent;
+import economysimulation.classes.pulse.GamePulse;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -28,10 +24,9 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class GameHold extends javax.swing.JPanel {
+public class GameHold extends javax.swing.JPanel implements GamePulse {
 
     public static CircleProgressBar politicalInfluence;
-    
     private Thread CBPThread;
     
     private static final DecimalFormat
@@ -46,7 +41,6 @@ public class GameHold extends javax.swing.JPanel {
     public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
     public static int TICKS_PER_QUARTER = 0, SPEED;
     public final String SPEED_FORMAT = "Speed: %s";
-    private Timer timer;
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() throws InvalidThemeSetupException {
@@ -56,7 +50,6 @@ public class GameHold extends javax.swing.JPanel {
         addSliderListener(time);
         updateSpeed();
         updateTime();
-        timerStart();
         
         Format.addButtonFormat(panel1, color1);
         Format.addButtonFormat(panel2, color2);
@@ -67,7 +60,34 @@ public class GameHold extends javax.swing.JPanel {
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
     
-    private static void addCircleProgressBar(JPanel back, CircleProgressBar bar) {
+    @Override
+    public void gamePulseEvent() {
+        Methods.TICKS++;
+        TICKS_PER_QUARTER++;
+        if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
+            TICKS_PER_QUARTER = 0;
+            TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_QUARTER);
+            updateRealGDPLabel();
+        }
+        updateTime();
+        updateSpeed();
+        if (Component.OLD_PI != Component.POLITICAL_INFLUENCE) updateProgressBar(Component.POLITICAL_INFLUENCE);
+        repaint();
+        Component.calculateBudget(false);
+        try {
+            Component.calculateComponents();
+        } catch (InvalidSectorException ex) {
+            ex.printStackTrace();
+        } catch (InvalidPanelSizeException ex) {
+            ex.printStackTrace();
+        }
+        TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_DAY);
+        Consumer.updatestuff();
+        BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
+        labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
+    }
+    
+    private void addCircleProgressBar(JPanel back, CircleProgressBar bar) {
         back.removeAll();
         bar = new CircleProgressBar();
         bar.setSize(250, 250);
@@ -93,10 +113,9 @@ public class GameHold extends javax.swing.JPanel {
         });
         CBPThread.start();
     }
-    
-    
+
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
-    public static void updateRealGDPLabel() {
+    public void updateRealGDPLabel() {
         Component.calculateGDP();
         GameHold.labelGDP.setText("£" + m.format(Component.GDP) + "bn");
         Component.historyGDP.add(Component.GDP);
@@ -105,50 +124,7 @@ public class GameHold extends javax.swing.JPanel {
         Component.QUARTER_INCOME_TAX = 0;
         Component.quarterIndex++;
     }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Emits a tick for the game to follow in other classes."> 
-    public static void globalClockTick() throws InvalidSectorException, InvalidPanelSizeException {
-        Methods.TICKS++;
-        TICKS_PER_QUARTER++;
-        if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
-            TICKS_PER_QUARTER = 0;
-            TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_QUARTER);
-            updateRealGDPLabel();
-        }
-        Component.calculateBudget(false);
-        Component.calcComp();
-        Consumer.updatestuff();
-        labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
-        BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
-        TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_DAY);
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Function within timer clock."> 
-    public void updateFunction() throws InvalidSectorException, InvalidPanelSizeException {
-        timer.stop();
-        updateTime();
-        updateSpeed();
-        globalClockTick();
-        if (Component.OLD_PI != Component.POLITICAL_INFLUENCE) updateProgressBar(Component.POLITICAL_INFLUENCE);
-        repaint();
-        timerStart();
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Timer clock."> 
-    private void timerStart() { 
-        timer = new Timer(SPEED, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    updateFunction();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
-        timer.start();
-    }//</editor-fold>
-    
+ 
     //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 
     private void updateSpeed() {
         int speed = time.getValue();

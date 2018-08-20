@@ -7,6 +7,8 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.managers.exception.InvalidThemeSetupException;
+import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,7 +21,7 @@ public class Tutorial extends javax.swing.JPanel {
     private static JPanel[] backPanels;
     private static JPanel[] colorPanels;
 
-    public Tutorial() {
+    public Tutorial() throws InvalidThemeSetupException {
         initComponents();
 
         Methods.budgetClass = new BudgetList();
@@ -325,7 +327,9 @@ public class Tutorial extends javax.swing.JPanel {
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
         try {
-            MainFrame.addToMainFrame(new GameHold());
+            Methods.holdGame = new GameHold();
+            MainFrame.addToMainFrame(Methods.holdGame);
+            new ControlPulse();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

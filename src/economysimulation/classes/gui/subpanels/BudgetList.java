@@ -27,11 +27,35 @@ public class BudgetList extends javax.swing.JPanel {
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
     
-    public static String[] saveTexts = new String[]{ "Spend Money", "Money Spent", "Insufficient Funds" };
-    
     private static JPanel[] backPanels, colorPanels;
     private static JLabel[] arrowLabels;
-    public static final String[] titles = new String[]{ "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits" }; 
+    public static final String[]
+            titles = new String[]{
+                "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits" },
+            saveTexts = new String[]{
+                "Spend Money", "Money Spent", "Insufficient Funds" }; 
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    public BudgetList() {
+        initComponents();
+        
+        backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
+        colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6, color7, color8 };
+        arrowLabels = new JLabel[]{ arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8 };
+        
+        addSaveChangesFormat(picPanel, saveChangesPanel);
+        Format.addButtonFormat(saveChangesPanel, picPanel);
+
+        for (int i = 0; i < backPanels.length; i++) {
+            addButtonFormat(i);
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
+        }
+
+        addSliderListener(slider);
+        applySelectedType(0);
+        
+        updateTheme();
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 
     private static void applySelectedType(int id) {
@@ -113,28 +137,6 @@ public class BudgetList extends javax.swing.JPanel {
         Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, budget, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
     }//</editor-fold> 
     
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public BudgetList() {
-        initComponents();
-        
-        backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
-        colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6, color7, color8 };
-        arrowLabels = new JLabel[]{ arrow1, arrow2, arrow3, arrow4, arrow5, arrow6, arrow7, arrow8 };
-        
-        addSaveChangesFormat(picPanel, saveChangesPanel);
-        Format.addButtonFormat(saveChangesPanel, picPanel);
-
-        for (int i = 0; i < backPanels.length; i++) {
-            addButtonFormat(i);
-            Format.addButtonFormat(backPanels[i], colorPanels[i]);
-        }
-
-        addSliderListener(slider);
-        applySelectedType(0);
-        
-        updateTheme();
-    }//</editor-fold>
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

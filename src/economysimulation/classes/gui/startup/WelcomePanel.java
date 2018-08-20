@@ -2,6 +2,7 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
+import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.mode.Mode;
@@ -146,7 +147,11 @@ public class WelcomePanel extends javax.swing.JPanel {
                     
                     } else {
                         Mode.MODE = id + 1;
-                        MainFrame.addToMainFrame(new Tutorial());
+                        try {
+                            MainFrame.addToMainFrame(new Tutorial());
+                        } catch (InvalidThemeSetupException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 }
 
