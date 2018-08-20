@@ -103,7 +103,7 @@ public class Component {
         D_INCOME -= TAXED_INCOME;
         TAXATION += TAXED_CORP + TAXED_INCOME;
 
-        CORP_CONFIDENCE = getPublicSpendingTotal(true) > ANNUAL_BUDGET ? ANNUAL_BUDGET / getPublicSpendingTotal(true) : 1;
+        CORP_CONFIDENCE = 1;
         CONS_CONFIDENCE = getConsConfidence();
         
         if (D_INCOME == 0 && TOTAL_SAVINGS >= 0.1) {

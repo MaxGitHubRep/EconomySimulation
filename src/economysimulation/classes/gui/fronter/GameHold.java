@@ -7,6 +7,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
+import economysimulation.classes.managers.customcomp.CircleProgressBar;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
@@ -27,6 +28,8 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel {
 
+    public static CircleProgressBar confidenceBar;
+    
     private static final DecimalFormat
             m = new DecimalFormat("0"),
             f = new DecimalFormat("#00"),
@@ -54,9 +57,18 @@ public class GameHold extends javax.swing.JPanel {
         Format.addButtonFormat(panel1, color1);
         Format.addButtonFormat(panel2, color2);
 
+        addCircleProgressBar(circleAdd, confidenceBar);
+        
         updateTheme();
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
+    
+    private static void addCircleProgressBar(JPanel back, CircleProgressBar bar) {
+        back.removeAll();
+        bar = new CircleProgressBar();
+        bar.setSize(250, 250);
+        back.add(bar);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
     public static void updateRealGDPLabel() {
@@ -92,6 +104,13 @@ public class GameHold extends javax.swing.JPanel {
         updateTime();
         updateSpeed();
         globalClockTick();
+        try {
+            confidenceBar.percent = Component.CONS_CONFIDENCE;
+            repaint();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
         timerStart();
     }//</editor-fold>
     
@@ -183,6 +202,7 @@ public class GameHold extends javax.swing.JPanel {
         color2 = new javax.swing.JPanel();
         rightBar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        circleAdd = new javax.swing.JPanel();
         topBar = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         description = new javax.swing.JLabel();
@@ -349,13 +369,29 @@ public class GameHold extends javax.swing.JPanel {
 
         jLabel1.setText("new sidebar right");
 
+        javax.swing.GroupLayout circleAddLayout = new javax.swing.GroupLayout(circleAdd);
+        circleAdd.setLayout(circleAddLayout);
+        circleAddLayout.setHorizontalGroup(
+            circleAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+        circleAddLayout.setVerticalGroup(
+            circleAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout rightBarLayout = new javax.swing.GroupLayout(rightBar);
         rightBar.setLayout(rightBarLayout);
         rightBarLayout.setHorizontalGroup(
             rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightBarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightBarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightBarLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(circleAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)))
                 .addContainerGap())
         );
         rightBarLayout.setVerticalGroup(
@@ -363,6 +399,8 @@ public class GameHold extends javax.swing.JPanel {
             .addGroup(rightBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(110, 110, 110)
+                .addComponent(circleAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -474,6 +512,7 @@ public class GameHold extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
+    private javax.swing.JPanel circleAdd;
     public static javax.swing.JPanel color1;
     public static javax.swing.JPanel color2;
     public static javax.swing.JLabel description;
