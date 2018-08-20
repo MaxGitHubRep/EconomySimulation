@@ -1,7 +1,6 @@
 package economysimulation.classes.managers.customcomp;
 
 import economysimulation.classes.managers.themes.Theme;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
@@ -23,7 +22,7 @@ public class CircleProgressBar extends JPanel {
         
         // Draws progress bar.
         g.setColor(Theme.primaryText);
-        g.fillArc(0, 0, 240, 240, 90, -(int) (360 * percent) -1);
+        g.fillArc(0, 0, 240, 240, 90, -(int) (360 * percent));
         
         // Fills in middle of circle.
         g.setColor(Theme.secondaryBack);
