@@ -78,7 +78,15 @@ public class Component {
     private static double getConsConfidence() {
         double confidence = 1;
         
-        //if (BUDGET_VARS[0])
+        /**links:
+         * NHS: sol, population
+         * Education: sol, min_wage
+         * Housing: population, sol
+         * Food: dy sol
+         * Infrastructure: sol, cop
+         * Defence: new var: defence
+         * Science: cop
+         */
         
         return confidence;
     }
@@ -137,7 +145,7 @@ public class Component {
         TOTAL_INVESTMENT += INVESTMENT;
         TOTAL_CONSUMPTION += CONSUMPTION;
                
-        if (COST_OF_PRODUCTION > TOTAL_CORP_PROFITS && UNEMPLOYMENT < 99) {
+        if (COST_OF_PRODUCTION > TOTAL_CORP_PROFITS && UNEMPLOYMENT < 100) {
             UNEMPLOYMENT++;
         } else if (UNEMPLOYMENT > 1) {
             UNEMPLOYMENT--;

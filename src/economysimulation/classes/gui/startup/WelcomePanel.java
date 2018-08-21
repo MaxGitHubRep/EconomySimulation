@@ -8,14 +8,11 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.mode.Mode;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.AbstractAction;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.Timer;
 
 /**
  *
@@ -23,19 +20,20 @@ import javax.swing.Timer;
  */
 public class WelcomePanel extends javax.swing.JPanel {
 
-    private static int
+    private Thread GThread;
+    
+    private static boolean build = true;
+    
+    private int[][] coords = new int[10][2];
+    
+    private static final int
             height = 1000,
             width = 1300,
             size = 6,
-            max = width/2,
-            index = 0,
-            length = 0;
+            capw = 60, caph = 4;
 
     private static JPanel[] colorPanels, backPanels;
-    private static JLabel[] signals, titleLabels;
-    
-    private static boolean rotate = false;
-    private Timer timer;
+    private static JLabel[] signals, capb, capt, titleLabels;
     
     private static final String USERNAME_GHOST_TEXT = "Username";
     private static final String[]
@@ -48,70 +46,126 @@ public class WelcomePanel extends javax.swing.JPanel {
         "Single player experience where your stats are saved on the leaderboards",
         "Cooperative experience with a friend where your stats are saved on the leaderboards"
     };
-    
-    //<editor-fold defaultstate="collapsed" desc="Graph builder."> 
-    /**
-    * Draws the next pixel of graph.
-    */
-    private void update() {
-        timer.stop();
-        animBack.add(signals[index]);
+  
+    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    public WelcomePanel() {
+        initComponents();
         
-        if (rotate) {
-            for (int i = max-1; i >= 0; i--) {
-                if (i-1 >= 0) {
-                    signals[i].setLocation(signals[i-1].getX(), signals[i-1].getY());
-                }
+        backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
+        colorPanels = new JPanel[]{ co1, co2, co3, co4, co5, co6 };
+        titleLabels = new JLabel[]{ title1, title2, title3, title4, author, leave };
+        
+        for (int i = 0; i < backPanels.length; i++) {
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
+            if (i < backPanels.length-2) {
+                addPanelHoverEvent(i);
             }
+        }
+        
+        author.setText("<html>Created by<br>Max Carter</html>");
+        Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
+        
+        signals = new JLabel[coords.length];
+        capt = new JLabel[coords.length];
+        capb = new JLabel[coords.length];
+        
+        for (int i = 0; i < signals.length; i++) {
+            signals[i] = new JLabel();
+            signals[i].setSize(size, size);
+            signals[i].setOpaque(true);
+            signals[i].setBackground(Color.green);
+            
+            capb[i] = new JLabel();
+            capb[i].setSize(capw, caph);
+            capb[i].setOpaque(true);
+            capb[i].setBackground(Color.gray);
+            
+            capt[i] = new JLabel();
+            capt[i].setSize(capw, caph);
+            capt[i].setOpaque(true);
+            capt[i].setBackground(Color.gray);
+        }
 
-            if (index+1 == max) {
-                rotate = false;
-                index = 0;
-                length = 0;
-            }
-            
-        } else if (index != 0) {
-            int newHeight = signals[index-1].getY()+(int) Math.round(Math.cos(0.02*length)*15) + Methods.randomInt(-size*2, size*2);
-            signals[index].setLocation(length, newHeight);
-            signals[index].setBackground(newHeight < signals[index-1].getY() ? Color.green : Color.red);
-            int potY = Math.abs(newHeight - signals[index-1].getY());
-            signals[index + (newHeight < signals[index-1].getY() ? +0 : -1)].setSize(size, potY > size ? potY : size);
-            
+        JRadioButton btn = new JRadioButton("removes automatic text box focus");
+        sideBarLeft.add(btn);
+        
+        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
+        Theme.applyTextThemes(titleLabels, null);
+        
+        Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
+        initThread();
+        //timerStart();
+    }//</editor-fold>
+    
+    private void setGraphCoords() {
+        int step = width / coords.length;
+        for (int i = 0; i < coords.length; i++) {
+            coords[i][0] = (int) (step * i) + step/2;
+            coords[i][1] = (int) Math.floor(Math.sin(coords[i][0])*400) + height/2;
+        }
+    }
+    
+    private void insertCap(int i, int x, int y1, int y2) {
+        animBack.add(capt[i]);
+        animBack.add(capb[i]);
+        capt[i].setLocation(x - capw/2 + size/2, y1 - caph);
+        capb[i].setLocation(x - capw/2 + size/2, y2);
+    }
+    
+    private int g(int i) {
+        return (i == 0 ? coords.length : i)-1;
+    }
+    
+    private void buildGraph(int i) {
+        animBack.add(signals[i]);
+        signals[i].setLocation(coords[i][0], coords[i][1]);
+
+        int potY = coords[g(i)][1] - coords[i][1];
+        if (potY < 0) {
+            signals[g(i)].setBackground(Color.red);
+            signals[g(i)].setSize(size, coords[i][1] - coords[g(i)][1]);
+            insertCap(g(i), coords[g(i)][0], coords[g(i)][1], coords[i][1]);
         } else {
-            signals[index].setLocation(0, height/2);
+            signals[g(i)].setBackground(Color.green);
+            signals[g(i)].setLocation(coords[g(i)][0], coords[g(i)][1] - potY);
+            signals[g(i)].setSize(size, potY);
+            insertCap(g(i), coords[g(i)][0], coords[g(i)][1] - potY, coords[g(i)][1]);
         }
-        
-        length+=2;
-        index++;
-        
-        if (index == max) {
-            index = 0;
-            if (!rotate) rotate = true;
+    }
+
+    private void shiftGraph() {
+        int i1 = -1;
+        for (int i = 0; i < coords.length; i++) {
+            if (capb[i].getX() == -capw/2) i1 = width+capw/2;
+            capb[i].setLocation(capb[i].getX() + i1, capb[i].getY());
+            capt[i].setLocation(capt[i].getX() + i1, capt[i].getY());   
+            signals[i].setLocation(signals[i].getX() + i1, signals[i].getY());
+            i1 = -1;
         }
-        
-        timerStart();
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Graph timer."> 
-    /**
-    * Initiates the timer to iterate the graph
-    * creation sequence.
-    */
-    public void timerStart() { 
-        timer = new Timer(10, new AbstractAction() {
+    private void initThread() {
+        setGraphCoords();
+        for (int i = 0; i < coords.length; i++) {
+            buildGraph(i);
+        }
+        GThread = new Thread(new Runnable() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    update();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+            public void run() {
+                while (build) {
+                    try {
+                        shiftGraph();
+
+                        Thread.sleep(10);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
                 }
-                
             }
-        }); 
-        timer.start();
-    }//</editor-fold>
-    
+        });
+        GThread.start();
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Panel hover event to display button descritpion."> 
     /**
     * Changes the text and font size of the button
@@ -148,6 +202,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                     } else {
                         Mode.MODE = id + 1;
                         try {
+                            build = false;
                             MainFrame.addToMainFrame(new Tutorial());
                         } catch (InvalidThemeSetupException ex) {
                             ex.printStackTrace();
@@ -159,44 +214,6 @@ public class WelcomePanel extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public WelcomePanel() {
-        initComponents();
-        
-        backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
-        colorPanels = new JPanel[]{ co1, co2, co3, co4, co5, co6 };
-        titleLabels = new JLabel[]{ title1, title2, title3, title4, author, leave };
-        
-        for (int i = 0; i < backPanels.length; i++) {
-            Format.addButtonFormat(backPanels[i], colorPanels[i]);
-            if (i < backPanels.length-2) {
-                addPanelHoverEvent(i);
-            }
-        }
-        
-        author.setText("<html>Created by<br>Max Carter</html>");
-        Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
-        
-        signals = new JLabel[max];
-        
-        for (int i = 0; i < signals.length; i++) {
-            signals[i] = new JLabel();
-            signals[i].setSize(size, size);
-            signals[i].setOpaque(true);
-            signals[i].setBackground(Color.green);
-            signals[i].setVisible(true);
-        }
-
-        JRadioButton btn = new JRadioButton("removes automatic text box focus");
-        sideBarLeft.add(btn);
-        
-        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
-        Theme.applyTextThemes(titleLabels, null);
-        
-        Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
-        timerStart();
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")

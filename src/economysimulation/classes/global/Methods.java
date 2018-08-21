@@ -1,6 +1,5 @@
 package economysimulation.classes.global;
 
-import economysimulation.classes.economy.Component;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -36,7 +35,6 @@ public class Methods {
             totalHints = 0;
     public static final int
             MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3,
-            DEFAULT_SPENDING = 50,
             GRAPH_TICKS = 50;
     
     public static String username; //players username

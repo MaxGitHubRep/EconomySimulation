@@ -15,7 +15,6 @@ import javax.swing.JLabel;
  */
 public class Preferences extends javax.swing.JPanel {
 
-        
     private static String[] order;
     private static final String[] themes = new String[]{ "White", "Dark", "Ocean", "Nature" };
     public static final Color[][] colors = new Color[][]{ ThemeTypes.WHITE, ThemeTypes.DARK, ThemeTypes.OCEAN, ThemeTypes.NATURE };
@@ -56,7 +55,7 @@ public class Preferences extends javax.swing.JPanel {
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
-    public static void addButtonFunction(JLabel button, boolean up, boolean apply) {
+    public void addButtonFunction(JLabel button, boolean up, boolean apply) {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

@@ -12,7 +12,6 @@ import economysimulation.classes.gui.mainpanels.extra.Preferences;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
-import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;

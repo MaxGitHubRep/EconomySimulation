@@ -1,10 +1,7 @@
 package economysimulation.classes.managers.animation;
 
 import economysimulation.classes.managers.exception.InvalidTimeException;
-import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
 import javax.swing.JLabel;
-import javax.swing.Timer;
 
 /**
  *
@@ -13,7 +10,6 @@ import javax.swing.Timer;
 public class NumberIncrementer {
 
     private Thread NIThread;
-    private Timer timer;
     
     private JLabel label;
     private String text;

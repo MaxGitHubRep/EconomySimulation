@@ -104,7 +104,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
                     politicalInfluence.percent = i;
                     repaint();
                     try {
-                        Thread.sleep(SPEED/(int)Math.abs((old*100) - (percent*100)));
+                        int div = (int)Math.abs((old*100) - (percent*100));
+                        if (div > 0) Thread.sleep(SPEED/div);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
