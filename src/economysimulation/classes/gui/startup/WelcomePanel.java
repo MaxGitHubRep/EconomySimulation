@@ -144,7 +144,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         }
     }
     
-    private void initThread() {
+    private synchronized void initThread() {
         setGraphCoords();
         for (int i = 0; i < coords.length; i++) {
             buildGraph(i);

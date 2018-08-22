@@ -30,7 +30,7 @@ public class NumberIncrementer {
         this.tickDelay = tickDelay;
     }
     
-    public void startIncrementer() { 
+    public synchronized void startIncrementer() { 
         difference = Math.abs(start - end);
         
         NIThread = new Thread(new Runnable() {

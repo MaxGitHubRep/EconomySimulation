@@ -39,7 +39,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             times = new int[]{ 0, 0, 0 };
     
     public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
-    public static int TICKS_PER_QUARTER = 0, SPEED;
+    public static int TICKS_PER_QUARTER = 0;
+    public static int SPEED;
     public final String SPEED_FORMAT = "Speed: %s";
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
@@ -94,7 +95,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         back.add(bar);
     }
     
-    private void updateProgressBar(double percent) {
+    private synchronized void updateProgressBar(double percent) {
         double old = politicalInfluence.percent;
         boolean increase = percent > old;
         CBPThread = new Thread(new Runnable() {
