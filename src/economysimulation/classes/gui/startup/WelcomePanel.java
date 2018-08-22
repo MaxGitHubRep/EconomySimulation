@@ -20,22 +20,64 @@ import javax.swing.JRadioButton;
  */
 public class WelcomePanel extends javax.swing.JPanel {
 
-    private Thread GThread;
+    /**
+    * Graph Thread used to move the graph.
+    */
+    private Thread
+            GThread;
     
-    private static volatile boolean build = true;
+    /**
+    * Boolean to control loop on thread.
+    */
+    private static volatile boolean
+            build = true;
     
-    private int[][] coords = new int[10][2];
+    /**
+     * Locations of the graph vectors.
+     */
+    private int[][]
+            vectors = new int[10][2];
     
+    /**
+     * Dimensions of the vectors and caps.
+     */
     private static final int
-            height = 1000,
-            width = 1300,
-            size = 6,
-            capw = 60, caph = 4;
+            VECTOR_WIDTH = 6,
+            CAP_WIDTH = 60,
+            CAP_HEIGHT = 4,
+            LWIDTH = 1300,
+            LHEIGHT = 1000;
 
-    private static JPanel[] colorPanels, backPanels;
-    private static JLabel[] signals, capb, capt, titleLabels;
+    /**
+    * List of panels that change colour when hovered over.
+    */
+    private static JPanel[]
+            colorPanels,
+            backPanels;
     
-    private static final String USERNAME_GHOST_TEXT = "Username";
+    /**
+     * List of JLabels for holding graph vector data.
+     */
+    private static JLabel[]
+            lines,
+            capBottoms,
+            capTops;
+    
+    /**
+     * List of labels used for the buttons.
+     */
+    private static JLabel[]
+            titleLabels;
+    
+    /**
+    * Ghost text applied to text field.
+    */
+    private static final String
+            USERNAME_GHOST_TEXT = "Username";
+    
+    /**
+     * List of titles and descriptions for buttons.
+     */
     private static final String[]
             TITLES = new String[]{
         "Solo Classic", "Coop Classic", "Solo Competitive", "Coop Competitive" },
@@ -48,6 +90,9 @@ public class WelcomePanel extends javax.swing.JPanel {
     };
   
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    /**
+     * Creates new starter panel.
+     */
     public WelcomePanel() {
         initComponents();
         
@@ -65,25 +110,25 @@ public class WelcomePanel extends javax.swing.JPanel {
         author.setText("<html>Created by<br>Max Carter</html>");
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         
-        signals = new JLabel[coords.length];
-        capt = new JLabel[coords.length];
-        capb = new JLabel[coords.length];
+        lines = new JLabel[vectors.length];
+        capTops = new JLabel[vectors.length];
+        capBottoms = new JLabel[vectors.length];
         
-        for (int i = 0; i < signals.length; i++) {
-            signals[i] = new JLabel();
-            signals[i].setSize(size, size);
-            signals[i].setOpaque(true);
-            signals[i].setBackground(Color.green);
+        for (int i = 0; i < lines.length; i++) {
+            lines[i] = new JLabel();
+            lines[i].setSize(VECTOR_WIDTH, VECTOR_WIDTH);
+            lines[i].setOpaque(true);
+            lines[i].setBackground(Color.green);
             
-            capb[i] = new JLabel();
-            capb[i].setSize(capw, caph);
-            capb[i].setOpaque(true);
-            capb[i].setBackground(Color.gray);
+            capBottoms[i] = new JLabel();
+            capBottoms[i].setSize(CAP_WIDTH, CAP_HEIGHT);
+            capBottoms[i].setOpaque(true);
+            capBottoms[i].setBackground(Color.gray);
             
-            capt[i] = new JLabel();
-            capt[i].setSize(capw, caph);
-            capt[i].setOpaque(true);
-            capt[i].setBackground(Color.gray);
+            capTops[i] = new JLabel();
+            capTops[i].setSize(CAP_WIDTH, CAP_HEIGHT);
+            capTops[i].setOpaque(true);
+            capTops[i].setBackground(Color.gray);
         }
 
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
@@ -94,59 +139,92 @@ public class WelcomePanel extends javax.swing.JPanel {
         
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         initThread();
-        //timerStart();
     }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Defines line vectors,."> 
+    /**
+     * Sets the vectors of the lines.
+     */
     private void setGraphCoords() {
-        int step = width / coords.length;
-        for (int i = 0; i < coords.length; i++) {
-            coords[i][0] = (int) (step * i) + step/2;
-            coords[i][1] = (int) Math.floor(Math.sin(coords[i][0])*400) + height/2;
+        int step = LWIDTH / vectors.length;
+        for (int i = 0; i < vectors.length; i++) {
+            vectors[i][0] = (int) (step * i) + step/2;
+            vectors[i][1] = (int) Math.floor(Math.sin(vectors[i][0])*400) + LHEIGHT/2;
         }
-    }
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Draws a cap that surrounds a line."> 
+    /**
+     * Draws a cap that surrounds a line.
+     * 
+     * @param i  Index of the cap list to use.
+     * @param x  X coordinate of the line.
+     * @param y1 First Y coordinate of the line.
+     * @param y2 Second Y coordinate of the line.
+     */
     private void insertCap(int i, int x, int y1, int y2) {
-        animBack.add(capt[i]);
-        animBack.add(capb[i]);
-        capt[i].setLocation(x - capw/2 + size/2, y1 - caph);
-        capb[i].setLocation(x - capw/2 + size/2, y2);
-    }
+        animBack.add(capTops[i]);
+        animBack.add(capBottoms[i]);
+        capTops[i].setLocation(x - CAP_WIDTH/2 + VECTOR_WIDTH/2, y1 - CAP_HEIGHT);
+        capBottoms[i].setLocation(x - CAP_WIDTH/2 + VECTOR_WIDTH/2, y2);
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Gets the next index in the list."> 
+    /**
+     * Gets the previous index of a list, and returns the last index if {@code i} arg is {@code 0}.
+     * 
+     * @param i Current index of the list.
+     * @return Previous index in the list.
+     */
     private int g(int i) {
-        return (i == 0 ? coords.length : i)-1;
-    }
+        return (i == 0 ? vectors.length : i)-1;
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Constructs the graph and formats the lines and caps."> 
+    /**
+     * Constructs the graph and formats the lines and caps.
+     * 
+     * @param i Index of the list of lines.
+     */
     private void buildGraph(int i) {
-        animBack.add(signals[i]);
-        signals[i].setLocation(coords[i][0], coords[i][1]);
+        animBack.add(lines[i]);
+        lines[i].setLocation(vectors[i][0], vectors[i][1]);
 
-        int potY = coords[g(i)][1] - coords[i][1];
+        int potY = vectors[g(i)][1] - vectors[i][1];
         if (potY < 0) {
-            signals[g(i)].setBackground(Color.red);
-            signals[g(i)].setSize(size, coords[i][1] - coords[g(i)][1]);
-            insertCap(g(i), coords[g(i)][0], coords[g(i)][1], coords[i][1]);
+            lines[g(i)].setBackground(Color.red);
+            lines[g(i)].setSize(VECTOR_WIDTH, vectors[i][1] - vectors[g(i)][1]);
+            insertCap(g(i), vectors[g(i)][0], vectors[g(i)][1], vectors[i][1]);
         } else {
-            signals[g(i)].setBackground(Color.green);
-            signals[g(i)].setLocation(coords[g(i)][0], coords[g(i)][1] - potY);
-            signals[g(i)].setSize(size, potY);
-            insertCap(g(i), coords[g(i)][0], coords[g(i)][1] - potY, coords[g(i)][1]);
+            lines[g(i)].setBackground(Color.green);
+            lines[g(i)].setLocation(vectors[g(i)][0], vectors[g(i)][1] - potY);
+            lines[g(i)].setSize(VECTOR_WIDTH, potY);
+            insertCap(g(i), vectors[g(i)][0], vectors[g(i)][1] - potY, vectors[g(i)][1]);
         }
-    }
+    }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Moves all vector positions along."> 
+    /**
+     * Shifts all vectors, lines and caps by {@code 1} pixel, or by the {@code width} of the panel if it touches the edge.
+     */
     private void shiftGraph() {
         int i1 = -1;
-        for (int i = 0; i < coords.length; i++) {
-            if (capb[i].getX() == -capw/2) i1 = width+capw/2;
-            capb[i].setLocation(capb[i].getX() + i1, capb[i].getY());
-            capt[i].setLocation(capt[i].getX() + i1, capt[i].getY());   
-            signals[i].setLocation(signals[i].getX() + i1, signals[i].getY());
+        for (int i = 0; i < vectors.length; i++) {
+            if (capBottoms[i].getX() == -CAP_WIDTH/2) i1 = LWIDTH+CAP_WIDTH/2;
+            capBottoms[i].setLocation(capBottoms[i].getX() + i1, capBottoms[i].getY());
+            capTops[i].setLocation(capTops[i].getX() + i1, capTops[i].getY());   
+            lines[i].setLocation(lines[i].getX() + i1, lines[i].getY());
             i1 = -1;
         }
-    }
+    }//</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Thread handler method."> 
+    /**
+     * Initiates thread that shifts the x axis along.
+     */
     private synchronized void initThread() {
         setGraphCoords();
-        for (int i = 0; i < coords.length; i++) {
+        for (int i = 0; i < vectors.length; i++) {
             buildGraph(i);
         }
         GThread = new Thread(new Runnable() {
@@ -155,7 +233,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                 while (build) {
                     try {
                         shiftGraph();
-
+                        
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
@@ -164,7 +242,7 @@ public class WelcomePanel extends javax.swing.JPanel {
             }
         });
         GThread.start();
-    }
+    }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Panel hover event to display button descritpion."> 
     /**
