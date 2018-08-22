@@ -27,7 +27,7 @@ public class Component {
         TAXED_CORP, TAXED_INCOME;
     
     // Budget variables
-    public static int[] BUDGET_VARS = new int[]{
+    public static int[] Spending = new int[]{
         0, 0, 0, 0, 0, 0, 0, 0
     };
     
@@ -42,9 +42,9 @@ public class Component {
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0;
-        for (int i = 0; i < BUDGET_VARS.length; i++) {
-            if (!(!includeTransfer && i == BUDGET_VARS.length-1)) {
-                value+=BUDGET_VARS[i];
+        for (int i = 0; i < Spending.length; i++) {
+            if (!(!includeTransfer && i == Spending.length-1)) {
+                value+=Spending[i];
             }
         }
         
@@ -52,10 +52,10 @@ public class Component {
     }
     
     public static int getSectorSpending(int id) throws InvalidSectorException {
-        if (id < 0 || id > BUDGET_VARS.length) {
+        if (id < 0 || id > Spending.length) {
             throw new InvalidSectorException();
         }
-        return BUDGET_VARS[id];
+        return Spending[id];
     }
       
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 

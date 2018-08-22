@@ -47,7 +47,7 @@ public class Budget extends javax.swing.JPanel {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
         
         for (int i = 0; i < BudgetList.titles.length; i++) {
-            datasetPie.insertValue(i, BudgetList.titles[i], Component.BUDGET_VARS[i]);
+            datasetPie.insertValue(i, BudgetList.titles[i], Component.Spending[i]);
         }
         
         pieChart = ChartFactory.createPieChart3D("Annual Budget", datasetPie);
