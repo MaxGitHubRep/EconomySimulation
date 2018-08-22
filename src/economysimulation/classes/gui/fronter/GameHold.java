@@ -2,6 +2,7 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.Formula;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.managers.themes.Theme;
@@ -74,9 +75,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         updateSpeed();
         if (Component.OLD_PI != Component.POLITICAL_INFLUENCE) updateProgressBar(Component.POLITICAL_INFLUENCE);
         repaint();
-        Component.calculateBudget(false);
+        Formula.calculateBudget(false);
         try {
-            Component.calculateComponents();
+            Formula.calculateComponents();
         } catch (InvalidSectorException ex) {
             ex.printStackTrace();
         } catch (InvalidPanelSizeException ex) {
@@ -118,7 +119,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
 
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
     public void updateRealGDPLabel() {
-        Component.calculateGDP();
+        Formula.calculateGDP();
         GameHold.labelGDP.setText("£" + m.format(Component.GDP) + "bn");
         Component.historyGDP.add(Component.GDP);
         //createGraph("GDP", historyGDP, Rate.taxResultPanel);
@@ -151,7 +152,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
                 times[1] = 0;
                 times[2]++;
                 TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_YEAR);
-                Component.calculateBudget(true);
+                Formula.calculateBudget(true);
             }
         }
 

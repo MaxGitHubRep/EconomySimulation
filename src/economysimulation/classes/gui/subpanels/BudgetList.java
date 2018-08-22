@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.Formula;
 import economysimulation.classes.economy.Sector;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
@@ -86,7 +87,7 @@ public class BudgetList extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (slider.getValue() <= Component.ANNUAL_BUDGET) { 
-                    int spending = Component.getPublicSpendingTotal(true);
+                    int spending = Formula.getPublicSpendingTotal(true);
                     try {
                         new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
                     } catch (InvalidTimeException ex) {
