@@ -10,7 +10,7 @@ public class PulseThread {
     
     private GamePulse pulse;
     public Thread PulseThread;
-    public static boolean IS_RUNNING = false;
+    public static volatile boolean IS_RUNNING = false;
     
     public void setGamePulseEventListener(GamePulse pulse) {
         this.pulse = pulse;

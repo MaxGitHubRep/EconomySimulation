@@ -22,7 +22,7 @@ public class WelcomePanel extends javax.swing.JPanel {
 
     private Thread GThread;
     
-    private static boolean build = true;
+    private static volatile boolean build = true;
     
     private int[][] coords = new int[10][2];
     

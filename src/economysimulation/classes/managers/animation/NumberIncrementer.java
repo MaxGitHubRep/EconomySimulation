@@ -11,6 +11,8 @@ public class NumberIncrementer {
 
     private Thread NIThread;
     
+    private volatile int difference;
+    
     private JLabel label;
     private String text;
     private int start, end, tickDelay;
@@ -29,8 +31,7 @@ public class NumberIncrementer {
     }
     
     public void startIncrementer() { 
-        
-        int difference = Math.abs(start - end);
+        difference = Math.abs(start - end);
         
         NIThread = new Thread(new Runnable() {
             @Override
