@@ -17,7 +17,7 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Max Carter
  */
-public class Budget extends javax.swing.JPanel {
+public class BudgetHold extends javax.swing.JPanel {
 
     private DecimalFormat format = new DecimalFormat("0");
     private static PiePlot plot;
@@ -69,7 +69,7 @@ public class Budget extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public Budget() {
+    public BudgetHold() {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
         

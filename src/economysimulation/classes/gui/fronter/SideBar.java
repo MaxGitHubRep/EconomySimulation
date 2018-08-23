@@ -2,11 +2,11 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
-import economysimulation.classes.gui.mainpanels.hold.Budget;
+import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.mainpanels.extra.QuitSim;
-import economysimulation.classes.gui.mainpanels.hold.Rate;
+import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.extra.Leaderboards;
 import economysimulation.classes.gui.mainpanels.extra.Preferences;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
@@ -112,8 +112,8 @@ public class SideBar extends javax.swing.JPanel {
         colorPanels = new JPanel[]{ colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9 };
 
         opPanels = new JPanel[]{
-            new Rate(), 
-            new Budget(),
+            new RateHold(), 
+            new BudgetHold(),
             new Corporation(),
             new Consumer(),
             new Bankruptcy(),

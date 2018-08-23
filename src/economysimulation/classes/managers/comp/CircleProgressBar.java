@@ -1,4 +1,4 @@
-package economysimulation.classes.managers.customcomp;
+package economysimulation.classes.managers.comp;
 
 import economysimulation.classes.managers.themes.Theme;
 import java.awt.Font;

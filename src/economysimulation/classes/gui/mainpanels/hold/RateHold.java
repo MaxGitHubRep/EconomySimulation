@@ -6,10 +6,10 @@ import economysimulation.classes.gui.subpanels.TaxRevenueList;
  *
  * @author Max Carter
  */
-public class Rate extends javax.swing.JPanel {
+public class RateHold extends javax.swing.JPanel {
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public Rate() {
+    public RateHold() {
         initComponents();
         Methods.addToFrontPanel(backPanelGov, Methods.govClass, false);
         Methods.addToFrontPanel(taxResultPanel, new TaxRevenueList(), false);
