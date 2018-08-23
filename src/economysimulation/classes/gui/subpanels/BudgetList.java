@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.subpanels;
 
+import economysimulation.classes.economy.Budget;
 import economysimulation.classes.economy.Component;
 import economysimulation.classes.economy.Formula;
 import economysimulation.classes.economy.Sector;
@@ -93,10 +94,7 @@ public class BudgetList extends javax.swing.JPanel {
                     } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }
-                    Component.Spending[selectedType]+= slider.getValue();
-                    if (selectedType == Sector.BENEFITS) Component.CONS_INJECTION += slider.getValue();
-                    Component.ANNUAL_BUDGET -= slider.getValue();
-                    
+                    Budget.spendMoney(selectedType, slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
                     budget.setText("£" + format.format(Component.ANNUAL_BUDGET) + "bn");
