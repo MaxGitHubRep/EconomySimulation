@@ -1,9 +1,5 @@
 package economysimulation.classes.economy;
 
-import economysimulation.classes.managers.exception.InvalidPanelSizeException;
-import economysimulation.classes.managers.exception.InvalidSectorException;
-import economysimulation.classes.managers.popup.hint.HintManager;
-import economysimulation.classes.managers.popup.hint.Hints;
 import java.util.ArrayList;
 
 /**
@@ -24,10 +20,14 @@ public class Component {
         TOTAL_CORP_TAX, TOTAL_INCOME_TAX, QUARTER_CORP_TAX, QUARTER_INCOME_TAX,
         YEARLY_INCOME_TAX, YEARLY_CORP_TAX, 
         COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME,
-        TAXED_CORP, TAXED_INCOME, SOL;
+        TAXED_CORP, TAXED_INCOME, SOL, OLD_SOL;
     
     // Budget variables
     public static int[] Spending = new int[]{
+        0, 0, 0, 0, 0, 0, 0, 0
+    };
+    
+    public static int[] SpendingInfluence = new int[]{
         0, 0, 0, 0, 0, 0, 0, 0
     };
     

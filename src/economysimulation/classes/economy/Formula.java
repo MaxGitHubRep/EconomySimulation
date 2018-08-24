@@ -51,8 +51,31 @@ public class Formula extends Component {
     }//</editor-fold>
     
     private static double getConsConfidence() {
-        double confidence = 1;
+
+        return SOL;
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
+    /**
+     * Uses the budget to adjust economic behaviour.
+     */
+    private static void calculateSpendingInfluence() {
+
+        for (int i = 0; i < SpendingInfluence.length-1; i++) {
+            if (SpendingInfluence[i] > 0) SpendingInfluence[i]--;
+        }
         
+ 
+        //Testing way to change standard of living & population control.
+        if (SpendingInfluence[Sector.NHS] == 0) {
+            SOL-=0.002;
+            POPULATION+=3;
+        } else {
+            POPULATION-=3;
+            SOL+=0.004;
+        }
+        if (SOL > 1) SOL = 1;
+        if (SOL < 0) SOL = 0;
         /**links:
          * NHS: sol, population
          * Education: sol, min_wage
@@ -62,12 +85,13 @@ public class Formula extends Component {
          * Defence: new var: defence
          * Science: cop
          */
-        
-        return confidence;
-    }
+    }//</editor-fold>
 
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
+        OLD_SOL = SOL;
+        calculateSpendingInfluence();
+       
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
         

@@ -8,7 +8,7 @@ import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
-import economysimulation.classes.managers.customcomp.CircleProgressBar;
+import economysimulation.classes.managers.comp.CircleProgressBar;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
