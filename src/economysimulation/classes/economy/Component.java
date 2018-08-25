@@ -20,7 +20,7 @@ public class Component {
         TOTAL_CORP_TAX, TOTAL_INCOME_TAX, QUARTER_CORP_TAX, QUARTER_INCOME_TAX,
         YEARLY_INCOME_TAX, YEARLY_CORP_TAX, 
         COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME,
-        TAXED_CORP, TAXED_INCOME, SOL, OLD_SOL;
+        TAXED_CORP, TAXED_INCOME, SOL = 1, OLD_SOL;
     
     // Budget variables
     public static int[] Spending = new int[]{

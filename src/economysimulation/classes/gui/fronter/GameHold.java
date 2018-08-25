@@ -151,7 +151,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             if (times[1] == 12) {
                 times[1] = 0;
                 times[2]++;
-                TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_YEAR);
                 Formula.calculateBudget(true);
             }
         }

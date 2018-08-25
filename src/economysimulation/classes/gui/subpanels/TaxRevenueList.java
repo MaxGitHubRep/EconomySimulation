@@ -21,7 +21,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
     private static JLabel[]
             perDay,
             perQuarter,
-            perYear,
             total,
             taxBreaks;
     
@@ -37,7 +36,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         
         perDay = new JLabel[]{ ct1, it1, tt1 };
         perQuarter = new JLabel[]{ ct2, it2, tt2 };
-        perYear = new JLabel[]{ ct3, it3, tt3 };
         total = new JLabel[]{ ct4, it4, tt4 };
         taxBreaks = new JLabel[]{ tb1, tb2 };
         
@@ -55,18 +53,12 @@ public class TaxRevenueList extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
-        Theme.applyTextThemes(new JLabel[]{ c1, c2, c3, c4, i1, i2, i3, i4, t1, t2, t3, t4 }, new JLabel[]{ title1, title2, title3 });
+        Theme.applyTextThemes(new JLabel[]{ c1, c2, c4, i1, i2, i4, t1, t2, t4 }, new JLabel[]{ title1, title2, title3 });
     }//</editor-fold> 
 
     public static void updateTaxationLabels(int updater) {
         int index = 0;
-        if (updater == TaxRevUpdate.ONLY_PER_YEAR) {
-            for (double value : new double[]{ Component.YEARLY_CORP_TAX, Component.YEARLY_INCOME_TAX, (Component.YEARLY_CORP_TAX + Component.YEARLY_INCOME_TAX) }) { //tax per year
-                perYear[index].setText(String.format("£%sm", Math.round(value*1000)));
-                index++;
-            }
-            
-        } else if (updater == TaxRevUpdate.ONLY_PER_QUARTER) {
+        if (updater == TaxRevUpdate.ONLY_PER_QUARTER) {
             index = 0;
             for (double value : new double[]{ Component.QUARTER_CORP_TAX, Component.YEARLY_INCOME_TAX, (Component.QUARTER_CORP_TAX + Component.YEARLY_INCOME_TAX) }) { //tax per q
                 perQuarter[index].setText(String.format("£%sm", Math.round(value*1000)));
@@ -109,8 +101,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         ct1 = new javax.swing.JLabel();
         ct2 = new javax.swing.JLabel();
         c2 = new javax.swing.JLabel();
-        c3 = new javax.swing.JLabel();
-        ct3 = new javax.swing.JLabel();
         c4 = new javax.swing.JLabel();
         ct4 = new javax.swing.JLabel();
         subback1 = new javax.swing.JPanel();
@@ -124,8 +114,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         it1 = new javax.swing.JLabel();
         it2 = new javax.swing.JLabel();
         i2 = new javax.swing.JLabel();
-        i3 = new javax.swing.JLabel();
-        it3 = new javax.swing.JLabel();
         i4 = new javax.swing.JLabel();
         it4 = new javax.swing.JLabel();
         subback2 = new javax.swing.JPanel();
@@ -140,8 +128,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         tt1 = new javax.swing.JLabel();
         tt2 = new javax.swing.JLabel();
         t2 = new javax.swing.JLabel();
-        t3 = new javax.swing.JLabel();
-        tt3 = new javax.swing.JLabel();
         t4 = new javax.swing.JLabel();
         tt4 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
@@ -185,15 +171,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         c2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         c2.setForeground(new java.awt.Color(204, 0, 0));
         c2.setText("Per Quarter:");
-
-        c3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        c3.setForeground(new java.awt.Color(204, 0, 0));
-        c3.setText("Per Year:");
-
-        ct3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        ct3.setForeground(new java.awt.Color(204, 0, 0));
-        ct3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ct3.setText("Uncalculated");
 
         c4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         c4.setForeground(new java.awt.Color(204, 0, 0));
@@ -249,30 +226,22 @@ public class TaxRevenueList extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(back1Layout.createSequentialGroup()
+                        .addComponent(c1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ct1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(back1Layout.createSequentialGroup()
+                        .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(c2)
+                            .addComponent(c4))
                         .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(back1Layout.createSequentialGroup()
-                                .addComponent(c1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ct1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addComponent(ct2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(back1Layout.createSequentialGroup()
-                                .addComponent(c3)
-                                .addGap(76, 76, 76)
-                                .addComponent(ct3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(back1Layout.createSequentialGroup()
-                                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(c2)
-                                    .addComponent(c4))
-                                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(back1Layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(ct2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(back1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                                        .addComponent(ct4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                                .addComponent(ct4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
             .addGroup(back1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(subback1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,11 +259,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
                 .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(c2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ct2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(c3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ct3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(70, 70, 70)
                 .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(c4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ct4))
@@ -341,15 +306,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         i2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         i2.setForeground(new java.awt.Color(204, 0, 0));
         i2.setText("Per Quarter:");
-
-        i3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        i3.setForeground(new java.awt.Color(204, 0, 0));
-        i3.setText("Per Year:");
-
-        it3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        it3.setForeground(new java.awt.Color(204, 0, 0));
-        it3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        it3.setText("Uncalculated");
 
         i4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         i4.setForeground(new java.awt.Color(204, 0, 0));
@@ -409,10 +365,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(it1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(back2Layout.createSequentialGroup()
-                        .addComponent(i3)
-                        .addGap(76, 76, 76)
-                        .addComponent(it3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(back2Layout.createSequentialGroup()
                         .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(i2)
                             .addComponent(i4))
@@ -442,11 +394,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
                 .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(i2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(it2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(i3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(it3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(70, 70, 70)
                 .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(i4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(it4))
@@ -496,15 +444,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         t2.setForeground(new java.awt.Color(204, 0, 0));
         t2.setText("Per Quarter:");
 
-        t3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        t3.setForeground(new java.awt.Color(204, 0, 0));
-        t3.setText("Per Year:");
-
-        tt3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        tt3.setForeground(new java.awt.Color(204, 0, 0));
-        tt3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        tt3.setText("Uncalculated");
-
         t4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         t4.setForeground(new java.awt.Color(204, 0, 0));
         t4.setText("Total Revenue:");
@@ -526,10 +465,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
                         .addComponent(t1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(tt1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(back3Layout.createSequentialGroup()
-                        .addComponent(t3)
-                        .addGap(76, 76, 76)
-                        .addComponent(tt3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(back3Layout.createSequentialGroup()
                         .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(t2)
@@ -555,11 +490,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
                 .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(t2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tt2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(t3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tt3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(70, 70, 70)
                 .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(t4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tt4))
@@ -610,22 +541,18 @@ public class TaxRevenueList extends javax.swing.JPanel {
     public static javax.swing.JPanel back3;
     private static javax.swing.JLabel c1;
     private static javax.swing.JLabel c2;
-    private static javax.swing.JLabel c3;
     private static javax.swing.JLabel c4;
     private static javax.swing.JPanel color1;
     private static javax.swing.JPanel color2;
     private static javax.swing.JPanel color3;
     private javax.swing.JLabel ct1;
     private javax.swing.JLabel ct2;
-    private javax.swing.JLabel ct3;
     private javax.swing.JLabel ct4;
     private static javax.swing.JLabel i1;
     private static javax.swing.JLabel i2;
-    private static javax.swing.JLabel i3;
     private static javax.swing.JLabel i4;
     private javax.swing.JLabel it1;
     private javax.swing.JLabel it2;
-    private javax.swing.JLabel it3;
     private javax.swing.JLabel it4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -637,7 +564,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
     private javax.swing.JPanel subcolor2;
     private static javax.swing.JLabel t1;
     private static javax.swing.JLabel t2;
-    private static javax.swing.JLabel t3;
     private static javax.swing.JLabel t4;
     private javax.swing.JLabel tb1;
     private javax.swing.JLabel tb2;
@@ -646,7 +572,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
     private static javax.swing.JLabel title3;
     private javax.swing.JLabel tt1;
     private javax.swing.JLabel tt2;
-    private javax.swing.JLabel tt3;
     private javax.swing.JLabel tt4;
     // End of variables declaration//GEN-END:variables
 }
