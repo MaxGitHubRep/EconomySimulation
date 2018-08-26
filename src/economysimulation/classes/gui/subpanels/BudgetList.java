@@ -103,7 +103,7 @@ public class BudgetList extends javax.swing.JPanel {
                 } else {
                     saveChanges.setText(saveTexts[2]);
                     try {
-                        HintManager.createNewHint(Hints.INSUFFICIENT_FUNDS);
+                        HintManager.createNewHint(Hints.HINT_INSUFFICIENT_FUNDS);
                     } catch (InvalidPanelSizeException ex) {
                         ex.printStackTrace();
                     }

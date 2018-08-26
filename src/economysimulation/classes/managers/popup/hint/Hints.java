@@ -9,39 +9,43 @@ public class Hints {
     //list of all possible hints available with IDs
     
     public static final int
-            INSUFFICIENT_FUNDS = 0,
-            CONSUMERS_OUT_OF_MONEY = 1;
+            HINT_INSUFFICIENT_FUNDS = 0,
+            HINT_CONSUMERS_OUT_OF_MONEY = 1,
+            HINT_FIRMS_OUT_OF_MONEY = 2;
     
-    public static final String[]
+    protected static final String[]
         HINT_TITLES = new String[]{
             "Insufficient Funds for Desired Payment!",
-            "Consumers are Running out of Money"
+            "Consumers are out of Money!",
+            "Firms are out of Money!"
         },
         HINT_DECSRIPTIONS = new String[]{
             "Increase taxes to obtain more money.",
-            "Reducing taxes will mean more money for the population."
+            "Reducing taxes will mean more money for the population.",
+            "Reducing taxes will increase business profits."
         };
     
-    public static final int[]
+    protected static final int[]
         HINT_URGENCIES = new int[]{
             Urgency.MEDIUM,
+            Urgency.HIGH,
             Urgency.HIGH
         };
     
-    public static String getHintTitle(int id) {
+    protected static String getHintTitle(int id) {
         return HINT_TITLES[id];
     }
     
-    public static String getHintDescription(int id) {
+    protected static String getHintDescription(int id) {
         return HINT_DECSRIPTIONS[id];
     }
     
-    public static int getHintUrgency(int id) {
+    protected static int getHintUrgency(int id) {
         return HINT_URGENCIES[id];
     }
     
     
-    public static boolean isOnCooldown(int id) {
+    protected static boolean isOnCooldown(int id) {
         return HintCooldown.cdTime[id] != HintManager.DURATION;
     }
     
