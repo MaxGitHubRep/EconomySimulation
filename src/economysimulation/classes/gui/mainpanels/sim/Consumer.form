@@ -314,7 +314,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="firmProfits6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="taxation"/>
+        <Property name="text" type="java.lang.String" value="population"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>

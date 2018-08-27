@@ -32,7 +32,7 @@ public class Consumer extends javax.swing.JPanel {
         s.setText(f.format(Component.SAVINGS));
         s1.setText(f.format(Component.TOTAL_SAVINGS));
 
-        t.setText(f.format(Component.TAXATION));
+        t.setText(Component.POPULATION + "");
     }
     
     public Consumer() {
@@ -107,7 +107,7 @@ public class Consumer extends javax.swing.JPanel {
 
         t.setText("jLabel4");
 
-        firmProfits6.setText("taxation");
+        firmProfits6.setText("population");
 
         c1.setText("jLabel4");
 

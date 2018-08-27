@@ -60,7 +60,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
         int index = 0;
         if (updater == TaxRevUpdate.ONLY_PER_QUARTER) {
             index = 0;
-            for (double value : new double[]{ Component.QUARTER_CORP_TAX, Component.YEARLY_INCOME_TAX, (Component.QUARTER_CORP_TAX + Component.YEARLY_INCOME_TAX) }) { //tax per q
+            for (double value : new double[]{ Component.QUARTER_CORP_TAX, Component.QUARTER_INCOME_TAX, (Component.QUARTER_CORP_TAX + Component.QUARTER_INCOME_TAX) }) { //tax per q
                 perQuarter[index].setText(String.format("£%sm", Math.round(value*1000)));
                 index++;
             }

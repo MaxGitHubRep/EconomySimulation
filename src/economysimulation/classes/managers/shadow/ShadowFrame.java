@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.shadow;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -70,7 +71,6 @@ public class ShadowFrame extends JFrame {
         super.setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
         super.setBackground(new Color(0, 0, 0, 0));
         this.add(new ShadowPanel());
-        super.setAlwaysOnTop(alwaysOnTop);
         
         setLocationInFrame(panelPosition);
         

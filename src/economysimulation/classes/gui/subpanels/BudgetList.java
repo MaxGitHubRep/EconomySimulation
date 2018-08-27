@@ -3,7 +3,6 @@ package economysimulation.classes.gui.subpanels;
 import economysimulation.classes.economy.Budget;
 import economysimulation.classes.economy.Component;
 import economysimulation.classes.economy.Formula;
-import economysimulation.classes.economy.Sector;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
@@ -29,11 +28,12 @@ public class BudgetList extends javax.swing.JPanel {
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
     
-    private static JPanel[] backPanels, colorPanels;
+    private static JPanel[]
+            backPanels, colorPanels;
     private static JLabel[] arrowLabels;
     public static final String[]
             titles = new String[]{
-                "NHS", "Education", "Transport", "Food", "Infrastructure", "Defence", "Science", "Benefits" },
+                "NHS", "Education", "Housing", "Food", "Infrastructure", "Defence", "Science", "Benefits" },
             saveTexts = new String[]{
                 "Spend Money", "Money Spent", "Insufficient Funds" }; 
     
@@ -382,18 +382,17 @@ public class BudgetList extends javax.swing.JPanel {
                                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(spending, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jSeparator2)))
-                            .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(subBackLayout.createSequentialGroup()
-                                    .addComponent(min)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(max)
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(subBackLayout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addGap(23, 23, 23)
-                                    .addComponent(spendings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(subBackLayout.createSequentialGroup()
+                                .addComponent(min)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(slider, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(max)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(subBackLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(23, 23, 23)
+                                .addComponent(spendings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         subBackLayout.setVerticalGroup(
@@ -403,11 +402,10 @@ public class BudgetList extends javax.swing.JPanel {
                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(title)
                     .addComponent(spending))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(subBackLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(min, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
@@ -462,7 +460,7 @@ public class BudgetList extends javax.swing.JPanel {
 
         title3.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title3.setForeground(new java.awt.Color(204, 0, 0));
-        title3.setText("Transport");
+        title3.setText("Housing");
 
         javax.swing.GroupLayout panel3Layout = new javax.swing.GroupLayout(panel3);
         panel3.setLayout(panel3Layout);

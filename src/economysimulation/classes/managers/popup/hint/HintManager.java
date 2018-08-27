@@ -14,7 +14,7 @@ import economysimulation.classes.managers.shadow.ShadowSize;
 public class HintManager {
     
     protected static HintDisplay hintDisplay = new HintDisplay();
-    protected static final int DURATION = 80;
+    protected static final int DURATION = 280;
 
     public static void createNewHint(int id) throws InvalidPanelSizeException {
         if (id > HintCooldown.cdTime.length) {

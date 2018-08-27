@@ -13,8 +13,8 @@ public class HintCooldown {
     private static Timer timer;
     public static int[] cdTime = new int[]{
         HintManager.DURATION,
+        HintManager.DURATION,
         HintManager.DURATION
-    
     };
     
     /**
