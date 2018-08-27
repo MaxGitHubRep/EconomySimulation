@@ -4,6 +4,7 @@ import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
+import economysimulation.classes.pulse.PulseThread;
 
 /**
  *
@@ -43,16 +44,14 @@ public class Formula extends Component {
         ANNUAL_BUDGET+= TAXATION;
         TAXATION = 0;
         if (yearPast) {
-            YEARLY_INCOME_TAX = 0;
-            YEARLY_CORP_TAX = 0;
             TOTAL_INVESTMENT = 0;
             TOTAL_CONSUMPTION = 0;
         }
     }//</editor-fold>
     
-    private static double getConsConfidence() {
-
-        return SOL;
+    private static void adjustSubInfluence(int sector, double sol, double population) {
+        SOL += SpendingInfluence[sector] > 0 ? sol : - sol;
+        POPULATION += SpendingInfluence[sector] > 0 ? population : - population;
     }
     
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
@@ -62,20 +61,19 @@ public class Formula extends Component {
     private static void calculateSpendingInfluence() {
 
         for (int i = 0; i < SpendingInfluence.length-1; i++) {
-            if (SpendingInfluence[i] > 0) SpendingInfluence[i]--;
+            if (SpendingInfluence[i] > 0) SpendingInfluence[i]-=0.12;
         }
         
- 
-        //Testing way to change standard of living & population control.
-        if (SpendingInfluence[Sector.NHS] == 0) {
-            SOL-=0.002;
-            POPULATION+=3;
-        } else {
-            POPULATION-=3;
-            SOL+=0.004;
+        adjustSubInfluence(Sector.NHS, 0.003, 3);
+        adjustSubInfluence(Sector.EDUCATION, 0.003, 0);
+        adjustSubInfluence(Sector.HOUSING, 0.003, 2);
+        adjustSubInfluence(Sector.FOOD, 0.002, 1);
+       
+        if (SOL > 1) {
+            SOL = 1;
+        } else if (SOL <= 0) {
+            PulseThread.IS_RUNNING = false;
         }
-        if (SOL > 1) SOL = 1;
-        if (SOL < 0) SOL = 0;
         /**links:
          * NHS: sol, population
          * Education: sol, min_wage
@@ -89,7 +87,6 @@ public class Formula extends Component {
 
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
-        OLD_SOL = SOL;
         calculateSpendingInfluence();
        
         IMPORTS = 0;
@@ -101,17 +98,11 @@ public class Formula extends Component {
         D_INCOME = INCOME;
         COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
         
-        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
-
-        TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 && !TAX_BREAK[0] ? (CORP_TAX/100) : 0);
-        TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
-        
-        FIRM_PROFITS -= TAXED_CORP;
-        D_INCOME -= TAXED_INCOME;
-        TAXATION += TAXED_CORP + TAXED_INCOME;
-
+        CONS_CONFIDENCE = SOL;
         CORP_CONFIDENCE = 1;
-        CONS_CONFIDENCE = getConsConfidence();
+        
+        MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
+        if (MPC == 0) MPC+=0.04;
         
         if (D_INCOME == 0 && TOTAL_SAVINGS >= 0.1) {
             TOTAL_SAVINGS-=0.1;
@@ -119,26 +110,30 @@ public class Formula extends Component {
         } else if (TOTAL_SAVINGS < 0.1 && D_INCOME == 0) {
             HintManager.createNewHint(Hints.HINT_CONSUMERS_OUT_OF_MONEY);
         }
-
-        MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
-        CONSUMPTION = MPC * ( D_INCOME + CONS_INJECTION + 0.4 * (!TAX_BREAK[1] ? 1-(INCOME_TAX/100) : 1));
-        SAVINGS = (1 - MPC) * ( D_INCOME + CONS_INJECTION);
         
-        if (CONS_INJECTION > 0) CONS_INJECTION = 0;
+        TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
+        D_INCOME -= TAXED_INCOME;
+        
+        CONSUMPTION = MPC * ( D_INCOME + SpendingInfluence[Sector.BENEFITS] + 0.4 * (!TAX_BREAK[1] ? 1-(INCOME_TAX/100) : 1));
+        SAVINGS = (1 - MPC) * ( D_INCOME + SpendingInfluence[Sector.BENEFITS]);
+        
+        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
+
+        TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 && !TAX_BREAK[0] ? (CORP_TAX/100) : 0);
+        FIRM_PROFITS -= TAXED_CORP;
+        
+        TAXATION += TAXED_CORP + TAXED_INCOME;
+
+        if (SpendingInfluence[Sector.BENEFITS] > 0) SpendingInfluence[Sector.BENEFITS] = 0;
 
         INVESTMENT = (FIRM_PROFITS - COST_OF_PRODUCTION) > 0 ? (FIRM_PROFITS - COST_OF_PRODUCTION) * CORP_CONFIDENCE : 0;
-        FIRM_PROFITS -= INVESTMENT;
-        
-        OLD_PI = POLITICAL_INFLUENCE;
-        POLITICAL_INFLUENCE = MPC; //temp
+        //FIRM_PROFITS -= INVESTMENT;
         
         TOTAL_TAX += TAXATION;
         TOTAL_CORP_TAX += TAXED_CORP;
         TOTAL_INCOME_TAX += TAXED_INCOME;
         QUARTER_CORP_TAX += TAXED_CORP;
         QUARTER_INCOME_TAX += TAXED_INCOME;
-        YEARLY_CORP_TAX += TAXED_CORP;
-        YEARLY_INCOME_TAX += INCOME_TAX;
         TOTAL_SAVINGS += SAVINGS;
         TOTAL_CORP_PROFITS += FIRM_PROFITS;
         TOTAL_INVESTMENT += INVESTMENT;
@@ -150,7 +145,7 @@ public class Formula extends Component {
             UNEMPLOYMENT--;
         }
         
-        if (TOTAL_CORP_PROFITS <= 0) HintManager.createNewHint(Hints.HINT_CONSUMERS_OUT_OF_MONEY);
+        if (TOTAL_CORP_PROFITS <= 0) HintManager.createNewHint(Hints.HINT_FIRMS_OUT_OF_MONEY);
     }
 
     

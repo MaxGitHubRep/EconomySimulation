@@ -15,7 +15,7 @@ public class Budget extends Component {
     public static void spendMoney(int sector, int money) {
         ANNUAL_BUDGET -= money;
         Spending[sector]+= money;
-        SpendingInfluence[sector] += money;
+        SpendingInfluence[sector] += (double) money;
     }
     
 }
