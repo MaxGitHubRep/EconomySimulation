@@ -27,7 +27,12 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel implements GamePulse {
 
-    public static CircleProgressBar politicalInfluence;
+    public static CircleProgressBar[]
+            ProgressBars = new CircleProgressBar[2];
+    
+    public static double[]
+            Percents = new double[2];
+    
     private Thread CBPThread;
     
     private static final DecimalFormat
@@ -56,7 +61,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         Format.addButtonFormat(panel1, color1);
         Format.addButtonFormat(panel2, color2);
 
-        addCircleProgressBar(circleAdd, politicalInfluence);
+        for (int i = 0; i < ProgressBars.length; i++) {
+            ProgressBars[i] = new CircleProgressBar();
+            Percents[i] = 0;
+        }
+        
+        addCircleProgressBar(circleAdd1, ProgressBars[0]);
+        addCircleProgressBar(circleAdd2, ProgressBars[1]);
         
         updateTheme();
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
@@ -73,7 +84,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         }
         updateTime();
         updateSpeed();
-        if (Component.OLD_PI != Component.POLITICAL_INFLUENCE) updateProgressBar(Component.POLITICAL_INFLUENCE);
+        
+        int index = 0;
+        for (double percent : new double[]{ Component.SOL, Component.MPC }) {
+            if (percent != Percents[index]) updateProgressBar(percent, index);
+            index++;
+        }
+        
         repaint();
         Formula.calculateBudget(false);
         try {
@@ -91,26 +108,25 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     private void addCircleProgressBar(JPanel back, CircleProgressBar bar) {
         back.removeAll();
-        bar = new CircleProgressBar();
         bar.setSize(250, 250);
         back.add(bar);
     }
     
-    private synchronized void updateProgressBar(double percent) {
-        double old = politicalInfluence.percent;
-        boolean increase = percent > old;
+    private synchronized void updateProgressBar(double newPercent, int id) {
+        boolean increase = newPercent > Percents[id];
         CBPThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (double i = old; increase ? i < percent : i > percent; i = i + (increase ? 0.01 : - 0.01)) {
-                    politicalInfluence.percent = i;
+                for (double i = Percents[id]; increase ? i < newPercent : i > newPercent; i = i + (increase ? 0.01 : - 0.01)) {
+                    ProgressBars[id].percent = i;
                     repaint();
                     try {
-                        int div = (int)Math.abs((old*100) - (percent*100));
+                        int div = (int)Math.abs((Percents[id]*100) - (newPercent*100));
                         if (div > 0) Thread.sleep(SPEED/div);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
+                    Percents[id] = newPercent;
                 }
             }
         });
@@ -199,11 +215,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         titleSpeed = new javax.swing.JLabel();
         color2 = new javax.swing.JPanel();
         rightBar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        circleAdd = new javax.swing.JPanel();
+        circleAdd1 = new javax.swing.JPanel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
+        circleAdd2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
         topBar = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         description = new javax.swing.JLabel();
@@ -368,55 +386,71 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         rightBar.setBackground(new java.awt.Color(102, 102, 102));
         rightBar.setPreferredSize(new java.awt.Dimension(300, 451));
 
-        jLabel1.setText("new sidebar right");
-
-        javax.swing.GroupLayout circleAddLayout = new javax.swing.GroupLayout(circleAdd);
-        circleAdd.setLayout(circleAddLayout);
-        circleAddLayout.setHorizontalGroup(
-            circleAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout circleAdd1Layout = new javax.swing.GroupLayout(circleAdd1);
+        circleAdd1.setLayout(circleAdd1Layout);
+        circleAdd1Layout.setHorizontalGroup(
+            circleAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        circleAddLayout.setVerticalGroup(
-            circleAddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        circleAdd1Layout.setVerticalGroup(
+            circleAdd1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 250, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Political Influence");
+        jLabel2.setText("Standard of Living");
+
+        javax.swing.GroupLayout circleAdd2Layout = new javax.swing.GroupLayout(circleAdd2);
+        circleAdd2.setLayout(circleAdd2Layout);
+        circleAdd2Layout.setHorizontalGroup(
+            circleAdd2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        circleAdd2Layout.setVerticalGroup(
+            circleAdd2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
+        jLabel3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("MPC");
 
         javax.swing.GroupLayout rightBarLayout = new javax.swing.GroupLayout(rightBar);
         rightBar.setLayout(rightBarLayout);
         rightBarLayout.setHorizontalGroup(
             rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightBarLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(circleAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator4)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(jSeparator5))
-                        .addGap(10, 10, 10)))
-                .addContainerGap())
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(circleAdd1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator4)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jSeparator5)
+                    .addComponent(circleAdd2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jSeparator6))
+                .addGap(22, 22, 22))
         );
         rightBarLayout.setVerticalGroup(
             rightBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(71, 71, 71)
+                .addGap(155, 155, 155)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(circleAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(circleAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(circleAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -528,17 +562,19 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;
-    private javax.swing.JPanel circleAdd;
+    private javax.swing.JPanel circleAdd1;
+    private javax.swing.JPanel circleAdd2;
     public static javax.swing.JPanel color1;
     public static javax.swing.JPanel color2;
     public static javax.swing.JLabel description;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     public static javax.swing.JLabel label1;
     public static javax.swing.JLabel label2;
     public static javax.swing.JLabel labelBudget;

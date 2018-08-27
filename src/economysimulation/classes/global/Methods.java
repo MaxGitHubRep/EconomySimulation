@@ -28,6 +28,7 @@ public class Methods {
     public static BudgetList budgetClass;
     public static RateList govClass;
     public static GameHold holdGame;
+    public static MainFrame mainFrame;
     
     public static Color[] theme = ThemeTypes.WHITE;
     public static int
