@@ -1,5 +1,6 @@
 package economysimulation.classes.economy;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -87,8 +88,8 @@ public class Formula extends Component {
 
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
-        calculateSpendingInfluence();
-       
+        if (Methods.TICKS > 14) calculateSpendingInfluence();
+        
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
         
@@ -102,7 +103,7 @@ public class Formula extends Component {
         CORP_CONFIDENCE = 1;
         
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
-        if (MPC == 0) MPC+=0.04;
+        if (MPC == 0) MPC+=0.01;
         
         if (D_INCOME == 0 && TOTAL_SAVINGS >= 0.1) {
             TOTAL_SAVINGS-=0.1;
