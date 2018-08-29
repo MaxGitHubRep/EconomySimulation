@@ -47,6 +47,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     public static int TICKS_PER_QUARTER = 0;
     public static int SPEED;
     public final String SPEED_FORMAT = "Speed: %s";
+    public static final String[] Titles = new String[]{ "Standard of Living", "Political Influence", "Something Else" };
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() throws InvalidThemeSetupException {

@@ -23,7 +23,7 @@ public class CircleProgressBar extends JPanel {
             // Draws the respected progess bar title.
             g.setColor(Theme.secondaryText);
             g.setFont(new Font("Agency FB", Font.PLAIN, 40));
-            g.drawString("Standard of Living", 1, 32 + (i * plus));
+            g.drawString(GameHold.Titles[i], 1, 32 + (i * plus));
             
             // Draws background of progress bar.
             g.setColor(Theme.secondaryBack);
