@@ -50,10 +50,20 @@ public class Formula extends Component {
         }
     }//</editor-fold>
     
-    private static void adjustSubInfluence(int sector, double sol, double population) {
+    //<editor-fold defaultstate="collapsed" desc="Adjust standard of living, population level and minimum wage influencer."> 
+    /**
+     * Adjust standard of living, population level and minimum wage influencer.
+     * 
+     * @param sector     Sector making the influence.
+     * @param sol        Effect on the standard of living.
+     * @param population Effect on the population.
+     * @param minwage    Influence on minimum wage.
+     */
+    private static void adjustSubInfluence(int sector, double sol, double population, double minwage) {
         SOL += SpendingInfluence[sector] > 0 ? sol : - sol;
         POPULATION += SpendingInfluence[sector] > 0 ? population : - population;
-    }
+        WAGE_MULTIPLIER*=minwage > 0 ? minwage : 1;
+    }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
     /**
@@ -65,42 +75,47 @@ public class Formula extends Component {
             if (SpendingInfluence[i] > 0) SpendingInfluence[i]-=0.12;
         }
         
-        adjustSubInfluence(Sector.NHS, 0.003, 3);
-        adjustSubInfluence(Sector.EDUCATION, 0.003, 0);
-        adjustSubInfluence(Sector.HOUSING, 0.003, 2);
-        adjustSubInfluence(Sector.FOOD, 0.002, 1);
-       
+        adjustSubInfluence(Sector.NHS, 0.004, 3, 0);
+        adjustSubInfluence(Sector.EDUCATION, 0.003, 0, 1.1);
+        adjustSubInfluence(Sector.HOUSING, 0.0015, 2, 0.05);
+        adjustSubInfluence(Sector.FOOD, 0.003, 1, 0);
+        adjustSubInfluence(Sector.INFRASTRUCTURE, 0.002, 0, 0);
+        adjustSubInfluence(Sector.SCIENCE, 0.0015, 3, 0);
+
+        RESOURCE_COST += (Spending[Sector.INFRASTRUCTURE] == 0 ? 0.1 : -0.2) +
+                (Spending[Sector.SCIENCE] == 0 ? 0.12 : -0.18);
+        
         if (SOL > 1) {
             SOL = 1;
         } else if (SOL <= 0) {
+            // game thread ends.
             PulseThread.IS_RUNNING = false;
         }
-        /**links:
-         * NHS: sol, population
-         * Education: sol, min_wage
-         * Housing: population, sol
-         * Food: dy sol
-         * Infrastructure: sol, cop
-         * Defence: new var: defence
-         * Science: cop
-         */
     }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
+    /**
+     * Source of all components being calculated in one thread.
+     * 
+     * @throws InvalidSectorException    When a sector reference is incorrect.
+     * @throws InvalidPanelSizeException When the size of a requested hint doesn't fit in the frame.
+     */
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
+        WAGE_MULTIPLIER = 1;
         if (Methods.TICKS > 14) calculateSpendingInfluence();
         
         IMPORTS = 0;
         RESOURCE_COST = IMPORTS;
         
         WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
-        WAGES = (MIN_WAGE * WORKERS * WORK_HOURS_PER_DAY);
+        WAGES = (MIN_WAGE * WORKERS * WORK_HOURS_PER_DAY * WAGE_MULTIPLIER);
         INCOME = WAGES;
         D_INCOME = INCOME;
         COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
         
-        CONS_CONFIDENCE = SOL;
-        CORP_CONFIDENCE = 1;
+        CONS_CONFIDENCE = SOL * (100-INCOME_TAX)/100;
+        CORP_CONFIDENCE = 1 * (100-CORP_TAX)/100;
         
         MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
         if (MPC == 0) MPC+=0.01;
@@ -119,17 +134,17 @@ public class Formula extends Component {
         SAVINGS = (1 - MPC) * ( D_INCOME + SpendingInfluence[Sector.BENEFITS]);
         
         FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
-
+        
         TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 && !TAX_BREAK[0] ? (CORP_TAX/100) : 0);
         FIRM_PROFITS -= TAXED_CORP;
         
         TAXATION += TAXED_CORP + TAXED_INCOME;
+        
+        INVESTMENT = FIRM_PROFITS > 0 ? FIRM_PROFITS * CORP_CONFIDENCE * 0.75 : 0;
+        FIRM_PROFITS -= INVESTMENT;
 
         if (SpendingInfluence[Sector.BENEFITS] > 0) SpendingInfluence[Sector.BENEFITS] = 0;
 
-        INVESTMENT = (FIRM_PROFITS - COST_OF_PRODUCTION) > 0 ? (FIRM_PROFITS - COST_OF_PRODUCTION) * CORP_CONFIDENCE : 0;
-        //FIRM_PROFITS -= INVESTMENT;
-        
         TOTAL_TAX += TAXATION;
         TOTAL_CORP_TAX += TAXED_CORP;
         TOTAL_INCOME_TAX += TAXED_INCOME;
@@ -147,7 +162,7 @@ public class Formula extends Component {
         }
         
         if (TOTAL_CORP_PROFITS <= 0) HintManager.createNewHint(Hints.HINT_FIRMS_OUT_OF_MONEY);
-    }
+    }//</editor-fold>
 
     
 }
