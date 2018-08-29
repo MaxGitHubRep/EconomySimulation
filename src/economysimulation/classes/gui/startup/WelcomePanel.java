@@ -216,6 +216,15 @@ public class WelcomePanel extends javax.swing.JPanel {
             lines[i].setLocation(lines[i].getX() + i1, lines[i].getY());
             i1 = -1;
         }
+        if (build) {
+            try {
+                GThread.sleep(10);
+                shiftGraph();
+                
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Thread handler method."> 
@@ -230,15 +239,7 @@ public class WelcomePanel extends javax.swing.JPanel {
         GThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (build) {
-                    try {
-                        shiftGraph();
-                        
-                        Thread.sleep(10);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+                shiftGraph();
             }
         });
         GThread.start();

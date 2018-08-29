@@ -84,7 +84,7 @@ public class Formula extends Component {
 
         RESOURCE_COST += (Spending[Sector.INFRASTRUCTURE] == 0 ? 0.1 : -0.2) +
                 (Spending[Sector.SCIENCE] == 0 ? 0.12 : -0.18);
-        
+
         if (SOL > 1) {
             SOL = 1;
         } else if (SOL <= 0) {
@@ -164,5 +164,4 @@ public class Formula extends Component {
         if (TOTAL_CORP_PROFITS <= 0) HintManager.createNewHint(Hints.HINT_FIRMS_OUT_OF_MONEY);
     }//</editor-fold>
 
-    
 }
