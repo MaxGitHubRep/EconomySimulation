@@ -5,6 +5,7 @@ import economysimulation.classes.economy.Component;
 import economysimulation.classes.economy.Formula;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
+import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -38,7 +39,7 @@ public class BudgetList extends javax.swing.JPanel {
                 "Spend Money", "Money Spent", "Insufficient Funds" }; 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public BudgetList() {
+    public BudgetList() throws InvalidSectorException {
         initComponents();
         
         backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
@@ -60,11 +61,12 @@ public class BudgetList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 
-    private static void applySelectedType(int id) {
+    private static void applySelectedType(int id) throws InvalidSectorException {
         selectedType = id;
         title.setText(titles[id]);
         slider.setValue(0);
         saveChanges.setText(saveTexts[0]);
+        spendings.setText("£" + Formula.getSectorSpending(selectedType) + "bn");
         updatePercent(false);
         
     }//</editor-fold>
@@ -76,7 +78,11 @@ public class BudgetList extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 arrowLabels[selectedType].setIcon(null);
                 arrowLabels[id].setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow" + (id > 3 ? 2 : 1) + "40.png")));
-                applySelectedType(id);
+                try {
+                    applySelectedType(id);
+                } catch (InvalidSectorException ex) {
+                    ex.printStackTrace();
+                }
 
             }
         });
@@ -88,7 +94,12 @@ public class BudgetList extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (slider.getValue() <= Component.ANNUAL_BUDGET) { 
-                    int spending = Formula.getPublicSpendingTotal(true);
+                    int spending = 0;
+                    try {
+                        spending = Formula.getSectorSpending(selectedType);
+                    } catch (InvalidSectorException ex) {
+                        ex.printStackTrace();
+                    }
                     try {
                         new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
                     } catch (InvalidTimeException ex) {
@@ -133,7 +144,7 @@ public class BudgetList extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ subBack, saveChangesPanel, picPanel }, null, backPanels, colorPanels);
-        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, budget, bud, title, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
+        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, budget, bud, title, tot, spendings, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
     }//</editor-fold> 
     
     @SuppressWarnings("unchecked")
@@ -165,7 +176,7 @@ public class BudgetList extends javax.swing.JPanel {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         spendings = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        tot = new javax.swing.JLabel();
         panel3 = new javax.swing.JPanel();
         color3 = new javax.swing.JPanel();
         arrow3 = new javax.swing.JLabel();
@@ -290,7 +301,7 @@ public class BudgetList extends javax.swing.JPanel {
         spending.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         spending.setForeground(new java.awt.Color(204, 0, 0));
         spending.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        spending.setText("£750bn");
+        spending.setText("£0bn");
 
         min.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         min.setForeground(new java.awt.Color(204, 0, 0));
@@ -352,9 +363,9 @@ public class BudgetList extends javax.swing.JPanel {
         spendings.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         spendings.setText("£0bn");
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("Total Spendings:");
+        tot.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        tot.setForeground(new java.awt.Color(204, 0, 0));
+        tot.setText("Relative Spending:");
 
         javax.swing.GroupLayout subBackLayout = new javax.swing.GroupLayout(subBack);
         subBack.setLayout(subBackLayout);
@@ -390,7 +401,7 @@ public class BudgetList extends javax.swing.JPanel {
                                 .addComponent(max)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(subBackLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(tot)
                                 .addGap(23, 23, 23)
                                 .addComponent(spendings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
@@ -421,7 +432,7 @@ public class BudgetList extends javax.swing.JPanel {
                     .addComponent(bud, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(tot)
                     .addComponent(spendings)))
         );
 
@@ -750,7 +761,6 @@ public class BudgetList extends javax.swing.JPanel {
     private javax.swing.JPanel color6;
     private javax.swing.JPanel color7;
     private javax.swing.JPanel color8;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -782,5 +792,6 @@ public class BudgetList extends javax.swing.JPanel {
     public static javax.swing.JLabel title6;
     public static javax.swing.JLabel title7;
     public static javax.swing.JLabel title8;
+    private static javax.swing.JLabel tot;
     // End of variables declaration//GEN-END:variables
 }
