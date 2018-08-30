@@ -1,7 +1,7 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import java.awt.Color;
 import java.text.DecimalFormat;

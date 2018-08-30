@@ -1,12 +1,12 @@
-package economysimulation.classes.economy;
+package economysimulation.classes.economy.sectors;
 
 /**
  *
  * @author Max Carter
  */
-public class Sector {
+public class SectorID {
 
-    public static int 
+    public static final int 
             /**
              * Government spending on the NHS.
              */

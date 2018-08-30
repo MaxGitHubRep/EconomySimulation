@@ -1,4 +1,4 @@
-package economysimulation.classes.economy;
+package economysimulation.classes.economy.structure;
 
 import java.util.ArrayList;
 

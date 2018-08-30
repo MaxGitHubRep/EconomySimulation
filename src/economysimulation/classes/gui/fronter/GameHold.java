@@ -1,8 +1,8 @@
 package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.economy.Component;
-import economysimulation.classes.economy.Formula;
+import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.managers.themes.Theme;
@@ -96,7 +96,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             index++;
         }
         
-        repaint();
         Formula.calculateBudget(false);
         try {
             Formula.calculateComponents();

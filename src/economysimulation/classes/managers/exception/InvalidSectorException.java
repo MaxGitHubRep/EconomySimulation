@@ -1,6 +1,6 @@
 package economysimulation.classes.managers.exception;
 
-import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.sectors.Sector;
 
 /**
  *
@@ -21,7 +21,7 @@ public class InvalidSectorException extends Exception {
     * @param id the invalid sector specified
     */
     public InvalidSectorException(int id) {
-        super("Invalid sector requested: " + id + ". Specified value must be between 0 and " + Component.Spending.length);
+        super("Invalid sector requested: " + id + ". Specified value must be between 0 and " + Sector.SectorList.length);
     }
     
 }

@@ -1,8 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
-import economysimulation.classes.economy.Budget;
-import economysimulation.classes.economy.Component;
-import economysimulation.classes.economy.Formula;
+import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
@@ -66,7 +65,7 @@ public class BudgetList extends javax.swing.JPanel {
         title.setText(titles[id]);
         slider.setValue(0);
         saveChanges.setText(saveTexts[0]);
-        spendings.setText("£" + Formula.getSectorSpending(selectedType) + "bn");
+        spendings.setText("£" + Budget.getSectorSpending(selectedType) + "bn");
         updatePercent(false);
         
     }//</editor-fold>
@@ -96,7 +95,7 @@ public class BudgetList extends javax.swing.JPanel {
                 if (slider.getValue() <= Component.ANNUAL_BUDGET) { 
                     int spending = 0;
                     try {
-                        spending = Formula.getSectorSpending(selectedType);
+                        spending = Budget.getSectorSpending(selectedType);
                     } catch (InvalidSectorException ex) {
                         ex.printStackTrace();
                     }

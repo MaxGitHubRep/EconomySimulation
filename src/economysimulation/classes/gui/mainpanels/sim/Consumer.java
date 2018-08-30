@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
-import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.structure.Component;
 import java.text.DecimalFormat;
 
 /**

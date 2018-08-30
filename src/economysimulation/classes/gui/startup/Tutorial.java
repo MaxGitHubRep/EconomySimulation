@@ -7,6 +7,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
@@ -21,7 +22,7 @@ public class Tutorial extends javax.swing.JPanel {
     private static JPanel[] backPanels;
     private static JPanel[] colorPanels;
 
-    public Tutorial() throws InvalidThemeSetupException {
+    public Tutorial() throws InvalidThemeSetupException, InvalidSectorException {
         initComponents();
 
         Methods.budgetClass = new BudgetList();

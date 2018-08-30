@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.subpanels;
 
-import economysimulation.classes.economy.Component;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.misc.TaxRevUpdate;
 import economysimulation.classes.managers.ui.Format;

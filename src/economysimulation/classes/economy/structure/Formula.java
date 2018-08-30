@@ -1,5 +1,9 @@
-package economysimulation.classes.economy;
+package economysimulation.classes.economy.structure;
 
+import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.budget.BudgetSector;
+import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.SectorID;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
@@ -13,31 +17,9 @@ import economysimulation.classes.pulse.PulseThread;
  */
 public class Formula extends Component {
     
-    /**
-    * @param includeTransfer Return result with transfer payments included (benefits)
-    * @return Sum of budget
-    */
-    public static int getPublicSpendingTotal(boolean includeTransfer) {
-        int value = 0;
-        for (int i = 0; i < Spending.length; i++) {
-            if (!(!includeTransfer && i == Spending.length-1)) {
-                value+=Spending[i];
-            }
-        }
-        
-        return value;
-    }
-    
-    public static int getSectorSpending(int id) throws InvalidSectorException {
-        if (id < 0 || id > Spending.length) {
-            throw new InvalidSectorException();
-        }
-        return Spending[id];
-    }
-      
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void calculateGDP() {
-        GDP = (TOTAL_CONSUMPTION + TOTAL_INVESTMENT + getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
+        GDP = (TOTAL_CONSUMPTION + TOTAL_INVESTMENT + Budget.getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
@@ -50,19 +32,16 @@ public class Formula extends Component {
         }
     }//</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Adjust standard of living, population level and minimum wage influencer."> 
+    //<editor-fold defaultstate="collapsed" desc="Adjust standard of living, population level and minimum wage influencer.">
     /**
      * Adjust standard of living, population level and minimum wage influencer.
      * 
-     * @param sector     Sector making the influence.
-     * @param sol        Effect on the standard of living.
-     * @param population Effect on the population.
-     * @param minwage    Influence on minimum wage.
+     * @param sector Sector being used.
      */
-    private static void adjustSubInfluence(int sector, double sol, double population, double minwage) {
-        SOL += SpendingInfluence[sector] > 0 ? sol : - sol;
-        POPULATION += SpendingInfluence[sector] > 0 ? population : - population;
-        WAGE_MULTIPLIER*=minwage > 0 ? minwage : 1;
+    private static void adjustSubInfluence(BudgetSector sector) {
+        SOL += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
+        POPULATION += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
+        WAGE_MULTIPLIER*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
@@ -75,15 +54,12 @@ public class Formula extends Component {
             if (SpendingInfluence[i] > 0) SpendingInfluence[i]-=0.12;
         }
         
-        adjustSubInfluence(Sector.NHS, 0.004, 3, 0);
-        adjustSubInfluence(Sector.EDUCATION, 0.003, 0, 1.1);
-        adjustSubInfluence(Sector.HOUSING, 0.0015, 2, 0.05);
-        adjustSubInfluence(Sector.FOOD, 0.003, 1, 0);
-        adjustSubInfluence(Sector.INFRASTRUCTURE, 0.002, 0, 0);
-        adjustSubInfluence(Sector.SCIENCE, 0.0015, 3, 0);
+        for (BudgetSector sector : Sector.SectorList) {
+            adjustSubInfluence(sector);
+        }
 
-        RESOURCE_COST += (Spending[Sector.INFRASTRUCTURE] == 0 ? 0.1 : -0.2) +
-                (Spending[Sector.SCIENCE] == 0 ? 0.12 : -0.18);
+        RESOURCE_COST += (Sector.Infrastructure.getSpendingInfluence()== 0 ? 0.1 : -0.2) +
+                (Sector.Science.getSpendingInfluence() == 0 ? 0.12 : -0.18);
 
         if (SOL > 1) {
             SOL = 1;
@@ -130,8 +106,8 @@ public class Formula extends Component {
         TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
         D_INCOME -= TAXED_INCOME;
         
-        CONSUMPTION = MPC * ( D_INCOME + SpendingInfluence[Sector.BENEFITS] + 0.4 * (!TAX_BREAK[1] ? 1-(INCOME_TAX/100) : 1));
-        SAVINGS = (1 - MPC) * ( D_INCOME + SpendingInfluence[Sector.BENEFITS]);
+        CONSUMPTION = MPC * ( D_INCOME + Sector.Benefits.getSpendingInfluence() + 0.4 * (!TAX_BREAK[1] ? 1-(INCOME_TAX/100) : 1));
+        SAVINGS = (1 - MPC) * ( D_INCOME + Sector.Benefits.getSpendingInfluence());
         
         FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
         
@@ -143,7 +119,7 @@ public class Formula extends Component {
         INVESTMENT = FIRM_PROFITS > 0 ? FIRM_PROFITS * CORP_CONFIDENCE * 0.75 : 0;
         FIRM_PROFITS -= INVESTMENT;
 
-        if (SpendingInfluence[Sector.BENEFITS] > 0) SpendingInfluence[Sector.BENEFITS] = 0;
+        if (Sector.Benefits.getSpendingInfluence() > 0) Sector.Benefits.setSpendingInfluence(0);
 
         TOTAL_TAX += TAXATION;
         TOTAL_CORP_TAX += TAXED_CORP;
