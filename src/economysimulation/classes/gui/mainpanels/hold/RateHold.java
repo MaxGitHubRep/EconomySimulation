@@ -11,7 +11,7 @@ public class RateHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public RateHold() {
         initComponents();
-        Methods.addToFrontPanel(backPanelGov, Methods.govClass, false);
+        Methods.addToFrontPanel(backPanelGov, Methods.RateDisplay, false);
         Methods.addToFrontPanel(taxResultPanel, new TaxRevenueList(), false);
         
     }//</editor-fold>

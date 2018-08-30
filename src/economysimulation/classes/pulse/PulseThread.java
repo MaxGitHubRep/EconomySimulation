@@ -16,7 +16,7 @@ public class PulseThread {
         this.pulse = pulse;
     }
     
-    public synchronized void initPulseThread() {
+    protected synchronized void initPulseThread() {
         IS_RUNNING = true;
         PulseThread = new Thread(new Runnable() {
             @Override

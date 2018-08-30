@@ -13,6 +13,7 @@ import economysimulation.classes.gui.mainpanels.sim.Overview;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,16 +27,27 @@ import javax.swing.JPanel;
  */
 public class SideBar extends javax.swing.JPanel {
 
+    public static class SideBarTheme extends ThemeUpdater {
+
+        @Override
+        public void updateClassTheme() {
+            SideBar.updateTheme();
+        }
+        
+    }
+    
     private static int selectedOption = 999;
-    private static boolean[] loaded;
+    public static boolean[]
+            loaded,
+            framed;
     
-    private static int dragPanels = 6;  
+    private static final int dragPanels = 6;  
     public static PopUpFrame[] frames;
-    public static boolean[] framed;
     
-    public static JPanel[] backPanels;
-    public static JPanel[] colorPanels;
-    public static JPanel[] opPanels;
+    public static JPanel[]
+            backPanels,
+            colorPanels,
+            opPanels;
     
     public static JLabel[] titles;
     public static String[] descriptions = new String[]{
@@ -107,9 +119,15 @@ public class SideBar extends javax.swing.JPanel {
     public SideBar() throws InvalidThemeSetupException {
         initComponents();
         
-        titles = new JLabel[]{ titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit };
-        backPanels = new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8, backPanel9 };
-        colorPanels = new JPanel[]{ colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9 };
+        titles = new JLabel[]{
+            titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit
+        };
+        backPanels = new JPanel[]{
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8, backPanel9
+        };
+        colorPanels = new JPanel[]{
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9
+        };
 
         opPanels = new JPanel[]{
             new RateHold(), 

@@ -9,17 +9,17 @@ import java.util.ArrayList;
 public class Component {
     
     public static double
-        INTEREST_RATE = 0.5, CORP_TAX = 0, INCOME_TAX = 0,
-        UNEMPLOYMENT, REAL_GDP, GDP, MPC = 1, SAVINGS = 50, INCOME,
-        CORP_CONFIDENCE = 1, CONS_CONFIDENCE = 1, CONS_INJECTION,
-        MIN_WAGE = 0.000000008, POPULATION = 1000000, WORKERS,
-        D_INCOME, TOTAL_SAVINGS, POLITICAL_INFLUENCE = 1,
-        CONSUMPTION, INVESTMENT, EXPORTS, IMPORTS, WORK_HOURS_PER_DAY = 8,
-        TAXATION, ANNUAL_BUDGET = 250, FIRM_PROFITS,
-        TOTAL_CORP_PROFITS = 1, TOTAL_INVESTMENT, TOTAL_CONSUMPTION, TOTAL_TAX,
-        TOTAL_CORP_TAX, TOTAL_INCOME_TAX, QUARTER_CORP_TAX, QUARTER_INCOME_TAX,
-        COST_OF_PRODUCTION, WAGES, RESOURCE_COST, DISPOSABLE_INCOME,
-        TAXED_CORP, TAXED_INCOME, SOL = 1, WAGE_MULTIPLIER = 1;
+        InterestRate = 0.5, CorporationTax = 0, IncomeTax = 0,
+        Unemployment, GrossDomesticProduct, PropensityToConsume = 1, Savings,
+        CorporationConfidence = 1, ConsumerConfidence = 1,
+        Population = 1000000,
+        DisposableIncome, TotalSavings = 25, PoliticalInflluence = 1,
+        Consumption, Investment,
+        Taxation, SpendingBudget = 250, CorporationProfits,
+        TotalCorporationProfits = 1, TotalConsumption,
+        TotalCorporationTax, TotalIncomeTax,
+        CostOfProduction, Wages,
+        DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
     
     // Budget variables
     public static int[] Spending = new int[]{
@@ -33,6 +33,6 @@ public class Component {
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     public static int quarterIndex = 0;
     
-    public static boolean[] TAX_BREAK = new boolean[]{ false, false };
+    public static boolean[] TaxBreak = new boolean[]{ false, false };
     
 }

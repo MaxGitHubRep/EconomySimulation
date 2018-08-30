@@ -12,7 +12,7 @@ import economysimulation.classes.managers.comp.CircleProgressBar;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
-import economysimulation.classes.misc.TaxRevUpdate;
+import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.pulse.GamePulse;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
@@ -27,7 +27,16 @@ import javax.swing.event.ChangeListener;
  */
 public class GameHold extends javax.swing.JPanel implements GamePulse {
 
-    CircleProgressBar ProgressBar;
+    public static class GameHoldTheme extends ThemeUpdater {
+
+        @Override
+        public void updateClassTheme() {
+            GameHold.updateTheme();
+        }
+        
+    }
+    
+    private CircleProgressBar ProgressBar;
     
     public static double[]
             Percents = new double[3];
@@ -44,10 +53,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             times = new int[]{ 0, 0, 0 };
     
     public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
-    public static int TICKS_PER_QUARTER = 0;
-    public static int SPEED;
+    public static int
+            TICKS_PER_QUARTER = 0,
+            SPEED;
     public final String SPEED_FORMAT = "Speed: %s";
-    public static final String[] Titles = new String[]{ "Standard of Living", "Political Influence", "Something Else" };
+    public final String[] Titles = new String[]{
+        "Standard of Living", "Political Influence", "Propensity to Consume"
+    };
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public GameHold() throws InvalidThemeSetupException {
@@ -71,6 +83,12 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
     
+    /**
+     * Adds the circle progress bar to the right side bar.
+     * 
+     * @param back The panel which the circle will be added to.
+     * @param bar  The variable which a new instance will be created in.
+     */
     private void addCircleProgressBar(JPanel back, CircleProgressBar bar) {
         back.removeAll();
         bar = new CircleProgressBar();
@@ -84,14 +102,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         TICKS_PER_QUARTER++;
         if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
             TICKS_PER_QUARTER = 0;
-            TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_QUARTER);
             updateRealGDPLabel();
         }
         updateTime();
         updateSpeed();
         
         int index = 0;
-        for (double percent : new double[]{ Component.SOL, Component.MPC, Component.MPC }) {
+        for (double percent : new double[]{ Component.StandardOfLiving, Component.PoliticalInflluence, Component.PropensityToConsume }) {
             if (percent != Percents[index]) updateProgressBar(percent, index);
             index++;
         }
@@ -104,12 +121,18 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         } catch (InvalidPanelSizeException ex) {
             ex.printStackTrace();
         }
-        TaxRevenueList.updateTaxationLabels(TaxRevUpdate.ONLY_PER_DAY);
         Consumer.updatestuff();
-        BudgetList.budget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
-        labelBudget.setText("£" + m.format(Component.ANNUAL_BUDGET) + "bn");
+        BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
+        labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
+        TaxRevenueList.updateTaxationLabels();
     }
     
+    /**
+     * Updates progress bars with animation.
+     * 
+     * @param newPercent The new percent of the progress bar.
+     * @param id         Index of the percent array.
+     */
     private synchronized void updateProgressBar(double newPercent, int id) {
         boolean increase = newPercent > Percents[id];
         CBPThread = new Thread(new Runnable() {
@@ -134,11 +157,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
     public void updateRealGDPLabel() {
         Formula.calculateGDP();
-        GameHold.labelGDP.setText("£" + m.format(Component.GDP) + "bn");
-        Component.historyGDP.add(Component.GDP);
-        //createGraph("GDP", historyGDP, Rate.taxResultPanel);
-        Component.QUARTER_CORP_TAX = 0;
-        Component.QUARTER_INCOME_TAX = 0;
+        GameHold.labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
+        Component.historyGDP.add(Component.GrossDomesticProduct);
         Component.quarterIndex++;
     }//</editor-fold>
  

@@ -15,7 +15,7 @@ public class ControlPulse {
     public ControlPulse() {
         PulseThread pulseThread = new PulseThread();
         
-        pulseThread.setGamePulseEventListener(Methods.holdGame);
+        pulseThread.setGamePulseEventListener(Methods.GameHold);
 
         pulseThread.initPulseThread();
     }

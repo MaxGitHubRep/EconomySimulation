@@ -17,6 +17,21 @@ public class Theme {
     
     public static Color primaryBack, secondaryBack, primaryText, secondaryText, ghostText, primaryHover, secondaryHover;
     
+    private static final ThemeUpdater
+            GameHoldTheme = new GameHold.GameHoldTheme(),
+            SideBarTheme = new SideBar.SideBarTheme(),
+            BudgetListTheme = new BudgetList.BudgetListTheme(),
+            RateListTheme = new RateList.RateListTheme(),
+            TaxRevenueListTheme = new TaxRevenueList.TaxRevenueListTheme();
+    
+    private static final ThemeUpdater[] ThemeUpdaterClasses = new ThemeUpdater[]{
+        GameHoldTheme,
+        SideBarTheme,
+        BudgetListTheme,
+        RateListTheme,
+        TaxRevenueListTheme
+    };
+    
     public static void applySelectedTheme(Color[] theme) {
         primaryBack = theme[0];
         secondaryBack = theme[1];
@@ -29,11 +44,11 @@ public class Theme {
     }
     
     public static void updateAllPanelThemes() {
-        GameHold.updateTheme();
-        SideBar.updateTheme();
-        BudgetList.updateTheme();
-        RateList.updateTheme();
-        TaxRevenueList.updateTheme();
+        
+        for (ThemeUpdater ThemeClass : ThemeUpdaterClasses) {
+            ThemeClass.updateClassTheme();
+        }
+        
         for (int i = 0; i < SideBar.framed.length; i++) {
             if (SideBar.framed[i]) SideBar.frames[i].updateTheme();
         }

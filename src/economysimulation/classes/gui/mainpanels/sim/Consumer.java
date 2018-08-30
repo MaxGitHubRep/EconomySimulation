@@ -15,24 +15,22 @@ public class Consumer extends javax.swing.JPanel {
     public static DecimalFormat f = new DecimalFormat("0000.0000");
     
     public static void updatestuff() {
-        fp.setText(f.format(Component.FIRM_PROFITS));
-        fp1.setText(Component.TOTAL_CORP_PROFITS + "");
-        
-        i.setText(f.format(Component.INCOME));
-        
-        d.setText(f.format(Component.D_INCOME));
-        
-        w.setText(f.format(Component.WAGES));
-                
-        c.setText(f.format(Component.CONSUMPTION));
-        c1.setText(f.format(Component.TOTAL_CONSUMPTION));
-                
-        u.setText(Component.UNEMPLOYMENT + "");
-                
-        s.setText(f.format(Component.SAVINGS));
-        s1.setText(f.format(Component.TOTAL_SAVINGS));
+        fp.setText(f.format(Component.CorporationProfits));
+        fp1.setText(Component.TotalCorporationProfits + "");
 
-        t.setText(Component.POPULATION + "");
+        d.setText(f.format(Component.DisposableIncome));
+        
+        w.setText(f.format(Component.Wages));
+                
+        c.setText(f.format(Component.Consumption));
+        c1.setText(f.format(Component.TotalConsumption));
+                
+        u.setText(Component.Unemployment + "");
+                
+        s.setText(f.format(Component.Savings));
+        s1.setText(f.format(Component.TotalSavings));
+
+        t.setText(Component.Population + "");
     }
     
     public Consumer() {

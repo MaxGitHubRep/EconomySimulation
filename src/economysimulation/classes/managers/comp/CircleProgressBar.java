@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.comp;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.managers.themes.Theme;
 import java.awt.Font;
@@ -23,7 +24,7 @@ public class CircleProgressBar extends JPanel {
             // Draws the respected progess bar title.
             g.setColor(Theme.secondaryText);
             g.setFont(new Font("Agency FB", Font.PLAIN, 40));
-            g.drawString(GameHold.Titles[i], 1, 32 + (i * plus));
+            g.drawString(Methods.GameHold.Titles[i], 1, 32 + (i * plus));
             
             // Draws background of progress bar.
             g.setColor(Theme.secondaryBack);

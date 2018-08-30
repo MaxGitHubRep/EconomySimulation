@@ -18,7 +18,7 @@ public class Budget extends Component {
      * @param money 
      */
     public static void spendMoney(int sector, int money) {
-        ANNUAL_BUDGET -= money;
+        SpendingBudget -= money;
         Spending[sector]+= money;
         SpendingInfluence[sector] += (double) money;
     }

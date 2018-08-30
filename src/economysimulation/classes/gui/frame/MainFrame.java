@@ -18,7 +18,7 @@ import javax.swing.UIManager;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private static int pX, pY;
+    private static int PositionX, PositionY;
     
     public static void addToMainFrame(JPanel panel) {
         back.removeAll();
@@ -32,8 +32,8 @@ public class MainFrame extends javax.swing.JFrame {
     public static void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
-                pX = me.getX();
-                pY = me.getY();
+                PositionX = me.getX();
+                PositionY = me.getY();
 
             }
         });
@@ -42,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
             public void mouseDragged(MouseEvent me) {
                 for (Frame frame : MainFrame.getFrames()) {
                     if (!frame.getTitle().contains("Hint"))
-                    frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
+                    frame.setLocation(frame.getLocation().x + me.getX() - PositionX, frame.getLocation().y + me.getY() - PositionY);
                 } 
             }
         });
@@ -108,8 +108,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Methods.mainFrame = new MainFrame();
-                Methods.mainFrame.setVisible(true);
+                Methods.MainFrame = new MainFrame();
+                Methods.MainFrame.setVisible(true);
             }
         });
     }

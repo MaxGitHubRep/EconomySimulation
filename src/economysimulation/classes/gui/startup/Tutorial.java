@@ -7,6 +7,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.pulse.ControlPulse;
@@ -25,11 +26,11 @@ public class Tutorial extends javax.swing.JPanel {
     public Tutorial() throws InvalidThemeSetupException, InvalidSectorException {
         initComponents();
 
-        Methods.budgetClass = new BudgetList();
-        Methods.govClass = new RateList();
+        Methods.BudgetDisplay = new BudgetList();
+        Methods.RateDisplay = new RateList();
         
-        Methods.addToFrontPanel(govPanel, Methods.govClass, false);
-        Methods.addToFrontPanel(budgetPanel, Methods.budgetClass, false);
+        Methods.addToFrontPanel(govPanel, Methods.RateDisplay, false);
+        Methods.addToFrontPanel(budgetPanel, Methods.BudgetDisplay, false);
         
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
         colorPanels = new JPanel[]{ col1, col2, col3, col4 };
@@ -328,8 +329,8 @@ public class Tutorial extends javax.swing.JPanel {
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
         try {
-            Methods.holdGame = new GameHold();
-            MainFrame.addToMainFrame(Methods.holdGame);
+            Methods.GameHold = new GameHold();
+            MainFrame.addToMainFrame(Methods.GameHold);
             new ControlPulse();
         } catch (Exception ex) {
             ex.printStackTrace();

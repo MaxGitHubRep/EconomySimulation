@@ -25,24 +25,19 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public class Methods {
 
     //Classes of panels to add at intro
-    public static BudgetList budgetClass;
-    public static RateList govClass;
-    public static GameHold holdGame;
-    public static MainFrame mainFrame;
+    public static BudgetList BudgetDisplay;
+    public static RateList RateDisplay;
+    public static GameHold GameHold;
+    public static MainFrame MainFrame;
     
     public static Color[] theme = ThemeTypes.WHITE;
-    public static int
-            TICKS,
-            totalHints = 0;
+    public static int TICKS = 0;
     public static final int
-            MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3,
-            GRAPH_TICKS = 50;
+            MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3;
     
-    public static String username; //players username
+    public static String Username; //players username
     public static final String GRAPH_FONT_NAME = "Agency FB"; //graph font type
     
-    public static boolean oneQuarterPassed = false;
-
     public static void addDraggablePanel(JPanel[] panels) {
         if (panels == null) {
             throw new NullPointerException();

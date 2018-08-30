@@ -17,15 +17,16 @@ import javax.swing.Timer;
 public class HintManager {
     
     protected static HintDisplay hintDisplay = new HintDisplay();
+    protected static int HintCount = 0;
     
     public static void createHint(Hint hint) {
         if (!hint.isOnCooldown()) {
             hint.resetCooldown();
             new HintCooldown(hint);
-            Methods.totalHints++;
+            HintCount++;
             hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());
             try {
-                new ShadowFrame("Hint #" + Methods.totalHints, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM, true);
+                new ShadowFrame("Hint #" + HintCount, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM, true);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -37,7 +38,7 @@ public class HintManager {
         private Hint hint;
 
         /**
-         * Initiates a timer to start cooldown on specific hint.
+         * Initiates a timer to start cool down on specific hint.
          *
          * @param hint Hint being used.
          */

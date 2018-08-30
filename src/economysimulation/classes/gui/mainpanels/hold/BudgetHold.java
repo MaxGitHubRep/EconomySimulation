@@ -71,7 +71,7 @@ public class BudgetHold extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public BudgetHold() {
         initComponents();
-        Methods.addToFrontPanel(backRatesPanel, Methods.budgetClass, false);
+        Methods.addToFrontPanel(backRatesPanel, Methods.BudgetDisplay, false);
         
         addSliderListenerGraph(BudgetList.slider);
         

@@ -4,6 +4,7 @@ import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,6 +20,15 @@ import javax.swing.event.ChangeListener;
  */
 public class RateList extends javax.swing.JPanel {
 
+    public static class RateListTheme extends ThemeUpdater {
+
+        @Override
+        public void updateClassTheme() {
+            RateList.updateTheme();
+        }
+        
+    }
+    
     public static int selectedType = 0;
     
     private static JPanel[] backPanels;
@@ -35,13 +45,13 @@ public class RateList extends javax.swing.JPanel {
         double newValue = 0;
         switch (id) {
             case 0:
-                newValue = Component.INTEREST_RATE;
+                newValue = Component.InterestRate;
                 break;
             case 1:
-                newValue = Component.CORP_TAX;
+                newValue = Component.CorporationTax;
                 break;
             case 2:
-                newValue = Component.INCOME_TAX;
+                newValue = Component.IncomeTax;
                 break;
         }
         slider.setValue((int) newValue * 10);
@@ -80,13 +90,13 @@ public class RateList extends javax.swing.JPanel {
                 
                 switch (selectedType) {
                     case 0:
-                        Component.INTEREST_RATE = newValue;
+                        Component.InterestRate = newValue;
                         break;
                     case 1:
-                        Component.CORP_TAX = newValue;
+                        Component.CorporationTax = newValue;
                         break;
                     case 2:
-                        Component.INCOME_TAX = newValue;
+                        Component.IncomeTax = newValue;
                         break;
                     
                 }

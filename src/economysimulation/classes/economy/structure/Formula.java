@@ -18,29 +18,17 @@ public class Formula extends Component {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public static void calculateGDP() {
-        GDP = (TOTAL_CONSUMPTION + TOTAL_INVESTMENT + Budget.getPublicSpendingTotal(false) + (EXPORTS - IMPORTS));
+        GrossDomesticProduct = (TotalConsumption + Investment + Budget.getPublicSpendingTotal(false));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
     public static void calculateBudget(boolean yearPast) {
-        ANNUAL_BUDGET+= TAXATION;
-        TAXATION = 0;
+        SpendingBudget+= Taxation;
+        Taxation = 0;
         if (yearPast) {
-            TOTAL_INVESTMENT = 0;
-            TOTAL_CONSUMPTION = 0;
+            Investment = 0;
+            TotalConsumption = 0;
         }
-    }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Adjust standard of living, population level and minimum wage influencer.">
-    /**
-     * Adjust standard of living, population level and minimum wage influencer.
-     * 
-     * @param sector Sector being used.
-     */
-    private static void adjustSubInfluence(BudgetSector sector) {
-        SOL += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
-        POPULATION += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
-        WAGE_MULTIPLIER*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
@@ -54,15 +42,16 @@ public class Formula extends Component {
         }
         
         for (BudgetSector sector : Sector.SectorList) {
-            adjustSubInfluence(sector);
+            StandardOfLiving += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
+            Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
+            WageMultiplier*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
-
-        RESOURCE_COST += (Sector.Infrastructure.getSpendingInfluence()== 0 ? 0.1 : -0.2) +
+        CostOfProduction = (Sector.Infrastructure.getSpendingInfluence()== 0 ? 0.1 : -0.2) +
                 (Sector.Science.getSpendingInfluence() == 0 ? 0.12 : -0.18);
 
-        if (SOL > 1) {
-            SOL = 1;
-        } else if (SOL <= 0) {
+        if (StandardOfLiving > 1) {
+            StandardOfLiving = 1;
+        } else if (StandardOfLiving <= 0) {
             // game thread ends.
             PulseThread.IS_RUNNING = false;
         }
@@ -77,66 +66,61 @@ public class Formula extends Component {
      */
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
-        WAGE_MULTIPLIER = 1;
+        WageMultiplier = 1;
+        
         if (Methods.TICKS > 14) calculateSpendingInfluence();
+
+        Wages = (0.000000008 * (Population * ((100 - Unemployment)/100)) * 8 * WageMultiplier);
+        DisposableIncome = Wages;
+        CostOfProduction+= Wages;
         
-        IMPORTS = 0;
-        RESOURCE_COST = IMPORTS;
+        ConsumerConfidence = StandardOfLiving * (100-IncomeTax)/100;
+        CorporationConfidence = 1 * (100-CorporationTax)/100;
         
-        WORKERS = POPULATION * ((100 - UNEMPLOYMENT)/100);
-        WAGES = (MIN_WAGE * WORKERS * WORK_HOURS_PER_DAY * WAGE_MULTIPLIER);
-        INCOME = WAGES;
-        D_INCOME = INCOME;
-        COST_OF_PRODUCTION = WAGES + RESOURCE_COST;
+        PropensityToConsume = ((100 - InterestRate)/100) * ConsumerConfidence;
+        if (PropensityToConsume == 0) PropensityToConsume+=0.01;
         
-        CONS_CONFIDENCE = SOL * (100-INCOME_TAX)/100;
-        CORP_CONFIDENCE = 1 * (100-CORP_TAX)/100;
-        
-        MPC = ((100 - INTEREST_RATE)/100) * CONS_CONFIDENCE;
-        if (MPC == 0) MPC+=0.01;
-        
-        if (D_INCOME == 0 && TOTAL_SAVINGS >= 0.1) {
-            TOTAL_SAVINGS-=0.1;
-            D_INCOME+=0.1;
-        } else if (TOTAL_SAVINGS < 0.1 && D_INCOME == 0) {
+        if (DisposableIncome == 0 && TotalSavings >= 0.1) {
+            TotalSavings-=0.1;
+            DisposableIncome+=0.1;
+        } else if (TotalSavings < 0.1 && DisposableIncome == 0) {
             HintManager.createHint(Hints.ConsumersBankrupt);
         }
         
-        TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
-        D_INCOME -= TAXED_INCOME;
+        DailyIncomeTax = Wages * (Wages > 0 && IncomeTax > 0 && !TaxBreak[1] ? (IncomeTax/100) : 0);
+        DisposableIncome -= DailyIncomeTax;
         
-        CONSUMPTION = MPC * ( D_INCOME + Sector.Benefits.getSpendingInfluence() + 0.4 * (!TAX_BREAK[1] ? 1-(INCOME_TAX/100) : 1));
-        SAVINGS = (1 - MPC) * ( D_INCOME + Sector.Benefits.getSpendingInfluence());
+        Consumption = PropensityToConsume * ( DisposableIncome + Sector.Benefits.getSpendingInfluence() + 0.4 * (!TaxBreak[1] ? 1-(IncomeTax/100) : 1));
+        Savings = (1 - PropensityToConsume) * ( DisposableIncome + Sector.Benefits.getSpendingInfluence());
         
-        FIRM_PROFITS = (CONSUMPTION - COST_OF_PRODUCTION);
+        CorporationProfits = (Consumption - CostOfProduction);
         
-        TAXED_CORP = FIRM_PROFITS * (FIRM_PROFITS > 0 && CORP_TAX > 0 && !TAX_BREAK[0] ? (CORP_TAX/100) : 0);
-        FIRM_PROFITS -= TAXED_CORP;
+        DailyCorporationTax = CorporationProfits * (CorporationProfits > 0 && CorporationTax > 0 && !TaxBreak[0] ? (CorporationTax/100) : 0);
+        CorporationProfits -= DailyCorporationTax;
         
-        TAXATION += TAXED_CORP + TAXED_INCOME;
+        Taxation += DailyCorporationTax + DailyIncomeTax;
         
-        INVESTMENT = FIRM_PROFITS > 0 ? FIRM_PROFITS * CORP_CONFIDENCE * 0.75 : 0;
-        FIRM_PROFITS -= INVESTMENT;
+        double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;
+        Investment+= investment;
+        CorporationProfits -= investment;
 
         if (Sector.Benefits.getSpendingInfluence() > 0) Sector.Benefits.setSpendingInfluence(0);
 
-        TOTAL_TAX += TAXATION;
-        TOTAL_CORP_TAX += TAXED_CORP;
-        TOTAL_INCOME_TAX += TAXED_INCOME;
-        QUARTER_CORP_TAX += TAXED_CORP;
-        QUARTER_INCOME_TAX += TAXED_INCOME;
-        TOTAL_SAVINGS += SAVINGS;
-        TOTAL_CORP_PROFITS += FIRM_PROFITS;
-        TOTAL_INVESTMENT += INVESTMENT;
-        TOTAL_CONSUMPTION += CONSUMPTION;
+        TotalCorporationTax += DailyCorporationTax;
+        TotalIncomeTax += DailyIncomeTax;
+        TotalSavings += Savings;
+        TotalCorporationProfits += CorporationProfits;
+        TotalConsumption += Consumption;
                
-        if (COST_OF_PRODUCTION > TOTAL_CORP_PROFITS && UNEMPLOYMENT < 100) {
-            UNEMPLOYMENT++;
-        } else if (UNEMPLOYMENT > 1) {
-            UNEMPLOYMENT--;
+        if (CostOfProduction > TotalCorporationProfits && Unemployment < 100) {
+            Unemployment++;
+        } else if (Unemployment > 1) {
+            Unemployment--;
         }
         
-        if (TOTAL_CORP_PROFITS <= 0) HintManager.createHint(Hints.CorporationBankrupt);
+        PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
+        
+        if (TotalCorporationProfits <= 0) HintManager.createHint(Hints.CorporationBankrupt);
     }//</editor-fold>
 
 }

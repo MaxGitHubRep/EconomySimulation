@@ -3,13 +3,12 @@ package economysimulation.classes.gui.subpanels;
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.animation.NumberIncrementer;
-import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
-import economysimulation.classes.managers.popup.hint.hints.HintInsufficientFunds;
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +25,15 @@ import javax.swing.event.ChangeListener;
  */
 public class BudgetList extends javax.swing.JPanel {
 
+    public static class BudgetListTheme extends ThemeUpdater {
+
+        @Override
+        public void updateClassTheme() {
+            BudgetList.updateTheme();
+        }
+        
+    }
+    
     public static DecimalFormat format = new DecimalFormat("0");
     private static int selectedType = 0;
     
@@ -93,7 +101,7 @@ public class BudgetList extends javax.swing.JPanel {
         backPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (slider.getValue() <= Component.ANNUAL_BUDGET) { 
+                if (slider.getValue() <= Component.SpendingBudget) { 
                     int spending = 0;
                     try {
                         spending = Budget.getSectorSpending(selectedType);
@@ -108,7 +116,7 @@ public class BudgetList extends javax.swing.JPanel {
                     Budget.spendMoney(selectedType, slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
-                    budget.setText("£" + format.format(Component.ANNUAL_BUDGET) + "bn");
+                    budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
                     slider.setValue(0);
 
                 } else {
@@ -133,7 +141,7 @@ public class BudgetList extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Updates the value of money displayed."> 
     private static void updatePercent(boolean animate) {
-        if (!animate) budget.setText("£" + format.format(Component.ANNUAL_BUDGET) + "bn");
+        if (!animate) budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
         spending.setText("£" + slider.getValue() + "bn");
     }//</editor-fold>
     
