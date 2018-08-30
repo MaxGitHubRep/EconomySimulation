@@ -41,11 +41,10 @@ public class ShadowFrame extends JFrame {
     * @param panelPosition The location of the frame on the screen.
     * @param shadowSize Size of the shadow.
     * @param durationInSeconds How long the panel will stay on screen for.
-     * @param alwaysOnTop If the frame will always be on top.
     * 
     * @throws InvalidPanelSizeException When the panel dimensions have invalid lengths.
     */
-    public ShadowFrame(String frameTitle, JPanel panel, int panelPosition, int shadowSize, int durationInSeconds, boolean alwaysOnTop) throws InvalidPanelSizeException {
+    public ShadowFrame(String frameTitle, JPanel panel, int panelPosition, int shadowSize, int durationInSeconds) throws InvalidPanelSizeException {
         super("Economy Simulation: " + frameTitle);
         if (panelPosition > 4 || panelPosition < 0) {
             throw new IllegalArgumentException("Panel position must be between 0 and 4.");

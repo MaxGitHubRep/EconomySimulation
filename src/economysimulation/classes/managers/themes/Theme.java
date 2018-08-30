@@ -31,8 +31,7 @@ public class Theme {
         SideBarTheme,
         BudgetListTheme,
         RateListTheme,
-        TaxRevenueListTheme,
-        PopUoFrameTheme
+        TaxRevenueListTheme
     };
     
     public static void applySelectedTheme(Color[] theme) {

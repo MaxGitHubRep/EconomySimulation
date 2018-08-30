@@ -52,7 +52,7 @@ public class HintDisplay extends JPanel {
         });
     }
 
-    public static void updateTheme() {
+    public void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ bottom }, null, null, null);
         Theme.applyTextThemes(new JLabel[]{ descLabel }, null);
     }
