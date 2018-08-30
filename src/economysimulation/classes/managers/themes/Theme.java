@@ -5,6 +5,7 @@ import economysimulation.classes.gui.fronter.SideBar;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
+import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,14 +23,16 @@ public class Theme {
             SideBarTheme = new SideBar.SideBarTheme(),
             BudgetListTheme = new BudgetList.BudgetListTheme(),
             RateListTheme = new RateList.RateListTheme(),
-            TaxRevenueListTheme = new TaxRevenueList.TaxRevenueListTheme();
+            TaxRevenueListTheme = new TaxRevenueList.TaxRevenueListTheme(),
+            PopUoFrameTheme = new PopUpFrame.PopUpFrameTheme();
     
     private static final ThemeUpdater[] ThemeUpdaterClasses = new ThemeUpdater[]{
         GameHoldTheme,
         SideBarTheme,
         BudgetListTheme,
         RateListTheme,
-        TaxRevenueListTheme
+        TaxRevenueListTheme,
+        PopUoFrameTheme
     };
     
     public static void applySelectedTheme(Color[] theme) {
@@ -40,17 +43,18 @@ public class Theme {
         ghostText = theme[4];
         primaryHover = theme[5];
         secondaryHover = theme[6];
-        
     }
     
+    /**
+     * Updates all panels and labels with the correct theme colour.
+     */
     public static void updateAllPanelThemes() {
-        
         for (ThemeUpdater ThemeClass : ThemeUpdaterClasses) {
             ThemeClass.updateClassTheme();
         }
         
         for (int i = 0; i < SideBar.framed.length; i++) {
-            if (SideBar.framed[i]) SideBar.frames[i].updateTheme();
+            if (SideBar.framed[i]) PopUoFrameTheme.updateClassTheme();
         }
     }
     

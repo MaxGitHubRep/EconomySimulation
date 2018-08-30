@@ -1,6 +1,7 @@
 package economysimulation.classes.managers.popup.frame;
 
 import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.themes.ThemeUpdater;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,6 +12,15 @@ import javax.swing.JPanel;
  */
 public class PopUpFrame extends JFrame {
 
+    public static class PopUpFrameTheme extends ThemeUpdater {
+
+        @Override
+        public void updateClassTheme() {
+            PopUpFrame.updateTheme();
+        }
+ 
+    }
+    
     private static JPanel panel, back;
     private String title;
     

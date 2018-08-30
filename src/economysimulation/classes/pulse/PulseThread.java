@@ -23,7 +23,7 @@ public class PulseThread {
             public void run() {
                 try {
                     while (IS_RUNNING) {
-                        Thread.sleep(GameHold.SPEED);
+                        Thread.sleep(GameHold.Speed);
                         if (pulse != null) pulse.gamePulseEvent();
                     }
                 } catch (InterruptedException ex) {

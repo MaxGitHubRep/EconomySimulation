@@ -46,8 +46,9 @@ public class Formula extends Component {
             Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
             WageMultiplier*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
-        CostOfProduction = (Sector.Infrastructure.getSpendingInfluence()== 0 ? 0.1 : -0.2) +
-                (Sector.Science.getSpendingInfluence() == 0 ? 0.12 : -0.18);
+        
+        CostOfProduction = (Sector.Infrastructure.getSpendingInfluence() == 0 ? 0.1 : -0.1) +
+                (Sector.Science.getSpendingInfluence() == 0 ? 0.1 : -0.1);
 
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
@@ -67,6 +68,7 @@ public class Formula extends Component {
     public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
         WageMultiplier = 1;
+        CostOfProduction = 0;
         
         if (Methods.TICKS > 14) calculateSpendingInfluence();
 

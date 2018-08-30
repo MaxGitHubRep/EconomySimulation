@@ -49,15 +49,15 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             fYear = new DecimalFormat("#0000");
     
     private final int[]
-            monthSize = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
-            times = new int[]{ 0, 0, 0 };
+            MONTH_SIZES = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
+            TIME_TRACK = new int[]{ 0, 0, 0 };
     
     public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
     public static int
-            TICKS_PER_QUARTER = 0,
-            SPEED;
+            TicksPerQuarter = 0,
+            Speed;
     public final String SPEED_FORMAT = "Speed: %s";
-    public final String[] Titles = new String[]{
+    public final String[] TITLES = new String[]{
         "Standard of Living", "Political Influence", "Propensity to Consume"
     };
 
@@ -99,9 +99,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     @Override
     public void gamePulseEvent() {
         Methods.TICKS++;
-        TICKS_PER_QUARTER++;
-        if (TICKS_PER_QUARTER == TICKS_IN_QUARTER) {
-            TICKS_PER_QUARTER = 0;
+        TicksPerQuarter++;
+        if (TicksPerQuarter == TICKS_IN_QUARTER) {
+            TicksPerQuarter = 0;
             updateRealGDPLabel();
         }
         updateTime();
@@ -143,7 +143,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
                     repaint();
                     try {
                         int div = (int)Math.abs((Percents[id]*100) - (newPercent*100));
-                        if (div > 0) Thread.sleep(SPEED/div);
+                        if (div > 0) Thread.sleep(Speed/div);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
@@ -167,30 +167,30 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         int speed = time.getValue();
         
         if (speed == SPEED_MID_POINT) {
-            SPEED = 1000;
+            Speed = 1000;
         } else if (speed > SPEED_MID_POINT) {
-            SPEED = 500 + ((200 - speed) * 5);
+            Speed = 500 + ((200 - speed) * 5);
         } else if (speed < SPEED_MID_POINT) {
-            SPEED = 1000 + ((100 - speed) * 10);
+            Speed = 1000 + ((100 - speed) * 10);
         }
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Calculate display time."> 
     private void updateTime() {
-        times[0]++;
+        TIME_TRACK[0]++;
 
-        if (times[0] == monthSize[times[1]]+1) {
-            times[0] = 1;
-            times[1]++;
-            if (times[1] == 12) {
-                times[1] = 0;
-                times[2]++;
+        if (TIME_TRACK[0] == MONTH_SIZES[TIME_TRACK[1]]+1) {
+            TIME_TRACK[0] = 1;
+            TIME_TRACK[1]++;
+            if (TIME_TRACK[1] == 12) {
+                TIME_TRACK[1] = 0;
+                TIME_TRACK[2]++;
                 Formula.calculateBudget(true);
             }
         }
 
         try {
-            titleTime.setText(f.format(times[0]) + "/" + f.format(times[1]) + "/" + fYear.format(times[2]));
+            titleTime.setText(f.format(TIME_TRACK[0]) + "/" + f.format(TIME_TRACK[1]) + "/" + fYear.format(TIME_TRACK[2]));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

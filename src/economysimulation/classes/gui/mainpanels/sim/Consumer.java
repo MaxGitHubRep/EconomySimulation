@@ -18,6 +18,8 @@ public class Consumer extends javax.swing.JPanel {
         fp.setText(f.format(Component.CorporationProfits));
         fp1.setText(Component.TotalCorporationProfits + "");
 
+        i.setText(Component.CostOfProduction + "");
+        
         d.setText(f.format(Component.DisposableIncome));
         
         w.setText(f.format(Component.Wages));
@@ -85,7 +87,7 @@ public class Consumer extends javax.swing.JPanel {
 
         i.setText("jLabel4");
 
-        firmProfits1.setText("income");
+        firmProfits1.setText("cop");
 
         firmProfits2.setText("wages");
 
