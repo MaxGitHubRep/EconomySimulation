@@ -8,6 +8,7 @@ import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
+import economysimulation.classes.managers.popup.hint.hints.HintInsufficientFunds;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
@@ -112,11 +113,7 @@ public class BudgetList extends javax.swing.JPanel {
 
                 } else {
                     saveChanges.setText(saveTexts[2]);
-                    try {
-                        HintManager.createNewHint(Hints.HINT_INSUFFICIENT_FUNDS);
-                    } catch (InvalidPanelSizeException ex) {
-                        ex.printStackTrace();
-                    }
+                    HintManager.createHint(Hints.InsufficientFunds);
                 }
             }
         });

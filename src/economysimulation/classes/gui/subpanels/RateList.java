@@ -1,6 +1,8 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
@@ -89,6 +91,8 @@ public class RateList extends javax.swing.JPanel {
                     
                 }
                 saveChanges.setText("Changes Saved");
+                if (newValue > 90) HintManager.createHint(selectedType == 0 ? Hints.InterestRatesTooHigh : Hints.TaxesTooHigh);
+                
             }
             
         });

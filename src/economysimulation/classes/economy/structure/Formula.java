@@ -3,7 +3,6 @@ package economysimulation.classes.economy.structure;
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.budget.BudgetSector;
 import economysimulation.classes.economy.sectors.Sector;
-import economysimulation.classes.economy.sectors.SectorID;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
@@ -100,7 +99,7 @@ public class Formula extends Component {
             TOTAL_SAVINGS-=0.1;
             D_INCOME+=0.1;
         } else if (TOTAL_SAVINGS < 0.1 && D_INCOME == 0) {
-            HintManager.createNewHint(Hints.HINT_CONSUMERS_OUT_OF_MONEY);
+            HintManager.createHint(Hints.ConsumersBankrupt);
         }
         
         TAXED_INCOME = INCOME * (INCOME > 0 && INCOME_TAX > 0 && !TAX_BREAK[1] ? (INCOME_TAX/100) : 0);
@@ -137,7 +136,7 @@ public class Formula extends Component {
             UNEMPLOYMENT--;
         }
         
-        if (TOTAL_CORP_PROFITS <= 0) HintManager.createNewHint(Hints.HINT_FIRMS_OUT_OF_MONEY);
+        if (TOTAL_CORP_PROFITS <= 0) HintManager.createHint(Hints.CorporationBankrupt);
     }//</editor-fold>
 
 }

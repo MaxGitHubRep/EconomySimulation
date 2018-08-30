@@ -66,6 +66,7 @@ public class ShadowFrame extends JFrame {
         isRising = true;
         
         // Creates the frame
+        super.setAlwaysOnTop(true);
         super.setUndecorated(true);
         super.setSize(panel.getWidth() + (shadowSize * 2), panel.getHeight() + (shadowSize * 2));
         super.setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
