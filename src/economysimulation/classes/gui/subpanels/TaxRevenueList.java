@@ -60,7 +60,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
-        Theme.applyTextThemes(new JLabel[]{ c1, c4, i1, i4, t1, t4 }, new JLabel[]{ title1, title2, title3 });
+        Theme.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
     }//</editor-fold> 
 
     /**
@@ -122,7 +122,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         subcolor2 = new javax.swing.JPanel();
         tb2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
         back3 = new javax.swing.JPanel();
         color3 = new javax.swing.JPanel();
         title3 = new javax.swing.JLabel();
@@ -130,7 +129,6 @@ public class TaxRevenueList extends javax.swing.JPanel {
         tt1 = new javax.swing.JLabel();
         t4 = new javax.swing.JLabel();
         tt4 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
 
         setOpaque(false);
 
@@ -156,20 +154,22 @@ public class TaxRevenueList extends javax.swing.JPanel {
 
         c1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         c1.setForeground(new java.awt.Color(204, 0, 0));
-        c1.setText("Per Day:");
+        c1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        c1.setText("Daily Revenue:");
 
-        ct1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        ct1.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         ct1.setForeground(new java.awt.Color(204, 0, 0));
-        ct1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ct1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ct1.setText("Uncalculated");
 
         c4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         c4.setForeground(new java.awt.Color(204, 0, 0));
+        c4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         c4.setText("Total Revenue:");
 
-        ct4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        ct4.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         ct4.setForeground(new java.awt.Color(204, 0, 0));
-        ct4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ct4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ct4.setText("Uncalculated");
 
         subback1.setBackground(new java.awt.Color(255, 255, 255));
@@ -214,36 +214,32 @@ public class TaxRevenueList extends javax.swing.JPanel {
             back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(color1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(back1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(back1Layout.createSequentialGroup()
-                        .addComponent(c1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ct1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(back1Layout.createSequentialGroup()
-                        .addComponent(c4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(ct4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(back1Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(subback1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
+            .addGroup(back1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(c1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ct1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(c4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ct4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         back1Layout.setVerticalGroup(
             back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(back1Layout.createSequentialGroup()
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(c1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ct1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(126, 126, 126)
-                .addGroup(back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(c4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ct4))
-                .addGap(13, 13, 13)
+                .addGap(4, 4, 4)
+                .addComponent(c1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ct1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(c4)
+                .addGap(6, 6, 6)
+                .addComponent(ct4)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(subback1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -271,20 +267,22 @@ public class TaxRevenueList extends javax.swing.JPanel {
 
         i1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         i1.setForeground(new java.awt.Color(204, 0, 0));
-        i1.setText("Per Day:");
+        i1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        i1.setText("Daily Revenue:");
 
-        it1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        it1.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         it1.setForeground(new java.awt.Color(204, 0, 0));
-        it1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        it1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         it1.setText("Uncalculated");
 
         i4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         i4.setForeground(new java.awt.Color(204, 0, 0));
+        i4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         i4.setText("Total Revenue:");
 
-        it4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        it4.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         it4.setForeground(new java.awt.Color(204, 0, 0));
-        it4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        it4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         it4.setText("Uncalculated");
 
         subback2.setBackground(new java.awt.Color(255, 255, 255));
@@ -329,42 +327,37 @@ public class TaxRevenueList extends javax.swing.JPanel {
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(color2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(back2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(back2Layout.createSequentialGroup()
-                        .addComponent(i1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(it1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(back2Layout.createSequentialGroup()
-                        .addComponent(i4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(it4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-            .addGroup(back2Layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(subback2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
+            .addGroup(back2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(it1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(i1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(i4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(it4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         back2Layout.setVerticalGroup(
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(back2Layout.createSequentialGroup()
                 .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(i1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(it1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(126, 126, 126)
-                .addGroup(back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(i4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(it4))
-                .addGap(13, 13, 13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(i1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(it1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(i4)
+                .addGap(6, 6, 6)
+                .addComponent(it4)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(subback2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(subback2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         back3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -388,20 +381,22 @@ public class TaxRevenueList extends javax.swing.JPanel {
 
         t1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         t1.setForeground(new java.awt.Color(204, 0, 0));
-        t1.setText("Per Day:");
+        t1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        t1.setText("Total Daily Revenue:");
 
-        tt1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        tt1.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         tt1.setForeground(new java.awt.Color(204, 0, 0));
-        tt1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tt1.setText("Uncalculated");
 
         t4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         t4.setForeground(new java.awt.Color(204, 0, 0));
-        t4.setText("Total Revenue:");
+        t4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        t4.setText("Total Accumulated Revenue:");
 
-        tt4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        tt4.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         tt4.setForeground(new java.awt.Color(204, 0, 0));
-        tt4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tt4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tt4.setText("Uncalculated");
 
         javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
@@ -412,32 +407,26 @@ public class TaxRevenueList extends javax.swing.JPanel {
             .addGroup(back3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(back3Layout.createSequentialGroup()
-                        .addComponent(t1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tt1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(back3Layout.createSequentialGroup()
-                        .addComponent(t4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(tt4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tt4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(t1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(t4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                 .addContainerGap())
         );
         back3Layout.setVerticalGroup(
             back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(back3Layout.createSequentialGroup()
                 .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tt1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(126, 126, 126)
-                .addGroup(back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(t4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tt4))
-                .addGap(85, 85, 85))
+                .addGap(6, 6, 6)
+                .addComponent(t1)
+                .addGap(6, 6, 6)
+                .addComponent(tt1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(t4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tt4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -445,32 +434,19 @@ public class TaxRevenueList extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(0, 0, 0)
                 .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(back1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(back2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addComponent(back3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -484,28 +460,26 @@ public class TaxRevenueList extends javax.swing.JPanel {
     private static javax.swing.JPanel color1;
     private static javax.swing.JPanel color2;
     private static javax.swing.JPanel color3;
-    private javax.swing.JLabel ct1;
-    private javax.swing.JLabel ct4;
+    private static javax.swing.JLabel ct1;
+    private static javax.swing.JLabel ct4;
     private static javax.swing.JLabel i1;
     private static javax.swing.JLabel i4;
-    private javax.swing.JLabel it1;
-    private javax.swing.JLabel it4;
+    private static javax.swing.JLabel it1;
+    private static javax.swing.JLabel it4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JPanel subback1;
     private javax.swing.JPanel subback2;
     private javax.swing.JPanel subcolor1;
     private javax.swing.JPanel subcolor2;
     private static javax.swing.JLabel t1;
     private static javax.swing.JLabel t4;
-    private javax.swing.JLabel tb1;
-    private javax.swing.JLabel tb2;
+    private static javax.swing.JLabel tb1;
+    private static javax.swing.JLabel tb2;
     private static javax.swing.JLabel title1;
     private static javax.swing.JLabel title2;
     private static javax.swing.JLabel title3;
-    private javax.swing.JLabel tt1;
-    private javax.swing.JLabel tt4;
+    private static javax.swing.JLabel tt1;
+    private static javax.swing.JLabel tt4;
     // End of variables declaration//GEN-END:variables
 }

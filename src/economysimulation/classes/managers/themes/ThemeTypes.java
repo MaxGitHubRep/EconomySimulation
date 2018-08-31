@@ -29,7 +29,7 @@ public class ThemeTypes {
         new Color(255, 255, 255), //secondaryText
         new Color(153, 153, 153), //ghostText
 
-        new Color(120, 120, 120), //primaryHover
+        new Color(90, 90, 90), //primaryHover
         new Color(102, 102, 102) //secondaryHover
         
     };

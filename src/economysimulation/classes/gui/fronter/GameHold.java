@@ -50,7 +50,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     private final int[]
             MONTH_SIZES = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
-            TIME_TRACK = new int[]{ 0, 0, 0 };
+            TIME_TRACK = new int[]{ 0, 1, 1 };
     
     public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
     public static int
@@ -179,11 +179,11 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     private void updateTime() {
         TIME_TRACK[0]++;
 
-        if (TIME_TRACK[0] == MONTH_SIZES[TIME_TRACK[1]]+1) {
+        if (TIME_TRACK[0] == MONTH_SIZES[TIME_TRACK[1]-1]+1) {
             TIME_TRACK[0] = 1;
             TIME_TRACK[1]++;
             if (TIME_TRACK[1] == 12) {
-                TIME_TRACK[1] = 0;
+                TIME_TRACK[1] = 1;
                 TIME_TRACK[2]++;
                 Formula.calculateBudget(true);
             }
