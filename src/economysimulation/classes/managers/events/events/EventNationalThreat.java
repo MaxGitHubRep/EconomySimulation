@@ -25,7 +25,7 @@ public class EventNationalThreat extends Event {
 
     @Override
     public String getImageFileName() {
-        return null; //attacker.toLowerCase().replace(" ", "_")
+        return attacker.toLowerCase().replace(" ", "_");
     }
     
     

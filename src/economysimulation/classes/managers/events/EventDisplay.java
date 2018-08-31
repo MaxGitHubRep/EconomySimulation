@@ -31,7 +31,7 @@ public class EventDisplay extends javax.swing.JPanel {
     }
     
     private void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ this }, new JPanel[]{ top }, null, null);
+        Theme.applyPanelThemes(null, new JPanel[]{ top }, new JPanel[]{ this }, null);
         Theme.applyTextThemes(new JLabel[]{ description }, new JLabel[]{ title });
     }
     

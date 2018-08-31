@@ -122,7 +122,7 @@ public class Formula extends Component {
             Unemployment--;
         }
         
-        if (Methods.TICKS == 30) EventManager.createEvent(Events.NationalThreatNorthKorea);
+        if (Methods.TICKS == 30) EventManager.createEvent(Events.NationalThreatRussia);
         
         PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
         
