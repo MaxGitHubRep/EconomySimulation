@@ -111,10 +111,10 @@
                   <Component id="time" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="sideBarBack" pref="695" max="32767" attributes="0"/>
+                  <Component id="sideBarBack" pref="726" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

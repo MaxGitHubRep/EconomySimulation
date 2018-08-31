@@ -219,7 +219,8 @@ public class WelcomePanel extends javax.swing.JPanel {
         }
         if (build) {
             try {
-                GThread.sleep(10);
+                System.gc();
+                GThread.sleep(20);
                 shiftGraph();
                 
             } catch (InterruptedException ex) {

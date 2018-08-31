@@ -57,7 +57,6 @@ public class SideBar extends javax.swing.JPanel {
         "View consumer behaviour in your economy",
         "Declare bankcruptcy and end the game",
         "View a basic overview of all the components in your economy",
-        "Check out the leaderboards against fellow economists",
         "Alter your personal preferences",
         "Quit the simulation and return to desktop"
     
@@ -120,13 +119,13 @@ public class SideBar extends javax.swing.JPanel {
         initComponents();
         
         titles = new JLabel[]{
-            titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titleLB, titlePreferences, titleExit
+            titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titlePreferences, titleQuit
         };
         backPanels = new JPanel[]{
-            backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8, backPanel9
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8
         };
         colorPanels = new JPanel[]{
-            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8, colorPanel9
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8
         };
 
         opPanels = new JPanel[]{
@@ -136,7 +135,6 @@ public class SideBar extends javax.swing.JPanel {
             new Consumer(),
             new Bankruptcy(),
             new Overview(),
-            new Leaderboards(),
             new Preferences(),
             new QuitSim()
         };
@@ -181,18 +179,15 @@ public class SideBar extends javax.swing.JPanel {
         colorPanel6 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         backPanel7 = new javax.swing.JPanel();
-        titleLB = new javax.swing.JLabel();
+        titlePreferences = new javax.swing.JLabel();
         colorPanel7 = new javax.swing.JPanel();
         backPanel8 = new javax.swing.JPanel();
-        titlePreferences = new javax.swing.JLabel();
+        titleQuit = new javax.swing.JLabel();
         colorPanel8 = new javax.swing.JPanel();
-        backPanel9 = new javax.swing.JPanel();
-        titleExit = new javax.swing.JLabel();
-        colorPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(400, 685));
+        setPreferredSize(new java.awt.Dimension(400, 600));
 
         backPanel1.setBackground(new java.awt.Color(255, 255, 255));
         backPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -443,11 +438,11 @@ public class SideBar extends javax.swing.JPanel {
         backPanel7.setBackground(new java.awt.Color(255, 255, 255));
         backPanel7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        titleLB.setBackground(new java.awt.Color(255, 255, 255));
-        titleLB.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titleLB.setForeground(new java.awt.Color(204, 0, 0));
-        titleLB.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleLB.setText("Leaderboards");
+        titlePreferences.setBackground(new java.awt.Color(255, 255, 255));
+        titlePreferences.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        titlePreferences.setForeground(new java.awt.Color(204, 0, 0));
+        titlePreferences.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titlePreferences.setText("Preferences");
 
         colorPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -469,14 +464,14 @@ public class SideBar extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel7Layout.createSequentialGroup()
                 .addComponent(colorPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleLB)
+                .addComponent(titlePreferences)
                 .addContainerGap())
         );
         backPanel7Layout.setVerticalGroup(
             backPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel7Layout.createSequentialGroup()
                 .addGroup(backPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleLB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(titlePreferences, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addComponent(colorPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
@@ -484,11 +479,11 @@ public class SideBar extends javax.swing.JPanel {
         backPanel8.setBackground(new java.awt.Color(255, 255, 255));
         backPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        titlePreferences.setBackground(new java.awt.Color(255, 255, 255));
-        titlePreferences.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titlePreferences.setForeground(new java.awt.Color(204, 0, 0));
-        titlePreferences.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titlePreferences.setText("Preferences");
+        titleQuit.setBackground(new java.awt.Color(255, 255, 255));
+        titleQuit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        titleQuit.setForeground(new java.awt.Color(204, 0, 0));
+        titleQuit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleQuit.setText("Quit to Desktop");
 
         colorPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -509,57 +504,16 @@ public class SideBar extends javax.swing.JPanel {
             backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
                 .addComponent(colorPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
-                .addComponent(titlePreferences)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addComponent(titleQuit)
                 .addContainerGap())
         );
         backPanel8Layout.setVerticalGroup(
             backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
                 .addGroup(backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titlePreferences, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                    .addComponent(titleQuit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                     .addComponent(colorPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-
-        backPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        backPanel9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        titleExit.setBackground(new java.awt.Color(255, 255, 255));
-        titleExit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titleExit.setForeground(new java.awt.Color(204, 0, 0));
-        titleExit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleExit.setText("Quit to Desktop");
-
-        colorPanel9.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout colorPanel9Layout = new javax.swing.GroupLayout(colorPanel9);
-        colorPanel9.setLayout(colorPanel9Layout);
-        colorPanel9Layout.setHorizontalGroup(
-            colorPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
-        );
-        colorPanel9Layout.setVerticalGroup(
-            colorPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout backPanel9Layout = new javax.swing.GroupLayout(backPanel9);
-        backPanel9.setLayout(backPanel9Layout);
-        backPanel9Layout.setHorizontalGroup(
-            backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel9Layout.createSequentialGroup()
-                .addComponent(colorPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleExit)
-                .addContainerGap())
-        );
-        backPanel9Layout.setVerticalGroup(
-            backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel9Layout.createSequentialGroup()
-                .addGroup(backPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleExit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                    .addComponent(colorPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
@@ -579,7 +533,6 @@ public class SideBar extends javax.swing.JPanel {
                 .addComponent(jSeparator1)
                 .addContainerGap())
             .addComponent(backPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(backPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,10 +553,7 @@ public class SideBar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(backPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -617,7 +567,6 @@ public class SideBar extends javax.swing.JPanel {
     private javax.swing.JPanel backPanel6;
     private javax.swing.JPanel backPanel7;
     private javax.swing.JPanel backPanel8;
-    private javax.swing.JPanel backPanel9;
     private javax.swing.JPanel colorPanel1;
     private javax.swing.JPanel colorPanel2;
     private javax.swing.JPanel colorPanel3;
@@ -626,16 +575,14 @@ public class SideBar extends javax.swing.JPanel {
     private javax.swing.JPanel colorPanel6;
     private javax.swing.JPanel colorPanel7;
     private javax.swing.JPanel colorPanel8;
-    private javax.swing.JPanel colorPanel9;
     private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JLabel titleBankr;
     public static javax.swing.JLabel titleBudget;
     public static javax.swing.JLabel titleCons;
     public static javax.swing.JLabel titleCorp;
-    public static javax.swing.JLabel titleExit;
     public static javax.swing.JLabel titleGov;
-    public static javax.swing.JLabel titleLB;
     public static javax.swing.JLabel titleOverview;
     public static javax.swing.JLabel titlePreferences;
+    public static javax.swing.JLabel titleQuit;
     // End of variables declaration//GEN-END:variables
 }
