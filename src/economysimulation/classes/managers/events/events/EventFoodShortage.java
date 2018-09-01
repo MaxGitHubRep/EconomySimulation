@@ -1,0 +1,26 @@
+package economysimulation.classes.managers.events.events;
+
+/**
+ *
+ * @author Max Carter
+ */
+public class EventFoodShortage extends Event {
+
+    @Override
+    public String getTitle() {
+        return "Food Shortages Cause Starvation!";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Make sure that the Food sector is sufficiently funded to compensate with the food shortage.";
+    }
+
+    @Override
+    public String getImageFileName() {
+        return "america";
+    }
+    
+    
+    
+}

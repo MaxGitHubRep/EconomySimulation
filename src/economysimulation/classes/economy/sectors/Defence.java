@@ -44,12 +44,12 @@ public class Defence extends BudgetSector {
 
     @Override
     public double getStandardLivingInfluence() {
-        return 0;
+        return 0.001;
     }
 
     @Override
     public int getPopulationInfluence() {
-        return 0;
+        return 1;
     }
 
     @Override

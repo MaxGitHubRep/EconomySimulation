@@ -9,6 +9,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.comp.CircleProgressBar;
+import economysimulation.classes.managers.events.EventManager;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
@@ -125,6 +126,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         TaxRevenueList.updateTaxationLabels();
+        if (Methods.TICKS % 175 == 0) EventManager.createEvent();
     }
     
     /**

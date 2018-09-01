@@ -4,8 +4,6 @@ import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.budget.BudgetSector;
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.managers.events.EventManager;
-import economysimulation.classes.managers.events.Events;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -121,8 +119,6 @@ public class Formula extends Component {
         } else if (Unemployment > 1) {
             Unemployment--;
         }
-        
-        if (Methods.TICKS == 30) EventManager.createEvent(Events.NationalThreatRussia);
         
         PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
         

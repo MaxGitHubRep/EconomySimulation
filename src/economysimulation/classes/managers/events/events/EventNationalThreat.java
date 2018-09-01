@@ -1,5 +1,7 @@
 package economysimulation.classes.managers.events.events;
 
+import economysimulation.classes.global.Methods;
+
 /**
  *
  * @author Max Carter
@@ -8,8 +10,9 @@ public class EventNationalThreat extends Event {
 
     private String attacker;
     
-    public EventNationalThreat(String attacker) {
-        this.attacker = attacker;
+    public EventNationalThreat() {
+        String[] attackers = new String[]{ "North Korea", "Russia", "America" };
+        this.attacker = attackers[Methods.randomInt(0, attackers.length)];
     }
     
     
