@@ -18,7 +18,7 @@ public class EventVirusOutbreak extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "toxic";
     }
     
     

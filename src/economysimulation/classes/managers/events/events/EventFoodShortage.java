@@ -18,7 +18,7 @@ public class EventFoodShortage extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "food_shortage";
     }
     
     

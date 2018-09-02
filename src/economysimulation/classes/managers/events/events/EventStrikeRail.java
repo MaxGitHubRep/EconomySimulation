@@ -18,7 +18,7 @@ public class EventStrikeRail extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "train_strike";
     }
     
     

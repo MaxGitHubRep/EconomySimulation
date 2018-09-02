@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class EventManager {
     
-    private static EventDisplay eventDisplay = new EventDisplay();
+    private static final EventDisplay eventDisplay = new EventDisplay();
     
     /**
      * Creates an event based on current spending influences.

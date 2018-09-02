@@ -20,7 +20,7 @@ public class EventStrikeSchool extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "student_strike";
     }
     
     

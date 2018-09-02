@@ -18,7 +18,7 @@ public class EventStrikeNHS extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "nhs_strike";
     }
     
     

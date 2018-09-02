@@ -18,7 +18,7 @@ public class EventHousingCrisis extends Event {
 
     @Override
     public String getImageFileName() {
-        return "america";
+        return "house_crisis";
     }
     
     
