@@ -12,7 +12,7 @@ public class EventNationalThreat extends Event {
     
     public EventNationalThreat() {
         String[] attackers = new String[]{ "North Korea", "Russia", "America" };
-        this.attacker = attackers[Methods.randomInt(0, attackers.length)];
+        this.attacker = attackers[Methods.randomInt(0, attackers.length-1)];
     }
     
     

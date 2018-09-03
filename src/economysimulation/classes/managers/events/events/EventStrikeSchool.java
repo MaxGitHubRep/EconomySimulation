@@ -1,7 +1,5 @@
 package economysimulation.classes.managers.events.events;
 
-import economysimulation.classes.global.Methods;
-
 /**
  *
  * @author Max Carter
@@ -10,7 +8,7 @@ public class EventStrikeSchool extends Event {
 
     @Override
     public String getTitle() {
-        return "Students are on Strike Against High University Fees!";
+        return "Studen Strike Against High Uni Fees!";
     }
 
     @Override
@@ -22,7 +20,5 @@ public class EventStrikeSchool extends Event {
     public String getImageFileName() {
         return "student_strike";
     }
-    
-    
-    
+
 }

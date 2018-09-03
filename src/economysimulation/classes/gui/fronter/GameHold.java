@@ -126,7 +126,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         TaxRevenueList.updateTaxationLabels();
-        if (Methods.TICKS % 175 == 0) EventManager.createEvent();
+        if (Methods.TICKS % 31 == 0) EventManager.createEvent();
     }
     
     /**
@@ -184,6 +184,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         if (TIME_TRACK[0] == MONTH_SIZES[TIME_TRACK[1]-1]+1) {
             TIME_TRACK[0] = 1;
             TIME_TRACK[1]++;
+            Component.TotalSavings *=  1 + (Component.InterestRate/100);
             if (TIME_TRACK[1] == 12) {
                 TIME_TRACK[1] = 1;
                 TIME_TRACK[2]++;

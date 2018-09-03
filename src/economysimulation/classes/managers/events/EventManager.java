@@ -31,7 +31,7 @@ public class EventManager {
         }
         
         if (events.size() > 0) {
-            Event event = events.get(Methods.randomInt(0, events.size()));
+            Event event = events.get(Methods.randomInt(0, events.size()-1));
             
             eventDisplay.createEvent(event.getTitle(), event.getDescription(), event.getImageFileName());
             try {
