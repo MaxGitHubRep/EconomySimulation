@@ -2,7 +2,7 @@ package economysimulation.classes.economy.budget;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Component;
-import static economysimulation.classes.economy.structure.Component.Spending;
+import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 
 /**
@@ -21,6 +21,7 @@ public class Budget extends Component {
         SpendingBudget -= money;
         Spending[sector]+= money;
         SpendingInfluence[sector] += (double) money;
+        BudgetHold.displaySpendingGraph();
     }
     
     /**
