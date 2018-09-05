@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Component {
     
     public static double
-        InterestRate = 0.5, CorporationTax = 0, IncomeTax = 0,
+        InterestRate = 0, CorporationTax = 0, IncomeTax = 0,
         Unemployment, GrossDomesticProduct, PropensityToConsume = 1, Savings,
         CorporationConfidence = 1, ConsumerConfidence = 1,
         Population = 1000000,
