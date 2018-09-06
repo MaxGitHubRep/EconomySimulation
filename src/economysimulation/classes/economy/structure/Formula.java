@@ -37,10 +37,10 @@ public class Formula extends Component {
      */
     private static void calculateSpendingInfluence() {
 
-        for (int i = 0; i < SpendingInfluence.length-1; i++) {
-            if (SpendingInfluence[i] > 0) SpendingInfluence[i]-=0.12;
+        for (BudgetSector sector : Sector.SectorList) {
+            if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.12);
         }
-        
+
         for (BudgetSector sector : Sector.SectorList) {
             StandardOfLiving += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
             Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
