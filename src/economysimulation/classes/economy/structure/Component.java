@@ -20,16 +20,7 @@ public class Component {
         TotalCorporationTax, TotalIncomeTax,
         CostOfProduction, Wages,
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
-    
-    // Budget variables
-    public static int[] Spending = new int[]{
-        0, 0, 0, 0, 0, 0, 0, 0
-    };
-    
-    public static double[] SpendingInfluence = new double[]{
-        0, 0, 0, 0, 0, 0, 0, 0
-    };
-    
+
     public static ArrayList<Double> historyGDP = new ArrayList<>();
     public static int quarterIndex = 0;
     

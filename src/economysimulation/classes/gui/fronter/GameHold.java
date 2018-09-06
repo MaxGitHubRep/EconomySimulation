@@ -117,9 +117,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         Formula.calculateBudget(false);
         try {
             Formula.calculateComponents();
-        } catch (InvalidSectorException ex) {
-            ex.printStackTrace();
-        } catch (InvalidPanelSizeException ex) {
+        } catch (InvalidSectorException | InvalidPanelSizeException ex) {
             ex.printStackTrace();
         }
         Consumer.updatestuff();

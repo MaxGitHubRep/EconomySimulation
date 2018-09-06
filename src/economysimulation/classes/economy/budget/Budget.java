@@ -19,8 +19,8 @@ public class Budget extends Component {
      */
     public static void spendMoney(int sector, int money) {
         SpendingBudget -= money;
-        Spending[sector]+= money;
-        SpendingInfluence[sector] += (double) money;
+        Sector.getSector(sector).addSpending(money);
+        Sector.getSector(sector).addSpendingInfluence((double) money);
         BudgetHold.displaySpendingGraph();
     }
     
@@ -32,10 +32,10 @@ public class Budget extends Component {
      * @throws InvalidSectorException When a sector index is invalid.
      */
     public static int getSectorSpending(int id) throws InvalidSectorException {
-        if (id < 0 || id > Spending.length) {
+        if (id < 0 || id > Sector.getSectorSize()) {
             throw new InvalidSectorException();
         }
-        return Spending[id];
+        return Sector.getSector(id).getSpending();
     }
     
     /**
@@ -43,12 +43,13 @@ public class Budget extends Component {
     * @return Sum of budget
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
-        int value = 0;
+        int value = 0, index = 0;
         
         for (BudgetSector sector : Sector.SectorList) {
-            if (!(!includeTransfer && sector.getIndex() == 7)) {
+            if (!(!includeTransfer && index == 7)) {
                 value+= sector.getSpending();
             }
+            index++;
         }
         
         return value;

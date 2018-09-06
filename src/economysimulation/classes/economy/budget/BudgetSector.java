@@ -6,17 +6,25 @@ package economysimulation.classes.economy.budget;
  */
 public abstract class BudgetSector {
     
-    /**
-     * 
-     * @return The index of the sector.
-     */
-    public abstract int getIndex();
+    public int
+            spending,
+            population;
+    public double
+            spendingInfluence,
+            standardOfLiving,
+            wageMultiplier;
     
     /**
      * 
      * @return The cumulative balance spent on the respected sector.
      */
     public abstract int getSpending();
+    
+    /**
+     * Adds the {@code value} to the sector's spending.
+     * @param value Amount of money being added.
+     */
+    public abstract void addSpending(int value);
     
     /**
      * 
@@ -29,7 +37,7 @@ public abstract class BudgetSector {
      * 
      * @param value The amount the influence is affected by.
      */
-    public abstract void changeSpendingInfluence(double value);
+    public abstract void addSpendingInfluence(double value);
     
     /**
      * Sets the {@code Spending Influence} of the respected sector to {@code value}.
