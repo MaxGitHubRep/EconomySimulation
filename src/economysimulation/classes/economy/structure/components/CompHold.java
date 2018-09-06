@@ -6,6 +6,14 @@ package economysimulation.classes.economy.structure.components;
  */
 public class CompHold extends ComponentType {
 
+    public CompHold(){
+        this.setValue(0);
+    }
+    
+    public CompHold(double value) {
+        this.setValue(value);
+    }
+    
     @Override
     public void setValue(double value) {
         super.value = value;
