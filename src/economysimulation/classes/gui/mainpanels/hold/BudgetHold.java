@@ -41,7 +41,7 @@ public class BudgetHold extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
     public static void displaySpendingGraph() {
-        if (Methods.TICKS > 0) {
+        if (Methods.Ticks > 0) {
             DefaultPieDataset datasetPie = new DefaultPieDataset();
 
             for (int i = 0; i < BudgetList.titles.length; i++) {

@@ -22,7 +22,6 @@ public class Component {
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
 
     public static ArrayList<Double> historyGDP = new ArrayList<>();
-    public static int quarterIndex = 0;
     
     public static boolean[] TaxBreak = new boolean[]{ false, false };
     

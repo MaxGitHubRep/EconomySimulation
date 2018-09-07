@@ -60,7 +60,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
-        Theme.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
+        Theme.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, it4, tt1, tt4, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
     }//</editor-fold> 
 
     /**

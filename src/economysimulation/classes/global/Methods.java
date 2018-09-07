@@ -32,7 +32,7 @@ public class Methods {
     public static MainFrame MainFrame;
     
     public static Color[] theme = ThemeTypes.WHITE;
-    public static int TICKS = 0;
+    public static int Ticks = 0;
     public static final int
             MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3;
     

@@ -99,7 +99,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     @Override
     public void gamePulseEvent() {
-        Methods.TICKS++;
+        Methods.Ticks++;
         TicksPerQuarter++;
         if (TicksPerQuarter == TICKS_IN_QUARTER) {
             TicksPerQuarter = 0;
@@ -124,7 +124,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         TaxRevenueList.updateTaxationLabels();
-        if (Methods.TICKS % 31 == 0) EventManager.createEvent();
+        if (Methods.Ticks % 31 == 0) EventManager.createEvent();
     }
     
     /**
@@ -159,7 +159,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         Formula.calculateGDP();
         GameHold.labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
         Component.historyGDP.add(Component.GrossDomesticProduct);
-        Component.quarterIndex++;
     }//</editor-fold>
  
     //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 

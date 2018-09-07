@@ -70,7 +70,7 @@ public class Formula extends Component {
         WageMultiplier = 1;
         CostOfProduction = 0;
         
-        if (Methods.TICKS > 14) calculateSpendingInfluence();
+        if (Methods.Ticks > 14) calculateSpendingInfluence();
 
         Wages = (0.000000008 * (Population * ((100 - Unemployment)/100)) * 8 * WageMultiplier);
         DisposableIncome = Wages;
