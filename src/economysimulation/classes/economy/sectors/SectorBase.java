@@ -24,6 +24,10 @@ public class SectorBase extends BudgetSector {
         super.spending += value;
     }
 
+    @Override
+    public void setSpending(int value) {
+        super.spending = value;
+    }
 
     @Override
     public double getSpendingInfluence() {

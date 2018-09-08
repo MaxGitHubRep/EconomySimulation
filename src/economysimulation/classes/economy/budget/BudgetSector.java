@@ -27,6 +27,12 @@ public abstract class BudgetSector {
     public abstract void addSpending(int value);
     
     /**
+     * Sets the value of the sector.
+     * @param value The value of the new sector.
+     */
+    public abstract void setSpending(int value);
+    
+    /**
      * 
      * @return The remaining influence the spent money has on the sectors.
      */

@@ -7,11 +7,13 @@ package economysimulation.classes.economy.structure.components;
 public class CompHold extends ComponentType {
 
     public CompHold(){
-        this.setValue(0);
+        this.setDefaultValue(0);
+        this.applyDefaultValue();
     }
     
     public CompHold(double value) {
-        this.setValue(value);
+        this.setDefaultValue(value);
+        this.applyDefaultValue();
     }
     
     @Override
@@ -27,6 +29,16 @@ public class CompHold extends ComponentType {
     @Override
     public void addValue(double value) {
         super.value += value;
+    }
+
+    @Override
+    public void setDefaultValue(double value) {
+        super.defaultValue = value;
+    }
+
+    @Override
+    public void applyDefaultValue() {
+        super.value = super.defaultValue;
     }
 
 }
