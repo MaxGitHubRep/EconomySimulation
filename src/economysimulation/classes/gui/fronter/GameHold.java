@@ -63,6 +63,10 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     };
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    /**'
+     * Creates new game set up.
+     * @throws InvalidThemeSetupException 
+     */
     public GameHold() throws InvalidThemeSetupException {
         initComponents();
         Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
