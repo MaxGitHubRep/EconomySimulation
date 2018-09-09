@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidSectorException;
@@ -44,7 +45,7 @@ public class BudgetList extends javax.swing.JPanel {
             titles = new String[]{
                 "NHS", "Education", "Housing", "Food", "Infrastructure", "Defence", "Science", "Benefits" },
             saveTexts = new String[]{
-                "Spend Money", "Money Spent", "Insufficient Funds" }; 
+                "Spend Money", "Money Spent", "Insufficient Funds", "Specify Money" }; 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     public BudgetList() throws InvalidSectorException {
@@ -74,7 +75,7 @@ public class BudgetList extends javax.swing.JPanel {
         title.setText(titles[id]);
         slider.setValue(0);
         saveChanges.setText(saveTexts[0]);
-        spendings.setText("£" + Budget.getSectorSpending(selectedType) + "bn");
+        spendings.setText("£" + Sector.getSector(selectedType).getSpending() + "bn");
         updatePercent(false);
         
     }//</editor-fold>
@@ -101,13 +102,12 @@ public class BudgetList extends javax.swing.JPanel {
         backPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (slider.getValue() <= Component.SpendingBudget) { 
-                    int spending = 0;
-                    try {
-                        spending = Budget.getSectorSpending(selectedType);
-                    } catch (InvalidSectorException ex) {
-                        ex.printStackTrace();
-                    }
+                if (slider.getValue() <= 0) {
+                    saveChanges.setText(saveTexts[3]);
+                    
+                } else if (slider.getValue() <= Component.SpendingBudget) { 
+                    int spending = Sector.getSector(selectedType).getSpending();
+
                     try {
                         new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
                     } catch (InvalidTimeException ex) {

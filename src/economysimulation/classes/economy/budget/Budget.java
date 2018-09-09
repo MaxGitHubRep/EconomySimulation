@@ -23,21 +23,7 @@ public class Budget extends Component {
         Sector.getSector(sector).addSpendingInfluence((double) money);
         BudgetHold.displaySpendingGraph();
     }
-    
-    /**
-     * Gets the total amount spent on a certain sector.
-     * 
-     * @param id Index of the sector.
-     * @return   Money spent in total.
-     * @throws InvalidSectorException When a sector index is invalid.
-     */
-    public static int getSectorSpending(int id) throws InvalidSectorException {
-        if (id < 0 || id > Sector.getSectorSize()) {
-            throw new InvalidSectorException();
-        }
-        return Sector.getSector(id).getSpending();
-    }
-    
+
     /**
     * @param includeTransfer Return result with transfer payments included (benefits)
     * @return Sum of budget
