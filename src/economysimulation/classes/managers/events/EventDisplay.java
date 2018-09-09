@@ -43,9 +43,10 @@ public class EventDisplay extends javax.swing.JPanel {
      * @param image       File name of the image.
      */
     protected void createEvent(String title, String description, String image) {
+        updateTheme();
         this.title.setText(title);
         this.description.setText("<html>" + description + "</html>");
-        if (image != null)  picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/eventimages/" + image + ".png")));
+        if (image != null) picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/eventimages/" + image + ".png")));
     }
 
     private static void frameDragged(JPanel dragPanel) {

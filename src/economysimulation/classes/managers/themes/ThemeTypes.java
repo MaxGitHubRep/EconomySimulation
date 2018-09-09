@@ -25,8 +25,8 @@ public class ThemeTypes {
         new Color(51, 51, 51), //primaryBack
         new Color(41, 41, 41), //secondaryBack
 
-        new Color(255, 255, 255), //primaryText
-        new Color(255, 255, 255), //secondaryText
+        new Color(245, 245, 245), //primaryText
+        new Color(245, 245, 245), //secondaryText
         new Color(153, 153, 153), //ghostText
 
         new Color(90, 90, 90), //primaryHover

@@ -24,7 +24,7 @@ public class Theme {
             BudgetListTheme = new BudgetList.BudgetListTheme(),
             RateListTheme = new RateList.RateListTheme(),
             TaxRevenueListTheme = new TaxRevenueList.TaxRevenueListTheme(),
-            PopUoFrameTheme = new PopUpFrame.PopUpFrameTheme();
+            PopUpFrameTheme = new PopUpFrame.PopUpFrameTheme();
     
     private static final ThemeUpdater[] ThemeUpdaterClasses = new ThemeUpdater[]{
         GameHoldTheme,
@@ -53,7 +53,7 @@ public class Theme {
         }
         
         for (int i = 0; i < SideBar.framed.length; i++) {
-            if (SideBar.framed[i]) PopUoFrameTheme.updateClassTheme();
+            if (SideBar.framed[i]) PopUpFrameTheme.updateClassTheme();
         }
     }
     
