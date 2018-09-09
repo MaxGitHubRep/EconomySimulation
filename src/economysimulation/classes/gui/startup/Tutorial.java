@@ -7,7 +7,6 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
-import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.pulse.ControlPulse;
@@ -329,10 +328,10 @@ public class Tutorial extends javax.swing.JPanel {
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
         try {
-            Methods.GameHold = new GameHold();
-            MainFrame.addToMainFrame(Methods.GameHold);
+            Methods.GameDisplay = new GameHold();
+            MainFrame.addToMainFrame(Methods.GameDisplay);
             new ControlPulse();
-        } catch (Exception ex) {
+        } catch (InvalidThemeSetupException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_back1MouseClicked

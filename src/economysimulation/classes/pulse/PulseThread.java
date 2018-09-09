@@ -1,6 +1,6 @@
 package economysimulation.classes.pulse;
 
-import economysimulation.classes.gui.fronter.GameHold;
+import static economysimulation.classes.global.Methods.GameDisplay;
 
 /**
  *
@@ -23,7 +23,7 @@ public class PulseThread {
             public void run() {
                 try {
                     while (IS_RUNNING) {
-                        Thread.sleep(GameHold.Speed);
+                        Thread.sleep(GameDisplay.Speed);
                         if (pulse != null) pulse.gamePulseEvent();
                     }
                 } catch (InterruptedException ex) {

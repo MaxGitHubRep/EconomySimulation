@@ -46,6 +46,7 @@ public class NumberIncrementer {
                         label.setText(String.format(text, start));
                         Thread.sleep(tickDelay/difference);
                     }
+                    System.gc();
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }

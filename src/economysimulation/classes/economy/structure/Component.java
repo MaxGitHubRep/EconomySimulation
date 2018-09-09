@@ -21,8 +21,6 @@ public class Component {
         CostOfProduction, Wages,
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
 
-    public static ArrayList<Double> historyGDP = new ArrayList<>();
     
-    public static boolean[] TaxBreak = new boolean[]{ false, false };
     
 }

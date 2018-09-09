@@ -2,8 +2,8 @@ package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.pulse.PulseThread;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -41,7 +41,7 @@ public class BudgetHold extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
     public static void displaySpendingGraph() {
-        if (Methods.Ticks > 0) {
+        if (PulseThread.IS_RUNNING) {
             DefaultPieDataset datasetPie = new DefaultPieDataset();
 
             for (int i = 0; i < BudgetList.titles.length; i++) {

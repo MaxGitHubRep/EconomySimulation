@@ -1,13 +1,13 @@
 package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.mainpanels.extra.QuitSim;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
-import economysimulation.classes.gui.mainpanels.extra.Leaderboards;
 import economysimulation.classes.gui.mainpanels.extra.Preferences;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
@@ -63,9 +63,9 @@ public class SideBar extends javax.swing.JPanel {
     };
 
     public static void selectOption(JPanel backPanel, JLabel title, String description) {
-        Methods.addToFrontPanel(GameHold.backadd, backPanel, false);
-        GameHold.title.setText("Currently Showing: " + title.getText() );
-        GameHold.description.setText("<html>" + description + ". </html>");
+        Methods.addToFrontPanel(GameDisplay.backadd, backPanel, false);
+        GameDisplay.title.setText("Currently Showing: " + title.getText() );
+        GameDisplay.description.setText("<html>" + description + ". </html>");
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 

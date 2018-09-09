@@ -255,48 +255,42 @@ public class WelcomePanel extends javax.swing.JPanel {
     * @param id index of the panel list
     */
     private static void addPanelHoverEvent(int id) {
-        try {
-            backPanels[id].addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    titleLabels[id].setText("<html>" + DESCS[id] + ".</html>");
-                    titleLabels[id].setFont(new Font("Agency FB", 0, 24));
-                }
+        backPanels[id].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                titleLabels[id].setText("<html>" + DESCS[id] + ".</html>");
+                titleLabels[id].setFont(new Font("Agency FB", 0, 24));
+            }
 
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    titleLabels[id].setText(TITLES[id]);
-                    titleLabels[id].setFont(new Font("Agency FB", 0, 48));
-                }
-                
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (enterUsername.getText().equals(USERNAME_GHOST_TEXT)) {
-                        titleLabels[id].setText("<html>" + USERNAME_GHOST_TEXT + " is not a valid username.</html>");
-                        
-                    } else if (enterUsername.getText().length() > Methods.MAX_USERNAME_LENGTH) {
-                        titleLabels[id].setText("<html>Username must be less than " + Methods.MAX_USERNAME_LENGTH + " characters to proceed.</html>");
-                        
-                    } else if (enterUsername.getText().length() < Methods.MIN_USERNAME_LENGTH) {
-                        titleLabels[id].setText("<html>Username must be more than " + Methods.MIN_USERNAME_LENGTH + " characters to proceed.</html>");
-                    
-                    } else {
-                        Mode.MODE = id + 1;
-                        try {
-                            build = false;
-                            MainFrame.addToMainFrame(new Tutorial());
-                        } catch (InvalidThemeSetupException ex) {
-                            ex.printStackTrace();
-                        } catch (InvalidSectorException ex) {
-                            ex.printStackTrace();
-                        }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                titleLabels[id].setText(TITLES[id]);
+                titleLabels[id].setFont(new Font("Agency FB", 0, 48));
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (enterUsername.getText().equals(USERNAME_GHOST_TEXT)) {
+                    titleLabels[id].setText("<html>" + USERNAME_GHOST_TEXT + " is not a valid username.</html>");
+
+                } else if (enterUsername.getText().length() > 10) {
+                    titleLabels[id].setText("<html>Username must be less than " + 10 + " characters to proceed.</html>");
+
+                } else if (enterUsername.getText().length() < 3) {
+                    titleLabels[id].setText("<html>Username must be more than " + 3 + " characters to proceed.</html>");
+
+                } else {
+                    Mode.MODE = id + 1;
+                    try {
+                        build = false;
+                        MainFrame.addToMainFrame(new Tutorial());
+                    } catch (InvalidThemeSetupException | InvalidSectorException ex) {
+                        ex.printStackTrace();
                     }
                 }
+            }
 
-            });
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        });
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")

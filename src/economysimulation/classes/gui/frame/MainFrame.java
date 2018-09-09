@@ -108,8 +108,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Methods.MainFrame = new MainFrame();
-                Methods.MainFrame.setVisible(true);
+                Methods.FrameDisplay = new MainFrame();
+                Methods.FrameDisplay.setVisible(true);
             }
         });
     }

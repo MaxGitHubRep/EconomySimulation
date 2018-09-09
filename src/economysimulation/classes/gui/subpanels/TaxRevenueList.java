@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.GameDisplay;
 
 /**
  *
@@ -90,7 +91,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
             @Override 
             public void mouseClicked(MouseEvent e) {
                 boolean nowBreaking = taxBreaks[id].getText().equals(taxTexts[0]);
-                Component.TaxBreak[id] = nowBreaking;
+                GameDisplay.TaxBreak[id] = nowBreaking;
                 taxBreaks[id].setText(taxTexts[nowBreaking ? 1 : 0]);
             }
         });

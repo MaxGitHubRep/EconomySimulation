@@ -28,14 +28,12 @@ public class Methods {
     //Classes of panels to add at intro
     public static BudgetList BudgetDisplay;
     public static RateList RateDisplay;
-    public static GameHold GameHold;
-    public static MainFrame MainFrame;
+    public static GameHold GameDisplay;
+    public static MainFrame FrameDisplay;
     
     public static Color[] theme = ThemeTypes.WHITE;
-    public static int Ticks = 0;
-    public static final int
-            MAX_USERNAME_LENGTH = 10, MIN_USERNAME_LENGTH = 3;
     
+
     public static String Username; //players username
     
     public static void addDraggablePanel(JPanel[] panels) {
@@ -43,7 +41,7 @@ public class Methods {
             throw new NullPointerException();
         }
         for (JPanel dragPanel : panels) {
-            MainFrame.frameDragged(dragPanel);
+            FrameDisplay.frameDragged(dragPanel);
         }
     }
     

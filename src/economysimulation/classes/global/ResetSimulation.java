@@ -3,7 +3,8 @@ package economysimulation.classes.global;
 import economysimulation.classes.economy.budget.BudgetSector;
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.components.ComponentType;
-import economysimulation.classes.gui.fronter.GameHold;
+import static economysimulation.classes.global.Methods.GameDisplay;
+import economysimulation.classes.pulse.PulseThread;
 
 /**
  *
@@ -33,8 +34,10 @@ public class ResetSimulation {
         }
         
         //Resets game variables.
-        Methods.Ticks = 0;
-        GameHold.TicksPerQuarter = 0;
-        GameHold.Speed = 0;
+        GameDisplay.Ticks = 0;
+        GameDisplay.TicksPerQuarter = 0;
+        GameDisplay.Speed = GameDisplay.SPEED_MID_POINT;
+        
+        if (PulseThread.IS_RUNNING) PulseThread.IS_RUNNING = false;
     }
 }

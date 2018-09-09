@@ -3,12 +3,12 @@ package economysimulation.classes.economy.structure;
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.budget.BudgetSector;
 import economysimulation.classes.economy.sectors.Sector;
-import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.pulse.PulseThread;
+import static economysimulation.classes.global.Methods.GameDisplay;
 
 /**
  *
@@ -70,7 +70,7 @@ public class Formula extends Component {
         WageMultiplier = 1;
         CostOfProduction = 0;
         
-        if (Methods.Ticks > 14) calculateSpendingInfluence();
+        if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
         Wages = (0.000000008 * (Population * ((100 - Unemployment)/100)) * 8 * WageMultiplier);
         DisposableIncome = Wages;
@@ -89,15 +89,15 @@ public class Formula extends Component {
             HintManager.createHint(Hints.ConsumersBankrupt);
         }
         
-        DailyIncomeTax = Wages * (Wages > 0 && IncomeTax > 0 && !TaxBreak[1] ? (IncomeTax/100) : 0);
+        DailyIncomeTax = Wages * (Wages > 0 && IncomeTax > 0 && !GameDisplay.TaxBreak[1] ? (IncomeTax/100) : 0);
         DisposableIncome -= DailyIncomeTax;
         
-        Consumption = PropensityToConsume * ( DisposableIncome + Sector.Benefits.getSpendingInfluence() + 0.4 * (!TaxBreak[1] ? 1-(IncomeTax/100) : 1));
+        Consumption = PropensityToConsume * ( DisposableIncome + Sector.Benefits.getSpendingInfluence() + 0.4 * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1));
         Savings = (1 - PropensityToConsume) * ( DisposableIncome + Sector.Benefits.getSpendingInfluence());
         
         CorporationProfits = (Consumption - CostOfProduction);
         
-        DailyCorporationTax = CorporationProfits * (CorporationProfits > 0 && CorporationTax > 0 && !TaxBreak[0] ? (CorporationTax/100) : 0);
+        DailyCorporationTax = CorporationProfits * (CorporationProfits > 0 && CorporationTax > 0 && !GameDisplay.TaxBreak[0] ? (CorporationTax/100) : 0);
         CorporationProfits -= DailyCorporationTax;
         
         Taxation += DailyCorporationTax + DailyIncomeTax;

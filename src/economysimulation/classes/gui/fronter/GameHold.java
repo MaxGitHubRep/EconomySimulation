@@ -16,6 +16,7 @@ import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.pulse.GamePulse;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
@@ -37,6 +38,10 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         
     }
     
+    public ArrayList<Double> HistoryGDP = new ArrayList<>();
+    
+    public boolean[] TaxBreak = new boolean[]{ false, false };
+    
     private CircleProgressBar ProgressBar;
     
     public static double[]
@@ -44,20 +49,23 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     private Thread CBPThread;
     
-    private static final DecimalFormat
+    private final DecimalFormat
             m = new DecimalFormat("0"),
             f = new DecimalFormat("#00"),
             fYear = new DecimalFormat("#0000");
     
     private final int[]
             MONTH_SIZES = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
-            TIME_TRACK = new int[]{ 0, 1, 1 };
+            TimeTrack = new int[]{ 0, 1, 1 };
     
-    public static final int TICKS_IN_QUARTER = 90, SPEED_MID_POINT = 100;
-    public static int
+    public final int
+            TICKS_IN_QUARTER = 90,
+            SPEED_MID_POINT = 100;
+    public int
             TicksPerQuarter = 0,
-            Speed;
-    public final String SPEED_FORMAT = "Speed: %s";
+            Speed,
+            Ticks = 0;
+
     public final String[] TITLES = new String[]{
         "Standard of Living", "Political Influence", "Propensity to Consume"
     };
@@ -103,7 +111,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     @Override
     public void gamePulseEvent() {
-        Methods.Ticks++;
+        Ticks++;
         TicksPerQuarter++;
         if (TicksPerQuarter == TICKS_IN_QUARTER) {
             TicksPerQuarter = 0;
@@ -128,7 +136,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         TaxRevenueList.updateTaxationLabels();
-        if (Methods.Ticks % 31 == 0) EventManager.createEvent();
+        if (Ticks % 31 == 0) EventManager.createEvent();
     }
     
     /**
@@ -159,10 +167,10 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
-    public void updateRealGDPLabel() {
+    private void updateRealGDPLabel() {
         Formula.calculateGDP();
         GameHold.labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
-        Component.historyGDP.add(Component.GrossDomesticProduct);
+        HistoryGDP.add(Component.GrossDomesticProduct);
     }//</editor-fold>
  
     //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 
@@ -180,21 +188,21 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     
     //<editor-fold defaultstate="collapsed" desc="Calculate display time."> 
     private void updateTime() {
-        TIME_TRACK[0]++;
+        TimeTrack[0]++;
 
-        if (TIME_TRACK[0] == MONTH_SIZES[TIME_TRACK[1]-1]+1) {
-            TIME_TRACK[0] = 1;
-            TIME_TRACK[1]++;
+        if (TimeTrack[0] == MONTH_SIZES[TimeTrack[1]-1]+1) {
+            TimeTrack[0] = 1;
+            TimeTrack[1]++;
             Component.TotalSavings *=  1 + (Component.InterestRate/100);
-            if (TIME_TRACK[1] == 12) {
-                TIME_TRACK[1] = 1;
-                TIME_TRACK[2]++;
+            if (TimeTrack[1] == 12) {
+                TimeTrack[1] = 1;
+                TimeTrack[2]++;
                 Formula.calculateBudget(true);
             }
         }
 
         try {
-            titleTime.setText(f.format(TIME_TRACK[0]) + "/" + f.format(TIME_TRACK[1]) + "/" + fYear.format(TIME_TRACK[2]));
+            titleTime.setText(f.format(TimeTrack[0]) + "/" + f.format(TimeTrack[1]) + "/" + fYear.format(TimeTrack[2]));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -206,9 +214,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
-                JSlider source = (JSlider)e.getSource();
-                titleSpeed.setText(String.format(SPEED_FORMAT, source.getValue()) + "%");
+                titleSpeed.setText(String.format("Speed: %s", slider.getValue()) + "%");
             }
         });
         
