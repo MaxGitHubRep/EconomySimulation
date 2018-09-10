@@ -239,7 +239,7 @@ public class QuitSim extends javax.swing.JPanel {
     }//GEN-LAST:event_bp1MouseClicked
 
     private void bp2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bp2MouseClicked
-        SideBar.selectOption(SideBar.opPanels[4], SideBar.titleBankr, SideBar.descriptions[4]);
+        
     }//GEN-LAST:event_bp2MouseClicked
 
 

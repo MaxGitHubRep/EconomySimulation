@@ -2,7 +2,6 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
-import economysimulation.classes.gui.mainpanels.sim.Bankruptcy;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
@@ -41,7 +40,7 @@ public class SideBar extends javax.swing.JPanel {
             loaded,
             framed;
     
-    private static final int dragPanels = 6;  
+    private static final int dragPanels = 5;  
     public static PopUpFrame[] frames;
     
     public static JPanel[]
@@ -62,14 +61,14 @@ public class SideBar extends javax.swing.JPanel {
     
     };
 
-    public static void selectOption(JPanel backPanel, JLabel title, String description) {
+    public void selectOption(JPanel backPanel, JLabel title, String description) {
         Methods.addToFrontPanel(GameDisplay.backadd, backPanel, false);
         GameDisplay.title.setText("Currently Showing: " + title.getText() );
         GameDisplay.description.setText("<html>" + description + ". </html>");
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
-    public static void addButtonFormat(int id) {
+    public void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -119,13 +118,13 @@ public class SideBar extends javax.swing.JPanel {
         initComponents();
         
         titles = new JLabel[]{
-            titleGov, titleBudget, titleCorp, titleCons, titleBankr, titleOverview, titlePreferences, titleQuit
+            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences, titleQuit
         };
         backPanels = new JPanel[]{
-            backPanel1, backPanel2, backPanel3, backPanel4, backPanel5, backPanel6, backPanel7, backPanel8
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7, backPanel8
         };
         colorPanels = new JPanel[]{
-            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel5, colorPanel6, colorPanel7, colorPanel8
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7, colorPanel8
         };
 
         opPanels = new JPanel[]{
@@ -133,7 +132,6 @@ public class SideBar extends javax.swing.JPanel {
             new BudgetHold(),
             new Corporation(),
             new Consumer(),
-            new Bankruptcy(),
             new Overview(),
             new Preferences(),
             new QuitSim()
@@ -171,9 +169,6 @@ public class SideBar extends javax.swing.JPanel {
         backPanel4 = new javax.swing.JPanel();
         titleCons = new javax.swing.JLabel();
         colorPanel4 = new javax.swing.JPanel();
-        backPanel5 = new javax.swing.JPanel();
-        titleBankr = new javax.swing.JLabel();
-        colorPanel5 = new javax.swing.JPanel();
         backPanel6 = new javax.swing.JPanel();
         titleOverview = new javax.swing.JLabel();
         colorPanel6 = new javax.swing.JPanel();
@@ -187,7 +182,7 @@ public class SideBar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(400, 600));
+        setPreferredSize(new java.awt.Dimension(400, 520));
 
         backPanel1.setBackground(new java.awt.Color(255, 255, 255));
         backPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -353,47 +348,6 @@ public class SideBar extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
 
-        backPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        backPanel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        titleBankr.setBackground(new java.awt.Color(255, 255, 255));
-        titleBankr.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titleBankr.setForeground(new java.awt.Color(204, 0, 0));
-        titleBankr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleBankr.setText("Bankruptcy");
-
-        colorPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout colorPanel5Layout = new javax.swing.GroupLayout(colorPanel5);
-        colorPanel5.setLayout(colorPanel5Layout);
-        colorPanel5Layout.setHorizontalGroup(
-            colorPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
-        );
-        colorPanel5Layout.setVerticalGroup(
-            colorPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout backPanel5Layout = new javax.swing.GroupLayout(backPanel5);
-        backPanel5.setLayout(backPanel5Layout);
-        backPanel5Layout.setHorizontalGroup(
-            backPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel5Layout.createSequentialGroup()
-                .addComponent(colorPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleBankr)
-                .addContainerGap())
-        );
-        backPanel5Layout.setVerticalGroup(
-            backPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel5Layout.createSequentialGroup()
-                .addGroup(backPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(colorPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(titleBankr, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-
         backPanel6.setBackground(new java.awt.Color(255, 255, 255));
         backPanel6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -525,7 +479,6 @@ public class SideBar extends javax.swing.JPanel {
             .addComponent(backPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(backPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(backPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(backPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(backPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(backPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -544,9 +497,7 @@ public class SideBar extends javax.swing.JPanel {
                 .addComponent(backPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addComponent(backPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -563,7 +514,6 @@ public class SideBar extends javax.swing.JPanel {
     private javax.swing.JPanel backPanel2;
     private javax.swing.JPanel backPanel3;
     private javax.swing.JPanel backPanel4;
-    private javax.swing.JPanel backPanel5;
     private javax.swing.JPanel backPanel6;
     private javax.swing.JPanel backPanel7;
     private javax.swing.JPanel backPanel8;
@@ -571,12 +521,10 @@ public class SideBar extends javax.swing.JPanel {
     private javax.swing.JPanel colorPanel2;
     private javax.swing.JPanel colorPanel3;
     private javax.swing.JPanel colorPanel4;
-    private javax.swing.JPanel colorPanel5;
     private javax.swing.JPanel colorPanel6;
     private javax.swing.JPanel colorPanel7;
     private javax.swing.JPanel colorPanel8;
     private javax.swing.JSeparator jSeparator1;
-    public static javax.swing.JLabel titleBankr;
     public static javax.swing.JLabel titleBudget;
     public static javax.swing.JLabel titleCons;
     public static javax.swing.JLabel titleCorp;
