@@ -1,9 +1,11 @@
 package economysimulation.classes.global;
 
+import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.themes.ThemeTypes;
 import java.awt.BorderLayout;
@@ -30,9 +32,10 @@ public class Methods {
     public static RateList RateDisplay;
     public static GameHold GameDisplay;
     public static MainFrame FrameDisplay;
+    public static Formula FormulaInstance;
+    public static TaxRevenueList TaxRevenueDisplay;
     
     public static Color[] theme = ThemeTypes.WHITE;
-    
 
     public static String Username; //players username
     

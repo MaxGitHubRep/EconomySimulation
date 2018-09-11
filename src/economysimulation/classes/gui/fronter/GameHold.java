@@ -2,16 +2,13 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.structure.Component;
-import economysimulation.classes.economy.structure.Formula;
+import static economysimulation.classes.global.Methods.FormulaInstance;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.comp.CircleProgressBar;
 import economysimulation.classes.managers.events.EventManager;
-import economysimulation.classes.managers.exception.InvalidPanelSizeException;
-import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.pulse.GamePulse;
@@ -126,16 +123,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             index++;
         }
         
-        Formula.calculateBudget(false);
-        try {
-            Formula.calculateComponents();
-        } catch (InvalidSectorException | InvalidPanelSizeException ex) {
-            ex.printStackTrace();
-        }
         Consumer.updatestuff();
         BudgetList.budget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
-        TaxRevenueList.updateTaxationLabels();
         if (Ticks % 31 == 0) EventManager.createEvent();
     }
     
@@ -168,7 +158,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
 
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
     private void updateRealGDPLabel() {
-        Formula.calculateGDP();
+        FormulaInstance.calculateGDP();
         GameHold.labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
         HistoryGDP.add(Component.GrossDomesticProduct);
     }//</editor-fold>
@@ -197,7 +187,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
             if (TimeTrack[1] == 12) {
                 TimeTrack[1] = 1;
                 TimeTrack[2]++;
-                Formula.calculateBudget(true);
+                FormulaInstance.calculateBudget(true);
             }
         }
 

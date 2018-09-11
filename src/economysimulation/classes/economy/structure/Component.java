@@ -1,7 +1,5 @@
 package economysimulation.classes.economy.structure;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Max Carter
@@ -21,6 +19,4 @@ public class Component {
         CostOfProduction, Wages,
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
 
-    
-    
 }

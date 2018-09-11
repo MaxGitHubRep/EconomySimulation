@@ -1,6 +1,7 @@
 package economysimulation.classes.pulse;
 
 import static economysimulation.classes.global.Methods.GameDisplay;
+import java.util.ArrayList;
 
 /**
  *
@@ -8,12 +9,12 @@ import static economysimulation.classes.global.Methods.GameDisplay;
  */
 public class PulseThread {
     
-    private GamePulse pulse;
+    protected ArrayList<GamePulse> Pulses;
     public Thread PulseThread;
     public static volatile boolean IS_RUNNING = false;
     
-    public void setGamePulseEventListener(GamePulse pulse) {
-        this.pulse = pulse;
+    public void addGamePulseEventListener(GamePulse pulse) {
+        this.Pulses.add(pulse);
     }
     
     protected synchronized void initPulseThread() {
@@ -24,7 +25,11 @@ public class PulseThread {
                 try {
                     while (IS_RUNNING) {
                         Thread.sleep(GameDisplay.Speed);
-                        if (pulse != null) pulse.gamePulseEvent();
+                        if (Pulses != null) {
+                            for (GamePulse pulse : Pulses) {
+                                pulse.gamePulseEvent();
+                            }
+                        }
                     }
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();

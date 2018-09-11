@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.gui.fronter.SideBar;
 
 /**
  *

@@ -9,12 +9,13 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import economysimulation.classes.pulse.GamePulse;
 
 /**
  *
  * @author Max Carter
  */
-public class TaxRevenueList extends javax.swing.JPanel {
+public class TaxRevenueList extends javax.swing.JPanel implements GamePulse {
 
     public static class TaxRevenueListTheme extends ThemeUpdater {
 
@@ -25,7 +26,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
         
     }
     
-    private static final String[]
+    private final String[]
             taxTexts = new String[]{ "Tax Break", "Taxes Frozen" };
     
     private static JLabel[]
@@ -57,7 +58,12 @@ public class TaxRevenueList extends javax.swing.JPanel {
             if (i < taxBreaks.length) taxBreakClicked(i);
         }
     }
-    
+
+    @Override
+    public void gamePulseEvent() {
+        updateTaxationLabels();
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
     public static void updateTheme() {
         Theme.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
@@ -67,7 +73,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
     /**
      * Updates the labels to show daily taxation revenue.
      */
-    public static void updateTaxationLabels() {
+    public void updateTaxationLabels() {
         int index = 0;
 
         for (double value : new double[]{ Component.DailyCorporationTax, Component.DailyIncomeTax, (Component.DailyCorporationTax + Component.DailyIncomeTax) }) { //tax per day
@@ -86,7 +92,7 @@ public class TaxRevenueList extends javax.swing.JPanel {
      * 
      * @param id Index of which button is pressed.
      */
-    private static void taxBreakClicked(int id) {
+    private void taxBreakClicked(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseClicked(MouseEvent e) {

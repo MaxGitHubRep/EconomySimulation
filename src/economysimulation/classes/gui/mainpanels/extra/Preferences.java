@@ -15,13 +15,13 @@ import javax.swing.JLabel;
  */
 public class Preferences extends javax.swing.JPanel {
 
-    private static String[] order;
-    private static final String[] themes = new String[]{ "White", "Dark", "Ocean", "Nature" };
+    private String[] order;
+    private final String[] themes = new String[]{ "White", "Dark", "Ocean", "Nature" };
     public static final Color[][] colors = new Color[][]{ ThemeTypes.WHITE, ThemeTypes.DARK, ThemeTypes.OCEAN, ThemeTypes.NATURE };
     
-    private static JLabel[] labels;
+    private  JLabel[] labels;
 
-    private static void moveSpinner(boolean up) {
+    private void moveSpinner(boolean up) {
         if (applyBtn.getText().equals("Applied")) applyBtn.setText("Apply");
         if (up) {
             String firstOrder = order[0];
@@ -43,7 +43,7 @@ public class Preferences extends javax.swing.JPanel {
         }
     }
     
-    private static void formatSpinner() {
+    private void formatSpinner() {
         for (int i = 0; i < labels.length; i++) {
             labels[i].setText(themes[i]);
         }

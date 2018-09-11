@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.startup;
 
+import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.fronter.GameHold;
@@ -7,6 +8,7 @@ import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.pulse.ControlPulse;
@@ -329,6 +331,7 @@ public class Tutorial extends javax.swing.JPanel {
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
         try {
             Methods.GameDisplay = new GameHold();
+            Methods.FormulaInstance = new Formula();
             MainFrame.addToMainFrame(Methods.GameDisplay);
             new ControlPulse();
         } catch (InvalidThemeSetupException ex) {

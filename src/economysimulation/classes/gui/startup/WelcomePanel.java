@@ -2,6 +2,7 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.ui.Format;
@@ -283,6 +284,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                     Mode.MODE = id + 1;
                     try {
                         build = false;
+                        Methods.TaxRevenueDisplay = new TaxRevenueList();
                         MainFrame.addToMainFrame(new Tutorial());
                     } catch (InvalidThemeSetupException | InvalidSectorException ex) {
                         ex.printStackTrace();

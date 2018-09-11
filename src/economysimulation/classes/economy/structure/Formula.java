@@ -9,20 +9,21 @@ import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.pulse.PulseThread;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import economysimulation.classes.pulse.GamePulse;
 
 /**
  *
  * @author Max Carter
  */
-public class Formula extends Component {
+public class Formula extends Component implements GamePulse {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
-    public static void calculateGDP() {
+    public void calculateGDP() {
         GrossDomesticProduct = (TotalConsumption + Investment + Budget.getPublicSpendingTotal(false));
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
-    public static void calculateBudget(boolean yearPast) {
+    public void calculateBudget(boolean yearPast) {
         SpendingBudget+= Taxation;
         Taxation = 0;
         if (yearPast) {
@@ -35,7 +36,7 @@ public class Formula extends Component {
     /**
      * Uses the budget to adjust economic behaviour.
      */
-    private static void calculateSpendingInfluence() {
+    private void calculateSpendingInfluence() {
 
         for (BudgetSector sector : Sector.SectorList) {
             if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.12);
@@ -65,7 +66,7 @@ public class Formula extends Component {
      * @throws InvalidSectorException    When a sector reference is incorrect.
      * @throws InvalidPanelSizeException When the size of a requested hint doesn't fit in the frame.
      */
-    public static void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
+    public void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
 
         WageMultiplier = 1;
         CostOfProduction = 0;
@@ -124,5 +125,15 @@ public class Formula extends Component {
         
         if (TotalCorporationProfits <= 0) HintManager.createHint(Hints.CorporationBankrupt);
     }//</editor-fold>
+
+    @Override
+    public void gamePulseEvent() {
+        calculateBudget(false);
+        try {
+            calculateComponents();
+        } catch (InvalidSectorException | InvalidPanelSizeException ex) {
+            ex.printStackTrace();
+        }
+    }
 
 }

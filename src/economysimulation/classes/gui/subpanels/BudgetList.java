@@ -35,8 +35,8 @@ public class BudgetList extends javax.swing.JPanel {
         
     }
     
-    public static DecimalFormat format = new DecimalFormat("0");
-    private static int selectedType = 0;
+    public DecimalFormat format = new DecimalFormat("0");
+    private int selectedType = 0;
     
     private static JPanel[]
             backPanels, colorPanels;
@@ -70,7 +70,7 @@ public class BudgetList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 
-    private static void applySelectedType(int id) throws InvalidSectorException {
+    private void applySelectedType(int id) throws InvalidSectorException {
         selectedType = id;
         title.setText(titles[id]);
         slider.setValue(0);
@@ -81,7 +81,7 @@ public class BudgetList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to change slider type."> 
-    public static void addButtonFormat(int id) {
+    public void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,7 +98,7 @@ public class BudgetList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
-    public static void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
+    public void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -140,7 +140,7 @@ public class BudgetList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates the value of money displayed."> 
-    private static void updatePercent(boolean animate) {
+    private void updatePercent(boolean animate) {
         if (!animate) budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
         spending.setText("£" + slider.getValue() + "bn");
     }//</editor-fold>

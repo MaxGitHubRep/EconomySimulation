@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.gui.subpanels.TaxRevenueList;
 /**
  *
  * @author Max Carter
@@ -12,7 +11,7 @@ public class RateHold extends javax.swing.JPanel {
     public RateHold() {
         initComponents();
         Methods.addToFrontPanel(backPanelGov, Methods.RateDisplay, false);
-        Methods.addToFrontPanel(taxResultPanel, new TaxRevenueList(), false);
+        Methods.addToFrontPanel(taxResultPanel, Methods.TaxRevenueDisplay, false);
         
     }//</editor-fold>
 

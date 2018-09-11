@@ -1,7 +1,6 @@
 package economysimulation.classes.managers.comp;
 
-import economysimulation.classes.global.Methods;
-import economysimulation.classes.gui.fronter.GameHold;
+import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.managers.themes.Theme;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,12 +18,12 @@ public class CircleProgressBar extends JPanel {
     
     @Override
     protected void paintComponent(Graphics g) {
-        for (int i = 0; i < GameHold.Percents.length; i++) {
+        for (int i = 0; i < GameDisplay.Percents.length; i++) {
             
             // Draws the respected progess bar title.
             g.setColor(Theme.secondaryText);
             g.setFont(new Font("Agency FB", Font.PLAIN, 40));
-            g.drawString(Methods.GameDisplay.TITLES[i], 1, 32 + (i * plus));
+            g.drawString(GameDisplay.TITLES[i], 1, 32 + (i * plus));
             
             // Draws background of progress bar.
             g.setColor(Theme.secondaryBack);
@@ -32,7 +31,7 @@ public class CircleProgressBar extends JPanel {
 
             // Draws progress bar.
             g.setColor(Theme.primaryText);
-            g.fillArc(0, 40 + (i * plus), 240, 240, 90, -(int) (360 * GameHold.Percents[i]));
+            g.fillArc(0, 40 + (i * plus), 240, 240, 90, -(int) (360 * GameDisplay.Percents[i]));
 
             // Fills in middle of circle.
             g.setColor(Theme.secondaryBack);
@@ -41,7 +40,7 @@ public class CircleProgressBar extends JPanel {
             //Configures color and font for percentage display.
             g.setColor(Theme.primaryText);
             g.setFont(new Font("Agency FB", Font.PLAIN, 82));
-            String text = new DecimalFormat("0").format(GameHold.Percents[i]*100) + "%";
+            String text = new DecimalFormat("0").format(GameDisplay.Percents[i]*100) + "%";
 
             // Adjusts x coordinate of text based on text length.
             int x = 0;
