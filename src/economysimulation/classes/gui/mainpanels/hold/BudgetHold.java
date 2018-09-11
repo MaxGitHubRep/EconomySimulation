@@ -1,7 +1,7 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
-import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.pulse.PulseThread;
 import java.awt.Color;
@@ -45,7 +45,7 @@ public class BudgetHold extends javax.swing.JPanel {
             DefaultPieDataset datasetPie = new DefaultPieDataset();
 
             for (int i = 0; i < BudgetList.titles.length; i++) {
-                datasetPie.insertValue(i, BudgetList.titles[i], Sector.SectorList[i].getSpending());
+                datasetPie.insertValue(i, BudgetList.titles[i], SectorInstance.SectorList[i].getSpending());
             }
 
             pieChart = ChartFactory.createPieChart3D("Total Budget Spending", datasetPie);

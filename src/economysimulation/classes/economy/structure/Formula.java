@@ -1,8 +1,7 @@
 package economysimulation.classes.economy.structure;
 
 import economysimulation.classes.economy.budget.Budget;
-import economysimulation.classes.economy.budget.BudgetSector;
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -10,12 +9,21 @@ import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.pulse.PulseThread;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
+import economysimulation.classes.economy.sectors.SectorEvent;
+import static economysimulation.classes.global.Methods.SectorInstance;
 
 /**
  *
  * @author Max Carter
  */
-public class Formula extends Component implements GamePulse {
+public class Formula extends Component implements GamePulse, SectorEvent {
+    
+    /**
+     * Creates new Formula class.
+     */
+    public Formula() {
+        SectorInstance.addSectorEventListener(this);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public void calculateGDP() {
@@ -38,18 +46,18 @@ public class Formula extends Component implements GamePulse {
      */
     private void calculateSpendingInfluence() {
 
-        for (BudgetSector sector : Sector.SectorList) {
+        for (BudgetSector sector : SectorInstance.SectorList) {
             if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.12);
         }
 
-        for (BudgetSector sector : Sector.SectorList) {
+        for (BudgetSector sector : SectorInstance.SectorList) {
             StandardOfLiving += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
             Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
             WageMultiplier*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
         
-        CostOfProduction = (Sector.Infrastructure.getSpendingInfluence() == 0 ? 0.1 : -0.1) +
-                (Sector.Science.getSpendingInfluence() == 0 ? 0.1 : -0.1);
+        CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() == 0 ? 0.1 : -0.1) +
+                (SectorInstance.Science.getSpendingInfluence() == 0 ? 0.1 : -0.1);
 
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
@@ -73,7 +81,7 @@ public class Formula extends Component implements GamePulse {
         
         if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
-        Wages = (0.000000008 * (Population * ((100 - Unemployment)/100)) * 8 * WageMultiplier);
+        Wages = (0.000000064 * (Population * ((100 - Unemployment)/100)) * WageMultiplier);
         DisposableIncome = Wages;
         CostOfProduction+= Wages;
         
@@ -93,8 +101,8 @@ public class Formula extends Component implements GamePulse {
         DailyIncomeTax = Wages * (Wages > 0 && IncomeTax > 0 && !GameDisplay.TaxBreak[1] ? (IncomeTax/100) : 0);
         DisposableIncome -= DailyIncomeTax;
         
-        Consumption = PropensityToConsume * ( DisposableIncome + Sector.Benefits.getSpendingInfluence() + 0.4 * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1));
-        Savings = (1 - PropensityToConsume) * ( DisposableIncome + Sector.Benefits.getSpendingInfluence());
+        Consumption = PropensityToConsume * ( DisposableIncome + 0.4 * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1));
+        Savings = (1 - PropensityToConsume) * DisposableIncome;
         
         CorporationProfits = (Consumption - CostOfProduction);
         
@@ -106,9 +114,7 @@ public class Formula extends Component implements GamePulse {
         double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;
         Investment+= investment;
         CorporationProfits -= investment;
-
-        if (Sector.Benefits.getSpendingInfluence() > 0) Sector.Benefits.setSpendingInfluence(0);
-
+        
         TotalCorporationTax += DailyCorporationTax;
         TotalIncomeTax += DailyIncomeTax;
         TotalSavings += Savings;
@@ -128,11 +134,22 @@ public class Formula extends Component implements GamePulse {
 
     @Override
     public void gamePulseEvent() {
-        calculateBudget(false);
+        //spending influence
+        //consumer
+        //firms
         try {
             calculateComponents();
         } catch (InvalidSectorException | InvalidPanelSizeException ex) {
             ex.printStackTrace();
+        }
+        calculateBudget(false);
+    }
+
+    @Override
+    public void sectorSpendingEvent(BudgetSector sector, int value) {
+        if (sector.equals(SectorInstance.Benefits)) {
+            TotalConsumption += value * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1);
+            TotalSavings += (1 - PropensityToConsume) * value;
         }
     }
 

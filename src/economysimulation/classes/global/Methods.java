@@ -1,5 +1,6 @@
 package economysimulation.classes.global;
 
+import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
@@ -34,6 +35,7 @@ public class Methods {
     public static MainFrame FrameDisplay;
     public static Formula FormulaInstance;
     public static TaxRevenueList TaxRevenueDisplay;
+    public static Sector SectorInstance;
     
     public static Color[] theme = ThemeTypes.WHITE;
 

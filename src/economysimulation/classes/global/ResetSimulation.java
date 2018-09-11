@@ -1,9 +1,9 @@
 package economysimulation.classes.global;
 
-import economysimulation.classes.economy.budget.BudgetSector;
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.economy.structure.components.ComponentType;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.pulse.PulseThread;
 
 /**
@@ -29,7 +29,7 @@ public class ResetSimulation {
         }
         
         //Sets all public spending to 0.
-        for (BudgetSector sector : Sector.SectorList) {
+        for (BudgetSector sector : SectorInstance.SectorList) {
             sector.setSpending(0);
         }
         

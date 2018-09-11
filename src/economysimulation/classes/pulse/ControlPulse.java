@@ -21,6 +21,7 @@ public class ControlPulse {
         pulseThread.addGamePulseEventListener(Methods.FormulaInstance);
         pulseThread.addGamePulseEventListener(Methods.GameDisplay);
         pulseThread.addGamePulseEventListener(Methods.TaxRevenueDisplay);
+        pulseThread.addGamePulseEventListener(Methods.BudgetDisplay);
 
         pulseThread.initPulseThread();
     }

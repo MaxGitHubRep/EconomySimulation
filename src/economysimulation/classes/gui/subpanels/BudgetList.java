@@ -1,8 +1,8 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.budget.Budget;
-import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Component;
+import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
@@ -11,6 +11,7 @@ import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.themes.Theme;
 import economysimulation.classes.managers.themes.ThemeUpdater;
 import economysimulation.classes.managers.ui.Format;
+import economysimulation.classes.pulse.GamePulse;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -24,7 +25,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class BudgetList extends javax.swing.JPanel {
+public class BudgetList extends javax.swing.JPanel implements GamePulse {
 
     public static class BudgetListTheme extends ThemeUpdater {
 
@@ -35,6 +36,11 @@ public class BudgetList extends javax.swing.JPanel {
         
     }
     
+    @Override
+    public void gamePulseEvent() {
+        budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
+    }
+
     public DecimalFormat format = new DecimalFormat("0");
     private int selectedType = 0;
     
@@ -75,7 +81,7 @@ public class BudgetList extends javax.swing.JPanel {
         title.setText(titles[id]);
         slider.setValue(0);
         saveChanges.setText(saveTexts[0]);
-        spendings.setText("£" + Sector.getSector(selectedType).getSpending() + "bn");
+        spendings.setText("£" + SectorInstance.getSector(selectedType).getSpending() + "bn");
         updatePercent(false);
         
     }//</editor-fold>
@@ -106,14 +112,14 @@ public class BudgetList extends javax.swing.JPanel {
                     saveChanges.setText(saveTexts[3]);
                     
                 } else if (slider.getValue() <= Component.SpendingBudget) { 
-                    int spending = Sector.getSector(selectedType).getSpending();
+                    int spending = SectorInstance.getSector(selectedType).getSpending();
 
                     try {
                         new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
                     } catch (InvalidTimeException ex) {
                         ex.printStackTrace();
                     }
-                    Budget.spendMoney(selectedType, slider.getValue());
+                    Budget.spendMoney(SectorInstance.getSector(selectedType), slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
                     budget.setText("£" + format.format(Component.SpendingBudget) + "bn");

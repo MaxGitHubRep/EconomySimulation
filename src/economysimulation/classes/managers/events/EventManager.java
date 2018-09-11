@@ -1,7 +1,7 @@
 package economysimulation.classes.managers.events;
 
-import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.events.events.Event;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.shadow.Position;
@@ -24,8 +24,8 @@ public class EventManager {
     public static void createEvent() {
         ArrayList<Event> events = new ArrayList<>();
             
-        for (int i = 0; i < Sector.SectorList.length-1; i++) {
-            if (Sector.SectorList[i].getSpendingInfluence() == 0) {
+        for (int i = 0; i < SectorInstance.SectorList.length-1; i++) {
+            if (SectorInstance.SectorList[i].getSpendingInfluence() == 0) {
                 events.add(Events.EventList[i]);
             }
         }

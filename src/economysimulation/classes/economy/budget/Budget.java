@@ -1,9 +1,9 @@
 package economysimulation.classes.economy.budget;
 
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.economy.structure.Component;
+import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
-import economysimulation.classes.managers.exception.InvalidSectorException;
 
 /**
  *
@@ -17,10 +17,10 @@ public class Budget extends Component {
      * @param sector
      * @param money 
      */
-    public static void spendMoney(int sector, int money) {
+    public static void spendMoney(BudgetSector sector, int money) {
         SpendingBudget -= money;
-        Sector.getSector(sector).addSpending(money);
-        Sector.getSector(sector).addSpendingInfluence((double) money);
+        sector.addSpending(money);
+        sector.addSpendingInfluence((double) money);
         BudgetHold.displaySpendingGraph();
     }
 
@@ -31,7 +31,7 @@ public class Budget extends Component {
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0, index = 0;
         
-        for (BudgetSector sector : Sector.SectorList) {
+        for (BudgetSector sector : SectorInstance.SectorList) {
             if (!(!includeTransfer && index == 7)) {
                 value+= sector.getSpending();
             }

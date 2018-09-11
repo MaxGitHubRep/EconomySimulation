@@ -1,4 +1,4 @@
-package economysimulation.classes.economy.budget;
+package economysimulation.classes.economy.sectors;
 
 /**
  *

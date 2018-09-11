@@ -11,17 +11,11 @@ public class Comp {
             
             IncomeTaxRate = new CompHold(),
             TotalIncomeTaxRevenue = new CompHold(),
-            DailyIncomeTaxRevenue = new CompHold(),
             
             CorporationTaxRate = new CompHold(),
             TotalCorporationTaxRevenue = new CompHold(),
-            DailyCorporationTaxRevenue = new CompHold(),
             
-            Savings = new CompHold(),
             TotalSavings = new CompHold(25),
-            DisposableIncome = new CompHold(),
-            Wages = new CompHold(),
-            Consumption = new CompHold(),
             TotalConsumption = new CompHold(),
             PropensityToConsume = new CompHold(1),
             
@@ -31,13 +25,12 @@ public class Comp {
             StandardOfLiving = new CompHold(1),
             
             CostOfProduction = new CompHold(),
-            CorporationProfits = new CompHold(),
             TotalCorporationProfits = new CompHold(1),
             Investment = new CompHold(),
             WageMultiplier = new CompHold(),
             
             GrossDomesticProduct = new CompHold(),
-            Taxation = new CompHold(),
+            TotalTaxation = new CompHold(),
             SpendingBudget = new CompHold(250),
             Population = new CompHold();
             

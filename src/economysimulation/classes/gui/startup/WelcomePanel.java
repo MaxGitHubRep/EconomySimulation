@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.startup;
 
+import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -43,7 +44,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     /**
      * Dimensions of the vectors and caps.
      */
-    private static final int
+    private final int
             VECTOR_WIDTH = 6,
             CAP_WIDTH = 60,
             CAP_HEIGHT = 4,
@@ -209,7 +210,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     /**
      * Shifts all vectors, lines and caps by {@code 1} pixel, or by the {@code width} of the panel if it touches the edge.
      */
-    private void shiftGraph() {
+    private synchronized void shiftGraph() {
         int i1 = -1;
         for (int i = 0; i < vectors.length; i++) {
             if (capBottoms[i].getX() == -CAP_WIDTH/2) i1 = LWIDTH+CAP_WIDTH/2;
@@ -255,7 +256,7 @@ public class WelcomePanel extends javax.swing.JPanel {
     * 
     * @param id index of the panel list
     */
-    private static void addPanelHoverEvent(int id) {
+    private void addPanelHoverEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -284,6 +285,7 @@ public class WelcomePanel extends javax.swing.JPanel {
                     Mode.MODE = id + 1;
                     try {
                         build = false;
+                        Methods.SectorInstance = new Sector();
                         Methods.TaxRevenueDisplay = new TaxRevenueList();
                         MainFrame.addToMainFrame(new Tutorial());
                     } catch (InvalidThemeSetupException | InvalidSectorException ex) {

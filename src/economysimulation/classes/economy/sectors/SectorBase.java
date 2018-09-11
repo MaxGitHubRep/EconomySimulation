@@ -1,6 +1,6 @@
 package economysimulation.classes.economy.sectors;
 
-import economysimulation.classes.economy.budget.BudgetSector;
+import static economysimulation.classes.global.Methods.SectorInstance;
 
 /**
  *
@@ -21,6 +21,7 @@ public class SectorBase extends BudgetSector {
     
     @Override
     public void addSpending(int value) {
+        spendingEventListener(value);
         super.spending += value;
     }
 
@@ -29,6 +30,12 @@ public class SectorBase extends BudgetSector {
         super.spending = value;
     }
 
+    public void spendingEventListener(int value) {
+        for (SectorEvent event : SectorInstance.spendingListeners) {
+            event.sectorSpendingEvent(this, value);
+        }
+    }
+    
     @Override
     public double getSpendingInfluence() {
         return super.spendingInfluence;
@@ -58,6 +65,5 @@ public class SectorBase extends BudgetSector {
     public double getWageInfluence() {
         return super.wageMultiplier;
     } 
-
 
 }
