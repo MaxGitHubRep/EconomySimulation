@@ -7,10 +7,9 @@ import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeTypes;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.Theme;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,9 +35,9 @@ public class Methods {
     public static Formula FormulaInstance;
     public static TaxRevenueList TaxRevenueDisplay;
     public static Sector SectorInstance;
+    public static Theme ThemeManager;
+    public static GraphicUpdater Updater;
     
-    public static Color[] theme = ThemeTypes.WHITE;
-
     public static String Username; //players username
     
     public static void addDraggablePanel(JPanel[] panels) {
@@ -80,17 +79,17 @@ public class Methods {
     public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
-        theme.setTitlePaint(Theme.primaryText);
+        theme.setTitlePaint(ThemeManager.Theme.getPrimaryColor());
         theme.setExtraLargeFont( new Font("Agency FB",Font.PLAIN, 32) );
         theme.setLargeFont( new Font("Agency FB",Font.PLAIN, 25));
         theme.setRegularFont( new Font("Agency FB",Font.PLAIN, 20));
         
         // ---- Editing default graph theme: Colours ----
         
-        theme.setAxisLabelPaint(Theme.primaryText);
-        theme.setChartBackgroundPaint(Theme.primaryBack);
-        theme.setPlotBackgroundPaint(Theme.primaryHover);
-        theme.setRangeGridlinePaint(Theme.secondaryBack);
+        theme.setAxisLabelPaint(ThemeManager.Theme.getPrimaryTextColor());
+        theme.setChartBackgroundPaint(ThemeManager.Theme.getPrimaryColor());
+        theme.setPlotBackgroundPaint(ThemeManager.Theme.getPrimaryHoverColor());
+        theme.setRangeGridlinePaint(ThemeManager.Theme.getSecondaryColor());
         theme.setShadowVisible(true);
         
         // ---- Editing default graph theme: Formatting ----

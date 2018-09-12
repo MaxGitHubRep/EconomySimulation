@@ -3,11 +3,11 @@ package economysimulation.classes.gui.startup;
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
-import economysimulation.classes.managers.exception.InvalidSectorException;
-import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.mode.Mode;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,7 +21,7 @@ import javax.swing.JRadioButton;
  *
  * @author Max Carter
  */
-public class WelcomePanel extends javax.swing.JPanel {
+public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     /**
     * Graph Thread used to move the graph.
@@ -137,13 +137,17 @@ public class WelcomePanel extends javax.swing.JPanel {
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
         
-        Theme.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
-        Theme.applyTextThemes(titleLabels, null);
-        
+        ThemeManager.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         initThread();
     }//</editor-fold>
     
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ sideBarLeft }, new JPanel[]{ animBack }, backPanels, colorPanels);
+        updater.applyTextThemes(titleLabels, null);
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Defines line vectors,."> 
     /**
      * Sets the vectors of the lines.
@@ -283,14 +287,11 @@ public class WelcomePanel extends javax.swing.JPanel {
 
                 } else {
                     Mode.MODE = id + 1;
-                    try {
-                        build = false;
-                        Methods.SectorInstance = new Sector();
-                        Methods.TaxRevenueDisplay = new TaxRevenueList();
-                        MainFrame.addToMainFrame(new Tutorial());
-                    } catch (InvalidThemeSetupException | InvalidSectorException ex) {
-                        ex.printStackTrace();
-                    }
+
+                    build = false;
+                    Methods.SectorInstance = new Sector();
+                    Methods.TaxRevenueDisplay = new TaxRevenueList();
+                    MainFrame.addToMainFrame(new Tutorial());
                 }
             }
 

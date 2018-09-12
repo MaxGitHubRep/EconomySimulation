@@ -3,13 +3,13 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.FormulaInstance;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.comp.CircleProgressBar;
 import economysimulation.classes.managers.events.EventManager;
-import economysimulation.classes.managers.exception.InvalidThemeSetupException;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.GamePulse;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,17 +23,8 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class GameHold extends javax.swing.JPanel implements GamePulse {
+public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
-    public static class GameHoldTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            GameHold.updateTheme();
-        }
-        
-    }
-    
     public ArrayList<Double> HistoryGDP = new ArrayList<>();
     
     public boolean[] TaxBreak = new boolean[]{ false, false };
@@ -69,9 +60,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     /**'
      * Creates new game set up.
-     * @throws InvalidThemeSetupException 
      */
-    public GameHold() throws InvalidThemeSetupException {
+    public GameHold() {
         initComponents();
         Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
 
@@ -87,8 +77,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         }
         
         addCircleProgressBar(circleAdd, ProgressBar);
-        
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
     }//</editor-fold>
     
@@ -208,12 +197,12 @@ public class GameHold extends javax.swing.JPanel implements GamePulse {
         
     }//</editor-fold> 
 
-    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
-    public static void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
-        Theme.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
-    }//</editor-fold> 
-    
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
+        updater.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

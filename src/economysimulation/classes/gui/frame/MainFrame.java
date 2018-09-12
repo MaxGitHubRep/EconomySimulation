@@ -1,8 +1,11 @@
 package economysimulation.classes.gui.frame;
 
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.gui.startup.WelcomePanel;
+import economysimulation.classes.managers.theme.Theme;
+import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
@@ -16,10 +19,17 @@ import javax.swing.UIManager;
  *
  * @author Max Carter
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
 
     private static int PositionX, PositionY;
     
+    public MainFrame() {
+        initComponents();
+        ThemeManager.addThemeUpdateListener(this);
+        setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
+        addToMainFrame(new WelcomePanel());
+    }
+
     public static void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
@@ -47,15 +57,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    
-    public MainFrame() {
-        initComponents();
-        
-        setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
-        
-        Theme.applySelectedTheme(Methods.theme);
-        Theme.applyPanelThemes(new JPanel[]{ back }, null, null, null);
-        addToMainFrame(new WelcomePanel());
+
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ back }, null, null, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -108,6 +113,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                ThemeManager = new Theme();
                 Methods.FrameDisplay = new MainFrame();
                 Methods.FrameDisplay.setVisible(true);
             }

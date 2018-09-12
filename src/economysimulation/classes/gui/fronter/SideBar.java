@@ -2,17 +2,17 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.mainpanels.extra.QuitSim;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
-import economysimulation.classes.gui.mainpanels.extra.Preferences;
+import economysimulation.classes.gui.mainpanels.extra.Settings;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
-import economysimulation.classes.managers.exception.InvalidThemeSetupException;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,37 +24,27 @@ import javax.swing.JPanel;
  *
  * @author Max
  */
-public class SideBar extends javax.swing.JPanel {
+public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    public static class SideBarTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            SideBar.updateTheme();
-        }
-        
-    }
-    
-    private static int selectedOption = 999;
-    public static boolean[]
+    private int selectedOption = 999;
+    public boolean[]
             loaded,
             framed;
     
-    private static final int dragPanels = 5;  
-    public static PopUpFrame[] frames;
+    private final int dragPanels = 5;  
+    public PopUpFrame[] frames;
     
-    public static JPanel[]
+    public JPanel[]
             backPanels,
             colorPanels,
             opPanels;
     
-    public static JLabel[] titles;
-    public static String[] descriptions = new String[]{
+    public JLabel[] titles;
+    public String[] descriptions = new String[]{
         "Change the tax rates for consumers and firms, and change interest rates.<br>You can also check out the economic quarterly growth pattern",
         "Change how much you want to spend on different sectors,<br>and check it out on a pie chart",
         "View the performance of firms in your economy",
         "View consumer behaviour in your economy",
-        "Declare bankcruptcy and end the game",
         "View a basic overview of all the components in your economy",
         "Alter your personal preferences",
         "Quit the simulation and return to desktop"
@@ -63,7 +53,7 @@ public class SideBar extends javax.swing.JPanel {
 
     public void selectOption(JPanel backPanel, JLabel title, String description) {
         Methods.addToFrontPanel(GameDisplay.backadd, backPanel, false);
-        GameDisplay.title.setText("Currently Showing: " + title.getText() );
+        GameDisplay.title.setText("Currently Showing: " + title.getText());
         GameDisplay.description.setText("<html>" + description + ". </html>");
     }
     
@@ -107,14 +97,14 @@ public class SideBar extends javax.swing.JPanel {
         });
     }//</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
-    public static void updateTheme() {
-        Theme.applyPanelThemes(null, null, backPanels, colorPanels);
-        Theme.applyTextThemes(titles, null);
-    }//</editor-fold> 
-    
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(null, null, backPanels, colorPanels);
+        updater.applyTextThemes(titles, null);
+    }
+
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public SideBar() throws InvalidThemeSetupException {
+    public SideBar() {
         initComponents();
         
         titles = new JLabel[]{
@@ -133,7 +123,7 @@ public class SideBar extends javax.swing.JPanel {
             new Corporation(),
             new Consumer(),
             new Overview(),
-            new Preferences(),
+            new Settings(),
             new QuitSim()
         };
         
@@ -150,7 +140,7 @@ public class SideBar extends javax.swing.JPanel {
             addButtonFormat(i);
         }
         
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")
@@ -396,7 +386,7 @@ public class SideBar extends javax.swing.JPanel {
         titlePreferences.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         titlePreferences.setForeground(new java.awt.Color(204, 0, 0));
         titlePreferences.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titlePreferences.setText("Preferences");
+        titlePreferences.setText("Settings");
 
         colorPanel7.setBackground(new java.awt.Color(255, 255, 255));
 

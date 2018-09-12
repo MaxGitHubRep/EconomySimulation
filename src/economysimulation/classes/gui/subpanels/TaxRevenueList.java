@@ -1,40 +1,32 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.structure.Component;
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.GamePulse;
 
 /**
  *
  * @author Max Carter
  */
-public class TaxRevenueList extends javax.swing.JPanel implements GamePulse {
+public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
-    public static class TaxRevenueListTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            TaxRevenueList.updateTheme();
-        }
-        
-    }
-    
     private final String[]
             taxTexts = new String[]{ "Tax Break", "Taxes Frozen" };
     
-    private static JLabel[]
+    private JLabel[]
             perDay,
             total,
             taxBreaks;
     
-    private static JPanel[]
+    private JPanel[]
             backPanels,
             colorPanels;
     
@@ -51,7 +43,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse {
         backPanels = new JPanel[]{ subback1, subback2 };
         colorPanels = new JPanel[]{ subcolor1, subcolor2 };
         
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
@@ -64,11 +56,11 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse {
         updateTaxationLabels();
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
-    public static void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
-        Theme.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, it4, tt1, tt4, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
-    }//</editor-fold> 
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3 }, new JPanel[]{ color1, color2, color3 }, backPanels, colorPanels );
+        updater.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, it4, tt1, tt4, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
+    }
 
     /**
      * Updates the labels to show daily taxation revenue.

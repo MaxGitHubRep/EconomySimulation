@@ -8,7 +8,7 @@ public class EventStrikeSchool extends Event {
 
     @Override
     public String getTitle() {
-        return "Studen Strike Against High Uni Fees!";
+        return "Students Strike Against High Uni Fees!";
     }
 
     @Override

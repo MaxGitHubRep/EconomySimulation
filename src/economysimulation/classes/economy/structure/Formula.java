@@ -2,8 +2,6 @@ package economysimulation.classes.economy.structure;
 
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.sectors.BudgetSector;
-import economysimulation.classes.managers.exception.InvalidPanelSizeException;
-import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.pulse.PulseThread;
@@ -70,11 +68,8 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
     /**
      * Source of all components being calculated in one thread.
-     * 
-     * @throws InvalidSectorException    When a sector reference is incorrect.
-     * @throws InvalidPanelSizeException When the size of a requested hint doesn't fit in the frame.
      */
-    public void calculateComponents() throws InvalidSectorException, InvalidPanelSizeException {
+    public void calculateComponents() {
 
         WageMultiplier = 1;
         CostOfProduction = 0;
@@ -137,11 +132,8 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         //spending influence
         //consumer
         //firms
-        try {
-            calculateComponents();
-        } catch (InvalidSectorException | InvalidPanelSizeException ex) {
-            ex.printStackTrace();
-        }
+        calculateComponents();
+
         calculateBudget(false);
     }
 

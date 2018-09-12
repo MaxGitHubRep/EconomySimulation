@@ -1,7 +1,8 @@
 package economysimulation.classes.managers.popup.frame;
 
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,17 +11,8 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class PopUpFrame extends JFrame {
+public class PopUpFrame extends JFrame implements ThemeUpdateEvent {
 
-    public static class PopUpFrameTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            PopUpFrame.updateTheme();
-        }
- 
-    }
-    
     private static JPanel panel, back;
     private String title;
     
@@ -36,20 +28,21 @@ public class PopUpFrame extends JFrame {
         
         back = new JPanel();
         this.add(back);
+        ThemeManager.addThemeUpdateListener(this);
     }
 
-    public static void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ back }, null, null, null);
-    }
-    
     public void createPopUpFrame() {
-        updateTheme();
         back.add(panel);
         this.setResizable(false);
         this.setVisible(true);
         this.setSize(panel.getWidth(), panel.getHeight());
         this.setTitle("Economy Simulation: " + title);
         this.pack();
+    }
+
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ back }, null, null, null);
     }
     
 }

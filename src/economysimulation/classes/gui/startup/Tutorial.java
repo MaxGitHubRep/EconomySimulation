@@ -3,14 +3,13 @@ package economysimulation.classes.gui.startup;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.fronter.GameHold;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
-import economysimulation.classes.gui.subpanels.TaxRevenueList;
-import economysimulation.classes.managers.exception.InvalidSectorException;
-import economysimulation.classes.managers.exception.InvalidThemeSetupException;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,12 +18,12 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class Tutorial extends javax.swing.JPanel {
+public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    private static JPanel[] backPanels;
-    private static JPanel[] colorPanels;
+    private JPanel[]
+            backPanels, colorPanels;
 
-    public Tutorial() throws InvalidThemeSetupException, InvalidSectorException {
+    public Tutorial() {
         initComponents();
 
         Methods.BudgetDisplay = new BudgetList();
@@ -40,11 +39,16 @@ public class Tutorial extends javax.swing.JPanel {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
-        Theme.applyPanelThemes(null, new JPanel[]{}, backPanels, colorPanels);
-        Theme.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous, titleQuit }, null);
+        ThemeManager.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ this });
     }
     
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(null, new JPanel[]{}, backPanels, colorPanels);
+        updater.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, next, previous, titleQuit }, null);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -329,14 +333,11 @@ public class Tutorial extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
-        try {
-            Methods.GameDisplay = new GameHold();
-            Methods.FormulaInstance = new Formula();
-            MainFrame.addToMainFrame(Methods.GameDisplay);
-            new ControlPulse();
-        } catch (InvalidThemeSetupException ex) {
-            ex.printStackTrace();
-        }
+        Methods.GameDisplay = new GameHold();
+        Methods.FormulaInstance = new Formula();
+        MainFrame.addToMainFrame(Methods.GameDisplay);
+        new ControlPulse();
+
     }//GEN-LAST:event_back1MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked

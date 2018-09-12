@@ -1,7 +1,8 @@
 package economysimulation.classes.managers.comp;
 
 import static economysimulation.classes.global.Methods.GameDisplay;
-import economysimulation.classes.managers.themes.Theme;
+import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
@@ -21,24 +22,24 @@ public class CircleProgressBar extends JPanel {
         for (int i = 0; i < GameDisplay.Percents.length; i++) {
             
             // Draws the respected progess bar title.
-            g.setColor(Theme.secondaryText);
+            g.setColor(ThemeManager.Theme.getSecondaryTextColor());
             g.setFont(new Font("Agency FB", Font.PLAIN, 40));
             g.drawString(GameDisplay.TITLES[i], 1, 32 + (i * plus));
             
             // Draws background of progress bar.
-            g.setColor(Theme.secondaryBack);
+            g.setColor(ThemeManager.Theme.getSecondaryColor());
             g.fillOval(1, 41 + (i * plus), 238, 238);
 
             // Draws progress bar.
-            g.setColor(Theme.primaryText);
+            g.setColor(ThemeManager.Theme.getPrimaryTextColor());
             g.fillArc(0, 40 + (i * plus), 240, 240, 90, -(int) (360 * GameDisplay.Percents[i]));
 
             // Fills in middle of circle.
-            g.setColor(Theme.secondaryBack);
+            g.setColor(ThemeManager.Theme.getSecondaryColor());
             g.fillOval(20, 60 + (i * plus), 200, 200);
 
             //Configures color and font for percentage display.
-            g.setColor(Theme.primaryText);
+            g.setColor(ThemeManager.Theme.getPrimaryTextColor());
             g.setFont(new Font("Agency FB", Font.PLAIN, 82));
             String text = new DecimalFormat("0").format(GameDisplay.Percents[i]*100) + "%";
 

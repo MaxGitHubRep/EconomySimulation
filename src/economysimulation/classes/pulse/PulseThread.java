@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class PulseThread {
     
-    protected ArrayList<GamePulse> Pulses;
+    public ArrayList<GamePulse> Pulses;
     public Thread PulseThread;
     public static volatile boolean IS_RUNNING = false;
     
@@ -26,9 +26,9 @@ public class PulseThread {
                     while (IS_RUNNING) {
                         Thread.sleep(GameDisplay.Speed);
                         if (Pulses != null) {
-                            for (GamePulse pulse : Pulses) {
+                            Pulses.forEach((pulse) -> {
                                 pulse.gamePulseEvent();
-                            }
+                            });
                         }
                     }
                 } catch (InterruptedException ex) {

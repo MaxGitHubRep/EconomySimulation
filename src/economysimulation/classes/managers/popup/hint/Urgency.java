@@ -1,6 +1,6 @@
 package economysimulation.classes.managers.popup.hint;
 
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
 import java.awt.Color;
 
 /**
@@ -37,7 +37,7 @@ public class Urgency {
             case Urgency.HIGH:
                 return Color.red;
             default:
-                return Theme.secondaryHover;
+                return Color.white;
         }
     }
 }

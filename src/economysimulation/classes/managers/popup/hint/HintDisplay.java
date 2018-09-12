@@ -1,7 +1,9 @@
 package economysimulation.classes.managers.popup.hint;
 
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.shadow.ShadowFrame;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
@@ -14,7 +16,7 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class HintDisplay extends JPanel {
+public class HintDisplay extends JPanel implements ThemeUpdateEvent {
 
     private static int pX, pY;
             
@@ -23,14 +25,13 @@ public class HintDisplay extends JPanel {
         setSize(500, 100);
         
         Format.addButtonFormat(bottom, null);
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
         frameDragged(top);
     }
     
     protected void createHint(String title, String description, int urgency) {
         titleLabel.setText((urgency < Urgency.NULL ? "[" + Urgency.getUrgencyString(urgency).toUpperCase() + "] " : "") + "Hint: " + title);
         descLabel.setText("<html>" + description + "</html>");
-        updateTheme();
         top.setBackground(Urgency.getUrgencyColor(urgency));
     }
     
@@ -52,11 +53,12 @@ public class HintDisplay extends JPanel {
         });
     }
 
-    public void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ bottom }, null, null, null);
-        Theme.applyTextThemes(new JLabel[]{ descLabel }, null);
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ bottom }, null, null, null);
+        updater.applyTextThemes(new JLabel[]{ descLabel }, null);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

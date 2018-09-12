@@ -1,7 +1,9 @@
 package economysimulation.classes.managers.events;
 
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.shadow.ShadowFrame;
-import economysimulation.classes.managers.themes.Theme;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
@@ -15,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class EventDisplay extends javax.swing.JPanel {
+public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private static int PositionX, PositionY;
     
@@ -27,14 +29,15 @@ public class EventDisplay extends javax.swing.JPanel {
         setSize(600, 400);
         Format.addButtonFormat(this, null);
         frameDragged(this);
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
     }
     
-    private void updateTheme() {
-        Theme.applyPanelThemes(null, new JPanel[]{ top }, new JPanel[]{ this }, null);
-        Theme.applyTextThemes(new JLabel[]{ description }, new JLabel[]{ title });
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(null, new JPanel[]{ top }, new JPanel[]{ this }, null);
+        updater.applyTextThemes(new JLabel[]{ description }, new JLabel[]{ title });
     }
-    
+
     /**
      * Changes the display of the event panel.
      * 
@@ -43,7 +46,6 @@ public class EventDisplay extends javax.swing.JPanel {
      * @param image       File name of the image.
      */
     protected void createEvent(String title, String description, String image) {
-        updateTheme();
         this.title.setText(title);
         this.description.setText("<html>" + description + "</html>");
         if (image != null) picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/eventimages/" + image + ".png")));

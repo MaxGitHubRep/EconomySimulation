@@ -3,13 +3,13 @@ package economysimulation.classes.gui.subpanels;
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.SectorInstance;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.animation.NumberIncrementer;
-import economysimulation.classes.managers.exception.InvalidSectorException;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.pulse.GamePulse;
 import java.awt.event.MouseAdapter;
@@ -25,17 +25,8 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class BudgetList extends javax.swing.JPanel implements GamePulse {
+public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
-    public static class BudgetListTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            BudgetList.updateTheme();
-        }
-        
-    }
-    
     @Override
     public void gamePulseEvent() {
         budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
@@ -54,7 +45,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse {
                 "Spend Money", "Money Spent", "Insufficient Funds", "Specify Money" }; 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public BudgetList() throws InvalidSectorException {
+    public BudgetList() {
         initComponents();
         
         backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
@@ -72,11 +63,11 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse {
         addSliderListener(slider);
         applySelectedType(0);
         
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 
-    private void applySelectedType(int id) throws InvalidSectorException {
+    private void applySelectedType(int id) {
         selectedType = id;
         title.setText(titles[id]);
         slider.setValue(0);
@@ -93,12 +84,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse {
             public void mouseClicked(MouseEvent e) {
                 arrowLabels[selectedType].setIcon(null);
                 arrowLabels[id].setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow" + (id > 3 ? 2 : 1) + "40.png")));
-                try {
-                    applySelectedType(id);
-                } catch (InvalidSectorException ex) {
-                    ex.printStackTrace();
-                }
-
+                applySelectedType(id);
             }
         });
     }//</editor-fold>
@@ -151,12 +137,12 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse {
         spending.setText("£" + slider.getValue() + "bn");
     }//</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
-    public static void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ subBack, saveChangesPanel, picPanel }, null, backPanels, colorPanels);
-        Theme.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, budget, bud, title, tot, spendings, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
-    }//</editor-fold> 
-    
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ subBack, saveChangesPanel, picPanel }, null, backPanels, colorPanels);
+        updater.applyTextThemes(new JLabel[]{ max, min, saveChanges, spending, budget, bud, title, tot, spendings, title1, title2, title3, title4, title5, title6, title7, title8 }, null);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
