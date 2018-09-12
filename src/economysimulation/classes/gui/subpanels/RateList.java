@@ -1,10 +1,11 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.structure.Component;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
-import economysimulation.classes.managers.themes.Theme;
-import economysimulation.classes.managers.themes.ThemeUpdater;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,25 +19,17 @@ import javax.swing.event.ChangeListener;
  *
  * @author Max Carter
  */
-public class RateList extends javax.swing.JPanel {
+public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    public static class RateListTheme extends ThemeUpdater {
-
-        @Override
-        public void updateClassTheme() {
-            RateList.updateTheme();
-        }
-        
-    }
+    public int selectedType = 0;
     
-    public static int selectedType = 0;
+    private JPanel[]
+            backPanels,
+            colorPanels;
+    private JLabel[] arrowLabels;
+    private final String[] titles = new String[]{ "Interest Rates", "Corporation Tax", "Income Tax" };
     
-    private static JPanel[] backPanels;
-    private static JPanel[] colorPanels;
-    private static JLabel[] arrowLabels;
-    private static final String[] titles = new String[]{ "Interest Rates", "Corporation Tax", "Income Tax" };
-    
-    private static void applySelectedType(int id) {
+    private void applySelectedType(int id) {
         selectedType = id;
         title.setText(titles[id]);
         slider.setValue(id);
@@ -60,7 +53,7 @@ public class RateList extends javax.swing.JPanel {
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
-    public static void addButtonFormat(int id) {
+    public void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
 
             @Override
@@ -81,7 +74,7 @@ public class RateList extends javax.swing.JPanel {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
-    public static void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
+    public void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
             
             @Override
@@ -124,12 +117,12 @@ public class RateList extends javax.swing.JPanel {
         percent.setText((double) slider.getValue() / 10 + "%");
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Updates the theme for the class.">   
-    public static void updateTheme() {
-        Theme.applyPanelThemes(new JPanel[]{ displayPanel }, null,  new JPanel[]{ panel1, panel2, panel3, saveChangesPanel },  new JPanel[]{ color1, color2, color3, panelPic });
-        Theme.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
-    }//</editor-fold> 
-    
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ displayPanel, color1, color2, color3, panelPic, panel1, panel2, panel3, saveChangesPanel }, null);
+        updater.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
+    }
+
     public RateList() {
         initComponents();
         
@@ -147,7 +140,7 @@ public class RateList extends javax.swing.JPanel {
         }
         Format.addButtonFormat(saveChangesPanel, panelPic);
         
-        updateTheme();
+        ThemeManager.addThemeUpdateListener(this);
         applySelectedType(0);
     }
 
