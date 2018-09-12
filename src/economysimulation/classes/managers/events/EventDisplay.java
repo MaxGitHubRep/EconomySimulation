@@ -34,7 +34,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(null, new JPanel[]{ top }, new JPanel[]{ this }, null);
+        updater.applyPanelThemes(new JPanel[]{ this }, new JPanel[]{ top });
         updater.applyTextThemes(new JLabel[]{ description }, new JLabel[]{ title });
     }
 

@@ -199,7 +199,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
 
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ backadd, leftBar }, new JPanel[]{ topBar, rightBar }, new JPanel[]{ panel1, panel2 }, new JPanel[]{ color1, color2 });
+        updater.applyPanelThemes(new JPanel[]{ backadd, leftBar, panel1, panel2, color1, color2 }, new JPanel[]{ topBar, rightBar });
         updater.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
     }
 
@@ -422,7 +422,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         title.setForeground(new java.awt.Color(255, 255, 255));
         title.setText("Currently Showing: Nothing");
 
-        description.setFont(new java.awt.Font("Agency FB", 0, 20)); // NOI18N
+        description.setFont(new java.awt.Font("Agency FB", 0, 22)); // NOI18N
         description.setForeground(new java.awt.Color(255, 255, 255));
         description.setText("Click a sector on the left to change things!");
         description.setVerticalAlignment(javax.swing.SwingConstants.TOP);

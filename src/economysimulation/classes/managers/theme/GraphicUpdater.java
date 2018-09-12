@@ -24,7 +24,7 @@ public class GraphicUpdater {
         }
     }
     
-    public void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels, JPanel[] primaryHoverPanels, JPanel[] secondaryHoverPanels) {
+    public void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels) {
         if (primaryBackPanels != null) {
             for (JPanel panel : primaryBackPanels) {
                 panel.setBackground(ThemeManager.Theme.getPrimaryColor());
@@ -34,18 +34,6 @@ public class GraphicUpdater {
         if (secondaryBackPanels != null) {
             for (JPanel panel : secondaryBackPanels) {
                 panel.setBackground(ThemeManager.Theme.getSecondaryColor());
-            }
-        }
-        
-        if (primaryHoverPanels != null) {
-            for (JPanel panel : primaryHoverPanels) {
-                panel.setBackground(ThemeManager.Theme.getPrimaryColor());
-            }
-        }
-        
-        if (secondaryHoverPanels != null) {
-            for (JPanel panel : secondaryHoverPanels) {
-                panel.setBackground(ThemeManager.Theme.getPrimaryColor());
             }
         }
     }

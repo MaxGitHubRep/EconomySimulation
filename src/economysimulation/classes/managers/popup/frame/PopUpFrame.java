@@ -42,7 +42,7 @@ public class PopUpFrame extends JFrame implements ThemeUpdateEvent {
 
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back }, null, null, null);
+        updater.applyPanelThemes(new JPanel[]{ back }, null);
     }
     
 }

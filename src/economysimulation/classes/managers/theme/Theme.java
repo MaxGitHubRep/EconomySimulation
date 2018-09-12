@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Theme {
     
-    protected final ThemeModel
+    public final ThemeModel
         White = new ThemeBase("White",
             new Color(255, 255, 255),
             new Color(180, 180, 180),
@@ -48,7 +48,7 @@ public class Theme {
         White, Dark, Ocean
     };
     
-    public final ThemeModel DEFAULT_THEME = White;
+    public final ThemeModel DEFAULT_THEME = Dark;
     public ThemeModel Theme = DEFAULT_THEME;
     
     protected List<ThemeUpdateEvent> listeners;
