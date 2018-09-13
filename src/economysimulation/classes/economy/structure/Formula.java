@@ -61,7 +61,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
             StandardOfLiving = 1;
         } else if (StandardOfLiving <= 0) {
             // game thread ends.
-            PulseThread.IS_RUNNING = false;
+            PulseThread.SimulationRunning = false;
         }
     }//</editor-fold>
 
@@ -70,11 +70,6 @@ public class Formula extends Component implements GamePulse, SectorEvent {
      * Source of all components being calculated in one thread.
      */
     public void calculateComponents() {
-
-        WageMultiplier = 1;
-        CostOfProduction = 0;
-        
-        if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
         Wages = (0.000000064 * (Population * ((100 - Unemployment)/100)) * WageMultiplier);
         DisposableIncome = Wages;
@@ -129,7 +124,10 @@ public class Formula extends Component implements GamePulse, SectorEvent {
 
     @Override
     public void gamePulseEvent() {
-        //spending influence
+        WageMultiplier = 1;
+        CostOfProduction = 0;
+        
+        if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
         //consumer
         //firms
         calculateComponents();

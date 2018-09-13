@@ -48,7 +48,7 @@ public class Theme {
         White, Dark, Ocean
     };
     
-    public final ThemeModel DEFAULT_THEME = Dark;
+    public final ThemeModel DEFAULT_THEME = White;
     public ThemeModel Theme = DEFAULT_THEME;
     
     protected List<ThemeUpdateEvent> listeners;

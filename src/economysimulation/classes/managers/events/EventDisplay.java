@@ -80,6 +80,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         title = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         picHold.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 

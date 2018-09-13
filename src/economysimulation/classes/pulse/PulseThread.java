@@ -11,19 +11,19 @@ public class PulseThread {
     
     public ArrayList<GamePulse> Pulses;
     public Thread PulseThread;
-    public static volatile boolean IS_RUNNING = false;
+    public static volatile boolean SimulationRunning = false;
     
     public void addGamePulseEventListener(GamePulse pulse) {
         this.Pulses.add(pulse);
     }
     
     protected synchronized void initPulseThread() {
-        IS_RUNNING = true;
+        SimulationRunning = true;
         PulseThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    while (IS_RUNNING) {
+                    while (SimulationRunning) {
                         Thread.sleep(GameDisplay.Speed);
                         if (Pulses != null) {
                             Pulses.forEach((pulse) -> {

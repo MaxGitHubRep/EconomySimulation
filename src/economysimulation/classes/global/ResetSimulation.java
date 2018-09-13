@@ -38,6 +38,6 @@ public class ResetSimulation {
         GameDisplay.TicksPerQuarter = 0;
         GameDisplay.Speed = GameDisplay.SPEED_MID_POINT;
         
-        if (PulseThread.IS_RUNNING) PulseThread.IS_RUNNING = false;
+        if (PulseThread.SimulationRunning) PulseThread.SimulationRunning = false;
     }
 }
