@@ -4,7 +4,6 @@ import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.FormulaInstance;
 import static economysimulation.classes.global.Methods.ThemeManager;
-import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.comp.CircleProgressBar;
@@ -111,7 +110,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             index++;
         }
         
-        Consumer.updatestuff();
+        FormulaInstance.calculateBudget();
+        
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
         if (Ticks % 31 == 0) EventManager.createEvent();
     }
@@ -174,7 +174,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             if (TimeTrack[1] == 12) {
                 TimeTrack[1] = 1;
                 TimeTrack[2]++;
-                FormulaInstance.calculateBudget(true);
             }
         }
 

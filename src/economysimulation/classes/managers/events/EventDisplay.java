@@ -51,7 +51,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         if (image != null) picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/eventimages/" + image + ".png")));
     }
 
-    private static void frameDragged(JPanel dragPanel) {
+    private void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 PositionX = me.getX();

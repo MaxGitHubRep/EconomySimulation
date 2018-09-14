@@ -120,8 +120,8 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         opPanels = new JPanel[]{
             new RateHold(), 
             new BudgetHold(),
-            new Corporation(),
-            new Consumer(),
+            Methods.CorporationDisplay,
+            Methods.ConsumerDisplay,
             new Overview(),
             new Settings(),
             new QuitSim()

@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import javax.swing.JPanel;
@@ -12,7 +13,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     public Settings() {
         initComponents();
-
+        ThemeManager.addThemeUpdateListener(this);
     }
     
     @Override

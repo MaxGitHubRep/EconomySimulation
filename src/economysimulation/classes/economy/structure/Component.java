@@ -11,12 +11,12 @@ public class Component {
         Unemployment, GrossDomesticProduct, PropensityToConsume = 1, Savings,
         CorporationConfidence = 1, ConsumerConfidence = 1,
         Population = 1000000,
-        DisposableIncome, TotalSavings = 25, PoliticalInflluence = 1,
+        TotalSavings = 25, PoliticalInflluence = 1,
         Consumption, Investment,
-        Taxation, SpendingBudget = 250, CorporationProfits,
+        Taxation, SpendingBudget = 250,
         TotalCorporationProfits = 1, TotalConsumption,
         TotalCorporationTax, TotalIncomeTax,
-        CostOfProduction, Wages,
+        CostOfProduction,
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
 
 }

@@ -5,6 +5,8 @@ import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.sim.Consumer;
+import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -333,6 +335,8 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        Methods.ConsumerDisplay = new Consumer();
+        Methods.CorporationDisplay = new Corporation();
         Methods.GameDisplay = new GameHold();
         Methods.FormulaInstance = new Formula();
         MainFrame.addToMainFrame(Methods.GameDisplay);

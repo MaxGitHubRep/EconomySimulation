@@ -4,6 +4,8 @@ import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.sim.Consumer;
+import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -37,6 +39,8 @@ public class Methods {
     public static Sector SectorInstance;
     public static Theme ThemeManager;
     public static GraphicUpdater Updater;
+    public static Consumer ConsumerDisplay;
+    public static Corporation CorporationDisplay;
     
     public static String Username; //players username
     
