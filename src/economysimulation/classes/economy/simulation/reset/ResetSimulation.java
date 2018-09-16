@@ -1,4 +1,4 @@
-package economysimulation.classes.global;
+package economysimulation.classes.economy.simulation.reset;
 
 import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.economy.structure.components.ComponentType;

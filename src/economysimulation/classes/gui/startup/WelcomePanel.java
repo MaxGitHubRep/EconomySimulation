@@ -291,7 +291,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     build = false;
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
-                    MainFrame.addToMainFrame(new Tutorial());
+                    Methods.FrameDisplay.addToMainFrame(new Tutorial());
                 }
             }
 

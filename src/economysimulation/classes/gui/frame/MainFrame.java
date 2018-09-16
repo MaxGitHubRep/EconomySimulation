@@ -30,7 +30,7 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
         addToMainFrame(new WelcomePanel());
     }
 
-    public static void addToMainFrame(JPanel panel) {
+    public void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
         back.setLayout(new BorderLayout());

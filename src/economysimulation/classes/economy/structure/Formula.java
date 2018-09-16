@@ -6,6 +6,7 @@ import economysimulation.classes.pulse.PulseThread;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.sectors.SectorEvent;
+import economysimulation.classes.economy.simulation.end.Completed;
 import static economysimulation.classes.global.Methods.SectorInstance;
 
 /**
@@ -54,8 +55,8 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
         } else if (StandardOfLiving <= 0) {
-            // game thread ends.
-            PulseThread.SimulationRunning = false;
+            Completed.simulationCompleted();
+            
         }
     }//</editor-fold>
 

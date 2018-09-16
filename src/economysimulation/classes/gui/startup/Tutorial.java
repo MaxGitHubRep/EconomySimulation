@@ -339,7 +339,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         Methods.CorporationDisplay = new Corporation();
         Methods.GameDisplay = new GameHold();
         Methods.FormulaInstance = new Formula();
-        MainFrame.addToMainFrame(Methods.GameDisplay);
+        Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
         new ControlPulse();
 
     }//GEN-LAST:event_back1MouseClicked
