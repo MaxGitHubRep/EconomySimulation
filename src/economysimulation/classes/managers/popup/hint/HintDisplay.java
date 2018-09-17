@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class HintDisplay extends JPanel implements ThemeUpdateEvent {
 
-    private static int pX, pY;
+    private int pX, pY;
             
     public HintDisplay() {
         initComponents();
@@ -35,7 +35,7 @@ public class HintDisplay extends JPanel implements ThemeUpdateEvent {
         top.setBackground(Urgency.getUrgencyColor(urgency));
     }
     
-    protected static void frameDragged(JPanel dragPanel) {
+    protected void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 pX = me.getX();

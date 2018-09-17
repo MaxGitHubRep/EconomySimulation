@@ -19,7 +19,7 @@ import javax.swing.JPanel;
  */
 public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    private static int PositionX, PositionY;
+    private int PositionX, PositionY;
     
     /**
      * Creates new form EventDisplay
