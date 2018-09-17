@@ -9,6 +9,7 @@ import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
+import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
 import java.awt.BorderLayout;
@@ -41,6 +42,7 @@ public class Methods {
     public static GraphicUpdater Updater;
     public static Consumer ConsumerDisplay;
     public static Corporation CorporationDisplay;
+    public static StockGraph AnimationGraph;
     
     public static String Username; //players username
     
