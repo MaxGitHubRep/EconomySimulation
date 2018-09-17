@@ -24,32 +24,10 @@ import javax.swing.JRadioButton;
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     /**
-    * Graph Thread used to move the graph.
-    */
-    private Thread
-            GThread;
-    
-    /**
-    * Boolean to control loop on thread.
-    */
-    private static volatile boolean
-            build = true;
-    
-    /**
      * Locations of the graph vectors.
      */
     private int[][]
             vectors = new int[10][2];
-    
-    /**
-     * Dimensions of the vectors and caps.
-     */
-    private final int
-            VECTOR_WIDTH = 6,
-            CAP_WIDTH = 60,
-            CAP_HEIGHT = 4,
-            LWIDTH = 1300,
-            LHEIGHT = 1000;
 
     /**
     * List of panels that change colour when hovered over.
@@ -57,14 +35,6 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private static JPanel[]
             colorPanels,
             backPanels;
-    
-    /**
-     * List of JLabels for holding graph vector data.
-     */
-    private static JLabel[]
-            lines,
-            capBottoms,
-            capTops;
     
     /**
      * List of labels used for the buttons.
