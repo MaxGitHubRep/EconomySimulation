@@ -53,6 +53,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
 
     private void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
+            @Override
             public void mousePressed(MouseEvent me) {
                 PositionX = me.getX();
                 PositionY = me.getY();
@@ -60,6 +61,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         });
                 
         dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
             public void mouseDragged(MouseEvent me) {
                 for (Frame frame : ShadowFrame.getFrames()) {
                     if (frame.getTitle().contains("Event"))
