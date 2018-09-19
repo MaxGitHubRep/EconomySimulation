@@ -4,6 +4,7 @@ import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -22,7 +23,8 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back }, null);
+        updater.applyPanelThemes(new JPanel[]{ back }, new JPanel[]{ animBack });
+        updater.applyTextThemes(new JLabel[]{ title }, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +33,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         animBack = new javax.swing.JPanel();
         back = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        title = new javax.swing.JLabel();
 
         animBack.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -48,10 +50,10 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         back.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Economy Simulation");
+        title.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        title.setForeground(new java.awt.Color(204, 0, 0));
+        title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title.setText("Economy Simulation");
 
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
         back.setLayout(backLayout);
@@ -59,14 +61,14 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
         backLayout.setVerticalGroup(
             backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(910, Short.MAX_VALUE))
         );
 
@@ -90,6 +92,6 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel animBack;
     private javax.swing.JPanel back;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }
