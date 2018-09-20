@@ -4,8 +4,6 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
-import economysimulation.classes.gui.mainpanels.sim.Consumer;
-import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.mainpanels.extra.QuitSim;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.extra.Settings;

@@ -3,6 +3,7 @@ package economysimulation.classes.economy.simulation.reset;
 import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.economy.structure.components.ComponentType;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.PulseUpdater;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.pulse.PulseThread;
 
@@ -38,6 +39,6 @@ public class ResetSimulation {
         GameDisplay.TicksPerQuarter = 0;
         GameDisplay.Speed = GameDisplay.SPEED_MID_POINT;
         
-        if (PulseThread.SimulationRunning) PulseThread.SimulationRunning = false;
+        if (PulseUpdater.SimulationRunning) PulseUpdater.SimulationRunning = false;
     }
 }

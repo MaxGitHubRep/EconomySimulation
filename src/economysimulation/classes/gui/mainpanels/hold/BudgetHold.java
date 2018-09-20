@@ -1,9 +1,9 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.PulseUpdater;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.gui.subpanels.BudgetList;
-import economysimulation.classes.pulse.PulseThread;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -41,19 +41,18 @@ public class BudgetHold extends javax.swing.JPanel {
     
     //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
     public static void displaySpendingGraph() {
-        if (PulseThread.SimulationRunning) {
-            DefaultPieDataset datasetPie = new DefaultPieDataset();
+        DefaultPieDataset datasetPie = new DefaultPieDataset();
 
-            for (int i = 0; i < BudgetList.titles.length; i++) {
-                datasetPie.insertValue(i, BudgetList.titles[i], SectorInstance.SectorList[i].getSpending());
-            }
-
-            pieChart = ChartFactory.createPieChart3D("Total Budget Spending", datasetPie);
-
-            Methods.applyChartTheme(pieChart, false);
-            applyPieChartColour(pieChart);
-            Methods.addChartToPanel(pieChart, graphPanel);
+        for (int i = 0; i < BudgetList.titles.length; i++) {
+            datasetPie.insertValue(i, BudgetList.titles[i], SectorInstance.SectorList[i].getSpending());
         }
+
+        pieChart = ChartFactory.createPieChart3D("Total Budget Spending", datasetPie);
+
+        Methods.applyChartTheme(pieChart, false);
+        applyPieChartColour(pieChart);
+        Methods.addChartToPanel(pieChart, graphPanel);
+
     }//</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   

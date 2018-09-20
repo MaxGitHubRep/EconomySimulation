@@ -1,8 +1,8 @@
 package economysimulation.classes.economy.simulation.end;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.PulseUpdater;
 import economysimulation.classes.gui.endgame.EndScreen;
-import economysimulation.classes.pulse.PulseThread;
 
 /**
  *
@@ -11,8 +11,8 @@ import economysimulation.classes.pulse.PulseThread;
 public class Completed {
 
     public static void simulationCompleted() {
-        if (PulseThread.SimulationRunning) {
-            PulseThread.SimulationRunning = false;
+        if (PulseUpdater.SimulationRunning) {
+            PulseUpdater.SimulationRunning = false;
             Methods.FrameDisplay.addToMainFrame(new EndScreen());
         }
     }

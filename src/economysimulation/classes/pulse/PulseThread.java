@@ -11,7 +11,7 @@ public class PulseThread {
     
     public ArrayList<GamePulse> Pulses;
     public Thread PulseThread;
-    public static volatile boolean SimulationRunning = false;
+    public volatile boolean SimulationRunning = false;
     
     public void addGamePulseEventListener(GamePulse pulse) {
         this.Pulses.add(pulse);

@@ -1,6 +1,7 @@
 package economysimulation.classes.pulse;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.PulseUpdater;
 import java.util.ArrayList;
 
 /**
@@ -14,18 +15,18 @@ public class ControlPulse {
      * Initiates simulation pulse.
      */
     public ControlPulse() {
-        PulseThread pulseThread = new PulseThread();
+        PulseUpdater = new PulseThread();
         
-        pulseThread.Pulses = new ArrayList<>();
+        PulseUpdater.Pulses = new ArrayList<>();
         
-        pulseThread.addGamePulseEventListener(Methods.FormulaInstance);
-        pulseThread.addGamePulseEventListener(Methods.ConsumerDisplay);
-        pulseThread.addGamePulseEventListener(Methods.CorporationDisplay);
-        pulseThread.addGamePulseEventListener(Methods.GameDisplay);
-        pulseThread.addGamePulseEventListener(Methods.TaxRevenueDisplay);
-        pulseThread.addGamePulseEventListener(Methods.BudgetDisplay);
+        PulseUpdater.addGamePulseEventListener(Methods.FormulaInstance);
+        PulseUpdater.addGamePulseEventListener(Methods.ConsumerDisplay);
+        PulseUpdater.addGamePulseEventListener(Methods.CorporationDisplay);
+        PulseUpdater.addGamePulseEventListener(Methods.GameDisplay);
+        PulseUpdater.addGamePulseEventListener(Methods.TaxRevenueDisplay);
+        PulseUpdater.addGamePulseEventListener(Methods.BudgetDisplay);
 
-        pulseThread.initPulseThread();
+        PulseUpdater.initPulseThread();
     }
 
 }

@@ -12,6 +12,7 @@ import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
+import economysimulation.classes.pulse.PulseThread;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class Methods {
     public static Consumer ConsumerDisplay;
     public static Corporation CorporationDisplay;
     public static StockGraph AnimationGraph;
+    public static PulseThread PulseUpdater;
     
     public static String Username; //players username
     
