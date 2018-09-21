@@ -1,12 +1,9 @@
 package economysimulation.classes.economy.simulation.reset;
 
 import economysimulation.classes.economy.sectors.BudgetSector;
-import economysimulation.classes.economy.structure.components.ComponentType;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.PulseUpdater;
 import static economysimulation.classes.global.Methods.SectorInstance;
-import economysimulation.classes.pulse.PulseThread;
-
 /**
  *
  * @author Max Carter
@@ -24,11 +21,7 @@ public class ResetSimulation {
     }
     
     private static void resetSimulationVariables() {
-        //Applies default values to all components.
-        for (ComponentType comp : new ComponentType[]{  }) {
-            comp.applyDefaultValue();
-        }
-        
+
         //Sets all public spending to 0.
         for (BudgetSector sector : SectorInstance.SectorList) {
             sector.setSpending(0);
