@@ -146,7 +146,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
     private void updateRealGDPLabel() {
         FormulaInstance.calculateGDP();
-        GameHold.labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
+        labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "bn");
         HistoryGDP.add(Component.GrossDomesticProduct);
     }//</editor-fold>
  

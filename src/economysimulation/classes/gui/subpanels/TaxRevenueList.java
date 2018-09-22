@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.subpanels;
 
-import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
@@ -11,6 +10,7 @@ import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.GamePulse;
+import economysimulation.classes.economy.structure.Component;
 
 /**
  *
@@ -73,7 +73,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
             index++;
         }
         index = 0;
-        for (double value : new double[]{ Component.TotalCorporationTax, Component.TotalIncomeTax, (Component.TotalCorporationTax + Component.TotalIncomeTax) }) { //tax in total
+        for (double value : new double[]{ Component.TotalCorporationTax, Component.TotalIncomeTax, (Component.TotalCorporationTax + Component .TotalIncomeTax) }) { //tax in total
             total[index].setText(String.format("£%sm", Math.round(value*1000)));
             index++;
         }

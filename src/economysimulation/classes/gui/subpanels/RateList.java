@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.subpanels;
 
-import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -14,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import economysimulation.classes.economy.structure.Component;
+
 
 /**
  *

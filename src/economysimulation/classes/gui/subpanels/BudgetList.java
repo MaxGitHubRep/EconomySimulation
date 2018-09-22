@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.budget.Budget;
-import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.animation.NumberIncrementer;
@@ -20,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import economysimulation.classes.economy.structure.Component;
+
 
 /**
  *

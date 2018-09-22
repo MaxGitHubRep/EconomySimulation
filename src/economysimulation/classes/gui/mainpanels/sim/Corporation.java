@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
-import static economysimulation.classes.economy.structure.Component.TotalCorporationProfits;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;

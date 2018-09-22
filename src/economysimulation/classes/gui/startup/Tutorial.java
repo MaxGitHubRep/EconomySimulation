@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.structure.Formula;
-import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.fronter.GameHold;
@@ -340,8 +339,8 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         Methods.GameDisplay = new GameHold();
         Methods.FormulaInstance = new Formula();
         Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
+        Methods.SimulationInProgress = true;
         new ControlPulse();
-
     }//GEN-LAST:event_back1MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked

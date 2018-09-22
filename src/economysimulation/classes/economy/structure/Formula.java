@@ -2,7 +2,6 @@ package economysimulation.classes.economy.structure;
 
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.sectors.BudgetSector;
-import economysimulation.classes.pulse.PulseThread;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.sectors.SectorEvent;
@@ -73,7 +72,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     @Override
     public void sectorSpendingEvent(BudgetSector sector, int value) {
         if (sector.equals(SectorInstance.Benefits)) {
-            TotalConsumption += value * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1);
+            TotalConsumption += value * (!GameDisplay.TaxBreak[1] ? 1-(Component.IncomeTax/100) : 1);
             TotalSavings += (1 - PropensityToConsume) * value;
         }
     }

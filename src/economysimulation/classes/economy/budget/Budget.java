@@ -1,9 +1,11 @@
 package economysimulation.classes.economy.budget;
 
 import economysimulation.classes.economy.sectors.BudgetSector;
-import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
+import economysimulation.classes.economy.structure.Component;
+
 
 /**
  *
@@ -21,7 +23,7 @@ public class Budget extends Component {
         SpendingBudget -= money;
         sector.addSpending(money);
         sector.addSpendingInfluence((double) money);
-        BudgetHold.displaySpendingGraph();
+        if (Methods.SimulationInProgress) BudgetHold.displaySpendingGraph();
     }
 
     /**

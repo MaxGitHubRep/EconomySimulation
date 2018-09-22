@@ -1,10 +1,16 @@
 package economysimulation.classes.gui.endgame;
 
+import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.simulation.reset.ResetSimulation;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.gui.startup.Tutorial;
+import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.mode.Mode;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -37,6 +43,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         back = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jButton1 = new javax.swing.JButton();
 
         animBack.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -58,6 +65,13 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Economy Simulation");
 
+        jButton1.setText("reset test");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
         back.setLayout(backLayout);
         backLayout.setHorizontalGroup(
@@ -68,6 +82,10 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                     .addComponent(jSeparator1))
                 .addContainerGap())
+            .addGroup(backLayout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         backLayout.setVerticalGroup(
             backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -76,7 +94,9 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(894, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(305, 305, 305))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -95,10 +115,22 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Methods.SimulationInProgress = false;
+        ResetSimulation.resetSimulation();
+        
+        Mode.MODE = 1;
+        Methods.AnimationGraph.stop();
+        Methods.SectorInstance = new Sector();
+        Methods.TaxRevenueDisplay = new TaxRevenueList();
+        Methods.FrameDisplay.addToMainFrame(new Tutorial());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel animBack;
     private javax.swing.JPanel back;
+    private javax.swing.JButton jButton1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables

@@ -1,6 +1,7 @@
 package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
@@ -47,6 +48,8 @@ public class Methods {
     public static PulseThread PulseUpdater;
     
     public static String Username; //players username
+    
+    public static boolean SimulationInProgress = false;
     
     public static void addDraggablePanel(JPanel[] panels) {
         if (panels == null) {

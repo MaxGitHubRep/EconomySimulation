@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -9,7 +10,6 @@ import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.mode.Mode;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
