@@ -11,8 +11,8 @@ import economysimulation.classes.gui.endgame.EndScreen;
 public class Completed {
 
     public static void simulationCompleted() {
-        if (PulseUpdater.SimulationRunning) {
-            PulseUpdater.SimulationRunning = false;
+        if (PulseUpdater.SimulationTicking) {
+            PulseUpdater.SimulationTicking = false;
             Methods.FrameDisplay.addToMainFrame(new EndScreen());
         }
     }

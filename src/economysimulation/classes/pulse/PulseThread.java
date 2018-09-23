@@ -11,19 +11,23 @@ public class PulseThread {
     
     public ArrayList<GamePulse> Pulses;
     public Thread PulseThread;
-    public volatile boolean SimulationRunning = false;
+
+    /**
+     * Evaluates {@code True} if the pulse thread is emitting a tick.
+     */
+    public volatile boolean SimulationTicking = false;
     
     public void addGamePulseEventListener(GamePulse pulse) {
         this.Pulses.add(pulse);
     }
     
     protected synchronized void initPulseThread() {
-        SimulationRunning = true;
+        SimulationTicking = true;
         PulseThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    while (SimulationRunning) {
+                    while (SimulationTicking) {
                         Thread.sleep(GameDisplay.Speed);
                         if (Pulses != null) {
                             Pulses.forEach((pulse) -> {

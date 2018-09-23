@@ -53,7 +53,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
 
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
-        } else if (StandardOfLiving <= 0) {
+        } else if (StandardOfLiving <= 0 || PoliticalInflluence <= 0) {
             Completed.simulationCompleted();
             
         }
