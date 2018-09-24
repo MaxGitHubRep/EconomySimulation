@@ -4,7 +4,6 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
-import economysimulation.classes.gui.mainpanels.extra.QuitSim;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.extra.Settings;
 import economysimulation.classes.gui.mainpanels.sim.Overview;
@@ -44,8 +43,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         "View the performance of firms in your economy",
         "View consumer behaviour in your economy",
         "View a basic overview of all the components in your economy",
-        "Alter your personal preferences",
-        "Quit the simulation and return to desktop"
+        "Alter your personal preferences"
     
     };
 
@@ -97,7 +95,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7, backPanel8, colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7, colorPanel8 }, null);
+        updater.applyPanelThemes(new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7, colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7 }, null);
         updater.applyTextThemes(titles, null);
     }
 
@@ -106,13 +104,13 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         initComponents();
         
         titles = new JLabel[]{
-            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences, titleQuit
+            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences
         };
         backPanels = new JPanel[]{
-            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7, backPanel8
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7
         };
         colorPanels = new JPanel[]{
-            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7, colorPanel8
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
         };
 
         opPanels = new JPanel[]{
@@ -121,8 +119,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             Methods.CorporationDisplay,
             Methods.ConsumerDisplay,
             new Overview(),
-            new Settings(),
-            new QuitSim()
+            new Settings()
         };
         
         loaded = new boolean[titles.length];
@@ -164,9 +161,6 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         backPanel7 = new javax.swing.JPanel();
         titlePreferences = new javax.swing.JLabel();
         colorPanel7 = new javax.swing.JPanel();
-        backPanel8 = new javax.swing.JPanel();
-        titleQuit = new javax.swing.JLabel();
-        colorPanel8 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -282,7 +276,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             backPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel3Layout.createSequentialGroup()
                 .addComponent(colorPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(titleCorp)
                 .addContainerGap())
         );
@@ -418,47 +412,6 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addGap(0, 0, 0))
         );
 
-        backPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        backPanel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        titleQuit.setBackground(new java.awt.Color(255, 255, 255));
-        titleQuit.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        titleQuit.setForeground(new java.awt.Color(204, 0, 0));
-        titleQuit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        titleQuit.setText("Quit to Desktop");
-
-        colorPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout colorPanel8Layout = new javax.swing.GroupLayout(colorPanel8);
-        colorPanel8.setLayout(colorPanel8Layout);
-        colorPanel8Layout.setHorizontalGroup(
-            colorPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
-        );
-        colorPanel8Layout.setVerticalGroup(
-            colorPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout backPanel8Layout = new javax.swing.GroupLayout(backPanel8);
-        backPanel8.setLayout(backPanel8Layout);
-        backPanel8Layout.setHorizontalGroup(
-            backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
-                .addComponent(colorPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
-                .addComponent(titleQuit)
-                .addContainerGap())
-        );
-        backPanel8Layout.setVerticalGroup(
-            backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backPanel8Layout.createSequentialGroup()
-                .addGroup(backPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleQuit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-                    .addComponent(colorPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -473,7 +426,6 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addContainerGap()
                 .addComponent(jSeparator1)
                 .addContainerGap())
-            .addComponent(backPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,8 +443,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(backPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -504,14 +455,12 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel backPanel4;
     private javax.swing.JPanel backPanel6;
     private javax.swing.JPanel backPanel7;
-    private javax.swing.JPanel backPanel8;
     private javax.swing.JPanel colorPanel1;
     private javax.swing.JPanel colorPanel2;
     private javax.swing.JPanel colorPanel3;
     private javax.swing.JPanel colorPanel4;
     private javax.swing.JPanel colorPanel6;
     private javax.swing.JPanel colorPanel7;
-    private javax.swing.JPanel colorPanel8;
     private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JLabel titleBudget;
     public static javax.swing.JLabel titleCons;
@@ -519,6 +468,5 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
     public static javax.swing.JLabel titleGov;
     public static javax.swing.JLabel titleOverview;
     public static javax.swing.JLabel titlePreferences;
-    public static javax.swing.JLabel titleQuit;
     // End of variables declaration//GEN-END:variables
 }
