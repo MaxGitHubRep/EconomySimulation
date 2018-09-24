@@ -2,7 +2,6 @@ package economysimulation.classes.managers.comp;
 
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
-import economysimulation.classes.managers.theme.GraphicUpdater;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;

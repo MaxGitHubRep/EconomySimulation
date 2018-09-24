@@ -1,19 +1,22 @@
-package economysimulation.classes.gui.mainpanels.sim;
+package economysimulation.classes.gui.mainpanels.sim.corporation;
 
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.GamePulse;
 
 /**
  *
  * @author Max Carter
  */
-public class Corporation extends javax.swing.JPanel implements GamePulse {
+public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
     private final CorporationComponents components;
-    
+
     private class CorporationComponents extends Component {
         
         protected void calculateCorporationComponents() {
@@ -49,8 +52,14 @@ public class Corporation extends javax.swing.JPanel implements GamePulse {
     public Corporation() {
         initComponents();
         this.components = new CorporationComponents();
+        ThemeManager.addThemeUpdateListener(this);
     }
 
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        //
+    }
+    
     @Override
     public void gamePulseEvent() {
         this.components.calculateCorporationComponents();

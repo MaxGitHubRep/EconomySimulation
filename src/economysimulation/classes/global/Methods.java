@@ -1,12 +1,11 @@
 package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.Sector;
-import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
-import economysimulation.classes.gui.mainpanels.sim.Consumer;
-import economysimulation.classes.gui.mainpanels.sim.Corporation;
+import economysimulation.classes.gui.mainpanels.sim.consumer.Consumer;
+import economysimulation.classes.gui.mainpanels.sim.corporation.Corporation;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;

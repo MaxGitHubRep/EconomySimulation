@@ -8,7 +8,7 @@ public class Component {
     
     public static double
         InterestRate = 0, CorporationTax = 0, IncomeTax = 0,
-        Unemployment, GrossDomesticProduct, PropensityToConsume = 1, Savings,
+        Unemployment, GrossDomesticProduct, PropensityToConsume = 1,
         CorporationConfidence = 1, ConsumerConfidence = 1,
         Population = 1000000,
         TotalSavings = 25, PoliticalInflluence = 1,
