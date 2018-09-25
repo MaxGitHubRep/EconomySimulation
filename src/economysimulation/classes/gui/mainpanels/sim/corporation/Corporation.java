@@ -40,7 +40,8 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
 
             Taxation += DailyCorporationTax;
             
-            CorporationConfidence = 1 * (100-CorporationTax)/100;
+            CorporationConfidence = 1 * (100-CorporationTax)/100 * (CorporationProfits > 0 ? 1.2 : 0.5);
+            CorporationConfidence = CorporationConfidence > 1 ? 1 : CorporationConfidence;
 
             double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;
             Investment+= investment;
@@ -49,7 +50,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
             TotalCorporationTax += DailyCorporationTax;
             TotalCorporationProfits += CorporationProfits;
 
-            if (CostOfProduction > TotalCorporationProfits && Unemployment < 100) {
+            if (CostOfProduction > CorporationProfits && Unemployment < 100) {
                 Unemployment++;
             } else if (Unemployment > 1) {
                 Unemployment--;
@@ -379,7 +380,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
         title1.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         title1.setForeground(new java.awt.Color(255, 255, 255));
         title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title1.setText("n.a");
+        title1.setText("Wages");
 
         javax.swing.GroupLayout top1Layout = new javax.swing.GroupLayout(top1);
         top1.setLayout(top1Layout);

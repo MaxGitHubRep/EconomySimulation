@@ -41,6 +41,7 @@ public class CircleProgressBar extends JPanel {
             g.setColor(ThemeManager.Theme.getPrimaryTextColor());
             g.setFont(new Font("Agency FB", Font.PLAIN, 82));
             String text = new DecimalFormat("0").format(GameDisplay.Percents[i]*100) + "%";
+            text = text.equals("0%") ? "1%" : text;
 
             // Adjusts x coordinate of text based on text length.
             int x = 0;
