@@ -42,7 +42,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
     
         protected double[] calculateConsumerComponents() {
 
-            double Wages = (0.000000064 * (Population * ((100 - Unemployment)/100)) * WageMultiplier);
+            Wages = (0.000000064 * (Population * ((100 - Unemployment)/100)) * WageMultiplier);
             double DisposableIncome = Wages;
             CostOfProduction+= Wages;
 
@@ -76,7 +76,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
     
     public Consumer() {
         initComponents();
-        middle = new ConsumerMiddle();
+        middle = new ConsumerMiddle("CONSUMERS", true);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();

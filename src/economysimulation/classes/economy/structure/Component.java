@@ -16,7 +16,7 @@ public class Component {
         Taxation, SpendingBudget = 250,
         TotalCorporationProfits = 1, TotalConsumption,
         TotalCorporationTax, TotalIncomeTax,
-        CostOfProduction,
+        CostOfProduction, Wages,
         DailyCorporationTax, DailyIncomeTax, StandardOfLiving = 1, WageMultiplier = 1;
 
 }
