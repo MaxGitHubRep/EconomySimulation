@@ -40,7 +40,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     private void calculateSpendingInfluence() {
 
         for (BudgetSector sector : SectorInstance.SectorList) {
-            if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.12);
+            if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.1);
         }
 
         for (BudgetSector sector : SectorInstance.SectorList) {
