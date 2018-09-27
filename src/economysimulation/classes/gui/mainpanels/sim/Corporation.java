@@ -1,9 +1,9 @@
-package economysimulation.classes.gui.mainpanels.sim.corporation;
+package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
-import economysimulation.classes.gui.mainpanels.sim.consumer.ConsumerMiddle;
+import economysimulation.classes.gui.mainpanels.sim.middle.ConsumerMiddle;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -101,7 +101,8 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        //
+        updater.applyPanelThemes(new JPanel[]{ comp1, comp2, comp3, comp4, comp5, comp6 }, new JPanel[]{ top1, top2, top3, top4, top5, top6 });
+        updater.applyTextThemes(new JLabel[]{ val1, val2, val3, val4, val5, val6  }, new JLabel[]{ title1, title2, title3, title4, title5, title6 });
     }
     
     @Override

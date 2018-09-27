@@ -1,4 +1,4 @@
-package economysimulation.classes.gui.mainpanels.sim.consumer;
+package economysimulation.classes.gui.mainpanels.sim.middle;
 
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.ThemeManager;

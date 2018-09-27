@@ -19,7 +19,7 @@ public class Completed {
         }
         
         for (Frame frame : MainFrame.getFrames()) {
-            if (frame.getTitle().contains("Hint") || frame.getTitle().contains("Event")) {
+            if (frame.getTitle().contains(": ")) {
                 frame.dispose();
             }
         } 
