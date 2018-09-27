@@ -42,10 +42,20 @@ public class Theme {
             new Color(0, 153, 204),
             new Color(0, 140, 255),
             new Color(240, 240, 240)
+        ),
+            
+        Pink = new ThemeBase("Pink",
+            new Color(170, 0, 170),
+            new Color(150, 0, 150),
+            new Color(235, 235, 235),
+            new Color(235, 235, 235),
+            new Color(180, 0, 180),
+            new Color(160, 0, 160),
+            new Color(153, 153, 153)
         );
     
     public ThemeModel[] Themes = new ThemeModel[]{
-        White, Dark, Ocean
+        White, Dark, Ocean, Pink
     };
     
     public final ThemeModel DEFAULT_THEME = White;
