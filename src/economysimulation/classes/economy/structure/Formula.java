@@ -7,6 +7,7 @@ import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.sectors.SectorEvent;
 import economysimulation.classes.economy.simulation.end.Completed;
 import static economysimulation.classes.global.Methods.SectorInstance;
+import economysimulation.classes.managers.events.EventManager;
 
 /**
  *
@@ -67,6 +68,11 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
         PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
+        
+        if (EventManager.eventId < 7 && SectorInstance.SectorList[EventManager.eventId].getSpendingInfluence() == 0) {
+            EventManager.delay-=0.01;
+            PoliticalInflluence*=EventManager.delay;
+        }
     }
 
     @Override

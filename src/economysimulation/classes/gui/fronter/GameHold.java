@@ -113,7 +113,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         FormulaInstance.calculateBudget();
         
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
-        if (Ticks % 31 == 0) EventManager.createEvent();
+        if (Ticks % 110 == 0) EventManager.createEvent();
     }
     
     /**

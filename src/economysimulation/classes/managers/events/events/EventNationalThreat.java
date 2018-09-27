@@ -10,11 +10,16 @@ public class EventNationalThreat extends Event {
 
     private String attacker;
     
-    public EventNationalThreat() {
+    public EventNationalThreat(int index) {
+        super.index = index;
         String[] attackers = new String[]{ "North Korea", "Russia", "America" };
         this.attacker = attackers[Methods.randomInt(0, attackers.length-1)];
     }
     
+    @Override
+    public int getIndex() {
+        return super.index;
+    }
     
     @Override
     public String getTitle() {

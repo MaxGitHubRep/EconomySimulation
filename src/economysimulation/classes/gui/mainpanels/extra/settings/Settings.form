@@ -79,6 +79,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="mid">
+      <Properties>
+        <Property name="opaque" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

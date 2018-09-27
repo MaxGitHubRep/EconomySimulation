@@ -6,6 +6,15 @@ package economysimulation.classes.managers.events.events;
  */
 public class EventStrikeNHS extends Event {
 
+    public EventStrikeNHS(int index) {
+        super.index = index;
+    }
+    
+    @Override
+    public int getIndex() {
+        return super.index;
+    }
+    
     @Override
     public String getTitle() {
         return "NHS Doctors are on Strike!";

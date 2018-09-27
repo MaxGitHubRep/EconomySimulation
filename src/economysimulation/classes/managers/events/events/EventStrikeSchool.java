@@ -6,6 +6,15 @@ package economysimulation.classes.managers.events.events;
  */
 public class EventStrikeSchool extends Event {
 
+    public EventStrikeSchool(int index) {
+        super.index = index;
+    }
+    
+    @Override
+    public int getIndex() {
+        return super.index;
+    }
+    
     @Override
     public String getTitle() {
         return "Students Strike Against High Uni Fees!";

@@ -97,6 +97,8 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         setOpaque(false);
 
+        mid.setOpaque(false);
+
         javax.swing.GroupLayout midLayout = new javax.swing.GroupLayout(mid);
         mid.setLayout(midLayout);
         midLayout.setHorizontalGroup(

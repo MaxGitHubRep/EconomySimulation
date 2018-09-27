@@ -18,10 +18,14 @@ public class EventManager {
     
     private static final EventDisplay eventDisplay = new EventDisplay();
     
+    public static int eventId = 7;
+    public static double delay = 1;
+    
     /**
      * Creates an event based on current spending influences.
      */
     public static void createEvent() {
+        
         ArrayList<Event> events = new ArrayList<>();
             
         for (int i = 0; i < SectorInstance.SectorList.length-1; i++) {
@@ -32,6 +36,8 @@ public class EventManager {
         
         if (events.size() > 0) {
             Event event = events.get(Methods.randomInt(0, events.size()-1));
+            delay = 1;
+            eventId = event.getIndex();
             
             eventDisplay.createEvent(event.getTitle(), event.getDescription(), event.getImageFileName());
             try {
@@ -39,6 +45,9 @@ public class EventManager {
             } catch (InvalidPanelSizeException ex) {
                 ex.printStackTrace();
             }
+        } else {
+            eventId = 7;
+            delay = 1;
         }
     }
     

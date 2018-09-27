@@ -6,6 +6,15 @@ package economysimulation.classes.managers.events.events;
  */
 public class EventFoodShortage extends Event {
 
+    public EventFoodShortage(int index) {
+        super.index = index;
+    }
+    
+    @Override
+    public int getIndex() {
+        return super.index;
+    }
+    
     @Override
     public String getTitle() {
         return "Food Shortages Cause Starvation!";
@@ -20,7 +29,5 @@ public class EventFoodShortage extends Event {
     public String getImageFileName() {
         return "food_shortage";
     }
-    
-    
-    
+
 }

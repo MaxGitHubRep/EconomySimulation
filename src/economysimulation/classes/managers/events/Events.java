@@ -16,13 +16,13 @@ import economysimulation.classes.managers.events.events.EventVirusOutbreak;
 public class Events {
     
     public static final Event
-            HealthcareStrike = new EventStrikeNHS(),
-            StudentStrike = new EventStrikeSchool(),
-            HousingCrisis = new EventHousingCrisis(),
-            FoodShortage = new EventFoodShortage(),
-            TrainStrike = new EventStrikeRail(),
-            NationalThreat = new EventNationalThreat(),
-            VirusOutbreak = new EventVirusOutbreak();
+            HealthcareStrike = new EventStrikeNHS(0),
+            StudentStrike = new EventStrikeSchool(1),
+            HousingCrisis = new EventHousingCrisis(2),
+            FoodShortage = new EventFoodShortage(3),
+            TrainStrike = new EventStrikeRail(4),
+            NationalThreat = new EventNationalThreat(5),
+            VirusOutbreak = new EventVirusOutbreak(6);
     
     
     public static final Event[] EventList = new Event[]{

@@ -6,6 +6,15 @@ package economysimulation.classes.managers.events.events;
  */
 public class EventHousingCrisis extends Event {
 
+    public EventHousingCrisis(int index) {
+        super.index = index;
+    }
+    
+    @Override
+    public int getIndex() {
+        return super.index;
+    }
+    
     @Override
     public String getTitle() {
         return "Floods Destroy Houses!";
