@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
-import economysimulation.classes.global.Methods;
 import economysimulation.classes.gui.mainpanels.sim.middle.ConsumerMiddle;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
