@@ -45,7 +45,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             TimeTrack = new int[]{ 0, 1, 1 };
     
     public final int
-            TICKS_IN_QUARTER = 90,
             SPEED_MID_POINT = 100;
     public int
             TicksPerQuarter = 0,
@@ -96,11 +95,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     @Override
     public void gamePulseEvent() {
         Ticks++;
-        TicksPerQuarter++;
-        if (TicksPerQuarter == TICKS_IN_QUARTER) {
-            TicksPerQuarter = 0;
-            updateRealGDPLabel();
-        }
+        updateRealGDPLabel();
         updateTime();
         updateSpeed();
         
