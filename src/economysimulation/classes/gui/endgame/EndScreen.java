@@ -2,7 +2,6 @@ package economysimulation.classes.gui.endgame;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.simulation.reset.ResetSimulation;
-import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.Tutorial;
@@ -12,7 +11,6 @@ import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.mode.Mode;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -41,6 +39,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             applyButtonListener(i);
         }
         
+        usernameDisplay.setText(Methods.Username);
         ThemeManager.addThemeUpdateListener(this);
     }
 
@@ -110,6 +109,8 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         color4 = new javax.swing.JPanel();
         title4 = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        usernameDisplay = new javax.swing.JLabel();
 
         animBack.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -297,6 +298,15 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/border280.png"))); // NOI18N
 
+        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel1.setText("Username:");
+
+        usernameDisplay.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        usernameDisplay.setForeground(new java.awt.Color(204, 0, 0));
+        usernameDisplay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        usernameDisplay.setText("n/a");
+
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
         back.setLayout(backLayout);
         backLayout.setHorizontalGroup(
@@ -310,7 +320,12 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                     .addComponent(back4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addGroup(backLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(usernameDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         backLayout.setVerticalGroup(
@@ -318,7 +333,11 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(backLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 522, Short.MAX_VALUE)
+                .addGap(31, 31, 31)
+                .addGroup(backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(usernameDisplay))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 447, Short.MAX_VALUE)
                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,10 +376,12 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel color2;
     private javax.swing.JPanel color3;
     private javax.swing.JPanel color4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;
     private javax.swing.JLabel title3;
     private javax.swing.JLabel title4;
+    private javax.swing.JLabel usernameDisplay;
     // End of variables declaration//GEN-END:variables
 }
