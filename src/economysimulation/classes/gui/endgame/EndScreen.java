@@ -2,6 +2,7 @@ package economysimulation.classes.gui.endgame;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.simulation.reset.ResetSimulation;
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.Tutorial;
@@ -13,6 +14,7 @@ import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,7 +24,29 @@ import javax.swing.JPanel;
  */
 public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    private JPanel[] backPanels, colorPanels;
+    private DecimalFormat f = new DecimalFormat("0");
+    
+    private JPanel[] backPanels, colorPanels, opBackPanels, opColorPanels;
+    private JLabel[] opTitles;
+    private final String[]
+        ComponentList = new String[]{
+            "GDP",
+            "Consumption",
+            "Savings",
+            "Wages",
+            "Unemployment",
+            "People Support"
+        },
+            
+        Scores = new String[]{
+            "£" + f.format(Component.GrossDomesticProduct*1000) + "m",
+            "£" + f.format(Component.TotalConsumption*1000) + "m",
+            "£" + f.format(Component.TotalSavings*1000) + "m",
+            "£" + f.format(Component.Wages*1000) + "m",
+            (Component.Unemployment*100) + "%",
+            f.format(Component.ConsumerConfidence*100) + "%"
+    
+        };
     
     /**
      * Creates new form SimulationOver
@@ -34,9 +58,18 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
         colorPanels = new JPanel[]{ color1, color2, color3, color4,  };
         
+        opColorPanels = new JPanel[]{ opCol1, opCol2, opCol3, opCol4, opCol5, opCol6 };
+        opBackPanels = new JPanel[]{ opBack1, opBack2, opBack3, opBack4, opBack5, opBack6 };
+        opTitles = new JLabel[]{ opTitle1, opTitle2, opTitle3, opTitle4, opTitle5, opTitle6 };
+        
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             applyButtonListener(i);
+        }
+        
+        for (int i = 0; i < opBackPanels.length; i++) {
+            Format.addButtonFormat(opBackPanels[i], opColorPanels[i]);
+            displayRelativeScore(i);
         }
         
         usernameDisplay.setText(Methods.Username);
@@ -47,6 +80,20 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     public void updateThemeEvent(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back, back1, back2, back3, back4, color1, color2, color3, color4 }, new JPanel[]{ animBack });
         updater.applyTextThemes(new JLabel[]{ title, title1, title2, title3, title4 }, null);
+    }
+    
+    private void displayRelativeScore(int id) {
+        opBackPanels[id].addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                opTitles[id].setText(Scores[id] + "");
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                opTitles[id].setText(ComponentList[id]);
+            }
+        });
     }
     
     private void applyButtonListener(int id) {
@@ -111,10 +158,25 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         title = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         usernameDisplay = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        opBack1 = new javax.swing.JPanel();
+        opCol1 = new javax.swing.JPanel();
+        opTitle1 = new javax.swing.JLabel();
+        opBack2 = new javax.swing.JPanel();
+        opCol2 = new javax.swing.JPanel();
+        opTitle2 = new javax.swing.JLabel();
+        opBack3 = new javax.swing.JPanel();
+        opCol3 = new javax.swing.JPanel();
+        opTitle3 = new javax.swing.JLabel();
+        opBack4 = new javax.swing.JPanel();
+        opCol4 = new javax.swing.JPanel();
+        opTitle4 = new javax.swing.JLabel();
+        opBack5 = new javax.swing.JPanel();
+        opCol5 = new javax.swing.JPanel();
+        opTitle5 = new javax.swing.JLabel();
+        opBack6 = new javax.swing.JPanel();
+        opCol6 = new javax.swing.JPanel();
+        opTitle6 = new javax.swing.JLabel();
 
         animBack.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -311,13 +373,251 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         usernameDisplay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         usernameDisplay.setText("n/a");
 
-        jLabel2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setText("GDP:");
+        opBack1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel3.setText("Total Taxation:");
+        opCol1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol1Layout = new javax.swing.GroupLayout(opCol1);
+        opCol1.setLayout(opCol1Layout);
+        opCol1Layout.setHorizontalGroup(
+            opCol1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol1Layout.setVerticalGroup(
+            opCol1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle1.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle1.setText("GDP");
+
+        javax.swing.GroupLayout opBack1Layout = new javax.swing.GroupLayout(opBack1);
+        opBack1.setLayout(opBack1Layout);
+        opBack1Layout.setHorizontalGroup(
+            opBack1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack1Layout.createSequentialGroup()
+                .addComponent(opCol1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack1Layout.setVerticalGroup(
+            opBack1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        opBack2.setBackground(new java.awt.Color(255, 255, 255));
+
+        opCol2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol2Layout = new javax.swing.GroupLayout(opCol2);
+        opCol2.setLayout(opCol2Layout);
+        opCol2Layout.setHorizontalGroup(
+            opCol2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol2Layout.setVerticalGroup(
+            opCol2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle2.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle2.setText("Consumption");
+
+        javax.swing.GroupLayout opBack2Layout = new javax.swing.GroupLayout(opBack2);
+        opBack2.setLayout(opBack2Layout);
+        opBack2Layout.setHorizontalGroup(
+            opBack2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack2Layout.createSequentialGroup()
+                .addComponent(opCol2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack2Layout.setVerticalGroup(
+            opBack2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        opBack3.setBackground(new java.awt.Color(255, 255, 255));
+
+        opCol3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol3Layout = new javax.swing.GroupLayout(opCol3);
+        opCol3.setLayout(opCol3Layout);
+        opCol3Layout.setHorizontalGroup(
+            opCol3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol3Layout.setVerticalGroup(
+            opCol3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle3.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle3.setText("Savings");
+
+        javax.swing.GroupLayout opBack3Layout = new javax.swing.GroupLayout(opBack3);
+        opBack3.setLayout(opBack3Layout);
+        opBack3Layout.setHorizontalGroup(
+            opBack3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack3Layout.createSequentialGroup()
+                .addComponent(opCol3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack3Layout.setVerticalGroup(
+            opBack3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        opBack4.setBackground(new java.awt.Color(255, 255, 255));
+
+        opCol4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol4Layout = new javax.swing.GroupLayout(opCol4);
+        opCol4.setLayout(opCol4Layout);
+        opCol4Layout.setHorizontalGroup(
+            opCol4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol4Layout.setVerticalGroup(
+            opCol4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle4.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle4.setText("Wages");
+
+        javax.swing.GroupLayout opBack4Layout = new javax.swing.GroupLayout(opBack4);
+        opBack4.setLayout(opBack4Layout);
+        opBack4Layout.setHorizontalGroup(
+            opBack4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack4Layout.createSequentialGroup()
+                .addComponent(opCol4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack4Layout.setVerticalGroup(
+            opBack4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        opBack5.setBackground(new java.awt.Color(255, 255, 255));
+
+        opCol5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol5Layout = new javax.swing.GroupLayout(opCol5);
+        opCol5.setLayout(opCol5Layout);
+        opCol5Layout.setHorizontalGroup(
+            opCol5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol5Layout.setVerticalGroup(
+            opCol5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle5.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle5.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle5.setText("Unemployment");
+
+        javax.swing.GroupLayout opBack5Layout = new javax.swing.GroupLayout(opBack5);
+        opBack5.setLayout(opBack5Layout);
+        opBack5Layout.setHorizontalGroup(
+            opBack5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack5Layout.createSequentialGroup()
+                .addComponent(opCol5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle5, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack5Layout.setVerticalGroup(
+            opBack5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        opBack6.setBackground(new java.awt.Color(255, 255, 255));
+
+        opCol6.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout opCol6Layout = new javax.swing.GroupLayout(opCol6);
+        opCol6.setLayout(opCol6Layout);
+        opCol6Layout.setHorizontalGroup(
+            opCol6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 30, Short.MAX_VALUE)
+        );
+        opCol6Layout.setVerticalGroup(
+            opCol6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        opTitle6.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle6.setForeground(new java.awt.Color(204, 0, 0));
+        opTitle6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        opTitle6.setText("People Support");
+
+        javax.swing.GroupLayout opBack6Layout = new javax.swing.GroupLayout(opBack6);
+        opBack6.setLayout(opBack6Layout);
+        opBack6Layout.setHorizontalGroup(
+            opBack6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(opBack6Layout.createSequentialGroup()
+                .addComponent(opCol6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(opTitle6, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        opBack6Layout.setVerticalGroup(
+            opBack6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack6Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(opCol6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(opTitle6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
         back.setLayout(backLayout);
@@ -333,7 +633,6 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(backLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(backLayout.createSequentialGroup()
@@ -343,11 +642,12 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(usernameDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addGroup(backLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))))
+                            .addComponent(opBack1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opBack2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opBack3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opBack4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opBack5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(opBack6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -361,12 +661,18 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                     .addComponent(jLabel1)
                     .addComponent(usernameDisplay))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(opBack1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 309, Short.MAX_VALUE)
+                .addComponent(opBack2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(opBack3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(opBack4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(opBack5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(opBack6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -408,10 +714,25 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel color3;
     private javax.swing.JPanel color4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPanel opBack1;
+    private javax.swing.JPanel opBack2;
+    private javax.swing.JPanel opBack3;
+    private javax.swing.JPanel opBack4;
+    private javax.swing.JPanel opBack5;
+    private javax.swing.JPanel opBack6;
+    private javax.swing.JPanel opCol1;
+    private javax.swing.JPanel opCol2;
+    private javax.swing.JPanel opCol3;
+    private javax.swing.JPanel opCol4;
+    private javax.swing.JPanel opCol5;
+    private javax.swing.JPanel opCol6;
+    private javax.swing.JLabel opTitle1;
+    private javax.swing.JLabel opTitle2;
+    private javax.swing.JLabel opTitle3;
+    private javax.swing.JLabel opTitle4;
+    private javax.swing.JLabel opTitle5;
+    private javax.swing.JLabel opTitle6;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;
