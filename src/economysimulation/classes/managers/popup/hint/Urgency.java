@@ -1,6 +1,5 @@
 package economysimulation.classes.managers.popup.hint;
 
-import economysimulation.classes.managers.theme.GraphicUpdater;
 import java.awt.Color;
 
 /**

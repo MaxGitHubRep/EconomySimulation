@@ -1,9 +1,8 @@
 package economysimulation.classes.managers.popup.hint;
 
-import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.popup.hint.hints.Hint;
+import economysimulation.classes.managers.popup.positions.FramePosition;
 import economysimulation.classes.managers.shadow.Speed;
-import economysimulation.classes.managers.shadow.Position;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.shadow.ShadowSize;
 import java.awt.event.ActionEvent;
@@ -26,7 +25,7 @@ public class HintManager {
             HintCount++;
             hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());
             try {
-                new ShadowFrame("Hint #" + HintCount, hintDisplay, Position.BOTTOM_RIGHT, ShadowSize.STANDARD, Speed.MEDIUM);
+                new ShadowFrame("Hint #" + HintCount, hintDisplay, FramePosition.getPositionFromId(hint.getUrgency()+1), ShadowSize.STANDARD, Speed.MEDIUM);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

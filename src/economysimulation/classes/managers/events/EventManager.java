@@ -4,6 +4,7 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.events.events.Event;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
+import economysimulation.classes.managers.popup.positions.FramePosition;
 import economysimulation.classes.managers.shadow.Position;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.shadow.ShadowSize;
@@ -41,7 +42,7 @@ public class EventManager {
             
             eventDisplay.createEvent(event.getTitle(), event.getDescription(), event.getImageFileName());
             try {
-                new ShadowFrame("Event - " + event.getTitle(), eventDisplay, Position.CENTRE, ShadowSize.EXTRA_LARGE, Speed.VERY_SLOW);
+                new ShadowFrame("Event - " + event.getTitle(), eventDisplay, FramePosition.getPositionFromId(0), ShadowSize.EXTRA_LARGE, Speed.VERY_SLOW);
             } catch (InvalidPanelSizeException ex) {
                 ex.printStackTrace();
             }
