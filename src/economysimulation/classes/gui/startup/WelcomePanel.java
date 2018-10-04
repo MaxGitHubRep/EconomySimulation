@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
-import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -22,12 +21,6 @@ import javax.swing.JRadioButton;
  * @author Max Carter
  */
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
-
-    /**
-     * Locations of the graph vectors.
-     */
-    private int[][]
-            vectors = new int[10][2];
 
     /**
     * List of panels that change colour when hovered over.
@@ -132,7 +125,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
 
                 } else {
                     Mode.MODE = id + 1;
-
+                    Methods.Username = Methods.generateRandomUsername(enterUsername.getText());
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();

@@ -43,7 +43,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             "£" + f.format(Component.TotalConsumption*1000) + "m",
             "£" + f.format(Component.TotalSavings*1000) + "m",
             "£" + f.format(Component.Wages*1000) + "m",
-            (Component.Unemployment*100) + "%",
+            f.format(Component.Unemployment) + "%",
             f.format(Component.ConsumerConfidence*100) + "%"
     
         };
@@ -388,7 +388,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle1.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle1.setForeground(new java.awt.Color(204, 0, 0));
         opTitle1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle1.setText("GDP");
@@ -411,7 +411,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         opBack2.setBackground(new java.awt.Color(255, 255, 255));
@@ -429,7 +429,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle2.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle2.setForeground(new java.awt.Color(204, 0, 0));
         opTitle2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle2.setText("Consumption");
@@ -452,7 +452,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         opBack3.setBackground(new java.awt.Color(255, 255, 255));
@@ -470,7 +470,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle3.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle3.setForeground(new java.awt.Color(204, 0, 0));
         opTitle3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle3.setText("Savings");
@@ -493,7 +493,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         opBack4.setBackground(new java.awt.Color(255, 255, 255));
@@ -511,7 +511,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle4.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle4.setForeground(new java.awt.Color(204, 0, 0));
         opTitle4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle4.setText("Wages");
@@ -534,10 +534,11 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         opBack5.setBackground(new java.awt.Color(255, 255, 255));
+        opBack5.setMaximumSize(new java.awt.Dimension(220, 60));
 
         opCol5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -552,7 +553,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle5.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle5.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle5.setForeground(new java.awt.Color(204, 0, 0));
         opTitle5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle5.setText("Unemployment");
@@ -572,10 +573,10 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(opCol5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack5Layout.createSequentialGroup()
+            .addGroup(opBack5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         opBack6.setBackground(new java.awt.Color(255, 255, 255));
@@ -593,7 +594,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        opTitle6.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        opTitle6.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle6.setForeground(new java.awt.Color(204, 0, 0));
         opTitle6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         opTitle6.setText("People Support");
@@ -616,7 +617,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, opBack6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(opTitle6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(7, 7, 7))
         );
 
         javax.swing.GroupLayout backLayout = new javax.swing.GroupLayout(back);
