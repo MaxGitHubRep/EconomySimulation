@@ -41,7 +41,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             "Investment",
             "Total Taxation",
             "Budget",
-            "Daily Wages",
+            "Firm Profits",
             "Firm Support",
             "Username"
         },
@@ -57,7 +57,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             "£" + f.format(Component.Investment*1000) + "m",
             "£" + f.format(Component.TotalCorporationTax + Component.TotalIncomeTax) + "m",
             "£" + f.format(Component.SpendingBudget) + "bn",
-            "£" + f.format(Component.Wages*1000) + "m",
+            "£" + f.format(Component.TotalCorporationProfits*1000) + "m",
             f.format(Component.CorporationConfidence*100) + "%",
             Methods.Username
     
@@ -833,7 +833,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         opTitle11.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
         opTitle11.setForeground(new java.awt.Color(204, 0, 0));
         opTitle11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        opTitle11.setText("Daily Wages");
+        opTitle11.setText("Firm Profits");
 
         javax.swing.GroupLayout opBack11Layout = new javax.swing.GroupLayout(opBack11);
         opBack11.setLayout(opBack11Layout);

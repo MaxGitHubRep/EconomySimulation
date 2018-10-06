@@ -1215,7 +1215,7 @@
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Daily Wages"/>
+                <Property name="text" type="java.lang.String" value="Firm Profits"/>
               </Properties>
             </Component>
           </SubComponents>
