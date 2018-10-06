@@ -25,7 +25,7 @@ public class HintManager {
             HintCount++;
             hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());
             try {
-                new ShadowFrame("Hint #" + HintCount, hintDisplay, FramePosition.getPositionFromId(hint.getUrgency()+1), ShadowSize.STANDARD, Speed.MEDIUM);
+                new ShadowFrame("Hint #" + HintCount, hintDisplay, FramePosition.getPositionFromId(3 - hint.getUrgency()), ShadowSize.STANDARD, Speed.MEDIUM);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

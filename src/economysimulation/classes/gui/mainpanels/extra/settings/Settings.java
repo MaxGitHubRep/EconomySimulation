@@ -24,6 +24,8 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     private JLabel[] stateLabels;
     private JPanel[] backPanels, settingBack, settingColor;
     
+    private JRadioButton[] buttons;
+    
     private ThemeMiddle middle;
     
     public Settings() {
@@ -52,8 +54,9 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             addEventListener(i);
         }
         
+        buttons = new JRadioButton[]{ rb1, rb2, rb3, rb4, rb5 };
         int index = 0;
-        for (JRadioButton btn : new JRadioButton[]{ rb1, rb2, rb3, rb4, rb5 }) {
+        for (JRadioButton btn : buttons) {
             btn.setActionCommand(index + "");
             index++;
         }
@@ -66,6 +69,9 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             @Override
             public void mouseClicked(MouseEvent e) {
                 selectedOption = id;
+                buttonGroup.clearSelection();
+                buttons[FramePosition.getPositionFromId(id)].setSelected(true);
+                
             }
         });
     }
@@ -98,8 +104,8 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3, back4 }, new JPanel[]{ top1, top2, top3, top4 });
-        updater.applyTextThemes(new JLabel[]{ state1, state2, state3, state4 }, new JLabel[]{ label1, label2, label3, label4 });
+        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3, back4, back5, back6, back7, back8, back9, color1, color2, color3, color4 }, new JPanel[]{ top1, top2, top3, top4 });
+        updater.applyTextThemes(new JLabel[]{ state1, state2, state3, state4, saveChanges, title6, title7, title8, title9 }, new JLabel[]{ label1, label2, label3, label4 });
     }
 
     @SuppressWarnings("unchecked")
@@ -359,8 +365,10 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jPanel2.setBackground(new java.awt.Color(204, 0, 0));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -442,6 +450,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back5.setBackground(new java.awt.Color(255, 255, 255));
+        back5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back5MouseClicked(evt);
@@ -492,6 +501,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back6.setBackground(new java.awt.Color(255, 255, 255));
+        back6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         title6.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title6.setForeground(new java.awt.Color(204, 0, 0));
@@ -533,6 +543,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back7.setBackground(new java.awt.Color(255, 255, 255));
+        back7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         title7.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title7.setForeground(new java.awt.Color(204, 0, 0));
@@ -574,6 +585,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back8.setBackground(new java.awt.Color(255, 255, 255));
+        back8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         title8.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title8.setForeground(new java.awt.Color(204, 0, 0));
@@ -615,6 +627,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back9.setBackground(new java.awt.Color(255, 255, 255));
+        back9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         title9.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title9.setForeground(new java.awt.Color(204, 0, 0));
@@ -689,10 +702,6 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -713,6 +722,10 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -732,16 +745,17 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
                                 .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked
-        if (saveChanges.getText().equals(States[0])) {
+        int option = Integer.parseInt(buttonGroup.getSelection().getActionCommand());
+        if (saveChanges.getText().equals(States[0]) && FramePosition.getPositionFromId(selectedOption) != option) {
             saveChanges.setText(States[1]);
-            FramePosition.setPositionById(selectedOption, Integer.parseInt(buttonGroup.getSelection().getActionCommand()));
+            FramePosition.setPositionById(selectedOption, option);
         } else {
             saveChanges.setText(States[0]);
         }

@@ -6,7 +6,7 @@ package economysimulation.classes.managers.popup.positions;
  */
 public class FramePosition {
     
-    public static int[] Positions = new int[]{ 5, 4, 4, 4 };
+    public static int[] Positions = new int[]{ 4, 3, 3, 3 };
     
     public static int getPositionFromId(int id) {
         return Positions[id];

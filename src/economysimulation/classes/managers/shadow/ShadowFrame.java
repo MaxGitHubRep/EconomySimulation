@@ -1,6 +1,5 @@
 package economysimulation.classes.managers.shadow;
 
-import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import java.awt.BorderLayout;
 import java.awt.Color;
