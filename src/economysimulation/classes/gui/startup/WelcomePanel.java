@@ -5,6 +5,8 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
+import economysimulation.classes.managers.extcon.DatabaseConnection;
+import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -12,6 +14,7 @@ import economysimulation.classes.mode.Mode;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,6 +25,11 @@ import javax.swing.JRadioButton;
  */
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /**
+     * Evaluates true if the system is connecting to the database.
+     */
+    private boolean isConnecting = false;
+    
     /**
     * List of panels that change colour when hovered over.
     */
@@ -83,7 +91,23 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         ThemeManager.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
+        establishConnection();
     }//</editor-fold>
+    
+    private void establishConnection() {
+        isConnecting = true;
+        
+        try {
+            Methods.DBConnection = new DatabaseConnection();
+            Methods.DBUsers = new UserData();
+        } catch (SQLException ex) {
+            //offline mode
+            ex.printStackTrace();
+        }
+        
+        isConnecting = false;
+        
+    }
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
@@ -124,8 +148,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     titleLabels[id].setText("<html>Username must be more than " + 3 + " characters to proceed.</html>");
 
                 } else {
-                    Mode.MODE = id + 1;
-                    Methods.Username = Methods.generateRandomUsername(enterUsername.getText());
+                    Mode.setMode(id+1, enterUsername.getText());
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();

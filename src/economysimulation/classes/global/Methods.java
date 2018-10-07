@@ -10,6 +10,8 @@ import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
+import economysimulation.classes.managers.extcon.DatabaseConnection;
+import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
 import economysimulation.classes.pulse.PulseThread;
@@ -45,6 +47,8 @@ public class Methods {
     public static Corporation CorporationDisplay;
     public static StockGraph AnimationGraph;
     public static PulseThread PulseUpdater;
+    public static DatabaseConnection DBConnection;
+    public static UserData DBUsers;
     
     public static String Username; //players username
     
@@ -58,10 +62,10 @@ public class Methods {
             FrameDisplay.frameDragged(dragPanel);
         }
     }
-    
+
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {
-        return currentUsername + "#" + randomInt(0, 9999);
+        return currentUsername + "#" + randomInt(0, 99999);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
