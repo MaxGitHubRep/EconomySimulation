@@ -12,26 +12,23 @@ import java.sql.Statement;
  */
 public class DatabaseConnection {
     
-    private final String
-            HOST = "",
+    protected final String
+            HOST = "jdbc:mysql://rds-mxcrtr-db.cejdk9ogcqcy.eu-west-2.rds.amazonaws.com:3306/mxcrtr_db",
             USERNAME = "",
             PASSWORD = "";
     
-    private Connection Connection;
-    private Statement Statement;
-    private ResultSet ResultSet;
+    protected Connection Connection;
+    protected Statement Statement;
+    protected ResultSet ResultSet;
     
     /**
      * Establishes connection to database.
+     * @throws SQLException When a safe connection cannot be established.
      */
-    public DatabaseConnection() {
-        try {
-            Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-            Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+    public DatabaseConnection() throws SQLException {
+        Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
+        Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+
     }
     
 }
