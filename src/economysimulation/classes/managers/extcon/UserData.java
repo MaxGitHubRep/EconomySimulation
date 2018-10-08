@@ -1,11 +1,12 @@
 package economysimulation.classes.managers.extcon;
 
-import static economysimulation.classes.global.Methods.DBConnection;
 import economysimulation.classes.managers.exception.UserDataOverflowException;
 import economysimulation.classes.managers.exception.UserDataUnderflowException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import static economysimulation.classes.global.Methods.DBConnector;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.List;
 public class UserData {
 
     List<String> listNames = new ArrayList();
-    List<Integer> listIDs = new ArrayList();
+    private int lastUserID = 0;
     
     /**
      * Deals with the user data.
@@ -28,14 +29,14 @@ public class UserData {
      */
     public void refresh() {
         listNames.clear();
-        listIDs.clear();
+        lastUserID = 0;
         
         try {
-            DBConnection.ResultSet = DBConnection.Statement.executeQuery("SELECT * FROM mxcrtr_db.Users");
+            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Users");
             
-            while (DBConnection.ResultSet.next()) {
-                listNames.add(DBConnection.ResultSet.getString("Name"));
-                listIDs.add(DBConnection.ResultSet.getInt("UserID"));
+            while (DBConnector.ResultSet.next()) {
+                listNames.add(DBConnector.ResultSet.getString("Name"));
+                lastUserID++;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -51,21 +52,13 @@ public class UserData {
     }
     
     /**
-     * List of all the user IDs saved on the database.
-     * @return List of user IDs.
-     */
-    public  List<Integer> getUserIDList() {
-        return listIDs;
-    }
-    
-    /**
      * List of all the user names and IDs concatenated together using local data.
      * @return List of user names and IDs.
      */
     public List<String> getCompleteUserList() {
         List<String> listConcat = new ArrayList();
         for (int i = 0; i < listNames.size(); i++) {
-            listConcat.add(listNames.get(i) + "#" + listIDs.get(i));
+            listConcat.add(listNames.get(i) + "#" + new DecimalFormat("00000").format(i));
         }
         return listConcat;
     }
@@ -75,7 +68,7 @@ public class UserData {
      * @return Size of users list.
      */
     public int getUserCount() {
-        return listIDs.size();
+        return lastUserID;
     }
     
     /**
@@ -83,21 +76,21 @@ public class UserData {
      * @return Latest user ID.
      */
     public int getLatestUserID() {
-        if (listIDs.isEmpty()) {
+        if (lastUserID == 0) {
             try {
                 throw new UserDataUnderflowException();
             } catch (UserDataUnderflowException ex) {
                 ex.printStackTrace();
             }
         }
-        return listIDs.get(listIDs.size()-1);
+        return lastUserID;
     }
 
     /**
      * Gets the next available User ID that can be used.
      * @return Unique user ID.
      */
-    public int getAvailableUserID() {
+    public int getNextAvailableUserID() {
         if (this.getUserCount() >= 99999) {
             try {
                 throw new UserDataOverflowException();
@@ -106,7 +99,7 @@ public class UserData {
             }
         }
 
-        return (listIDs.isEmpty()) ? 0 : getLatestUserID()+1;
+        return lastUserID + 1;
 
     }
     

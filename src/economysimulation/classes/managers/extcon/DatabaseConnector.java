@@ -10,7 +10,7 @@ import java.sql.Statement;
  *
  * @author Max Carter
  */
-public class DatabaseConnection {
+public class DatabaseConnector {
     
     protected final String
             HOST = "jdbc:mysql://rds-mxcrtr-db.cejdk9ogcqcy.eu-west-2.rds.amazonaws.com:3306/mxcrtr_db",
@@ -21,14 +21,28 @@ public class DatabaseConnection {
     protected Statement Statement;
     protected ResultSet ResultSet;
     
+    private boolean isOnline = false;
+    
     /**
      * Establishes connection to database.
      * @throws SQLException When a safe connection cannot be established.
      */
-    public DatabaseConnection() throws SQLException {
+    public DatabaseConnector() throws SQLException {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
+    }
+    
+    public boolean isConnected() {
+        return isOnline;
+    }
+    
+    public void toggleConnection() {
+        isOnline = !isOnline;
+    }
+    
+    public void setConnection(boolean state) {
+        isOnline = state;
     }
     
 }
