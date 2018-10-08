@@ -10,7 +10,7 @@ import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
-import economysimulation.classes.managers.extcon.DatabaseConnection;
+import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
@@ -33,7 +33,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class Methods {
 
-    //Classes of panels to add at intro
+    //Instances of objects.
     public static BudgetList BudgetDisplay;
     public static RateList RateDisplay;
     public static GameHold GameDisplay;
@@ -47,21 +47,42 @@ public class Methods {
     public static Corporation CorporationDisplay;
     public static StockGraph AnimationGraph;
     public static PulseThread PulseUpdater;
-    public static DatabaseConnection DBConnection;
+    public static DatabaseConnector DBConnector;
     public static UserData DBUsers;
     
-    public static String Username; //players username
+    public static String Username = "", UserID = "";
     
     public static boolean SimulationInProgress = false;
     
+    //<editor-fold defaultstate="collapsed" desc="Reset local user data in current session."> 
+    /**
+     * Resets the local user data in the current session.
+     */
+    public static void resetCurrentUserData() {
+        UserID = "";
+        Username = "";
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Allows multiple panels to drag the frame."> 
+    /**
+     * Allows multiple panels to drag the main frame.
+     * @param panels Panels that can drag the main frame.
+     */
     public static void addDraggablePanel(JPanel[] panels) {
-        if (panels == null) {
-            throw new NullPointerException();
-        }
         for (JPanel dragPanel : panels) {
             FrameDisplay.frameDragged(dragPanel);
         }
-    }
+    }//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Allows a single panel to drag the frame."> 
+    /**
+     * Allows a panel to drag the main frame.
+     * @param panel Panel that can drag the main frame.
+     */
+    public static void addDraggablePanel(JPanel panel) {
+        FrameDisplay.frameDragged(panel);
+        
+    }//</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
     public static String generateRandomUsername(String currentUsername) {

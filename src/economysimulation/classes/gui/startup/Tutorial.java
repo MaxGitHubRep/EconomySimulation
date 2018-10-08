@@ -41,7 +41,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         }
         
         ThemeManager.addThemeUpdateListener(this);
-        Methods.addDraggablePanel(new JPanel[]{ this });
+        Methods.addDraggablePanel(this);
     }
     
     @Override

@@ -2,10 +2,11 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.DBConnector;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
-import economysimulation.classes.managers.extcon.DatabaseConnection;
+import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -25,11 +26,6 @@ import javax.swing.JRadioButton;
  */
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    /**
-     * Evaluates true if the system is connecting to the database.
-     */
-    private boolean isConnecting = false;
-    
     /**
     * List of panels that change colour when hovered over.
     */
@@ -72,7 +68,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
         colorPanels = new JPanel[]{ co1, co2, co3, co4, co5, co6 };
-        titleLabels = new JLabel[]{ title1, title2, title3, title4, author, leave };
+        titleLabels = new JLabel[]{ title1, title2, title3, title4, connectionState, leave };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
@@ -81,9 +77,8 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             }
         }
         
-        author.setText("<html>Created by<br>Max Carter</html>");
+        Methods.resetCurrentUserData();
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
-        
         
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
@@ -95,18 +90,17 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//</editor-fold>
     
     private void establishConnection() {
-        isConnecting = true;
+        connectionState.setText("Testing...");
         
         try {
-            Methods.DBConnection = new DatabaseConnection();
+            Methods.DBConnector = new DatabaseConnector();
             Methods.DBUsers = new UserData();
+            DBConnector.setConnection(true);
         } catch (SQLException ex) {
-            //offline mode
+            DBConnector.setConnection(false);
             ex.printStackTrace();
         }
-        
-        isConnecting = false;
-        
+        connectionState.setText("O" + (DBConnector.isConnected() ? "n" : "ff") + "line");
     }
     
     @Override
@@ -139,16 +133,23 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (enterUsername.getText().equals(USERNAME_GHOST_TEXT)) {
-                    titleLabels[id].setText("<html>" + USERNAME_GHOST_TEXT + " is not a valid username.</html>");
+                    setLabelText(id, USERNAME_GHOST_TEXT + " is not a valid username");
 
+                } else if (enterUsername.getText().contains("#")) {    
+                    setLabelText(id, "Username cannot contain a #");
+                    
                 } else if (enterUsername.getText().length() > 10) {
-                    titleLabels[id].setText("<html>Username must be less than " + 10 + " characters to proceed.</html>");
+                    setLabelText(id, "Username must be less than " + 10 + " characters to proceed");
 
                 } else if (enterUsername.getText().length() < 3) {
-                    titleLabels[id].setText("<html>Username must be more than " + 3 + " characters to proceed.</html>");
+                    setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
 
+                } else if ((id + 1 == Mode.SOLO_COMP || id + 1 == Mode.MP_COMP) && !DBConnector.isConnected()) {   
+                    setLabelText(id, "A connection cannot be established to the database");
+                    
                 } else {
-                    Mode.setMode(id+1, enterUsername.getText());
+                    Methods.Username = enterUsername.getText();
+                    Mode.setMode(id+1);
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
@@ -159,6 +160,10 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         });
     }//</editor-fold>
 
+    private void setLabelText(int id, String text) {
+        titleLabels[id].setText("<html>" + text + ".</html>");
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -181,7 +186,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         title4 = new javax.swing.JLabel();
         back5 = new javax.swing.JPanel();
         co5 = new javax.swing.JPanel();
-        author = new javax.swing.JLabel();
+        connectionState = new javax.swing.JLabel();
         back6 = new javax.swing.JPanel();
         co6 = new javax.swing.JPanel();
         leave = new javax.swing.JLabel();
@@ -368,6 +373,12 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         );
 
         back5.setBackground(new java.awt.Color(255, 255, 255));
+        back5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back5MouseClicked(evt);
+            }
+        });
 
         co5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -382,11 +393,10 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        author.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
-        author.setForeground(new java.awt.Color(204, 0, 0));
-        author.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        author.setText("Max Carter");
-        author.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        connectionState.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        connectionState.setForeground(new java.awt.Color(204, 0, 0));
+        connectionState.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        connectionState.setText("Offline");
 
         javax.swing.GroupLayout back5Layout = new javax.swing.GroupLayout(back5);
         back5.setLayout(back5Layout);
@@ -395,7 +405,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(back5Layout.createSequentialGroup()
                 .addComponent(co5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(author, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(connectionState, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 7, Short.MAX_VALUE))
         );
         back5Layout.setVerticalGroup(
@@ -403,7 +413,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(back5Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(co5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(author, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(connectionState, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         back6.setBackground(new java.awt.Color(255, 255, 255));
@@ -427,7 +437,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
-        leave.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        leave.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         leave.setForeground(new java.awt.Color(204, 0, 0));
         leave.setText("Leave");
 
@@ -487,7 +497,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(sideBarLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(back5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -529,10 +539,13 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         System.exit(0);
     }//GEN-LAST:event_back6MouseClicked
 
+    private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked
+        establishConnection();
+    }//GEN-LAST:event_back5MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel animBack;
-    private javax.swing.JLabel author;
     public static javax.swing.JPanel back1;
     public static javax.swing.JPanel back2;
     public static javax.swing.JPanel back3;
@@ -545,6 +558,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JPanel co4;
     private javax.swing.JPanel co5;
     private javax.swing.JPanel co6;
+    private javax.swing.JLabel connectionState;
     public static javax.swing.JTextField enterUsername;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator2;
