@@ -13,13 +13,13 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class ConsumerMiddle extends JPanel {
+public class ComponentMiddle extends JPanel {
 
     public int sector = 6;
     public String title;
     public boolean consumer;
     
-    public ConsumerMiddle(String title, boolean consumer) {
+    public ComponentMiddle(String title, boolean consumer) {
         super.setSize(450, 450);
         this.title = title;
         this.consumer = consumer;

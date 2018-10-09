@@ -3,7 +3,7 @@ package economysimulation.classes.gui.mainpanels.sim;
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
-import economysimulation.classes.gui.mainpanels.sim.middle.ConsumerMiddle;
+import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -25,7 +25,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
     private JPanel[] backPanels;
     private JLabel[] valueLabels;
 
-    private ConsumerMiddle middle;
+    private ComponentMiddle middle;
     
     private final CorporationComponents components;
 
@@ -67,7 +67,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
         initComponents();
         this.components = new CorporationComponents();
         
-        middle = new ConsumerMiddle("CORPORATION", true);
+        middle = new ComponentMiddle("CORPORATION", true);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();

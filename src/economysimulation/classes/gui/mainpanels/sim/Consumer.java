@@ -1,7 +1,7 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
-import economysimulation.classes.gui.mainpanels.sim.middle.ConsumerMiddle;
+import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -34,7 +34,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
         "£%sm"
     };
     
-    private ConsumerMiddle middle;
+    private ComponentMiddle middle;
     
     private final ConsumerComponents components;
 
@@ -76,7 +76,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
     
     public Consumer() {
         initComponents();
-        middle = new ConsumerMiddle("CONSUMERS", true);
+        middle = new ComponentMiddle("CONSUMERS", true);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();
