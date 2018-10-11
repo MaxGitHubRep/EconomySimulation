@@ -4,7 +4,7 @@ import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
-import economysimulation.classes.gui.mainpanels.extra.Leaderboard;
+import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.subpanels.BudgetList;

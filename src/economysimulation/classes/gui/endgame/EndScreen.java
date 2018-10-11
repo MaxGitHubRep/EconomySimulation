@@ -5,7 +5,7 @@ import economysimulation.classes.economy.simulation.reset.ResetSimulation;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
-import economysimulation.classes.gui.mainpanels.extra.Leaderboard;
+import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.startup.Tutorial;
 import economysimulation.classes.gui.startup.WelcomePanel;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
