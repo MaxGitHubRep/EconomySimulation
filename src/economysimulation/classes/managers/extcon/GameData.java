@@ -5,8 +5,6 @@ import economysimulation.classes.managers.exception.NonExistentGameException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -56,7 +54,7 @@ public class GameData {
         try {
             DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Games WHERE GameID EQUALS " + id); //psuedo statement
             
-            for (String column : new String[]{ "GameTicks", "Score", "TotalConsumption", "TotalSavings", "Population", "Unemployment", "COnsumerConfidence", "TotalInvestment", "TotalTaxation", "TotalFirmProfits", "FirmConfidence" }) {
+            for (String column : new String[]{ "Rank", "GameTicks", "Score", "TotalConsumption", "TotalSavings", "Population", "Unemployment", "ConsumerConfidence", "TotalInvestment", "TotalTaxation", "TotalFirmProfits", "FirmConfidence" }) {
                 data.add(DBConnector.ResultSet.getString(column));
             }
         } catch (SQLException ex) {
