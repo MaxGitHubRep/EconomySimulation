@@ -96,7 +96,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             @Override
             protected Void doInBackground() throws Exception {
                 connectionState.setText("Testing...");
-                Thread.sleep(500);
+                Thread.sleep(100);
                 establishConnection();
                 return null;
             }

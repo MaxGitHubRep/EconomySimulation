@@ -1,12 +1,12 @@
 package economysimulation.classes.managers.extcon;
 
 import economysimulation.classes.managers.exception.UserDataOverflowException;
-import economysimulation.classes.managers.exception.UserDataUnderflowException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import static economysimulation.classes.global.Methods.DBConnector;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -32,10 +32,10 @@ public class UserData {
         lastUserID = 0;
         
         try {
-            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Users");
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.Users"));
             
-            while (DBConnector.ResultSet.next()) {
-                listNames.add(DBConnector.ResultSet.getString("Name"));
+            while (DBConnector.getResultSet().next()) {
+                listNames.add(DBConnector.getResultSet().getString("Name"));
                 lastUserID++;
             }
         } catch (SQLException ex) {
@@ -72,21 +72,6 @@ public class UserData {
     }
     
     /**
-     * The latest user ID to be stored in the database.
-     * @return Latest user ID.
-     */
-    public int getLatestUserID() {
-        if (lastUserID == 0) {
-            try {
-                throw new UserDataUnderflowException();
-            } catch (UserDataUnderflowException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return lastUserID;
-    }
-
-    /**
      * Gets the next available User ID that can be used.
      * @return Unique user ID.
      */
@@ -101,6 +86,18 @@ public class UserData {
 
         return lastUserID + 1;
 
+    }
+    
+    public void createNewUser(int id, String name) {
+        try {
+            String SQLStatement = "INSERT INTO mxcrtr_db.Users VALUES (?, ?)";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, id);
+            pt.setString(2, name);
+            pt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }

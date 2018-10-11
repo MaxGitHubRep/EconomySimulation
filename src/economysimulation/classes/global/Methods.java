@@ -52,7 +52,8 @@ public class Methods {
     public static UserData DBUsers;
     public static Leaderboard LBDisplay;
     
-    public static String Username = "", UserID = "";
+    public static String Username;
+    public static int UserID = -1;
     
     public static boolean SimulationInProgress = false;
     
@@ -61,7 +62,7 @@ public class Methods {
      * Resets the local user data in the current session.
      */
     public static void resetCurrentUserData() {
-        UserID = "";
+        UserID = -1;
         Username = "";
     }//</editor-fold>
     

@@ -2,6 +2,7 @@ package economysimulation.classes.managers.extcon;
 
 import static economysimulation.classes.global.Methods.DBConnector;
 import economysimulation.classes.managers.exception.NonExistentGameException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,9 @@ public class GameData {
         totalGames = 0;
         
         try {
-            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Games");
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.Games"));
             
-            while (DBConnector.ResultSet.next()) {
+            while (DBConnector.getResultSet().next()) {
                 totalGames++;
             }
         } catch (SQLException ex) {
@@ -51,11 +52,15 @@ public class GameData {
         
         List<String> data = new ArrayList<>();
         
-        try {
-            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Games WHERE GameID = " + id); //psuedo statement
+        try { //untested
+            String SQLStatement = "SELECT * FROM mxcrtr_db.Games WHERE GameID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, id);
+            
+            DBConnector.setResultSet(pt.executeQuery());
             
             for (String column : new String[]{ "Rank", "GameTicks", "Score", "TotalConsumption", "TotalSavings", "Population", "Unemployment", "ConsumerConfidence", "TotalInvestment", "TotalTaxation", "TotalFirmProfits", "FirmConfidence" }) {
-                data.add(DBConnector.ResultSet.getString(column));
+                data.add(DBConnector.getResultSet().getString(column));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

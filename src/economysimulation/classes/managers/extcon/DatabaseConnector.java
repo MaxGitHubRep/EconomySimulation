@@ -12,14 +12,14 @@ import java.sql.Statement;
  */
 public class DatabaseConnector {
     
-    protected final String
+    private final String
             HOST = "jdbc:mysql://rds-mxcrtr-db.cejdk9ogcqcy.eu-west-2.rds.amazonaws.com:3306/mxcrtr_db",
             USERNAME = "",
             PASSWORD = "";
     
-    protected Connection Connection;
-    protected Statement Statement;
-    protected ResultSet ResultSet;
+    private Connection Connection;
+    private Statement Statement;
+    private ResultSet ResultSet;
     
     private boolean isOnline = false;
     
@@ -31,6 +31,22 @@ public class DatabaseConnector {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         isOnline = true;
+    }
+    
+    public Statement getStatement() {
+        return this.Statement;
+    }
+    
+    public void setResultSet(ResultSet resultSet) {
+        this.ResultSet = resultSet;
+    }
+    
+    public ResultSet getResultSet() {
+        return this.ResultSet;
+    }
+    
+    public Connection getConnection() {
+        return this.Connection;
     }
     
     public boolean isConnected() {
