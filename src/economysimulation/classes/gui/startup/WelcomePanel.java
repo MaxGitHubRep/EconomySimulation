@@ -95,6 +95,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         SwingWorker<Void, String> worker = new SwingWorker<Void, String>(){
             @Override
             protected Void doInBackground() throws Exception {
+                connectionState.setText("Testing...");
                 Thread.sleep(500);
                 establishConnection();
                 return null;
@@ -105,8 +106,6 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }
     
     private void establishConnection() {
-        connectionState.setText("Testing...");
-        
         try {
             Methods.DBConnector = new DatabaseConnector();
             Methods.DBUsers = new UserData();

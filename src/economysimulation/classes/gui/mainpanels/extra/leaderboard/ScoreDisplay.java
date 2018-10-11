@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -26,8 +27,10 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         rankDisplay.setText("#" + rank);
         scoreDisplay.setText(score + "XP");
         playersDisplay.setText(players[0]);
+        
         applyButtonListener(this);
         Format.addButtonFormat(this, null);
+        ThemeManager.addThemeUpdateListener(this);
     }
     
     private void applyButtonListener(JPanel panel) {
@@ -69,10 +72,12 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
 
         scoreDisplay.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         scoreDisplay.setForeground(new java.awt.Color(204, 0, 0));
+        scoreDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scoreDisplay.setText("-");
 
         playersDisplay.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         playersDisplay.setForeground(new java.awt.Color(204, 0, 0));
+        playersDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         playersDisplay.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -89,7 +94,7 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playersDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(playersDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,8 +105,8 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
                     .addComponent(rankDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
-                    .addComponent(scoreDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                    .addComponent(playersDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+                    .addComponent(scoreDisplay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(playersDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

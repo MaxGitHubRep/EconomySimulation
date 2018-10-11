@@ -52,7 +52,7 @@ public class GameData {
         List<String> data = new ArrayList<>();
         
         try {
-            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Games WHERE GameID EQUALS " + id); //psuedo statement
+            DBConnector.ResultSet = DBConnector.Statement.executeQuery("SELECT * FROM mxcrtr_db.Games WHERE GameID = " + id); //psuedo statement
             
             for (String column : new String[]{ "Rank", "GameTicks", "Score", "TotalConsumption", "TotalSavings", "Population", "Unemployment", "ConsumerConfidence", "TotalInvestment", "TotalTaxation", "TotalFirmProfits", "FirmConfidence" }) {
                 data.add(DBConnector.ResultSet.getString(column));
