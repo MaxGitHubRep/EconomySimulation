@@ -2,10 +2,10 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.DBConnector;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
+import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.ui.Format;
@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingWorker;
 
 /**
  *
@@ -86,8 +87,22 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         ThemeManager.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
-        establishConnection();
+        runConnectionTest();
+        
     }//</editor-fold>
+    
+    private void runConnectionTest() {
+        SwingWorker<Void, String> worker = new SwingWorker<Void, String>(){
+            @Override
+            protected Void doInBackground() throws Exception {
+                Thread.sleep(500);
+                establishConnection();
+                return null;
+            }
+            
+        };
+        worker.execute();
+    }
     
     private void establishConnection() {
         connectionState.setText("Testing...");
@@ -95,12 +110,11 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         try {
             Methods.DBConnector = new DatabaseConnector();
             Methods.DBUsers = new UserData();
-            DBConnector.setConnection(true);
+            Connection.isConnected = true;
         } catch (SQLException ex) {
-            DBConnector.setConnection(false);
             ex.printStackTrace();
         }
-        connectionState.setText("O" + (DBConnector.isConnected() ? "n" : "ff") + "line");
+        connectionState.setText("O" + (Connection.isConnected ? "n" : "ff") + "line");
     }
     
     @Override
@@ -144,7 +158,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 } else if (enterUsername.getText().length() < 3) {
                     setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
 
-                } else if ((id + 1 == Mode.SOLO_COMP || id + 1 == Mode.MP_COMP) && !DBConnector.isConnected()) {   
+                } else if ((id + 1 == Mode.SOLO_COMP || id + 1 == Mode.MP_COMP) && !Connection.isConnected) {   
                     setLabelText(id, "A connection cannot be established to the database");
                     
                 } else {
@@ -396,7 +410,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         connectionState.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         connectionState.setForeground(new java.awt.Color(204, 0, 0));
         connectionState.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        connectionState.setText("Offline");
+        connectionState.setText("Testing...");
 
         javax.swing.GroupLayout back5Layout = new javax.swing.GroupLayout(back5);
         back5.setLayout(back5Layout);
@@ -540,7 +554,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back6MouseClicked
 
     private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked
-        establishConnection();
+        runConnectionTest();
     }//GEN-LAST:event_back5MouseClicked
 
 

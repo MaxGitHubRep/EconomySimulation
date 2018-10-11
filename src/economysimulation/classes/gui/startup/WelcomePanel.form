@@ -491,7 +491,7 @@
                   <Color blue="0" green="0" red="cc" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="4"/>
-                <Property name="text" type="java.lang.String" value="Offline"/>
+                <Property name="text" type="java.lang.String" value="Testing..."/>
               </Properties>
             </Component>
           </SubComponents>

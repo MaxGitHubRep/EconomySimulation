@@ -6,7 +6,7 @@ import economysimulation.classes.gui.endgame.EndScreen;
 import economysimulation.classes.gui.frame.MainFrame;
 import java.awt.Frame;
 import java.text.DecimalFormat;
-import static economysimulation.classes.global.Methods.DBConnector;
+import economysimulation.classes.managers.extcon.Connection;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Completed {
     public static void simulationCompleted() {
 
         if (Methods.UserID.equals("")) {
-            Methods.UserID = new DecimalFormat("00000").format(DBConnector.isConnected() ? Methods.DBUsers.getNextAvailableUserID() : Methods.randomInt(0, 99999));
+            Methods.UserID = new DecimalFormat("00000").format(Connection.isConnected ? Methods.DBUsers.getNextAvailableUserID() : Methods.randomInt(0, 99999));
             Methods.Username+= "#" + Methods.UserID;
         }
         

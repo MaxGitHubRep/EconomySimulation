@@ -30,7 +30,7 @@ public class DatabaseConnector {
     public DatabaseConnector() throws SQLException {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
+        isOnline = true;
     }
     
     public boolean isConnected() {
@@ -39,10 +39,6 @@ public class DatabaseConnector {
     
     public void toggleConnection() {
         isOnline = !isOnline;
-    }
-    
-    public void setConnection(boolean state) {
-        isOnline = state;
     }
     
 }
