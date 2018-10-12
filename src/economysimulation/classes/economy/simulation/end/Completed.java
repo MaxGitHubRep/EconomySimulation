@@ -22,16 +22,14 @@ public class Completed {
        
         
         try {
-            if (Connection.isConnected) {
-                if (DBConnector.getConnection().isValid(60)) {
-                    if (Methods.UserID == -1) {
-                        Methods.UserID = DBUsers.getNextAvailableUserID();
-                        DBUsers.createNewUser(Methods.UserID, Methods.Username);
-                    }
-
-                } else {
-                    Connection.isConnected = false;
+            if (DBConnector.getConnection().isValid(60)) {
+                if (Methods.UserID == -1) {
+                    Methods.UserID = DBUsers.getNextAvailableUserID();
+                    DBUsers.createNewUser(Methods.UserID, Methods.Username);
                 }
+                
+            } else {
+                Connection.isConnected = false;
             }
             
         } catch (SQLException ex) {
