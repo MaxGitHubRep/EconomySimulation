@@ -2,9 +2,6 @@ package economysimulation.classes.managers.extcon;
 
 import economysimulation.classes.managers.exception.UserDataOverflowException;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import static economysimulation.classes.global.Methods.DBConnector;
 import java.sql.PreparedStatement;
 
@@ -14,7 +11,6 @@ import java.sql.PreparedStatement;
  */
 public class UserData {
 
-    List<String> listNames = new ArrayList();
     private int lastUserID = 0;
     
     /**
@@ -28,39 +24,17 @@ public class UserData {
      * Pulls data from the database and updates the locally saved data.
      */
     public void refresh() {
-        listNames.clear();
         lastUserID = 0;
         
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.Users"));
             
             while (DBConnector.getResultSet().next()) {
-                listNames.add(DBConnector.getResultSet().getString("Name"));
                 lastUserID++;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-    }
-    
-    /**
-     * List of all the users saved on the database.
-     * @return List of user names.
-     */
-    public List<String> getUserList() {
-        return listNames;
-    }
-    
-    /**
-     * List of all the user names and IDs concatenated together using local data.
-     * @return List of user names and IDs.
-     */
-    public List<String> getCompleteUserList() {
-        List<String> listConcat = new ArrayList();
-        for (int i = 0; i < listNames.size(); i++) {
-            listConcat.add(listNames.get(i) + "#" + new DecimalFormat("00000").format(i));
-        }
-        return listConcat;
     }
     
     /**
