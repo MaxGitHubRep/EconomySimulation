@@ -1,11 +1,18 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Max Carter
  */
-public class Overview extends javax.swing.JPanel {
+public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    //to display: username
+    //gdp history
+    
     public Overview() {
         initComponents();
     }
@@ -27,6 +34,11 @@ public class Overview extends javax.swing.JPanel {
             .addGap(0, 800, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ this }, null);
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
