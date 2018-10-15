@@ -7,7 +7,6 @@ import static economysimulation.classes.global.Methods.PulseUpdater;
 import economysimulation.classes.gui.endgame.EndScreen;
 import economysimulation.classes.gui.frame.MainFrame;
 import java.awt.Frame;
-import java.text.DecimalFormat;
 import economysimulation.classes.managers.extcon.Connection;
 import java.sql.SQLException;
 
@@ -19,8 +18,6 @@ public class Completed {
 
     public static void simulationCompleted() {
 
-       
-        
         try {
             if (Connection.isConnected) {
                 if (DBConnector.getConnection().isValid(60)) {
