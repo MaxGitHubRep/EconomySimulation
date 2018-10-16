@@ -16,6 +16,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
     //to display: username
     //gdp history - graph
     //reset game or go to menu
+    //connection status
     
     public Overview() {
         initComponents();
