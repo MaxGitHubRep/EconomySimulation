@@ -1,9 +1,13 @@
 package economysimulation.classes.gui.mainpanels.extra;
 
 import economysimulation.classes.economy.simulation.end.Completed;
+import economysimulation.classes.global.Methods;
+import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,11 +22,37 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
     //reset game or go to menu
     //connection status
     
+    private JPanel[] backPanels, colorPanels;
+    private JLabel[] titles;
+    private String[] hoverText;
+    
     public Overview() {
         initComponents();
         
-        Format.addButtonFormat(back1, color1);
-        Format.addButtonFormat(back2, color2);
+        backPanels = new JPanel[]{ back1, back2, back3, back4 };
+        colorPanels = new JPanel[]{ color3, color4, color1, color2 };
+        
+        titles = new JLabel[]{ title1, title2 };
+        hoverText = new String[]{ Methods.Username, "O" + (Connection.isConnected ? "n" : "ff") + "line", "Username", "Connection" };
+        
+        for (int i = 0; i < backPanels.length; i++) {
+            Format.addButtonFormat(backPanels[i], colorPanels[i]);
+            if (i < hoverText.length-2) addHoverEvent(i);
+        }
+    }
+    
+    private void addHoverEvent(int id) {
+        backPanels[id].addMouseListener(new MouseAdapter() {
+            @Override 
+            public void mouseEntered(MouseEvent e) {
+                titles[id].setText(hoverText[id]);
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+                titles[id].setText(hoverText[id+2]);
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -31,12 +61,18 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         graphPanel = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        back1 = new javax.swing.JPanel();
+        back3 = new javax.swing.JPanel();
         color1 = new javax.swing.JPanel();
-        title1 = new javax.swing.JLabel();
-        back2 = new javax.swing.JPanel();
+        title3 = new javax.swing.JLabel();
+        back4 = new javax.swing.JPanel();
         color2 = new javax.swing.JPanel();
+        title4 = new javax.swing.JLabel();
+        back1 = new javax.swing.JPanel();
+        title1 = new javax.swing.JLabel();
+        color3 = new javax.swing.JPanel();
+        back2 = new javax.swing.JPanel();
         title2 = new javax.swing.JLabel();
+        color4 = new javax.swing.JPanel();
 
         setOpaque(false);
 
@@ -53,11 +89,11 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        back1.setBackground(new java.awt.Color(255, 255, 255));
-        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        back1.addMouseListener(new java.awt.event.MouseAdapter() {
+        back3.setBackground(new java.awt.Color(255, 255, 255));
+        back3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                back1MouseClicked(evt);
+                back3MouseClicked(evt);
             }
         });
 
@@ -74,38 +110,38 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        title1.setBackground(new java.awt.Color(204, 0, 0));
-        title1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        title1.setForeground(new java.awt.Color(204, 0, 0));
-        title1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        title1.setText("Commit Bankruptcy");
+        title3.setBackground(new java.awt.Color(204, 0, 0));
+        title3.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        title3.setForeground(new java.awt.Color(204, 0, 0));
+        title3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        title3.setText("Commit Bankruptcy");
 
-        javax.swing.GroupLayout back1Layout = new javax.swing.GroupLayout(back1);
-        back1.setLayout(back1Layout);
-        back1Layout.setHorizontalGroup(
-            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(back1Layout.createSequentialGroup()
+        javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
+        back3.setLayout(back3Layout);
+        back3Layout.setHorizontalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back3Layout.createSequentialGroup()
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(title3, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        back1Layout.setVerticalGroup(
-            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back1Layout.createSequentialGroup()
+        back3Layout.setVerticalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back3Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(back1Layout.createSequentialGroup()
+            .addGroup(back3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        back2.setBackground(new java.awt.Color(255, 255, 255));
-        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        back2.addMouseListener(new java.awt.event.MouseAdapter() {
+        back4.setBackground(new java.awt.Color(255, 255, 255));
+        back4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                back2MouseClicked(evt);
+                back4MouseClicked(evt);
             }
         });
 
@@ -122,31 +158,119 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        title4.setBackground(new java.awt.Color(204, 0, 0));
+        title4.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        title4.setForeground(new java.awt.Color(204, 0, 0));
+        title4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        title4.setText("Quit To Desktop");
+
+        javax.swing.GroupLayout back4Layout = new javax.swing.GroupLayout(back4);
+        back4.setLayout(back4Layout);
+        back4Layout.setHorizontalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back4Layout.createSequentialGroup()
+                .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(title4, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        back4Layout.setVerticalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(back4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        back1.setBackground(new java.awt.Color(255, 255, 255));
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        title1.setBackground(new java.awt.Color(204, 0, 0));
+        title1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        title1.setForeground(new java.awt.Color(204, 0, 0));
+        title1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        title1.setText("Username");
+
+        color3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color3Layout = new javax.swing.GroupLayout(color3);
+        color3.setLayout(color3Layout);
+        color3Layout.setHorizontalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+        color3Layout.setVerticalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout back1Layout = new javax.swing.GroupLayout(back1);
+        back1.setLayout(back1Layout);
+        back1Layout.setHorizontalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        back1Layout.setVerticalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        back2.setBackground(new java.awt.Color(255, 255, 255));
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
         title2.setBackground(new java.awt.Color(204, 0, 0));
         title2.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         title2.setForeground(new java.awt.Color(204, 0, 0));
-        title2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        title2.setText("Quit To Desktop");
+        title2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        title2.setText("Connection");
+
+        color4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color4Layout = new javax.swing.GroupLayout(color4);
+        color4.setLayout(color4Layout);
+        color4Layout.setHorizontalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+        color4Layout.setVerticalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout back2Layout = new javax.swing.GroupLayout(back2);
         back2.setLayout(back2Layout);
         back2Layout.setHorizontalGroup(
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(back2Layout.createSequentialGroup()
-                .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(title2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(24, 24, 24)
+                .addComponent(color4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         back2Layout.setVerticalGroup(
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(back2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(color4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -154,55 +278,69 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
+                .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1)
                     .addComponent(graphPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 700, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(graphPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
+    private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
         System.exit(0);
-    }//GEN-LAST:event_back2MouseClicked
+    }//GEN-LAST:event_back4MouseClicked
 
-    private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+    private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
         Completed.simulationCompleted();
-    }//GEN-LAST:event_back1MouseClicked
+    }//GEN-LAST:event_back3MouseClicked
 
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, back2 }, null);
-        updater.applyTextThemes(new JLabel[]{ title1, title2 }, null);
+        updater.applyPanelThemes(new JPanel[]{ this, back3, back4 }, null);
+        updater.applyTextThemes(new JLabel[]{ title3, title4 }, null);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;
     private javax.swing.JPanel back2;
+    private javax.swing.JPanel back3;
+    private javax.swing.JPanel back4;
     private javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
+    private javax.swing.JPanel color3;
+    private javax.swing.JPanel color4;
     private javax.swing.JPanel graphPanel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;
+    private javax.swing.JLabel title3;
+    private javax.swing.JLabel title4;
     // End of variables declaration//GEN-END:variables
 }
