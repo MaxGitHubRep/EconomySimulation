@@ -4,8 +4,12 @@ import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.fronter.SideBar;
 import economysimulation.classes.gui.mainpanels.extra.Overview;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
+import economysimulation.classes.gui.mainpanels.extra.settings.Settings;
+import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
+import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.subpanels.BudgetList;
@@ -36,6 +40,7 @@ public class Methods {
     public static BudgetList BudgetDisplay;
     public static RateList RateDisplay;
     public static GameHold GameDisplay;
+    public static SideBar SideBarDisplay;
     public static MainFrame FrameDisplay;
     public static Formula FormulaInstance;
     public static TaxRevenueList TaxRevenueDisplay;
@@ -50,6 +55,10 @@ public class Methods {
     public static UserData DBUsers;
     public static Leaderboard LBDisplay;
     public static Overview OverivewDisplay;
+    public static Settings SettingsDisplay;
+    public static RateHold RatesBack;
+    public static BudgetHold BudgetBack;
+    
     
     public static String Username;
     public static int UserID = -1;

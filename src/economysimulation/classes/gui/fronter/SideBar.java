@@ -14,6 +14,8 @@ import economysimulation.classes.managers.ui.Format;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,6 +25,8 @@ import javax.swing.JPanel;
  */
 public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    private List<ItemSelected> listeners;
+    
     private int selectedOption = 999;
     public boolean[]
             loaded,
@@ -51,6 +55,9 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         Methods.addToFrontPanel(GameDisplay.backadd, backPanel, false);
         GameDisplay.title.setText("Currently Showing: " + title.getText());
         GameDisplay.description.setText("<html>" + description + ". </html>");
+        listeners.forEach((listener) -> {
+            listener.onItemSelected(listener);
+        });
     }
     
     //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
@@ -99,6 +106,10 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         updater.applyTextThemes(titles, null);
     }
 
+    public void addItemSelectionListener(ItemSelected listener) {
+        listeners.add(listener);
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor.">   
     public SideBar() {
         initComponents();
@@ -113,15 +124,20 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
         };
 
+        listeners = new ArrayList<>();
+        
+        Methods.RatesBack = new RateHold();
+        Methods.BudgetBack = new BudgetHold();
         Methods.OverivewDisplay = new Overview();
+        Methods.SettingsDisplay = new Settings();
         
         opPanels = new JPanel[]{
-            new RateHold(), 
-            new BudgetHold(),
+            Methods.RatesBack, 
+            Methods.BudgetBack,
             Methods.CorporationDisplay,
             Methods.ConsumerDisplay,
             Methods.OverivewDisplay,
-            new Settings()
+            Methods.SettingsDisplay
         };
         
         loaded = new boolean[titles.length];
@@ -445,7 +461,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 

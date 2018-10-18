@@ -3,6 +3,8 @@ package economysimulation.classes.gui.mainpanels.extra;
 import economysimulation.classes.economy.simulation.end.Completed;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
+import static economysimulation.classes.global.Methods.SideBarDisplay;
+import economysimulation.classes.gui.fronter.ItemSelected;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -20,10 +22,8 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Max Carter
  */
-public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
+public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, ItemSelected {
 
-    //gdp history - graph
-    
     private JPanel[] backPanels, colorPanels;
     private JLabel[] titles;
     private String[] hoverText;
@@ -41,13 +41,17 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             if (i < hoverText.length-2) addHoverEvent(i);
         }
+        
+        SideBarDisplay.addItemSelectionListener(this);
     }
     
     public void displayGDPGraph() {
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries series = new XYSeries("Series");
-        for (int i = 0; i < GameDisplay.HistoryGDP.size(); i++) {
-            series.add(i, GameDisplay.HistoryGDP.get(i));
+        if (GameDisplay.HistoryGDP.size() > 0) {
+            for (int i = 0; i < GameDisplay.HistoryGDP.size(); i++) {
+                series.add(i, GameDisplay.HistoryGDP.get(i));
+            }
         }
         dataset.addSeries(series);
         JFreeChart chart = ChartFactory.createXYLineChart("GDP History (Months)", "Month", "GDP (Billions)", dataset);
@@ -67,6 +71,11 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
                 titles[id].setText(hoverText[id+2]);
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(ItemSelected listener) {
+        if (listener == this) displayGDPGraph();
     }
 
     @SuppressWarnings("unchecked")

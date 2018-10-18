@@ -61,7 +61,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
      */
     public GameHold() {
         initComponents();
-        Methods.addToFrontPanel(sideBarBack, new SideBar(), false);
+        Methods.SideBarDisplay = new SideBar();
+        Methods.addToFrontPanel(sideBarBack, Methods.SideBarDisplay, false);
 
         addSliderListener(time);
         updateSpeed();
