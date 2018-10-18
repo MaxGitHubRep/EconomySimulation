@@ -1,8 +1,11 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
+import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.budget.MoneySpent;
+import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.PulseUpdater;
 import static economysimulation.classes.global.Methods.SectorInstance;
+import economysimulation.classes.gui.fronter.ItemSelected;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import java.awt.Color;
 import org.jfree.chart.ChartFactory;
@@ -14,10 +17,20 @@ import org.jfree.data.general.DefaultPieDataset;
  *
  * @author Max Carter
  */
-public class BudgetHold extends javax.swing.JPanel {
+public class BudgetHold extends javax.swing.JPanel implements ItemSelected, MoneySpent {
 
     private static PiePlot plot;
     private static JFreeChart pieChart;
+
+    @Override
+    public void onMoneySpent(BudgetSector sector, int money) {
+        displaySpendingGraph();
+    }
+
+    @Override
+    public void onItemSelected(ItemSelected selected) {
+        if (selected == this) displaySpendingGraph();
+    }
 
     //<editor-fold defaultstate="collapsed" desc="Applies colours to the pie chart sections.">
     private static void applyPieChartColour(JFreeChart chart) {
@@ -40,7 +53,7 @@ public class BudgetHold extends javax.swing.JPanel {
     }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
-    public static void displaySpendingGraph() {
+    public void displaySpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
 
         for (int i = 0; i < BudgetList.titles.length; i++) {
@@ -59,8 +72,7 @@ public class BudgetHold extends javax.swing.JPanel {
     public BudgetHold() {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.BudgetDisplay, false);
-        
-        displaySpendingGraph();
+        Budget.addMoneySpentListener(this);
     }//</editor-fold> 
 
     @SuppressWarnings("unchecked")

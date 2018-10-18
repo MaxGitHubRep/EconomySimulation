@@ -5,6 +5,8 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.economy.structure.Component;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -12,6 +14,12 @@ import economysimulation.classes.economy.structure.Component;
  * @author Max Carter
  */
 public class Budget extends Component {
+    
+    private static List<MoneySpent> listeners = new ArrayList<>();
+    
+    public static void addMoneySpentListener(MoneySpent listener) {
+        listeners.add(listener);
+    }
     
     /**
      * Spends £{@code value} billion into {@code sector}.
@@ -23,7 +31,6 @@ public class Budget extends Component {
         SpendingBudget -= money;
         sector.addSpending(money);
         sector.addSpendingInfluence((double) money);
-        if (Methods.SimulationInProgress) BudgetHold.displaySpendingGraph();
     }
 
     /**
