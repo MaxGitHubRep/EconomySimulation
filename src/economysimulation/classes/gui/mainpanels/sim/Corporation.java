@@ -40,7 +40,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
 
             Taxation += DailyCorporationTax;
             
-            CorporationConfidence = 1 * (100-CorporationTax)/100 * (CorporationProfits > 0 ? 1.2 : 0.5);
+            CorporationConfidence = 1 * ((GameDisplay.TaxBreak[0] ? 1 : (100-CorporationTax)/100)) * (CorporationProfits > 0 ? 1.2 : 0.5);
             CorporationConfidence = CorporationConfidence > 1 ? 1 : CorporationConfidence;
 
             double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;

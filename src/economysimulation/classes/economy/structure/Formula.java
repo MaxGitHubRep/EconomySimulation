@@ -24,7 +24,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
     public void calculateGDP() {
-        GrossDomesticProduct = (TotalConsumption + Investment + Budget.getPublicSpendingTotal(false));
+        GrossDomesticProduct = (TotalConsumption + Investment + Budget.getPublicSpendingTotal(false))*1000;
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 

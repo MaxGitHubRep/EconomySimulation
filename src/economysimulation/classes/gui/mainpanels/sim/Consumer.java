@@ -46,7 +46,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
             double DisposableIncome = Wages;
             CostOfProduction+= Wages;
 
-            ConsumerConfidence = StandardOfLiving * (100-IncomeTax)/100;
+            ConsumerConfidence = StandardOfLiving * (GameDisplay.TaxBreak[0] ? 1 : (100-IncomeTax)/100);
 
             PropensityToConsume = ((100 - InterestRate)/100) * ConsumerConfidence;
             if (PropensityToConsume == 0) PropensityToConsume+=0.01;
