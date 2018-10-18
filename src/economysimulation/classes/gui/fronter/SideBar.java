@@ -7,8 +7,6 @@ import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.extra.settings.Settings;
 import economysimulation.classes.gui.mainpanels.extra.Overview;
-import economysimulation.classes.gui.mainpanels.sim.Consumer;
-import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -115,12 +113,14 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
         };
 
+        Methods.OverivewDisplay = new Overview();
+        
         opPanels = new JPanel[]{
             new RateHold(), 
             new BudgetHold(),
             Methods.CorporationDisplay,
             Methods.ConsumerDisplay,
-            new Overview(),
+            Methods.OverivewDisplay,
             new Settings()
         };
         

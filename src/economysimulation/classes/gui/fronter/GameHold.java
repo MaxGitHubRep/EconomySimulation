@@ -142,7 +142,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     private void updateRealGDPLabel() {
         FormulaInstance.calculateGDP();
         labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "m");
-        HistoryGDP.add(Component.GrossDomesticProduct);
     }//</editor-fold>
  
     //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 
@@ -166,6 +165,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             TimeTrack[0] = 1;
             TimeTrack[1]++;
             Component.TotalSavings *=  1 + (Component.InterestRate/100);
+            HistoryGDP.add(Component.GrossDomesticProduct);
             if (TimeTrack[1] == 12) {
                 TimeTrack[1] = 1;
                 TimeTrack[2]++;

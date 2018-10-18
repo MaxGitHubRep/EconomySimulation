@@ -4,6 +4,7 @@ import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.extra.Overview;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
@@ -18,15 +19,12 @@ import economysimulation.classes.managers.theme.Theme;
 import economysimulation.classes.pulse.PulseThread;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -51,6 +49,7 @@ public class Methods {
     public static DatabaseConnector DBConnector;
     public static UserData DBUsers;
     public static Leaderboard LBDisplay;
+    public static Overview OverivewDisplay;
     
     public static String Username;
     public static int UserID = -1;
@@ -139,24 +138,6 @@ public class Methods {
         
         theme.apply(chart);
     }//</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Creates a graph with given data."> 
-    public static void createGraph(String title, ArrayList<Double> historyList, JPanel panel) {
-        DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-
-        int size = historyList.size();
-        
-        for (int i = 0; i < size; i++) {
-            dataSet.addValue(historyList.get(i), title + " (£bn)", (i+1) + "");
-        }
-
-        JFreeChart chart = ChartFactory.createBarChart(title, "Quarters", title + " (£bn)", dataSet);
-
-        Methods.applyChartTheme(chart, true);
-        
-        addChartToPanel(chart, panel);
-        
-    }//</editor-fold> 
     
     //<editor-fold defaultstate="collapsed" desc="Adds a chart to a panel."> 
     public static void addChartToPanel(JFreeChart chart, JPanel panel) {

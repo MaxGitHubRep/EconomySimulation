@@ -2,6 +2,7 @@ package economysimulation.classes.gui.mainpanels.extra;
 
 import economysimulation.classes.economy.simulation.end.Completed;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -10,6 +11,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 /**
  *
@@ -36,6 +41,18 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             if (i < hoverText.length-2) addHoverEvent(i);
         }
+    }
+    
+    public void displayGDPGraph() {
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        XYSeries series = new XYSeries("Series");
+        for (int i = 0; i < GameDisplay.HistoryGDP.size(); i++) {
+            series.add(i, GameDisplay.HistoryGDP.get(i));
+        }
+        dataset.addSeries(series);
+        JFreeChart chart = ChartFactory.createXYLineChart("GDP History (Months)", "Month", "GDP (Billions)", dataset);
+        Methods.applyChartTheme(chart, true);
+        Methods.addChartToPanel(chart, graphPanel);
     }
     
     private void addHoverEvent(int id) {
