@@ -109,7 +109,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                     Budget.spendMoney(SectorInstance.getSector(selectedType), slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
-                    budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
+                    budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*100) + "%");
                     slider.setValue(0);
 
                 } else {
@@ -134,7 +134,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
     
     //<editor-fold defaultstate="collapsed" desc="Updates the value of money displayed."> 
     private void updatePercent(boolean animate) {
-        if (!animate) budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
+        if (!animate) budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*100) + "%");
         spending.setText("£" + slider.getValue() + "bn");
     }//</editor-fold>
     
@@ -312,12 +312,12 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
 
         bud.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         bud.setForeground(new java.awt.Color(204, 0, 0));
-        bud.setText("Spending Budget:");
+        bud.setText("Spending Influence:");
 
         budget.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         budget.setForeground(new java.awt.Color(204, 0, 0));
         budget.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        budget.setText("£250bn");
+        budget.setText("0%");
 
         saveChangesPanel.setBackground(new java.awt.Color(255, 255, 255));
         saveChangesPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -379,11 +379,6 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                     .addGroup(subBackLayout.createSequentialGroup()
                         .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subBackLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(bud)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(budget, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(subBackLayout.createSequentialGroup()
                                 .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -399,10 +394,16 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(max)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(subBackLayout.createSequentialGroup()
-                                .addComponent(tot)
-                                .addGap(23, 23, 23)
-                                .addComponent(spendings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, subBackLayout.createSequentialGroup()
+                                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(subBackLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(bud, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(37, 37, 37)
+                                .addGroup(subBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(budget, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(spendings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addContainerGap())))
         );
         subBackLayout.setVerticalGroup(

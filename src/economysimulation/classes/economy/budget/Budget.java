@@ -1,9 +1,7 @@
 package economysimulation.classes.economy.budget;
 
 import economysimulation.classes.economy.sectors.BudgetSector;
-import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
-import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.economy.structure.Component;
 import java.util.ArrayList;
 import java.util.List;
