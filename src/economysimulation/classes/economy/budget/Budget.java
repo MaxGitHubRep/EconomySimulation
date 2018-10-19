@@ -29,6 +29,9 @@ public class Budget extends Component {
         SpendingBudget -= money;
         sector.addSpending(money);
         sector.addSpendingInfluence((double) money);
+        listeners.forEach((listener) -> {
+            listener.onMoneySpent(sector, money);
+        });
     }
 
     /**

@@ -30,7 +30,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
 
     @Override
     public void gamePulseEvent() {
-        budget.setText("£" + format.format(Component.SpendingBudget) + "bn");
+        budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*10) + "%");
     }
 
     public DecimalFormat format = new DecimalFormat("0");
@@ -109,7 +109,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                     Budget.spendMoney(SectorInstance.getSector(selectedType), slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);
-                    budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*100) + "%");
+                    budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*10) + "%");
                     slider.setValue(0);
 
                 } else {
@@ -134,7 +134,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
     
     //<editor-fold defaultstate="collapsed" desc="Updates the value of money displayed."> 
     private void updatePercent(boolean animate) {
-        if (!animate) budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*100) + "%");
+        if (!animate) budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*10) + "%");
         spending.setText("£" + slider.getValue() + "bn");
     }//</editor-fold>
     

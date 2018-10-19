@@ -5,6 +5,7 @@ import economysimulation.classes.economy.budget.MoneySpent;
 import economysimulation.classes.economy.sectors.BudgetSector;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
+import static economysimulation.classes.global.Methods.SideBarDisplay;
 import economysimulation.classes.gui.fronter.ItemSelected;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import java.awt.Color;
@@ -24,6 +25,7 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
 
     @Override
     public void onMoneySpent(BudgetSector sector, int money) {
+        System.out.println("yeet mnoneyt");
         displaySpendingGraph();
     }
 
@@ -33,7 +35,7 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
     }
 
     //<editor-fold defaultstate="collapsed" desc="Applies colours to the pie chart sections.">
-    private static void applyPieChartColour(JFreeChart chart) {
+    private void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
 
         Color[] colourGuide = new Color[]{
@@ -72,6 +74,8 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
     public BudgetHold() {
         initComponents();
         Methods.addToFrontPanel(backRatesPanel, Methods.BudgetDisplay, false);
+        
+        SideBarDisplay.addItemSelectionListener(this);
         Budget.addMoneySpentListener(this);
     }//</editor-fold> 
 

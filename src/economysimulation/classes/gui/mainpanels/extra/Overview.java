@@ -47,16 +47,17 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
     
     public void displayGDPGraph() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        XYSeries series = new XYSeries("Series");
+        XYSeries series = new XYSeries("GDP");
         if (GameDisplay.HistoryGDP.size() > 0) {
             for (int i = 0; i < GameDisplay.HistoryGDP.size(); i++) {
-                series.add(i, GameDisplay.HistoryGDP.get(i));
+                series.add(i, GameDisplay.HistoryGDP.get(i)/1000);
             }
         }
         dataset.addSeries(series);
-        JFreeChart chart = ChartFactory.createXYLineChart("GDP History (Months)", "Month", "GDP (Billions)", dataset);
-        Methods.applyChartTheme(chart, true);
+        JFreeChart chart = ChartFactory.createXYLineChart("GDP History", "Week", "GDP (Billions)", dataset);
+        Methods.applyChartTheme(chart, false);
         Methods.addChartToPanel(chart, graphPanel);
+        repaint();
     }
     
     private void addHoverEvent(int id) {

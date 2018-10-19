@@ -151,8 +151,8 @@ public class Methods {
     //<editor-fold defaultstate="collapsed" desc="Adds a chart to a panel."> 
     public static void addChartToPanel(JFreeChart chart, JPanel panel) {
         panel.setLayout(new BorderLayout());
-        ChartPanel CP = new ChartPanel(chart);
-        panel.add(CP, BorderLayout.CENTER);
+        panel.removeAll();
+        panel.add(new ChartPanel(chart), BorderLayout.CENTER);
         panel.validate();
     }//</editor-fold> 
     

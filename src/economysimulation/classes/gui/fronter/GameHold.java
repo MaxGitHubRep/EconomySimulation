@@ -63,6 +63,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         initComponents();
         Methods.SideBarDisplay = new SideBar();
         Methods.addToFrontPanel(sideBarBack, Methods.SideBarDisplay, false);
+        Methods.SideBarDisplay.addPanelButtons();
 
         addSliderListener(time);
         updateSpeed();
@@ -162,11 +163,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     private void updateTime() {
         TimeTrack[0]++;
 
+        if (Ticks % 7 == 0) HistoryGDP.add(Component.GrossDomesticProduct);
+        if (Ticks > 8) Methods.OverivewDisplay.displayGDPGraph();
+        
         if (TimeTrack[0] == MONTH_SIZES[TimeTrack[1]-1]+1) {
             TimeTrack[0] = 1;
             TimeTrack[1]++;
             Component.TotalSavings *=  1 + (Component.InterestRate/100);
-            HistoryGDP.add(Component.GrossDomesticProduct);
             if (TimeTrack[1] == 12) {
                 TimeTrack[1] = 1;
                 TimeTrack[2]++;

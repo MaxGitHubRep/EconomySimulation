@@ -110,22 +110,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         listeners.add(listener);
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public SideBar() {
-        initComponents();
-        
-        titles = new JLabel[]{
-            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences
-        };
-        backPanels = new JPanel[]{
-            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7
-        };
-        colorPanels = new JPanel[]{
-            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
-        };
-
-        listeners = new ArrayList<>();
-        
+    public void addPanelButtons() {
         Methods.RatesBack = new RateHold();
         Methods.BudgetBack = new BudgetHold();
         Methods.OverivewDisplay = new Overview();
@@ -152,6 +137,23 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             addButtonFormat(i);
         }
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
+    public SideBar() {
+        initComponents();
+        
+        titles = new JLabel[]{
+            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences
+        };
+        backPanels = new JPanel[]{
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7
+        };
+        colorPanels = new JPanel[]{
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
+        };
+
+        listeners = new ArrayList<>();
         
         ThemeManager.addThemeUpdateListener(this);
     }//</editor-fold>
