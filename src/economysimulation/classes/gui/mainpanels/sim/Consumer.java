@@ -1,8 +1,9 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.economy.structure.tax.Tax;
+import economysimulation.classes.economy.structure.tax.TaxManager;
 import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
-import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -46,7 +47,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
             double DisposableIncome = Wages;
             CostOfProduction+= Wages;
 
-            ConsumerConfidence = StandardOfLiving * (GameDisplay.TaxBreak[0] ? 1 : (100-IncomeTax)/100);
+            ConsumerConfidence = StandardOfLiving * (1 - TaxManager.getTaxRate(Tax.INCOME)) * ((100 - Unemployment)/100);
 
             PropensityToConsume = ((100 - InterestRate)/100) * ConsumerConfidence;
             if (PropensityToConsume == 0) PropensityToConsume+=0.01;
@@ -58,10 +59,10 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
                 HintManager.createHint(Hints.ConsumersBankrupt);
             }
 
-            DailyIncomeTax = Wages * (Wages > 0 && IncomeTax > 0 && !GameDisplay.TaxBreak[1] ? (IncomeTax/100) : 0);
+            DailyIncomeTax = Wages * (Wages > 0 && TaxManager.getTaxRate(Tax.INCOME) > 0 ? TaxManager.getTaxRate(Tax.INCOME) : 0);
             DisposableIncome -= DailyIncomeTax;
 
-            Consumption = PropensityToConsume * ( DisposableIncome + 0.4 * (!GameDisplay.TaxBreak[1] ? 1-(IncomeTax/100) : 1));
+            Consumption = PropensityToConsume * ((DisposableIncome + 0.4) * (1-TaxManager.getTaxRate(Tax.INCOME)));
             double Savings = (1 - PropensityToConsume) * DisposableIncome;
             
             TotalConsumption += Consumption;

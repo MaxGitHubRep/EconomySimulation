@@ -1,7 +1,8 @@
 package economysimulation.classes.gui.mainpanels.sim;
 
 import economysimulation.classes.economy.structure.Component;
-import static economysimulation.classes.global.Methods.GameDisplay;
+import economysimulation.classes.economy.structure.tax.Tax;
+import economysimulation.classes.economy.structure.tax.TaxManager;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -35,12 +36,12 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
             
             double CorporationProfits = (Consumption - CostOfProduction);
 
-            DailyCorporationTax = CorporationProfits * (CorporationProfits > 0 && CorporationTax > 0 && !GameDisplay.TaxBreak[0] ? (CorporationTax/100) : 0);
+            DailyCorporationTax = CorporationProfits * ((CorporationProfits > 0 && TaxManager.getTaxRate(Tax.CORPORATION) > 0) ? TaxManager.getTaxRate(Tax.CORPORATION) : 0);
             CorporationProfits -= DailyCorporationTax;
 
             Taxation += DailyCorporationTax;
             
-            CorporationConfidence = 1 * ((GameDisplay.TaxBreak[0] ? 1 : (100-CorporationTax)/100)) * (CorporationProfits > 0 ? 1.2 : 0.5);
+            CorporationConfidence = 1 * (1 - TaxManager.getTaxRate(Tax.CORPORATION)) * (CorporationProfits > 0 ? 1.2 : 0.5);
             CorporationConfidence = CorporationConfidence > 1 ? 1 : CorporationConfidence;
 
             double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;
@@ -67,7 +68,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
         initComponents();
         this.components = new CorporationComponents();
         
-        middle = new ComponentMiddle("CORPORATION", true);
+        middle = new ComponentMiddle("CORPORATION", false);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();

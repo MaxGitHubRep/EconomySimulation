@@ -47,7 +47,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
-            if (i < taxBreaks.length) taxBreakClicked(i);
+            taxBreakClicked(i);
         }
     }
 

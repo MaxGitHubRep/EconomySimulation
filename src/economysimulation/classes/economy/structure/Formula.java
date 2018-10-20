@@ -6,6 +6,8 @@ import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.sectors.SectorEvent;
 import economysimulation.classes.economy.simulation.end.Completed;
+import economysimulation.classes.economy.structure.tax.Tax;
+import economysimulation.classes.economy.structure.tax.TaxManager;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.events.EventManager;
 
@@ -49,12 +51,12 @@ public class Formula extends Component implements GamePulse, SectorEvent {
             WageMultiplier*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
         
-        CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() == 0 ? 0.1 : -0.1) +
-                (SectorInstance.Science.getSpendingInfluence() == 0 ? 0.1 : -0.1);
+        CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() <= 0 ? 0.09 : -0.09) +
+                (SectorInstance.Science.getSpendingInfluence() <= 0 ? 0.05 : -0.05);
 
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
-        } else if (StandardOfLiving <= 0 || PoliticalInflluence <= 0) {
+        } else if (StandardOfLiving <= 0 || PoliticalInflluence <= 0 || Unemployment >= 100) {
             Completed.simulationCompleted();
             
         }
@@ -78,8 +80,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     @Override
     public void sectorSpendingEvent(BudgetSector sector, int value) {
         if (sector.equals(SectorInstance.Benefits)) {
-            TotalConsumption += value * (!GameDisplay.TaxBreak[1] ? 1-(Component.IncomeTax/100) : 1);
-            TotalSavings += (1 - PropensityToConsume) * value;
+            TotalConsumption += value * (1-(TaxManager.getTaxRate(Tax.INCOME)));
         }
     }
 

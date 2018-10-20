@@ -11,7 +11,7 @@ public class Component {
         Unemployment, GrossDomesticProduct, PropensityToConsume = 1,
         CorporationConfidence = 1, ConsumerConfidence = 1,
         Population = 1000000,
-        TotalSavings, PoliticalInflluence = 1,
+        TotalSavings = 1, PoliticalInflluence = 1,
         Consumption, Investment,
         Taxation, SpendingBudget = 250,
         TotalCorporationProfits = 1, TotalConsumption,
