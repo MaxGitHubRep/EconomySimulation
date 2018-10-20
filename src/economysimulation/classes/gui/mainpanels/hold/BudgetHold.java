@@ -64,7 +64,7 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
 
         pieChart = ChartFactory.createPieChart3D("Total Budget Spending", datasetPie);
 
-        Methods.applyChartTheme(pieChart, false);
+        Methods.applyChartTheme(pieChart);
         applyPieChartColour(pieChart);
         Methods.addChartToPanel(pieChart, graphPanel);
 

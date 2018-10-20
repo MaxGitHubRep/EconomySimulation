@@ -55,7 +55,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
         }
         dataset.addSeries(series);
         JFreeChart chart = ChartFactory.createXYLineChart("GDP History", "Week", "GDP (Billions)", dataset);
-        Methods.applyChartTheme(chart, false);
+        Methods.applyChartTheme(chart);
         Methods.addChartToPanel(chart, graphPanel);
         repaint();
     }

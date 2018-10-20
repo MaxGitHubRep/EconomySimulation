@@ -52,7 +52,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             Ticks = 0;
 
     public final String[] TITLES = new String[]{
-        "Standard of Living", "Political Influence", "Propensity to Consume"
+        "Standard of Living",
+        "Political Influence",
+        "Consumption Rate"
     };
 
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 

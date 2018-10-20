@@ -122,28 +122,23 @@ public class Methods {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Applies specific theme to graph."> 
-    public static void applyChartTheme(JFreeChart chart, boolean cataPlot) {
+    /**
+     * Creates a chart theme object and applies it to the {@code chart}.
+     * @param chart Chart to add the theme too.
+     */
+    public static void applyChartTheme(JFreeChart chart) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
         theme.setTitlePaint(ThemeManager.Theme.getPrimaryColor());
-        theme.setExtraLargeFont( new Font("Agency FB",Font.PLAIN, 32) );
-        theme.setLargeFont( new Font("Agency FB",Font.PLAIN, 25));
-        theme.setRegularFont( new Font("Agency FB",Font.PLAIN, 20));
-        
-        // ---- Editing default graph theme: Colours ----
-        
+        theme.setExtraLargeFont(new Font("Agency FB",Font.PLAIN, 32));
+        theme.setLargeFont(new Font("Agency FB",Font.PLAIN, 25));
+        theme.setRegularFont(new Font("Agency FB",Font.PLAIN, 20));
+
         theme.setAxisLabelPaint(ThemeManager.Theme.getPrimaryTextColor());
         theme.setChartBackgroundPaint(ThemeManager.Theme.getPrimaryColor());
         theme.setPlotBackgroundPaint(ThemeManager.Theme.getPrimaryHoverColor());
         theme.setRangeGridlinePaint(ThemeManager.Theme.getSecondaryColor());
         theme.setShadowVisible(true);
-        
-        // ---- Editing default graph theme: Formatting ----
-        
-        if (cataPlot) {
-            chart.getCategoryPlot().setOutlineVisible(false);
-            chart.getCategoryPlot().getRangeAxis().setAxisLineVisible(false);
-        }
         
         theme.apply(chart);
     }//</editor-fold>
