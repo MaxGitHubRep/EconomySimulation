@@ -8,10 +8,8 @@ public class Mode {
     
     public static final int
             UNSELECTED = 0,
-            SOLO_CLASSIC = 1,
-            MP_CLASSIC = 2,
-            SOLO_COMP = 3,
-            MP_COMP = 4;
+            SOLO = 1,
+            COOP = 2;
     
     private static int mode = UNSELECTED;
     

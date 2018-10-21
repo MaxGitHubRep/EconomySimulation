@@ -12,6 +12,7 @@ import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
+import economysimulation.classes.gui.startup.Tutorial;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -53,11 +54,12 @@ public class Methods {
     public static PulseThread PulseUpdater;
     public static DatabaseConnector DBConnector;
     public static UserData DBUsers;
-    public static Leaderboard LBDisplay;
+    public static Leaderboard LBDisplay = null;
     public static Overview OverivewDisplay;
     public static Settings SettingsDisplay;
     public static RateHold RatesBack;
     public static BudgetHold BudgetBack;
+    public static Tutorial TutorialDisplay;
     
     
     public static String Username;

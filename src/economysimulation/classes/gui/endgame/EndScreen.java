@@ -6,7 +6,7 @@ import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
-import economysimulation.classes.gui.startup.Tutorial;
+import economysimulation.classes.gui.startup.PreSetup;
 import economysimulation.classes.gui.startup.WelcomePanel;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
@@ -69,7 +69,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
      */
     public EndScreen() {
         initComponents();
-        Methods.LBDisplay = new Leaderboard();
+        if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         Methods.AnimationGraph = new StockGraph(animBack);
         
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
@@ -147,7 +147,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         if (replay) {
             Methods.SectorInstance = new Sector();
             Methods.TaxRevenueDisplay = new TaxRevenueList();
-            Methods.FrameDisplay.addToMainFrame(new Tutorial());
+            Methods.FrameDisplay.addToMainFrame(new PreSetup());
         } else {
             Methods.FrameDisplay.addToMainFrame(new WelcomePanel());
         }    
