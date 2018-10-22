@@ -1,11 +1,13 @@
 package economysimulation.classes.gui.startup;
 
+import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -16,15 +18,20 @@ import javax.swing.SwingConstants;
  */
 public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    //pic hold: 1300x720
-    
-    protected String[] descriptions = new String[]{ "description 1",
-        "description 2",
-        "description 3"
+    protected String[] descriptions = new String[]{
+        "You can change the tax rates before the simulation starts by moving the slider and then clicking the 'Spend Money' button.<br>You need to gain tax revenue to finance spending, high interest rates will make consumers have more money from savings",
+        "You can also change the budget spending before the simulation by moving the slider and then clicking the 'Spend Money'<br>button. Different sectors will boost the economy in different ways when you spend money on them",
+        "The 'Corporations' tab in the simulation will give you information regarding businesses and investment",
+        "The 'Consumers' tab in the simulation will give you information regarding<br>consumer behaviour, income, savings, population and employment",
+        "In the settings tab you can change the theme of the GUI to Dark (Black), Ocean (Blue), Pink, or White (Default)",
+        "The slider in the top left of the simulation will allow you to change how quick or slow days in the simulation will be",
+        "Hints can appear in the bottom right hand corner of the screen which will tell<br>you something important. The position can bealtered in the 'Settings' tab",
+        "In the 'Overview' tab, you can check the GDP trend rate over the course of the game, as well as checking your username<br>and connection status. If you commit bankruptcy it will end the simulation and take you to the game over screen",
+        "If you don't spend money on a certain sector you might experience an 'Event'<br>which will keep dropping the political influence until you spend money on it"
     };
     
     protected int selectedImage = 0,
-            images = 6;
+            images = 9;
     
     private ImageIndexer indexer;
     
@@ -92,8 +99,8 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             labels[selectedImage].setText("   O   ");
             selectedImage = index;
             labels[selectedImage].setText("   _   ");
-            //Methods.TutorialDisplay.picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image" + selectedImage + ".png")));
-            //picDesc.setText("<html>" + descriptions[index] + "</html>");
+            Methods.TutorialDisplay.picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image" + (selectedImage+1) + ".jpg")));
+            picDesc.setText(String.format("<html>%s.</html>", descriptions[index]));
         }
         
         @Override
@@ -111,7 +118,6 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         arrowLeft = new javax.swing.JLabel();
         arrowRight = new javax.swing.JLabel();
         imageIndexPanel = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         picHold = new javax.swing.JLabel();
@@ -126,7 +132,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         arrowLeft.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
         arrowLeft.setForeground(new java.awt.Color(204, 0, 0));
-        arrowLeft.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        arrowLeft.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         arrowLeft.setText("<");
         arrowLeft.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         arrowLeft.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -137,7 +143,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         arrowRight.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
         arrowRight.setForeground(new java.awt.Color(204, 0, 0));
-        arrowRight.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        arrowRight.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         arrowRight.setText(">");
         arrowRight.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         arrowRight.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -159,6 +165,8 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGap(0, 28, Short.MAX_VALUE)
         );
 
+        picHold.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image1.jpg"))); // NOI18N
+
         picDesc.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         picDesc.setForeground(new java.awt.Color(204, 0, 0));
         picDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,42 +178,36 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 45, Short.MAX_VALUE)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)))
-                .addContainerGap())
-            .addComponent(picHold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(534, 534, 534)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(536, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(arrowLeft)
+                        .addComponent(arrowLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(imageIndexPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(arrowRight)
-                        .addGap(441, 441, 441))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
-                            .addComponent(picDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(49, 49, 49))))
+                        .addComponent(arrowRight, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+                        .addComponent(picDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(50, 50, 50))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(picHold, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -214,9 +216,9 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
                         .addComponent(arrowRight, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(arrowLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(picHold, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(picHold, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -245,7 +247,6 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JLabel arrowLeft;
     private javax.swing.JLabel arrowRight;
     private javax.swing.JPanel imageIndexPanel;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel picDesc;
