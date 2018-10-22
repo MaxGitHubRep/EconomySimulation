@@ -1,8 +1,10 @@
 package economysimulation.classes.managers.popup.frame;
 
 import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import java.awt.Frame;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -38,6 +40,13 @@ public class PopUpFrame extends JFrame implements ThemeUpdateEvent {
         this.setSize(panel.getWidth(), panel.getHeight());
         this.setTitle("Economy Simulation: " + title);
         this.pack();
+    }
+    
+    public boolean isOpen(String title) {
+        for (Frame frame : MainFrame.getFrames()) {
+            if (frame.getTitle().equals("Economy Simulation: " + title)) return true;
+        } 
+        return false;
     }
 
     @Override

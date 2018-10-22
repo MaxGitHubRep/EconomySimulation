@@ -361,7 +361,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="title" min="-2" pref="411" max="-2" attributes="0"/>
-                                      <EmptySpace pref="75" max="32767" attributes="0"/>
+                                      <EmptySpace pref="38" max="32767" attributes="0"/>
                                       <Component id="percent" min="-2" pref="190" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
