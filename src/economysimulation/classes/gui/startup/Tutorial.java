@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.startup;
 
-import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -40,6 +39,8 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
      */
     public Tutorial() {
         initComponents();
+        picDesc.setText(String.format("<html>%s.</html>", descriptions[0]));
+        
         indexer = new ImageIndexer();
         imageIndexPanel.add(indexer);
         indexer.setSize(342, 70);
@@ -99,7 +100,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             labels[selectedImage].setText("   O   ");
             selectedImage = index;
             labels[selectedImage].setText("   _   ");
-            Methods.TutorialDisplay.picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image" + (selectedImage+1) + ".jpg")));
+            picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image" + (selectedImage+1) + ".jpg")));
             picDesc.setText(String.format("<html>%s.</html>", descriptions[index]));
         }
         
