@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 
 /**
  *
- * @author Max
+ * @author Max Carter
  */
 public class UserData {
 
@@ -60,6 +60,23 @@ public class UserData {
 
         return lastUserID + 1;
 
+    }
+    
+    public String getUsernameFromId(int id) {
+        String name = "";
+        try {
+            String SQLStatement = "SELECT Username FROM mxcrtr_db.Users WHERE UserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, id);
+            
+            DBConnector.setResultSet(pt.executeQuery());
+            DBConnector.getResultSet().next();
+            
+            name = DBConnector.getResultSet().getString("Username");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return name;
     }
     
     public void createNewUser(int id, String name) {
