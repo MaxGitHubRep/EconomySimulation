@@ -25,7 +25,7 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
     public void setDisplayData(int gameid, int rank, int score, String[] players) {
         this.gameid = gameid;
         rankDisplay.setText("#" + rank);
-        scoreDisplay.setText(score + "XP");
+        scoreDisplay.setText(score + "");
         playersDisplay.setText(players[0]);
         
         applyButtonListener(this);

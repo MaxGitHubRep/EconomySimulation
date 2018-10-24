@@ -25,7 +25,6 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
 
     @Override
     public void onMoneySpent(BudgetSector sector, int money) {
-        System.out.println("yeet mnoneyt");
         displaySpendingGraph();
     }
 

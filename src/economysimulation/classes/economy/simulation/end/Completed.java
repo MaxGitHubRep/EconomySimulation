@@ -1,8 +1,11 @@
 package economysimulation.classes.economy.simulation.end;
 
+import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBConnector;
+import static economysimulation.classes.global.Methods.DBGames;
 import static economysimulation.classes.global.Methods.DBUsers;
+import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.PulseUpdater;
 import economysimulation.classes.gui.endgame.EndScreen;
 import economysimulation.classes.gui.frame.MainFrame;
@@ -16,14 +19,27 @@ import java.sql.SQLException;
  */
 public class Completed {
 
+    public static class DBComponents extends Component {
+        
+        public static double[] getDBComponents() {
+            return new double[]{ TotalConsumption, TotalSavings, Investment, (TotalCorporationTax + TotalIncomeTax), TotalCorporationProfits,
+                Population, ConsumerConfidence*100, CorporationConfidence*100, Unemployment
+            };
+        }
+        
+    }
+    
     public static void simulationCompleted() {
-
+ 
         try {
             if (Connection.isConnected) {
                 if (DBConnector.getConnection().isValid(60)) {
                     if (Methods.UserID == -1) {
                         Methods.UserID = DBUsers.getNextAvailableUserID();
                         DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                        int gameId = DBGames.getGamesPlayed(true)+1;
+                        DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
+                        DBGames.establishUserGameLink(gameId, new int[]{ Methods.UserID });
                     }
 
                 } else {

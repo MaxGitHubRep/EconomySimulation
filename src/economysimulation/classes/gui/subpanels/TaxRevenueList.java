@@ -73,7 +73,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
             index++;
         }
         index = 0;
-        for (double value : new double[]{ Component.TotalCorporationTax, Component.TotalIncomeTax, (Component.TotalCorporationTax + Component .TotalIncomeTax) }) { //tax in total
+        for (double value : new double[]{ Component.TotalCorporationTax, Component.TotalIncomeTax, (Component.TotalCorporationTax + Component.TotalIncomeTax) }) { //tax in total
             total[index].setText(String.format("£%sm", Math.round(value*1000)));
             index++;
         }

@@ -8,6 +8,7 @@ import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
+import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -97,7 +98,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             @Override
             protected Void doInBackground() throws Exception {
                 connectionState.setText("Testing...");
-                Thread.sleep(100);
+                Thread.sleep(10);
                 establishConnection();
                 return null;
             }
@@ -110,6 +111,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         try {
             Methods.DBConnector = new DatabaseConnector();
             Methods.DBUsers = new UserData();
+            Methods.DBGames = new GameData();
             Connection.isConnected = true;
         } catch (SQLException ex) {
             ex.printStackTrace();

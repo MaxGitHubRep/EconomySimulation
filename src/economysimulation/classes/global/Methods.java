@@ -18,6 +18,7 @@ import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
+import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
@@ -54,6 +55,7 @@ public class Methods {
     public static PulseThread PulseUpdater;
     public static DatabaseConnector DBConnector;
     public static UserData DBUsers;
+    public static GameData DBGames;
     public static Leaderboard LBDisplay = null;
     public static Overview OverivewDisplay;
     public static Settings SettingsDisplay;

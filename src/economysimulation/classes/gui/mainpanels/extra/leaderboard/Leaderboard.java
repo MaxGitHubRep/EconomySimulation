@@ -1,7 +1,9 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
+import static economysimulation.classes.global.Methods.DBGames;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.Connection;
+import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.event.MouseAdapter;
@@ -18,9 +20,11 @@ import javax.swing.JPanel;
  */
 public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    private LoadingError DummyErrorDisplay = null;
+    
     private String[] displayType = new String[]{ "Single Player", "Multiplayer" };
     public List<Score> ScoreList;
-    private int frontPointer = 0;
+    private int frontPointer = 0, totalPages = 0;
     private final int SCORES_PER_PAGE = 10;
     
     private ScoreDisplay[] scoreDisplays = new ScoreDisplay[SCORES_PER_PAGE];
@@ -30,24 +34,55 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
      */
     public Leaderboard() {
         initComponents();
+        sendErrorMessage("No games loaded.");
         
         for (int i = 0; i < SCORES_PER_PAGE; i++) {
             scoreDisplays[i] = new ScoreDisplay();
         }
         
-        if (Connection.isConnected) {
-            ScoreList = new ArrayList<>();
-            //add scores here
-            refreshList();
-        } else {
-            
-        }
-        
+        configLeaderboard();
+
         ThemeManager.addThemeUpdateListener(this);
         applyButtonListener(changeArrow1);
         applyButtonListener(changeArrow2);
     }
+    
+    public void configLeaderboard() {
+        backScore.removeAll();
+        if (Connection.isConnected) {
+            ScoreList = new ArrayList<>();
+            int gamesPlayed = DBGames.getGamesPlayed(true);
+            if (gamesPlayed == 0) {
+                sendErrorMessage("No games found.");
+            } else {
+                totalPages = (int) Math.ceil(gamesPlayed/SCORES_PER_PAGE);
+                
+                for (int i = 1; i < (gamesPlayed < SCORES_PER_PAGE ? gamesPlayed : SCORES_PER_PAGE)+1; i++) {
+                    GamePackage pkg = DBGames.getGameDataFromID(i);
+                    //sort scores based on score
+                    addScore(pkg.getGameID(), 0, pkg.getGameScore(), pkg.getGamePlayers());
+                }
+                
+                refreshDisplayList();
+                updatePageNumberedDisplay();
+            }
+            
+        } else {
+            sendErrorMessage("No connection to the server.");
+        }
+    }
 
+    private void sendErrorMessage(String message) {
+        backScore.removeAll();
+        DummyErrorDisplay = new LoadingError(message);
+        backScore.add(DummyErrorDisplay);
+        DummyErrorDisplay.setSize(900, 800);
+    }
+    
+    private void updatePageNumberedDisplay() {
+        pageReference.setText("Page: " + ((int) Math.ceil(frontPointer/SCORES_PER_PAGE)) + "/" + totalPages);
+    }
+    
     private void applyButtonListener(JLabel label) {
         label.addMouseListener(new MouseAdapter() {
             @Override
@@ -61,7 +96,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         ScoreList.add(new Score(gameid, rank, score, players));
     }
     
-    private void refreshList() {
+    private void refreshDisplayList() {
         for (int i = frontPointer; i < (SCORES_PER_PAGE + frontPointer < ScoreList.size() ? SCORES_PER_PAGE + frontPointer : ScoreList.size()); i++) {
             Score score = ScoreList.get(i);
             backScore.add(scoreDisplays[i]);
@@ -162,7 +197,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         scoreTitle.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         scoreTitle.setForeground(new java.awt.Color(255, 255, 255));
         scoreTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        scoreTitle.setText("Score");
+        scoreTitle.setText("Score (£)");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -266,7 +301,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         pageReference.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         pageReference.setForeground(new java.awt.Color(204, 0, 0));
         pageReference.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pageReference.setText("Page 1/1");
+        pageReference.setText("Page 0/0");
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
