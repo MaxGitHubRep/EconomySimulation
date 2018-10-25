@@ -4,6 +4,7 @@ import static economysimulation.classes.global.Methods.DBGames;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.GamePackage;
+import economysimulation.classes.managers.sorting.SortArray;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.event.MouseAdapter;
@@ -57,10 +58,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             } else {
                 totalPages = (int) Math.ceil(gamesPlayed/SCORES_PER_PAGE);
                 
-                for (int i = 1; i < (gamesPlayed < SCORES_PER_PAGE ? gamesPlayed : SCORES_PER_PAGE)+1; i++) {
-                    GamePackage pkg = DBGames.getGameDataFromID(i);
-                    //sort scores based on score
-                    addScore(pkg.getGameID(), 0, pkg.getGameScore(), pkg.getGamePlayers());
+                List<GamePackage> gameData = SortArray.sortGameData(DBGames.getAllGameData());
+                
+                for (int i = 0; i < gameData.size(); i++) {
+                    GamePackage pkg = gameData.get(i);
+                    addScore(pkg.getID(), i+1, pkg.getScore(), pkg.getPlayers());
                 }
                 
                 refreshDisplayList();

@@ -59,12 +59,18 @@ public class GameData {
         return this.totalLinks;
     }
     
+    /**
+     * Searches the database for information about the game with id of {@code id}.
+     * 
+     * @param id Index of the game.
+     * @return   Package of information about the game.
+     */
     public GamePackage getGameDataFromID(int id) {
         try {
             if (totalGames == 0) {
                 throw new NonExistentGameException();
                 
-            } else if (totalGames+1 < id) {
+            } else if (id > totalGames) {
                 throw new NonExistentGameException(id);
             }
         } catch (NonExistentGameException ex) {
@@ -120,7 +126,26 @@ public class GameData {
         
         return pkg;
     }
-
+    
+    /**
+     * Cycles through every game on the database and returns a list of {@code GamePackage}s.
+     * 
+     * @return List of all the information about every game.
+     */
+    public List<GamePackage> getAllGameData() {
+        List<GamePackage> gameData = new ArrayList<>();
+        for (int i = 1; i < getGamesPlayed(false)+1; i++) {
+            gameData.add(getGameDataFromID(i));
+        }
+        return gameData;
+    }
+    
+    /**
+     * Creates a new record in the database that links the users and the games.
+     * 
+     * @param gameId Index of the game.
+     * @param userId Indexes of the players in the game.
+     */
     public void establishUserGameLink(int gameId, int[] userId) {
         try {
             for (int i = 0; i < userId.length; i++) {
@@ -139,6 +164,14 @@ public class GameData {
         }
     }
     
+    /**
+     * Creates a new record of a game in the database with the args.
+     * 
+     * @param id            Index of the game.
+     * @param score         GDP obtained in the game.
+     * @param gameTicks     Amount of ticks pulsated.
+     * @param components    Values of all the variables for the database.
+     */
     public void createNewGame(int id, int score, int gameTicks, double[] components) {
         try {
             String SQLStatement = "INSERT INTO mxcrtr_db.Games VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

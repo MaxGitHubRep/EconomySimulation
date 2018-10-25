@@ -18,24 +18,28 @@ public class GamePackage {
         this.components = components;
     }
     
-    public int getGameID() {
+    public int getID() {
         return this.id;
     }
     
-    public int getGameScore() {
+    public int getScore() {
         return this.score;
     }
     
-    public int getGameTicks() {
+    public int getTicks() {
         return this.gameTicks;
     }
     
-    public String[] getGamePlayers() {
+    public String[] getPlayers() {
         return this.players;
     }
     
     public double getComponentFromId(int id) {
         return this.components[id];
+    }
+    
+    public double[] getComponents() {
+        return this.components;
     }
     
 }
