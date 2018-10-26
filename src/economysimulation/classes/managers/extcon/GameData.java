@@ -67,10 +67,10 @@ public class GameData {
      */
     public GamePackage getGameDataFromID(int id) {
         try {
-            if (totalGames == 0) {
+            if (getGamesPlayed(false) == 0) {
                 throw new NonExistentGameException();
                 
-            } else if (id > totalGames) {
+            } else if (id > getGamesPlayed(false)) {
                 throw new NonExistentGameException(id);
             }
         } catch (NonExistentGameException ex) {

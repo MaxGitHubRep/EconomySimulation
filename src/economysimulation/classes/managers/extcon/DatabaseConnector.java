@@ -21,8 +21,6 @@ public class DatabaseConnector {
     private Statement Statement;
     private ResultSet ResultSet;
     
-    private boolean isOnline = false;
-    
     /**
      * Establishes connection to database.
      * @throws SQLException When a safe connection cannot be established.
@@ -30,7 +28,6 @@ public class DatabaseConnector {
     public DatabaseConnector() throws SQLException {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        isOnline = true;
     }
     
     public Statement getStatement() {
@@ -47,14 +44,6 @@ public class DatabaseConnector {
     
     public Connection getConnection() {
         return this.Connection;
-    }
-    
-    public boolean isConnected() {
-        return isOnline;
-    }
-    
-    public void toggleConnection() {
-        isOnline = !isOnline;
     }
     
 }

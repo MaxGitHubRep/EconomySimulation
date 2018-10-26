@@ -7,6 +7,7 @@ import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.sorting.SortArray;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -23,9 +24,9 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
     private LoadingError DummyErrorDisplay = null;
     
-    private String[] displayType = new String[]{ "Single Player", "Multiplayer" };
+    private String[] displayType = new String[]{ "Combined", "Single Player", "Multiplayer" };
     public List<Score> ScoreList;
-    private int frontPointer = 0, totalPages = 0;
+    private int frontPointer = 0, totalPages = 0, viewSelection = 0;
     private final int SCORES_PER_PAGE = 10;
     
     private ScoreDisplay[] scoreDisplays = new ScoreDisplay[SCORES_PER_PAGE];
@@ -44,34 +45,45 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         configLeaderboard();
 
         ThemeManager.addThemeUpdateListener(this);
-        applyButtonListener(changeArrow1);
-        applyButtonListener(changeArrow2);
+        applyModeScroller(changeArrow1, false);
+        applyModeScroller(changeArrow2, true);
+        applyPagesScroller(changeArrow3, true);
+        applyPagesScroller(changeArrow4, false);
     }
     
     public void configLeaderboard() {
         backScore.removeAll();
         if (Connection.isConnected) {
-            ScoreList = new ArrayList<>();
-            int gamesPlayed = DBGames.getGamesPlayed(true);
-            if (gamesPlayed == 0) {
-                sendErrorMessage("No games found.");
-            } else {
-                totalPages = (int) Math.ceil(gamesPlayed/SCORES_PER_PAGE);
-                
-                List<GamePackage> gameData = SortArray.sortGameData(DBGames.getAllGameData());
-                
-                for (int i = 0; i < gameData.size(); i++) {
-                    GamePackage pkg = gameData.get(i);
-                    addScore(pkg.getID(), i+1, pkg.getScore(), pkg.getPlayers());
-                }
-                
-                refreshDisplayList();
-                updatePageNumberedDisplay();
-            }
+            pullLeaderboardData();
             
         } else {
             sendErrorMessage("No connection to the server.");
         }
+    }
+    
+    private void pullLeaderboardData() {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ScoreList = new ArrayList<>();
+                int gamesPlayed = DBGames.getGamesPlayed(true);
+                if (gamesPlayed == 0) {
+                    sendErrorMessage("No games found.");
+                } else {
+                    
+                    totalPages = (int) Math.floor(gamesPlayed/SCORES_PER_PAGE)+1;
+
+                    List<GamePackage> gameData = SortArray.sortGameData(DBGames.getAllGameData());
+
+                    for (int i = 0; i < gameData.size(); i++) {
+                        GamePackage pkg = gameData.get(i);
+                        addScore(i+1, pkg);
+                    }
+
+                    refreshDisplayList();
+                    updatePageNumberedDisplay();
+                }
+            }
+        });
     }
 
     private void sendErrorMessage(String message) {
@@ -82,35 +94,71 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     private void updatePageNumberedDisplay() {
-        pageReference.setText("Page: " + ((int) Math.ceil(frontPointer/SCORES_PER_PAGE)) + "/" + totalPages);
+        pageReference.setText("Page: " + ((int) Math.floor(frontPointer/SCORES_PER_PAGE)+1) + "/" + totalPages);
     }
     
-    private void applyButtonListener(JLabel label) {
+    private void applyModeScroller(JLabel label, boolean forward) {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                playerTypeDisplay.setText(displayType[playerTypeDisplay.getText().equals(displayType[0]) ? 1 : 0]);
+                if (forward) {
+                    viewSelection = (viewSelection == displayType.length-1) ? 0 : viewSelection+1;
+                } else {
+                    viewSelection = (viewSelection == 0) ? displayType.length-1 : viewSelection-1;
+                }
+                playerTypeDisplay.setText(displayType[viewSelection]);
             }
         });
     }
     
-    public void addScore(int gameid, int rank, int score, String[] players) {
-        ScoreList.add(new Score(gameid, rank, score, players));
+    private void applyPagesScroller(JLabel label, boolean forward) {
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (forward) {
+                    if (frontPointer+SCORES_PER_PAGE < ScoreList.size()) {
+                        updateFrontPointer(SCORES_PER_PAGE);
+                    }
+                } else {
+                    if (frontPointer >= 10) {
+                        updateFrontPointer(-SCORES_PER_PAGE);
+                    }
+                } 
+            }
+        });
+    }
+    
+    private void updateFrontPointer(int value) {
+        frontPointer+=value;
+        updatePageNumberedDisplay();
+        refreshDisplayList();
+    }
+    
+    public void addScore(int rank, GamePackage pkg) {
+        ScoreList.add(new Score(rank, pkg));
     }
     
     private void refreshDisplayList() {
-        for (int i = frontPointer; i < (SCORES_PER_PAGE + frontPointer < ScoreList.size() ? SCORES_PER_PAGE + frontPointer : ScoreList.size()); i++) {
-            Score score = ScoreList.get(i);
+        backScore.removeAll();
+        for (int i = 0; i < SCORES_PER_PAGE; i++) {
             backScore.add(scoreDisplays[i]);
             scoreDisplays[i].setLocation(0, (i*80));
             scoreDisplays[i].setVisible(true);
             scoreDisplays[i].setSize(900, 80);
-            scoreDisplays[i].setDisplayData(score.getGameID(), score.getRank(), score.getScore(), score.getPlayers());
+            
+            if (ScoreList.size() <= i + frontPointer) {
+                scoreDisplays[i].setDisplayData(0, null);
+                
+            } else {
+                Score score = ScoreList.get(i + frontPointer);
+                scoreDisplays[i].setDisplayData(score.getRank(), score.getGamePackage());
+            }
+            
         }
     }
     
-    public void onScoreHoverListener(int index) {
-        gameIndexDisplay.setText("Game Data: #" + new DecimalFormat("0").format(index));
+    public void onScoreHoverListener(int gameId, GamePackage pkg) {
+        gameIndexDisplay.setText("Game Data: #" + new DecimalFormat("0").format(gameId));
     }
 
     @Override
@@ -121,37 +169,27 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     class Score {
-        private int rank, score, gameid;
-        private String[] players;
+        private int rank;
+        private GamePackage pkg;
 
         /**
-         * Creates new form Scores
+         * Creates a new entry of a score for the leader board.
+         * 
          * @param rank Game rank.
-         * @param score Game score.
-         * @param players Participating players.
+         * @param pkg  Game package.
          */
-        public Score(int gameid, int rank, int score, String[] players) {
-            this.gameid = gameid;
+        public Score(int rank, GamePackage pkg) {
             this.rank = rank;
-            this.score = score;
-            this.players = players;
+            this.pkg = pkg;
             initComponents();
         }
 
-        public int getGameID() {
-            return this.gameid;
-        }
-        
         public int getRank() {
             return this.rank;
         }
-        
-        public int getScore() {
-            return this.score;
-        }
-        
-        public String[] getPlayers() {
-            return this.players;
+
+        public GamePackage getGamePackage() {
+            return this.pkg;
         }
         
     }
@@ -161,7 +199,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     private void initComponents() {
 
         topBar = new javax.swing.JPanel();
-        jSeparator1 = new javax.swing.JSeparator();
         gameIndexDisplay = new javax.swing.JLabel();
         rankTitle = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -181,8 +218,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         setBackground(new java.awt.Color(255, 255, 255));
 
         topBar.setBackground(new java.awt.Color(153, 153, 153));
-
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         gameIndexDisplay.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         gameIndexDisplay.setForeground(new java.awt.Color(255, 255, 255));
@@ -222,10 +257,8 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playersTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(playersTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(gameIndexDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -239,7 +272,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                     .addComponent(scoreTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                     .addComponent(jSeparator2)
                     .addComponent(rankTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
                     .addComponent(gameIndexDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -247,7 +279,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         playerTypeDisplay.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         playerTypeDisplay.setForeground(new java.awt.Color(204, 0, 0));
         playerTypeDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playerTypeDisplay.setText("Single Player");
 
         changeArrow1.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
         changeArrow1.setForeground(new java.awt.Color(204, 0, 0));
@@ -303,7 +334,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         pageReference.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         pageReference.setForeground(new java.awt.Color(204, 0, 0));
         pageReference.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pageReference.setText("Page 0/0");
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -361,7 +391,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     private javax.swing.JLabel changeArrow3;
     private javax.swing.JLabel changeArrow4;
     private javax.swing.JLabel gameIndexDisplay;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;

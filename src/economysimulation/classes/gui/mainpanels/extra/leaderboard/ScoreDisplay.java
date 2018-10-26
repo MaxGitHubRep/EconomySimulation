@@ -2,6 +2,7 @@ package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -17,16 +18,27 @@ import javax.swing.JPanel;
 public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private int gameid;
+    private GamePackage pkg;
     
     public ScoreDisplay() {
         initComponents();
     }
     
-    public void setDisplayData(int gameid, int rank, int score, String[] players) {
-        this.gameid = gameid;
-        rankDisplay.setText("#" + rank);
-        scoreDisplay.setText(score + "");
-        playersDisplay.setText(players[0]);
+    public void setDisplayData(int rank, GamePackage pkg) {
+        
+        this.pkg = pkg;
+        if (pkg != null) {
+            this.gameid = pkg.getID();
+            rankDisplay.setText("#" + rank);
+            scoreDisplay.setText(pkg.getScore() + "");
+            playersDisplay.setText(pkg.getPlayers()[0]);
+        } else {
+            this.gameid = -1;
+            for (JLabel label : new JLabel[]{ rankDisplay, scoreDisplay, playersDisplay }) {
+                label.setText(" - ");
+            }
+        }
+        
         
         applyButtonListener(this);
         Format.addButtonFormat(this, null);
@@ -37,7 +49,7 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Methods.LBDisplay.onScoreHoverListener(gameid);
+                if (pkg != null) Methods.LBDisplay.onScoreHoverListener(gameid, pkg);
             }
         });
     }
