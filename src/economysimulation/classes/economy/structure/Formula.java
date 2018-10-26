@@ -56,7 +56,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
 
         if (StandardOfLiving > 1) {
             StandardOfLiving = 1;
-        } else if (StandardOfLiving <= 0 || PoliticalInflluence <= 0 || Unemployment >= 100) {
+        } else if (StandardOfLiving <= 0.01 || PoliticalInflluence <= 0.01 || Unemployment >= 100 || ConsumerConfidence <= 0.01 || CorporationConfidence <= 0.01) {
             Completed.simulationCompleted();
             
         }
@@ -67,14 +67,15 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         WageMultiplier = 1;
         CostOfProduction = 0;
         
-        if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
-
         PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
         
-        if (EventManager.eventId < 7 && SectorInstance.SectorList[EventManager.eventId].getSpendingInfluence() == 0) {
-            EventManager.delay-=0.01;
-            PoliticalInflluence*=EventManager.delay;
+        if (EventManager.eventId < 7 && SectorInstance.SectorList[EventManager.eventId].getSpendingInfluence() <= 5) {
+            EventManager.delay+=0.01;
+            PoliticalInflluence-= EventManager.delay;
         }
+        
+        if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
+
     }
 
     @Override

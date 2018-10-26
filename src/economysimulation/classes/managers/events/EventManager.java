@@ -5,7 +5,6 @@ import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.events.events.Event;
 import economysimulation.classes.managers.exception.InvalidPanelSizeException;
 import economysimulation.classes.managers.popup.positions.FramePosition;
-import economysimulation.classes.managers.shadow.Position;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.shadow.ShadowSize;
 import economysimulation.classes.managers.shadow.Speed;
@@ -30,14 +29,14 @@ public class EventManager {
         ArrayList<Event> events = new ArrayList<>();
             
         for (int i = 0; i < SectorInstance.SectorList.length-1; i++) {
-            if (SectorInstance.SectorList[i].getSpendingInfluence() == 0) {
+            if (SectorInstance.SectorList[i].getSpendingInfluence() <= 0) {
                 events.add(Events.EventList[i]);
             }
         }
         
         if (events.size() > 0) {
             Event event = events.get(Methods.randomInt(0, events.size()-1));
-            delay = 1;
+            delay = 0;
             eventId = event.getIndex();
             
             eventDisplay.createEvent(event.getTitle(), event.getDescription(), event.getImageFileName());
