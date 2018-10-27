@@ -7,6 +7,7 @@ import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.sorting.SortArray;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.managers.ui.Format;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,6 +50,8 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         applyModeScroller(changeArrow2, true);
         applyPagesScroller(changeArrow3, true);
         applyPagesScroller(changeArrow4, false);
+        
+        Format.addButtonFormat(back1, col1);
     }
     
     public void configLeaderboard() {
@@ -123,15 +126,15 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                     if (frontPointer >= 10) {
                         updateFrontPointer(-SCORES_PER_PAGE);
                     }
-                } 
+                }
             }
         });
     }
     
     private void updateFrontPointer(int value) {
         frontPointer+=value;
-        updatePageNumberedDisplay();
         refreshDisplayList();
+        updatePageNumberedDisplay();
     }
     
     public void addScore(int rank, GamePackage pkg) {
@@ -163,7 +166,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this }, new JPanel[]{ topBar, leftBar });
+        updater.applyPanelThemes(new JPanel[]{ this, back1, col1 }, new JPanel[]{ topBar, leftBar });
         updater.applyTextThemes(new JLabel[]{ changeArrow1, changeArrow2, changeArrow3, changeArrow4, playerTypeDisplay, pageReference }, 
                 new JLabel[]{ rankTitle, scoreTitle, playersTitle, gameIndexDisplay });
     }
@@ -214,6 +217,10 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         changeArrow3 = new javax.swing.JLabel();
         pageReference = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        back1 = new javax.swing.JPanel();
+        col1 = new javax.swing.JPanel();
+        title1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -234,7 +241,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         scoreTitle.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         scoreTitle.setForeground(new java.awt.Color(255, 255, 255));
         scoreTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        scoreTitle.setText("Score (£)");
+        scoreTitle.setText("Score (£m)");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -337,6 +344,52 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
+        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back1MouseClicked(evt);
+            }
+        });
+
+        col1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout col1Layout = new javax.swing.GroupLayout(col1);
+        col1.setLayout(col1Layout);
+        col1Layout.setHorizontalGroup(
+            col1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        col1Layout.setVerticalGroup(
+            col1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        title1.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        title1.setForeground(new java.awt.Color(204, 0, 0));
+        title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title1.setText("Refresh");
+
+        javax.swing.GroupLayout back1Layout = new javax.swing.GroupLayout(back1);
+        back1.setLayout(back1Layout);
+        back1Layout.setHorizontalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(col1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(back1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back1Layout.setVerticalGroup(
+            back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back1Layout.createSequentialGroup()
+                .addComponent(col1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -353,9 +406,13 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addComponent(playerTypeDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
+                .addGap(34, 34, 34)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(back1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pageReference, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,15 +423,22 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(playerTypeDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(changeArrow1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pageReference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(changeArrow3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(playerTypeDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(changeArrow1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(pageReference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(changeArrow3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator4))
+                            .addComponent(jSeparator5)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,22 +448,30 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        configLeaderboard();
+    }//GEN-LAST:event_back1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel back1;
     private javax.swing.JPanel backScore;
     private javax.swing.JLabel changeArrow1;
     private javax.swing.JLabel changeArrow2;
     private javax.swing.JLabel changeArrow3;
     private javax.swing.JLabel changeArrow4;
+    private javax.swing.JPanel col1;
     private javax.swing.JLabel gameIndexDisplay;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPanel leftBar;
     private javax.swing.JLabel pageReference;
     private javax.swing.JLabel playerTypeDisplay;
     private javax.swing.JLabel playersTitle;
     private javax.swing.JLabel rankTitle;
     private javax.swing.JLabel scoreTitle;
+    private javax.swing.JLabel title1;
     private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 }
