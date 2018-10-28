@@ -54,9 +54,9 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() <= 0 ? 0.09 : -0.09) +
                 (SectorInstance.Science.getSpendingInfluence() <= 0 ? 0.05 : -0.05);
 
-        if (StandardOfLiving > 1) {
-            StandardOfLiving = 1;
-        } else if (StandardOfLiving <= 0.01 || PoliticalInflluence <= 0.01 || Unemployment >= 100 || ConsumerConfidence <= 0.01 || CorporationConfidence <= 0.01) {
+        if (StandardOfLiving > 1) StandardOfLiving = 1;
+        
+        if (StandardOfLiving <= 0.01 || PoliticalInflluence <= 0.01 || Unemployment >= 100 || ConsumerConfidence <= 0.01 || CorporationConfidence <= 0.01) {
             Completed.simulationCompleted();
             
         }
