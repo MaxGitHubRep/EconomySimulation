@@ -350,7 +350,6 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
         updater.applyTextThemes(new JLabel[]{ title1, title2, title3, title4 }, null);
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;
     private javax.swing.JPanel back2;

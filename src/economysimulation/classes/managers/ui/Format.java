@@ -28,7 +28,6 @@ public class Format {
         }
         
         backPanel.addMouseListener(new MouseAdapter() {
-
             @Override 
             public void mouseEntered(MouseEvent e) {
                 backPanel.setBackground(ThemeManager.Theme.getPrimaryHoverColor());

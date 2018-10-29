@@ -3,6 +3,7 @@ package economysimulation.classes.gui.startup;
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
@@ -150,7 +151,9 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
-                    Methods.FrameDisplay.addToMainFrame(new PreSetup());
+                    
+                    Methods.FrameDisplay.addToMainFrame(Mode.getMode() == Mode.SOLO ? new PreSetup() : new PlayerSearch());
+                    
                 }
             }
 
