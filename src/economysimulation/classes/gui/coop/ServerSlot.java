@@ -24,7 +24,6 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     /** Text that is used to display a player slot that is not occupied. */
     private static final String EMPTY_TEXT = "#empty#";
     
-    
     /** Maximum amount of players that can be on one team. */
     public static final int MAX_PLAYERS = 0,
 
@@ -49,10 +48,10 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         
         UsersInSlot = new ArrayList<>();
         
-        backPanels = new JPanel[]{ back1 };
-        colorPanels = new JPanel[]{ color1 };
+        backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
+        colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6 };
         
-        titleLabels = new JLabel[]{ display1 };
+        titleLabels = new JLabel[]{ display1, display2, display3, display4, display5, display6 };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
@@ -74,8 +73,8 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, color1 }, null);
-        updater.applyTextThemes(new JLabel[]{ display1, playerListTitle, serverIdTitle }, null);
+        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, back5, back6, color1, color2, color3, color4, color5, color6 }, null);
+        updater.applyTextThemes(new JLabel[]{ display1, display2, display3, display4, display5, display6, playerListTitle, serverIdTitle, channelOptionsTitle }, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,6 +87,24 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         back1 = new javax.swing.JPanel();
         color1 = new javax.swing.JPanel();
         display1 = new javax.swing.JLabel();
+        back2 = new javax.swing.JPanel();
+        color2 = new javax.swing.JPanel();
+        display2 = new javax.swing.JLabel();
+        back3 = new javax.swing.JPanel();
+        color3 = new javax.swing.JPanel();
+        display3 = new javax.swing.JLabel();
+        back4 = new javax.swing.JPanel();
+        color4 = new javax.swing.JPanel();
+        display4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        channelOptionsTitle = new javax.swing.JLabel();
+        back5 = new javax.swing.JPanel();
+        color5 = new javax.swing.JPanel();
+        display5 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        back6 = new javax.swing.JPanel();
+        color6 = new javax.swing.JPanel();
+        display6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -140,6 +157,206 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addContainerGap())
         );
 
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        color2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color2Layout = new javax.swing.GroupLayout(color2);
+        color2.setLayout(color2Layout);
+        color2Layout.setHorizontalGroup(
+            color2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color2Layout.setVerticalGroup(
+            color2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display2.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display2.setForeground(new java.awt.Color(204, 0, 0));
+        display2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display2.setText("#empty#");
+
+        javax.swing.GroupLayout back2Layout = new javax.swing.GroupLayout(back2);
+        back2.setLayout(back2Layout);
+        back2Layout.setHorizontalGroup(
+            back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back2Layout.createSequentialGroup()
+                .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display2, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back2Layout.setVerticalGroup(
+            back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        back3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        color3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color3Layout = new javax.swing.GroupLayout(color3);
+        color3.setLayout(color3Layout);
+        color3Layout.setHorizontalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color3Layout.setVerticalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display3.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display3.setForeground(new java.awt.Color(204, 0, 0));
+        display3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display3.setText("#empty#");
+
+        javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
+        back3.setLayout(back3Layout);
+        back3Layout.setHorizontalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back3Layout.createSequentialGroup()
+                .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display3, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back3Layout.setVerticalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display3, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        back4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        color4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color4Layout = new javax.swing.GroupLayout(color4);
+        color4.setLayout(color4Layout);
+        color4Layout.setHorizontalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color4Layout.setVerticalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display4.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display4.setForeground(new java.awt.Color(204, 0, 0));
+        display4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display4.setText("#empty#");
+
+        javax.swing.GroupLayout back4Layout = new javax.swing.GroupLayout(back4);
+        back4.setLayout(back4Layout);
+        back4Layout.setHorizontalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back4Layout.createSequentialGroup()
+                .addComponent(color4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back4Layout.setVerticalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        channelOptionsTitle.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        channelOptionsTitle.setForeground(new java.awt.Color(204, 0, 0));
+        channelOptionsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        channelOptionsTitle.setText("Channel Options");
+
+        back5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        color5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color5Layout = new javax.swing.GroupLayout(color5);
+        color5.setLayout(color5Layout);
+        color5Layout.setHorizontalGroup(
+            color5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color5Layout.setVerticalGroup(
+            color5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display5.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display5.setForeground(new java.awt.Color(204, 0, 0));
+        display5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display5.setText("Status");
+
+        javax.swing.GroupLayout back5Layout = new javax.swing.GroupLayout(back5);
+        back5.setLayout(back5Layout);
+        back5Layout.setHorizontalGroup(
+            back5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back5Layout.createSequentialGroup()
+                .addComponent(color5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display5, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back5Layout.setVerticalGroup(
+            back5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display5, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        back6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        color6.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color6Layout = new javax.swing.GroupLayout(color6);
+        color6.setLayout(color6Layout);
+        color6Layout.setHorizontalGroup(
+            color6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color6Layout.setVerticalGroup(
+            color6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display6.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display6.setForeground(new java.awt.Color(204, 0, 0));
+        display6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display6.setText("Join Channel");
+
+        javax.swing.GroupLayout back6Layout = new javax.swing.GroupLayout(back6);
+        back6.setLayout(back6Layout);
+        back6Layout.setHorizontalGroup(
+            back6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back6Layout.createSequentialGroup()
+                .addComponent(color6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display6, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back6Layout.setVerticalGroup(
+            back6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display6, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -148,13 +365,23 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
                     .addComponent(playerListTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(channelOptionsTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 58, Short.MAX_VALUE)
-                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 29, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(back1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,20 +389,54 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(serverIdTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(back5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(playerListTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(475, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(channelOptionsTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(back6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;
+    private javax.swing.JPanel back2;
+    private javax.swing.JPanel back3;
+    private javax.swing.JPanel back4;
+    private javax.swing.JPanel back5;
+    private javax.swing.JPanel back6;
+    private javax.swing.JLabel channelOptionsTitle;
     private javax.swing.JPanel color1;
+    private javax.swing.JPanel color2;
+    private javax.swing.JPanel color3;
+    private javax.swing.JPanel color4;
+    private javax.swing.JPanel color5;
+    private javax.swing.JPanel color6;
     private javax.swing.JLabel display1;
+    private javax.swing.JLabel display2;
+    private javax.swing.JLabel display3;
+    private javax.swing.JLabel display4;
+    private javax.swing.JLabel display5;
+    private javax.swing.JLabel display6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel playerListTitle;
     private javax.swing.JLabel serverIdTitle;
     // End of variables declaration//GEN-END:variables
