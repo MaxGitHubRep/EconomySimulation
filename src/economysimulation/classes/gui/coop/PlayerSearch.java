@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.coop;
 
+import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -10,6 +11,12 @@ import javax.swing.JPanel;
  * @author Max Carter
  */
 public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent {
+        
+    /** Maximum amount of teams that can be created at once. */
+    public static final int MAX_TEAMS = 5;
+    
+    private JPanel[] slotPanels;
+    private ServerSlot[] serverSlots = new ServerSlot[MAX_TEAMS];
     
     /**
      * Creates new form PlayerSearch
@@ -17,6 +24,13 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
     public PlayerSearch() {
         initComponents();
 
+        slotPanels = new JPanel[]{ add1, add2, add3, add4, add5 };
+        
+        for (int i = 0; i < slotPanels.length; i++) {
+            serverSlots[i] = new ServerSlot(i+1);
+            Methods.addToFrontPanel(slotPanels[i], serverSlots[i], false);
+        }
+        
         ThemeManager.addThemeUpdateListener(this);
     }
 
@@ -36,6 +50,10 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         add1 = new javax.swing.JPanel();
+        add2 = new javax.swing.JPanel();
+        add3 = new javax.swing.JPanel();
+        add4 = new javax.swing.JPanel();
+        add5 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -66,7 +84,7 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 757, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 755, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -94,6 +112,58 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
         );
         add1Layout.setVerticalGroup(
             add1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        add2.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout add2Layout = new javax.swing.GroupLayout(add2);
+        add2.setLayout(add2Layout);
+        add2Layout.setHorizontalGroup(
+            add2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        add2Layout.setVerticalGroup(
+            add2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 749, Short.MAX_VALUE)
+        );
+
+        add3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout add3Layout = new javax.swing.GroupLayout(add3);
+        add3.setLayout(add3Layout);
+        add3Layout.setHorizontalGroup(
+            add3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        add3Layout.setVerticalGroup(
+            add3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 749, Short.MAX_VALUE)
+        );
+
+        add4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout add4Layout = new javax.swing.GroupLayout(add4);
+        add4.setLayout(add4Layout);
+        add4Layout.setHorizontalGroup(
+            add4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        add4Layout.setVerticalGroup(
+            add4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 749, Short.MAX_VALUE)
+        );
+
+        add5.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout add5Layout = new javax.swing.GroupLayout(add5);
+        add5.setLayout(add5Layout);
+        add5Layout.setHorizontalGroup(
+            add5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        add5Layout.setVerticalGroup(
+            add5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 749, Short.MAX_VALUE)
         );
 
@@ -105,20 +175,37 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(add1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(add2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(add3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(add4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(add5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(add1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(add2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add1;
+    private javax.swing.JPanel add2;
+    private javax.swing.JPanel add3;
+    private javax.swing.JPanel add4;
+    private javax.swing.JPanel add5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     /** Unique ID of the server slot. */
-    private int ServerId = 0;
+    private int ServerId = 0, UserInSlotId = -1;
     
     /** Text that is used to display a player slot that is not occupied. */
     private static final String EMPTY_TEXT = "#empty#";
@@ -28,10 +28,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     public static final int MAX_PLAYERS = 0,
 
     /** Minimum amount of players that can be on one team. */
-    MIN_PLAYERS = 2,
-    
-    /** Maximum amount of teams that can be created at once. */
-    MAX_TEAMS = 5;
+    MIN_PLAYERS = 2;
     
     private JPanel[] backPanels, colorPanels;
     private JLabel[] titleLabels;
@@ -48,10 +45,10 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         
         UsersInSlot = new ArrayList<>();
         
-        backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
-        colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6 };
+        backPanels = new JPanel[]{ back1, back2, back3, back4 };
+        colorPanels = new JPanel[]{ color1, color2, color3, color4 };
         
-        titleLabels = new JLabel[]{ display1, display2, display3, display4, display5, display6 };
+        titleLabels = new JLabel[]{ display1, display2, display3, display4 };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
@@ -67,7 +64,21 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         if (UsersInSlot.size() == MAX_PLAYERS) {
             HintManager.createHint(Hints.ServerSlotFull);
         } else {
+            UserInSlotId = UsersInSlot.size();
             UsersInSlot.add(Methods.Username);
+            titleLabels[UserInSlotId].setText(Methods.Username);
+            display6.setText("Leave");
+            //update server
+        }
+    }
+    
+    public void leaveServerSlot() {
+        if (UserInSlotId > -1) {
+            titleLabels[UserInSlotId].setText(EMPTY_TEXT);
+            UsersInSlot.remove(UserInSlotId);
+            display6.setText("Join");
+            UserInSlotId = -1;
+            //update server
         }
     }
     
@@ -366,13 +377,6 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(playerListTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(channelOptionsTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 29, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,7 +385,14 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                             .addComponent(back3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(back4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(back5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3)
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(channelOptionsTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,13 +414,13 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(channelOptionsTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(back6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
