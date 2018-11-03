@@ -30,6 +30,11 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     /** Minimum amount of players that can be on one team. */
     MIN_PLAYERS = 2;
     
+    /** List of server slot states. */
+    public static final String[] SERVER_STATES = new String[]{
+        "Status", "Lobby", "In Game", "End Game"
+    };
+    
     private JPanel[] backPanels, colorPanels;
     private JLabel[] titleLabels;
     
@@ -60,6 +65,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         ThemeManager.addThemeUpdateListener(this);
     }
 
+    /** Adds the current user to the server slot. */
     public void joinServerSlot() {
         if (UsersInSlot.size() == MAX_PLAYERS) {
             HintManager.createHint(Hints.ServerSlotFull);
@@ -72,6 +78,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         }
     }
     
+    /** Removes the current user from the server slot. */
     public void leaveServerSlot() {
         if (UserInSlotId > -1) {
             titleLabels[UserInSlotId].setText(EMPTY_TEXT);
@@ -80,6 +87,14 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             UserInSlotId = -1;
             //update server
         }
+    }
+    
+    /**
+     * The unique ID that is attached to the server slot.
+     * @return ID of the server.
+     */
+    public int getServerSlotID() {
+        return ServerId;
     }
     
     @Override
@@ -291,6 +306,14 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         channelOptionsTitle.setText("Channel Options");
 
         back5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                back5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                back5MouseExited(evt);
+            }
+        });
 
         color5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -330,6 +353,11 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         );
 
         back6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back6MouseClicked(evt);
+            }
+        });
 
         color6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -423,6 +451,23 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void back6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back6MouseClicked
+        if (UserInSlotId == -1) {
+            joinServerSlot();
+        } else {
+            leaveServerSlot();
+        }
+    }//GEN-LAST:event_back6MouseClicked
+
+    private void back5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseEntered
+        display5.setText(SERVER_STATES[1]);
+        //gets the game state from the server
+    }//GEN-LAST:event_back5MouseEntered
+
+    private void back5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseExited
+        display5.setText(SERVER_STATES[0]);
+    }//GEN-LAST:event_back5MouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
