@@ -25,7 +25,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     private static final String EMPTY_TEXT = "#empty#";
     
     /** Maximum amount of players that can be on one team. */
-    public static final int MAX_PLAYERS = 0,
+    public static final int MAX_PLAYERS = 4,
 
     /** Minimum amount of players that can be on one team. */
     MIN_PLAYERS = 2;
@@ -73,7 +73,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             UserInSlotId = UsersInSlot.size();
             UsersInSlot.add(Methods.Username);
             titleLabels[UserInSlotId].setText(Methods.Username);
-            display6.setText("Leave");
+            display6.setText("Leave Channel");
             //update server
         }
     }
@@ -83,7 +83,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         if (UserInSlotId > -1) {
             titleLabels[UserInSlotId].setText(EMPTY_TEXT);
             UsersInSlot.remove(UserInSlotId);
-            display6.setText("Join");
+            display6.setText("Join Channel");
             UserInSlotId = -1;
             //update server
         }
