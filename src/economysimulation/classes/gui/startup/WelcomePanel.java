@@ -152,7 +152,12 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
-                    Methods.FrameDisplay.addToMainFrame(Mode.getMode() == Mode.SOLO ? new PreSetup() : new PlayerSearch());
+                    if (Mode.isMode(Mode.COOP)) {
+                        if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
+                        Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
+                    } else {
+                        Methods.FrameDisplay.addToMainFrame(new PreSetup());
+                    }
                     
                 }
             }

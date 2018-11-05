@@ -29,4 +29,8 @@ public class Mode {
         return mode;
     }
     
+    public static boolean isMode(int mode) {
+        return getMode() == mode;
+    }
+    
 }

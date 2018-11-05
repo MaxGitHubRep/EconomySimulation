@@ -2,6 +2,7 @@ package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.economy.structure.Formula;
+import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.fronter.SideBar;
@@ -62,6 +63,7 @@ public class Methods {
     public static RateHold RatesBack;
     public static BudgetHold BudgetBack;
     public static Tutorial TutorialDisplay;
+    public static PlayerSearch PlayerSearchDisplay = null;
     
     
     public static String Username;
