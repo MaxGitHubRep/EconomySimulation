@@ -31,7 +31,7 @@ public class PulseThread {
                         Thread.sleep(GameDisplay.Speed);
                         if (Pulses != null) {
                             Pulses.forEach((pulse) -> {
-                                pulse.gamePulseEvent();
+                                pulse.onGamePulseEvent();
                             });
                         }
                     }

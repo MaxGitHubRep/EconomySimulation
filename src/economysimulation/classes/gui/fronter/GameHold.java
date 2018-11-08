@@ -97,7 +97,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     }
     
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         Ticks++;
         updateRealGDPLabel();
         updateTime();

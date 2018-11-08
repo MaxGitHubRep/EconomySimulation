@@ -107,7 +107,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
     }
     
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         this.components.calculateCorporationComponents();
         double[] data = this.components.calculateCorporationComponents();
         double[] values = new double[]{ Component.Wages, Component.TotalCorporationProfits, data[0], Component.CostOfProduction, data[1], Component.Investment };

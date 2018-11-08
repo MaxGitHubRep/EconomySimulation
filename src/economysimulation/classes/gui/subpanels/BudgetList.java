@@ -29,7 +29,7 @@ import economysimulation.classes.economy.structure.Component;
 public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*10) + "%");
     }
 

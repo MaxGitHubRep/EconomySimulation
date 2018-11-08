@@ -63,7 +63,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     }//</editor-fold>
 
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         WageMultiplier = 1;
         CostOfProduction = 0;
         

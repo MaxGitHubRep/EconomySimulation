@@ -118,7 +118,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
     }
     
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         double[] data = this.components.calculateConsumerComponents();
         double[] values = new double[]{ Component.Population, Component.TotalConsumption*1000, Component.TotalSavings*1000, Component.Unemployment, data[0]*1000, data[1]*1000 };
         

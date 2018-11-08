@@ -7,8 +7,8 @@ package economysimulation.classes.pulse;
 public interface GamePulse {
     
     /**
-     * Event for when the simulation emits a {@code pulse}, signalling a new {@code day}.
+     * Event for when the simulation emits a pulse, signalling a new day in the economy.
      */
-    void gamePulseEvent();
+    void onGamePulseEvent();
     
 }

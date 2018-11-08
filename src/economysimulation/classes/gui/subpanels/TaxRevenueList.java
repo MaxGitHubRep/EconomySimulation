@@ -52,7 +52,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
     }
 
     @Override
-    public void gamePulseEvent() {
+    public void onGamePulseEvent() {
         updateTaxationLabels();
     }
 
