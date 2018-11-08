@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.sorting;
 
+import economysimulation.classes.gui.mainpanels.extra.leaderboard.DisplayType;
 import economysimulation.classes.managers.extcon.GamePackage;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,32 @@ import java.util.List;
  */
 public class SortArray {
 
-    public static List<GamePackage> sortGameData(List<GamePackage> list) {
+    public static List<GamePackage> sortGameData(List<GamePackage> list, DisplayType dt) {
+        
+        if (dt != DisplayType.COMBINED) {
+            List<GamePackage> removeList = new ArrayList<>();
+
+            if (dt == DisplayType.SINGLE_PLAYER) {
+                for (GamePackage pkg : list) {
+                    if (pkg.getPlayers().length > 1) {
+                        removeList.add(pkg);
+                    }
+                }
+            } else if (dt == DisplayType.MULTI_PLAYER) {
+                for (GamePackage pkg : list) {
+                    if (pkg.getPlayers().length == 1) {
+                        removeList.add(pkg);
+                    }
+                }
+            }
+
+            for (GamePackage pkg : removeList) {
+                if (list.contains(pkg)) {
+                    list.remove(pkg);
+                }
+            }
+        }
+        
         // Create a new list to store the new data in.
         List<GamePackage> newList = new ArrayList<>();
         
