@@ -218,9 +218,9 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         backScore.removeAll();
         for (int i = 0; i < SCORES_PER_PAGE; i++) {
             backScore.add(scoreDisplays[i]);
-            scoreDisplays[i].setLocation(0, (i*80));
+            scoreDisplays[i].setLocation(0, (i*78));
             scoreDisplays[i].setVisible(true);
-            scoreDisplays[i].setSize(900, 80);
+            scoreDisplays[i].setSize(900, 76);
             
             if (ScoreList.size() <= i + frontPointer) {
                 scoreDisplays[i].setDisplayData(0, null);
@@ -342,6 +342,8 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         teammateRight = new javax.swing.JLabel();
         user = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
+        jSeparator8 = new javax.swing.JSeparator();
+        hoverComponent = new javax.swing.JLabel();
         changeArrow4 = new javax.swing.JLabel();
         changeArrow3 = new javax.swing.JLabel();
         pageReference = new javax.swing.JLabel();
@@ -505,6 +507,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         user.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user.setText("<player 1>");
 
+        hoverComponent.setFont(new java.awt.Font("Agency FB", 0, 40)); // NOI18N
+        hoverComponent.setForeground(new java.awt.Color(255, 255, 255));
+        hoverComponent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        hoverComponent.setText("N/A");
+
         javax.swing.GroupLayout leftBarLayout = new javax.swing.GroupLayout(leftBar);
         leftBar.setLayout(leftBarLayout);
         leftBarLayout.setHorizontalGroup(
@@ -512,6 +519,9 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             .addGroup(leftBarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(leftBarLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(hoverComponent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jSeparator7)
                     .addComponent(jSeparator1)
                     .addComponent(gback1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -522,7 +532,8 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(teammateRight, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(teammateRight, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         leftBarLayout.setVerticalGroup(
@@ -545,7 +556,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                     .addComponent(teammateRight, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(532, 532, 532))
+                .addGap(440, 440, 440)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(hoverComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         changeArrow4.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
@@ -687,6 +702,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     private javax.swing.JPanel gback2;
     private javax.swing.JLabel gtitle1;
     private javax.swing.JLabel gtitle2;
+    private javax.swing.JLabel hoverComponent;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -694,6 +710,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JPanel leftBar;
     private javax.swing.JLabel pageReference;
     private javax.swing.JLabel playerTypeDisplay;
