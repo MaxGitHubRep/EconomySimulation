@@ -47,7 +47,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         };
     
     public List<Score> ScoreList;
-    private int frontPointer = 0, totalPages = 0, viewSelection = 0;
+    private int frontPointer = 0, totalPages = 0, viewSelection = 0, selectedPlayer = -1;
     private final int SCORES_PER_PAGE = 10;
     
     private JPanel[] infoPanels;
@@ -79,10 +79,12 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         configLeaderboard(DisplayType.COMBINED);
 
         ThemeManager.addThemeUpdateListener(this);
-        applyModeScroller(changeArrow1, false);
-        applyModeScroller(changeArrow2, true);
-        applyPagesScroller(changeArrow3, true);
-        applyPagesScroller(changeArrow4, false);
+        applyScroller(changeArrow1, false, Scroll.MODE);
+        applyScroller(changeArrow2, true, Scroll.MODE);
+        applyScroller(changeArrow3, true, Scroll.PAGE);
+        applyScroller(changeArrow4, false, Scroll.PAGE);
+        applyScroller(teammateRight, true, Scroll.TEAMMATE);
+        applyScroller(teammateLeft, false, Scroll.TEAMMATE);
         
         Format.addButtonFormat(back1, col1);
     }
@@ -148,32 +150,55 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         playerTypeDisplay.setText(DisplayOrder[viewSelection].getTitle());
     }
     
-    private void applyModeScroller(JLabel label, boolean forward) {
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (forward) {
-                    viewSelection = (viewSelection == DisplayOrder.length-1) ? 0 : viewSelection+1;
-                } else {
-                    viewSelection = (viewSelection == 0) ? DisplayOrder.length-1 : viewSelection-1;
-                }
-                playerTypeDisplay.setText(DisplayOrder[viewSelection].getTitle());
-            }
-        });
+    enum Scroll {
+        MODE,
+        PAGE,
+        TEAMMATE
     }
     
-    private void applyPagesScroller(JLabel label, boolean forward) {
+    private void applyScroller(JLabel label, boolean forward, Scroll scroll) {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (forward) {
-                    if (frontPointer+SCORES_PER_PAGE < ScoreList.size()) {
-                        updateFrontPointer(SCORES_PER_PAGE);
+                if (scroll == Scroll.MODE) {
+                    if (forward) {
+                        viewSelection = (viewSelection == DisplayOrder.length-1) ? 0 : viewSelection+1;
+                    } else {
+                        viewSelection = (viewSelection == 0) ? DisplayOrder.length-1 : viewSelection-1;
                     }
-                } else {
-                    if (frontPointer >= 10) {
-                        updateFrontPointer(-SCORES_PER_PAGE);
+                    playerTypeDisplay.setText(DisplayOrder[viewSelection].getTitle());
+                    
+                } else if (scroll == Scroll.PAGE) {
+                    if (forward) {
+                        if (frontPointer+SCORES_PER_PAGE < ScoreList.size()) {
+                            updateFrontPointer(SCORES_PER_PAGE);
+                        }
+                    } else {
+                        if (frontPointer >= 10) {
+                            updateFrontPointer(-SCORES_PER_PAGE);
+                        }
                     }
+                    
+                } else if (scroll == Scroll.TEAMMATE && selectedPackage != null) {
+                    int players = selectedPackage.getPlayers().length;
+                    if (selectedPlayer == -1 || players <= 1) {
+                        return;
+                    }
+                    
+                    if (forward) {
+                        if (selectedPlayer == players-1) {
+                            selectedPlayer = 0;
+                        } else {
+                            selectedPlayer++;
+                        }
+                    } else {
+                        if (selectedPlayer == 0) {
+                            selectedPlayer = players-1;
+                        } else {
+                            selectedPlayer--;
+                        }
+                    }
+                    user.setText(selectedPackage.getPlayers()[selectedPlayer]);
                 }
             }
         });
@@ -512,12 +537,12 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(teammateRight, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(leftBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(leftBarLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(user, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(teammateLeft, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(teammateLeft, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(teammateRight, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(532, 532, 532))
