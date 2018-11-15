@@ -31,7 +31,13 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
             this.gameid = pkg.getID();
             rankDisplay.setText("#" + rank);
             scoreDisplay.setText(pkg.getScore() + "");
-            playersDisplay.setText(pkg.getPlayers()[0]);
+            String builder = "";
+            for (String player : pkg.getPlayers()) {
+                builder += player + " ";
+            }  
+            
+            playersDisplay.setText("<html>" + builder + "</html>");
+            
         } else {
             this.gameid = -1;
             for (JLabel label : new JLabel[]{ rankDisplay, scoreDisplay, playersDisplay }) {
@@ -87,10 +93,11 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         scoreDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scoreDisplay.setText("-");
 
-        playersDisplay.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        playersDisplay.setFont(new java.awt.Font("Agency FB", 0, 22)); // NOI18N
         playersDisplay.setForeground(new java.awt.Color(204, 0, 0));
-        playersDisplay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playersDisplay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         playersDisplay.setText("-");
+        playersDisplay.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
