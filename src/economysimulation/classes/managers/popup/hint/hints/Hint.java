@@ -7,13 +7,26 @@ package economysimulation.classes.managers.popup.hint.hints;
 public abstract class Hint {
     
     public final int COOLDOWN_TIME = 280;
+    public int cooldown = 0;
     
     public abstract String getTitle();
     public abstract String getDescription();
     public abstract int getUrgency();
-    public abstract int getCooldown();
-    public abstract void resetCooldown();
-    public abstract void reduceCooldown();
-    public abstract boolean isOnCooldown();
+    
+    public int getCooldown() {
+        return cooldown;
+    }
+    
+    public void resetCooldown() {
+        cooldown = COOLDOWN_TIME;
+    }
+    
+    public void reduceCooldown() {
+        cooldown--;
+    }
+    
+    public boolean isOnCooldown() {
+        return cooldown != COOLDOWN_TIME;
+    }
     
 }

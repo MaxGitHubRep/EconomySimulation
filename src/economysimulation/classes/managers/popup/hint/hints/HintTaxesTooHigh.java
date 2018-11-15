@@ -25,24 +25,4 @@ public class HintTaxesTooHigh extends Hint {
         return Urgency.MEDIUM;
     }
 
-    @Override
-    public int getCooldown() {
-        return this.cooldown;
-    }
-
-    @Override
-    public void resetCooldown() {
-        this.cooldown = super.COOLDOWN_TIME;
-    }
-
-    @Override
-    public void reduceCooldown() {
-        this.cooldown--;
-    }
-  
-    @Override
-    public boolean isOnCooldown() {
-        return this.cooldown != super.COOLDOWN_TIME;
-    }  
-    
 }
