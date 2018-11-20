@@ -103,13 +103,6 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void main(String args[]) {
-
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-//            ex.printStackTrace();
-//        }
-
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ThemeManager = new Theme();

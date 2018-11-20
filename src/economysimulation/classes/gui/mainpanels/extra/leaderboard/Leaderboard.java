@@ -23,28 +23,40 @@ import javax.swing.JPanel;
  */
 public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** The {@code GamePackage} which is selected to be displayed.
+     * Defaults to {@code null}. */
     private GamePackage selectedPackage = null;
     
+    /** Error screen instance. */
     private LoadingError DummyErrorDisplay = null;
     
+    /** List of game display types. */
     protected final DisplayType[] DisplayOrder = new DisplayType[]{
         DisplayType.COMBINED, DisplayType.SINGLE_PLAYER, DisplayType.MULTI_PLAYER
     };
     
+    /** List of all the game scores. */
     public List<Score> ScoreList;
-    private int frontPointer = 0, totalPages = 0, viewSelection = 0, selectedPlayer = -1;
+    
+    /** Front index of the list. */
+    private int frontPointer = 0;
+    
+    /** Amount of pages in total. */
+    private int totalPages = 0;
+    
+    /** Selected view. */
+    private int viewSelection = 0;
+    
+    /** Amount of scores that are displayed on each page. */
     private final int SCORES_PER_PAGE = 10;
     
-    private JPanel[] infoPanels;
-    private JLabel[] infoLabels;
-    
+    /** List of score slots that display the game scores. */
     private ScoreDisplay[] scoreDisplays = new ScoreDisplay[SCORES_PER_PAGE];
     
+    /** List of all the game data which is displayed upon inspection. */
     private final GameData[] dataList;
     
-    /**
-     * Creates new form Leader board.
-     */
+    /** Creates new form Leader board. */
     public Leaderboard() {
         initComponents();
         sendErrorMessage("No games loaded.");
@@ -52,13 +64,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         for (int i = 0; i < SCORES_PER_PAGE; i++) {
             scoreDisplays[i] = new ScoreDisplay();
         }
-        
-        infoPanels = new JPanel[]{ gback1, gback2 };
-        infoLabels = new JLabel[]{ var1, var2 };
-        
-        //for (int i = 0; i < infoPanels.length; i++) {
-        //    Format.addButtonFormat(infoPanels[i], null);
-        //}
         
         dataList = new GameData[]{
             GameData.GDP, GameData.TICKS, GameData.CONSUMPTION, GameData.SAVINGS, GameData.POPULATION,
@@ -136,6 +141,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         playerTypeDisplay.setText(DisplayOrder[viewSelection].getTitle());
     }
     
+    /** Scroll mode can either change the page number or the team size display type. */
     enum Scroll {
         MODE,
         PAGE
