@@ -17,11 +17,6 @@ public class EventNationalThreat extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "National Security Threat from " + attacker;
     }
@@ -35,7 +30,5 @@ public class EventNationalThreat extends Event {
     public String getImageFileName() {
         return attacker.toLowerCase().replace(" ", "_");
     }
-    
-    
     
 }

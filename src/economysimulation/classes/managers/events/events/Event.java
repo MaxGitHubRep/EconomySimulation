@@ -12,7 +12,9 @@ public abstract class Event {
      * 
      * @return Index of the event.
      */
-    public abstract int getIndex();
+    public int getIndex() {
+        return index;
+    }
     
     /**
      * 

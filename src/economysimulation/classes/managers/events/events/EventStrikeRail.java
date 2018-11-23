@@ -11,11 +11,6 @@ public class EventStrikeRail extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "Train Drivers on Strike due to Low Pay!";
     }
@@ -29,7 +24,5 @@ public class EventStrikeRail extends Event {
     public String getImageFileName() {
         return "train_strike";
     }
-    
-    
     
 }

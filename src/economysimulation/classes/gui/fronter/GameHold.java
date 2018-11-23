@@ -140,6 +140,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             }
         });
         CBPThread.start();
+        System.gc();
     }
 
     //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 

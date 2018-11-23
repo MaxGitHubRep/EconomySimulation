@@ -11,11 +11,6 @@ public class EventHousingCrisis extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "Floods Destroy Houses!";
     }
@@ -29,7 +24,5 @@ public class EventHousingCrisis extends Event {
     public String getImageFileName() {
         return "house_crisis";
     }
-    
-    
     
 }

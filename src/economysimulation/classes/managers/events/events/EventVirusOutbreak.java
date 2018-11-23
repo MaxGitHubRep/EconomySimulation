@@ -11,11 +11,6 @@ public class EventVirusOutbreak extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "Deadly Virus Outbreak!";
     }
@@ -29,7 +24,5 @@ public class EventVirusOutbreak extends Event {
     public String getImageFileName() {
         return "toxic";
     }
-    
-    
     
 }

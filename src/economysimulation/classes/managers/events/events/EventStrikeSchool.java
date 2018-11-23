@@ -11,11 +11,6 @@ public class EventStrikeSchool extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "Students Strike Against High Uni Fees!";
     }

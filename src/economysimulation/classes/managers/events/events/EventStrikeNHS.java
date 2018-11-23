@@ -11,11 +11,6 @@ public class EventStrikeNHS extends Event {
     }
     
     @Override
-    public int getIndex() {
-        return super.index;
-    }
-    
-    @Override
     public String getTitle() {
         return "NHS Doctors are on Strike!";
     }
@@ -29,7 +24,5 @@ public class EventStrikeNHS extends Event {
     public String getImageFileName() {
         return "nhs_strike";
     }
-    
-    
     
 }
