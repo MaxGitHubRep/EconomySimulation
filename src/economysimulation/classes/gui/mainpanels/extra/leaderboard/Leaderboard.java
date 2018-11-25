@@ -4,7 +4,9 @@ import static economysimulation.classes.global.Methods.DBGames;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.GamePackage;
-import economysimulation.classes.managers.sorting.SortArray;
+import economysimulation.classes.managers.sorting.GameSorter;
+import economysimulation.classes.managers.sorting.conditions.SearchComponent;
+import economysimulation.classes.managers.sorting.conditions.SearchCondition;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -75,7 +77,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             gameInfoHoverEvent(data);
         }
         
-        configLeaderboard(DisplayType.COMBINED);
+        configLeaderboard(DisplayType.COMBINED, SearchComponent.POPULATION, SearchCondition.HIGH_TO_LOW);
 
         ThemeManager.addThemeUpdateListener(this);
         applyScroller(changeArrow1, false, Scroll.MODE);
@@ -87,34 +89,41 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     public void configLeaderboard() {
-        configLeaderboard(DisplayOrder[viewSelection]);
+        configLeaderboard(DisplayOrder[viewSelection], null, null);
     }
     
-    public void configLeaderboard(DisplayType dt) {
+    public void configLeaderboard(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
         backScore.removeAll();
         playerTypeDisplay.setText("");
         pageReference.setText("");
         extraLabel.setText("");
         if (Connection.isConnected) {
-            pullLeaderboardData(dt);
+            pullLeaderboardData(displayType, searchComponent, searchCondition);
             
         } else {
             sendErrorMessage("No connection to the server.");
         }
     }
     
-    private void pullLeaderboardData(DisplayType dt) {
+    private void pullLeaderboardData(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ScoreList = new ArrayList<>();
                 int gamesPlayed = DBGames.getGamesPlayed(true);
                 if (gamesPlayed == 0) {
                     sendErrorMessage("No games found.");
-                } else {
                     
+                } else {
                     totalPages = (int) Math.floor(gamesPlayed/SCORES_PER_PAGE)+1;
 
-                    List<GamePackage> gameData = SortArray.sortGameData(DBGames.getAllGameData(), dt);
+                    GameSorter gameSorter = new GameSorter(DBGames.getAllGameData());
+                    gameSorter.setDisplayType(displayType);
+                    gameSorter.setSearchComponent(searchComponent);
+                    gameSorter.setSearchCondition(searchCondition);
+                    gameSorter.sort();
+                    
+                    List<GamePackage> gameData = gameSorter.getList();
+                    
                     frontPointer = 0;
 
                     for (int i = 0; i < gameData.size(); i++) {
@@ -215,7 +224,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         TAXATION("Taxation", gback9, var9, "£%sm", 6, null),
         FIRM_PROFITS("Firm Profits", gback10, var10, "£%sm", 7, null),
         POPULATION("Population", gback11, var11, "%s", 2, null);
-        
         
         private String title = null, format = null;
         private JPanel back;
@@ -952,7 +960,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
-        configLeaderboard(DisplayOrder[viewSelection]);
+        configLeaderboard(DisplayOrder[viewSelection], null, null);
     }//GEN-LAST:event_back1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
