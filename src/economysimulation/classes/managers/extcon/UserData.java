@@ -27,10 +27,10 @@ public class UserData {
         lastUserID = 0;
         
         try {
-            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.Users"));
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.Users"));
             
             while (DBConnector.getResultSet().next()) {
-                lastUserID++;
+                lastUserID = DBConnector.getResultSet().getInt(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

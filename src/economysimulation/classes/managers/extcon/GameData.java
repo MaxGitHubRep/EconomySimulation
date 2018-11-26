@@ -25,11 +25,12 @@ public class GameData {
         totalGames = 0;
         
         try {
-            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.Games"));
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.Games"));
             
             while (DBConnector.getResultSet().next()) {
-                totalGames++;
+                totalGames = DBConnector.getResultSet().getInt(1);
             }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -39,10 +40,10 @@ public class GameData {
         totalLinks = 0;
         
         try {
-            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT * FROM mxcrtr_db.LinkUsersGames"));
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.LinkUsersGames"));
             
             while (DBConnector.getResultSet().next()) {
-                totalLinks++;
+                totalLinks = DBConnector.getResultSet().getInt(1);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

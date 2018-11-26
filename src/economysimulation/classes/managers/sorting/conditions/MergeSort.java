@@ -9,7 +9,9 @@ import economysimulation.classes.managers.sorting.GameSorter;
  */
 public class MergeSort {
 
-    private void merge(GamePackage arr[], int left, int middle, int right, GameSorter gameSorter) {
+    private GameSorter gameSorterInstance = null;
+    
+    private void merge(GamePackage arr[], int left, int middle, int right) {
         int size1 = middle - left + 1;
         int size2 = right - middle;
  
@@ -31,7 +33,7 @@ public class MergeSort {
             int value1 = 0, value2 = 0;
             
             // Find the component that is being sorted.
-            switch (gameSorter.getSearchComponent()) {
+            switch (gameSorterInstance.getSearchComponent()) {
                 case GDP:
                     value1 = LeftList[i].getScore();
                     value2 = RightList[j].getScore();
@@ -41,8 +43,8 @@ public class MergeSort {
                     value2 = RightList[j].getTicks();
                     break;
                 default:
-                    value1 = (int) LeftList[i].getComponentFromId(gameSorter.getSearchComponent().getIndex());
-                    value2 = (int) RightList[j].getComponentFromId(gameSorter.getSearchComponent().getIndex());
+                    value1 = (int) LeftList[i].getComponentFromId(gameSorterInstance.getSearchComponent().getIndex());
+                    value2 = (int) RightList[j].getComponentFromId(gameSorterInstance.getSearchComponent().getIndex());
                     break;
             }
             
@@ -73,16 +75,17 @@ public class MergeSort {
     }
 
     public void sort(GamePackage arr[], int left, int right, GameSorter gameSorter) {
+        this.gameSorterInstance = gameSorter;
         if (left < right) {
             // Get mid point.
             int m = (left+right)/2;
  
             // Sort lists in order.
-            sort(arr, left, m, gameSorter);
-            sort(arr , m+1, right, gameSorter);
+            sort(arr, left, m, gameSorterInstance);
+            sort(arr , m+1, right, gameSorterInstance);
  
             // Merge the two sorted lists together.
-            merge(arr, left, m, right, gameSorter);
+            merge(arr, left, m, right);
         }
     }
     
