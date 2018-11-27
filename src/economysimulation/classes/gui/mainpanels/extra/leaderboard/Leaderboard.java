@@ -58,6 +58,9 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     /** List of all the game data which is displayed upon inspection. */
     private final GameData[] dataList;
     
+    /** Leaderboard sorter instance. */
+    private GameSorter gameSorter;
+    
     /** Creates new form Leader board. */
     public Leaderboard() {
         initComponents();
@@ -77,7 +80,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             gameInfoHoverEvent(data);
         }
         
-        configLeaderboard(DisplayType.COMBINED, SearchComponent.POPULATION, SearchCondition.HIGH_TO_LOW);
+        configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.LOW_TO_HIGH);
 
         ThemeManager.addThemeUpdateListener(this);
         applyScroller(changeArrow1, false, Scroll.MODE);
@@ -116,7 +119,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 } else {
                     totalPages = (int) Math.floor(gamesPlayed/SCORES_PER_PAGE)+1;
 
-                    GameSorter gameSorter = new GameSorter(DBGames.getAllGameData());
+                    gameSorter = new GameSorter(DBGames.getAllGameData());
                     gameSorter.setDisplayType(displayType);
                     gameSorter.setSearchComponent(searchComponent);
                     gameSorter.setSearchCondition(searchCondition);
@@ -206,7 +209,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 
             } else {
                 Score score = ScoreList.get(i + frontPointer);
-                scoreDisplays[i].setDisplayData(score.getRank(), score.getGamePackage());
+                int rank = score.getRank();
+                if (gameSorter.getSearchCondition() == SearchCondition.LOW_TO_HIGH) {
+                    rank = ScoreList.size() - rank + 1;
+                }
+                scoreDisplays[i].setDisplayData(rank, score.getGamePackage());
             }
             
         }

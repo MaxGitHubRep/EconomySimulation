@@ -23,7 +23,7 @@ public class MergeSort {
         for (int i=0; i<size1; ++i)
             LeftList[i] = arr[left + i];
         for (int j=0; j<size2; ++j)
-            RightList[j] = arr[middle + 1+ j];
+            RightList[j] = arr[middle + 1 + j];
  
         int i = 0, j = 0;
  
@@ -48,15 +48,25 @@ public class MergeSort {
                     break;
             }
             
+            if (gameSorterInstance.getSearchCondition() == SearchCondition.HIGH_TO_LOW) {
+                if (value1 >= value2) {
+                    arr[k] = LeftList[i];
+                    i++;
+                } else {
+                    arr[k] = RightList[j];
+                    j++;
+                }
+            } else if (gameSorterInstance.getSearchCondition() == SearchCondition.LOW_TO_HIGH) {
+                if (value1 <= value2) {
+                    arr[k] = LeftList[i];
+                    i++;
+                } else {
+                    arr[k] = RightList[j];
+                    j++;
+                }
+            }
             
-            if (value1 >= value2) {
-                arr[k] = LeftList[i];
-                i++;
-            }
-            else {
-                arr[k] = RightList[j];
-                j++;
-            }
+            
             k++;
         }
  
@@ -78,14 +88,14 @@ public class MergeSort {
         this.gameSorterInstance = gameSorter;
         if (left < right) {
             // Get mid point.
-            int m = (left+right)/2;
+            int middle = (left+right)/2;
  
             // Sort lists in order.
-            sort(arr, left, m, gameSorterInstance);
-            sort(arr , m+1, right, gameSorterInstance);
+            sort(arr, left, middle, gameSorterInstance);
+            sort(arr , middle+1, right, gameSorterInstance);
  
             // Merge the two sorted lists together.
-            merge(arr, left, m, right);
+            merge(arr, left, middle, right);
         }
     }
     

@@ -76,8 +76,6 @@ public class GameSorter {
             gamePkgStaticList[i] = gamePackageList.get(i);
         }
         
-        setSearchComponent(SearchComponent.FIRM_PROFITS);
-        
         mergeSort.sort(gamePkgStaticList, 0, gamePkgStaticList.length-1, this);
         
         gamePackageList.clear();
@@ -136,7 +134,7 @@ public class GameSorter {
         }
     }
     
-    public SearchCondition geSearchtCondition() {
+    public SearchCondition getSearchCondition() {
         return searchCondition;
     }
     
