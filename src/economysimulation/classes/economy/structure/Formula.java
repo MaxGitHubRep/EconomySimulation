@@ -36,19 +36,14 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
-    /**
-     * Uses the budget to adjust economic behaviour.
-     */
+    /** Uses the budget to adjust economic behaviour.*/
     private void calculateSpendingInfluence() {
-
         for (BudgetSector sector : SectorInstance.SectorList) {
-            if (sector.getSpendingInfluence() > 0) sector.addSpendingInfluence(-0.1);
-        }
-
-        for (BudgetSector sector : SectorInstance.SectorList) {
+            if (sector.getSpendingInfluence() >= 0.1) sector.addSpendingInfluence(-0.1);
+            
             StandardOfLiving += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
             Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
-            WageMultiplier*=sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
+            WageMultiplier *= sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
         
         CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() <= 0 ? 0.09 : -0.09) +
@@ -56,9 +51,8 @@ public class Formula extends Component implements GamePulse, SectorEvent {
 
         if (StandardOfLiving > 1) StandardOfLiving = 1;
         
-        if (StandardOfLiving <= 0.01 || PoliticalInflluence <= 0.01 || Unemployment >= 100 || ConsumerConfidence <= 0.01 || CorporationConfidence <= 0.01) {
+        if (StandardOfLiving <= 0 || PoliticalInflluence <= 0 || Unemployment >= 100 || ConsumerConfidence <= 0 || CorporationConfidence <= 0) {
             Completed.simulationCompleted();
-            
         }
     }//</editor-fold>
 
