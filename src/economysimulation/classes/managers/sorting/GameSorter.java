@@ -2,7 +2,6 @@ package economysimulation.classes.managers.sorting;
 
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.DisplayType;
 import economysimulation.classes.managers.extcon.GamePackage;
-import economysimulation.classes.managers.sorting.conditions.MergeSort;
 import economysimulation.classes.managers.sorting.conditions.SearchComponent;
 import economysimulation.classes.managers.sorting.conditions.SearchCondition;
 import java.util.ArrayList;

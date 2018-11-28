@@ -1,7 +1,8 @@
-package economysimulation.classes.managers.sorting.conditions;
+package economysimulation.classes.managers.sorting;
 
 import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.sorting.GameSorter;
+import economysimulation.classes.managers.sorting.conditions.SearchCondition;
 
 /**
  *

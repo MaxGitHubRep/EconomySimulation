@@ -5,26 +5,32 @@ package economysimulation.classes.managers.sorting.conditions;
  * @author Max Carter
  */
 public enum SearchComponent {
-    GDP(-2),
-    TICKS(-1),
-    PEOPLE_SUPPORT(4),
-    UNEMPLOYMENT(3),
-    FIRM_SUPPORT(8),
-    CONSUMPTION(0),
-    SAVINGS(1),
-    INVESTMENT(5),
-    TAXATION(6),
-    FIRM_PROFITS(7),
-    POPULATION(2);
+    GDP(-2, "GDP"),
+    TICKS(-1, "Game Ticks"),
+    PEOPLE_SUPPORT(4, "Consumer Confidence"),
+    UNEMPLOYMENT(3, "Unemployment"),
+    FIRM_SUPPORT(8, "Corporation Confidence"),
+    CONSUMPTION(0, "Consumption"),
+    SAVINGS(1, "Savings"),
+    INVESTMENT(5, "Investment"),
+    TAXATION(6, "Taxation"),
+    FIRM_PROFITS(7, "Firm Profits"),
+    POPULATION(2, "Population");
 
     private int index;
+    private String name;
     
-    private SearchComponent(int index) {
+    private SearchComponent(int index, String name) {
         this.index = index;
+        this.name = name;
     }
     
     public int getIndex() {
         return index;
+    }
+    
+    public String getName() {
+        return name;
     }
     
 }
