@@ -4,6 +4,7 @@ import static economysimulation.classes.global.Methods.DBGames;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.GamePackage;
+import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import economysimulation.classes.managers.sorting.GameSorter;
 import economysimulation.classes.managers.sorting.conditions.SearchComponent;
 import economysimulation.classes.managers.sorting.conditions.SearchCondition;
@@ -60,6 +61,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     
     /** Leaderboard sorter instance. */
     private GameSorter gameSorter;
+    
+    private PopUpFrame popUpFrame = null;
+    private SortPopUp sortPopUp = null;
+    
+    public final String SORT_TITLE = "Custom Sort";
     
     /** Creates new form Leader board. */
     public Leaderboard() {
@@ -347,10 +353,17 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         }
     }
 
+    public void onSortCustomClose(SearchCondition searchCondition, SearchComponent searchComponent) {
+        popUpFrame.dispose();
+        if (searchCondition != null && searchComponent != null){
+            configLeaderboard(DisplayOrder[viewSelection], searchComponent, searchCondition);
+        }
+    }
+    
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, col1, gback1, gback2 }, new JPanel[]{ topBar, leftBar, gback1, gback2, gback3, gback4, gback5, gback6, gback7, gback8, gback9, gback10, gback11 });
-        updater.applyTextThemes(new JLabel[]{ changeArrow1, changeArrow2, changeArrow3, changeArrow4, playerTypeDisplay, pageReference }, 
+        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, col1, col2, gback1, gback2 }, new JPanel[]{ topBar, leftBar, gback1, gback2, gback3, gback4, gback5, gback6, gback7, gback8, gback9, gback10, gback11 });
+        updater.applyTextThemes(new JLabel[]{ changeArrow1, changeArrow2, changeArrow3, changeArrow4, playerTypeDisplay, pageReference, title1, title2 }, 
                 new JLabel[]{ rankTitle, scoreTitle, playersTitle, gameIndexDisplay, extraLabel, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11 });
     }
     
@@ -1023,7 +1036,15 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }//GEN-LAST:event_back1MouseClicked
 
     private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
-        //sort custom pop up
+        if (sortPopUp == null) {
+            sortPopUp = new SortPopUp();
+        }
+        
+        if (popUpFrame == null) {
+            popUpFrame = new PopUpFrame(sortPopUp, SORT_TITLE);
+        }
+        popUpFrame.createPopUpFrame();
+        
     }//GEN-LAST:event_back2MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

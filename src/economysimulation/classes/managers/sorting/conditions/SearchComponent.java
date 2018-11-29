@@ -7,9 +7,9 @@ package economysimulation.classes.managers.sorting.conditions;
 public enum SearchComponent {
     GDP(-2, "GDP"),
     TICKS(-1, "Game Ticks"),
-    PEOPLE_SUPPORT(4, "Consumer Confidence"),
+    PEOPLE_SUPPORT(4, "Consumer Support"),
     UNEMPLOYMENT(3, "Unemployment"),
-    FIRM_SUPPORT(8, "Corporation Confidence"),
+    FIRM_SUPPORT(8, "Firm Support"),
     CONSUMPTION(0, "Consumption"),
     SAVINGS(1, "Savings"),
     INVESTMENT(5, "Investment"),

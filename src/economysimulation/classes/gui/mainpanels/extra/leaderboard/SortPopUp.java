@@ -1,16 +1,24 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.sorting.conditions.SearchComponent;
+import economysimulation.classes.managers.sorting.conditions.SearchCondition;
+import economysimulation.classes.managers.theme.GraphicUpdater;
+import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.managers.ui.Format;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 /**
  *
  * @author Max Carter
  */
-public class SortPopUp extends javax.swing.JPanel {
+public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private SearchComponent[] searchComponents = null;
     
-    private int selectedComponentIndex = -2;
+    private int selectedComponentIndex = 0;
     private SearchComponent selectedSearchComponent = null;
     
     /**
@@ -32,7 +40,11 @@ public class SortPopUp extends javax.swing.JPanel {
             SearchComponent.FIRM_SUPPORT
         };
         
-        selectedSearchComponent = SearchComponent.GDP;
+        Methods.ThemeManager.addThemeUpdateListener(this);
+        Format.addButtonFormat(back1, col1);
+        Format.addButtonFormat(back2, col2);
+        
+        setComponentSelected(0);
     }
 
     private void componentMove(boolean forward) {
@@ -57,11 +69,28 @@ public class SortPopUp extends javax.swing.JPanel {
         component.setText(selectedSearchComponent.getName());
     }
     
+    private void close(boolean update) {
+        if (update) {
+            Methods.LBDisplay.onSortCustomClose(state1.isSelected() ? SearchCondition.HIGH_TO_LOW : SearchCondition.LOW_TO_HIGH,
+                selectedSearchComponent);
+        } else {
+            Methods.LBDisplay.onSortCustomClose(null, null);
+        }
+    }
+    
+    @Override
+    public void updateThemeEvent(GraphicUpdater updater) {
+        updater.applyPanelThemes(new JPanel[]{ back1, back2, this }, new JPanel[]{ top });
+        updater.applyTextThemes(new JLabel[]{ title1, title2, component, arrow1, arrow2 }, new JLabel[]{ title });
+        updater.applyRadioButtonThemes(new JRadioButton[]{ state1, state2 }, null);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        searchConditionButtons = new javax.swing.ButtonGroup();
+        top = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         back1 = new javax.swing.JPanel();
         col1 = new javax.swing.JPanel();
@@ -79,34 +108,41 @@ public class SortPopUp extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        top.setBackground(new java.awt.Color(102, 102, 102));
 
         title.setFont(new java.awt.Font("Agency FB", 0, 52)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title.setText("Custom Sort");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout topLayout = new javax.swing.GroupLayout(top);
+        top.setLayout(topLayout);
+        topLayout.setHorizontalGroup(
+            topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        topLayout.setVerticalGroup(
+            topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(topLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout col1Layout = new javax.swing.GroupLayout(col1);
         col1.setLayout(col1Layout);
         col1Layout.setHorizontalGroup(
             col1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 32, Short.MAX_VALUE)
         );
         col1Layout.setVerticalGroup(
             col1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,24 +158,31 @@ public class SortPopUp extends javax.swing.JPanel {
             back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(title1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(col1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         back1Layout.setVerticalGroup(
             back1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(col1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(back1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title1)
                 .addContainerGap())
         );
+
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout col2Layout = new javax.swing.GroupLayout(col2);
         col2.setLayout(col2Layout);
         col2Layout.setHorizontalGroup(
             col2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGap(0, 32, Short.MAX_VALUE)
         );
         col2Layout.setVerticalGroup(
             col2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,45 +199,51 @@ public class SortPopUp extends javax.swing.JPanel {
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
                 .addComponent(col2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(title2)
                 .addContainerGap())
         );
         back2Layout.setVerticalGroup(
             back2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                .addContainerGap())
             .addComponent(col2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title2)
+                .addContainerGap())
         );
 
+        searchConditionButtons.add(state1);
         state1.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         state1.setSelected(true);
         state1.setText("High to Low");
-        state1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                state1ActionPerformed(evt);
-            }
-        });
+        state1.setFocusPainted(false);
 
+        searchConditionButtons.add(state2);
         state2.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         state2.setText("Low to High");
-        state2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                state2ActionPerformed(evt);
-            }
-        });
+        state2.setFocusPainted(false);
 
         arrow1.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
         arrow1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         arrow1.setText("<");
+        arrow1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        arrow1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                arrow1MouseClicked(evt);
+            }
+        });
 
         arrow2.setFont(new java.awt.Font("Agency FB", 0, 72)); // NOI18N
         arrow2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         arrow2.setText(">");
+        arrow2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        arrow2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                arrow2MouseClicked(evt);
+            }
+        });
 
-        component.setFont(new java.awt.Font("Agency FB", 0, 62)); // NOI18N
+        component.setFont(new java.awt.Font("Agency FB", 0, 58)); // NOI18N
         component.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         component.setText("Component");
 
@@ -202,10 +251,10 @@ public class SortPopUp extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(top, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,21 +265,21 @@ public class SortPopUp extends javax.swing.JPanel {
                             .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(state1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                                 .addComponent(state2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(arrow1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(arrow1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(component, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(arrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(arrow2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(state1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,21 +293,29 @@ public class SortPopUp extends javax.swing.JPanel {
                     .addComponent(component, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(back1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(back2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(back1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void state1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_state1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_state1ActionPerformed
+    private void arrow1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrow1MouseClicked
+        componentMove(true);
+    }//GEN-LAST:event_arrow1MouseClicked
 
-    private void state2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_state2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_state2ActionPerformed
+    private void arrow2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrow2MouseClicked
+        componentMove(false);
+    }//GEN-LAST:event_arrow2MouseClicked
+
+    private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        close(true);
+    }//GEN-LAST:event_back1MouseClicked
+
+    private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
+        close(false);
+    }//GEN-LAST:event_back2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,13 +326,14 @@ public class SortPopUp extends javax.swing.JPanel {
     private javax.swing.JPanel col1;
     private javax.swing.JPanel col2;
     private javax.swing.JLabel component;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.ButtonGroup searchConditionButtons;
     private javax.swing.JRadioButton state1;
     private javax.swing.JRadioButton state2;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     private javax.swing.JLabel title2;
+    private javax.swing.JPanel top;
     // End of variables declaration//GEN-END:variables
 }
