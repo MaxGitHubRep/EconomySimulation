@@ -60,13 +60,15 @@ public class GraphicUpdater {
     public void applyRadioButtonThemes(JRadioButton[] primaryButtons, JRadioButton[] secondaryButtons) {
         if (primaryButtons != null) {
             for (JRadioButton button : primaryButtons) {
-                button.setForeground(ThemeManager.Theme.getPrimaryColor());
+                button.setBackground(ThemeManager.Theme.getPrimaryColor());
+                button.setForeground(ThemeManager.Theme.getPrimaryTextColor());
             }
         }
         
         if (secondaryButtons != null) {
             for (JRadioButton button : secondaryButtons) {
-                button.setForeground(ThemeManager.Theme.getSecondaryColor());
+                button.setBackground(ThemeManager.Theme.getSecondaryColor());
+                button.setForeground(ThemeManager.Theme.getSecondaryTextColor());
             }
         }
         
