@@ -8,8 +8,6 @@ import economysimulation.classes.managers.popup.hint.Urgency;
  */
 public class HintTaxesTooHigh extends Hint {
 
-    public int cooldown = super.COOLDOWN_TIME;
-
     @Override
     public String getTitle() {
         return "New Tax Rates are Dangerously High.";

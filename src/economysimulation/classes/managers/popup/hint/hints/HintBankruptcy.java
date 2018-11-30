@@ -8,7 +8,6 @@ import economysimulation.classes.managers.popup.hint.Urgency;
  */
 public class HintBankruptcy extends Hint {
 
-    public int cooldown = super.COOLDOWN_TIME;
     public String affected;
     
     public HintBankruptcy(String affected) {

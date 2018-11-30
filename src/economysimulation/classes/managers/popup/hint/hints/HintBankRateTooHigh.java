@@ -8,8 +8,6 @@ import economysimulation.classes.managers.popup.hint.Urgency;
  */
 public class HintBankRateTooHigh extends Hint {
 
-    public int cooldown = super.COOLDOWN_TIME;
-
     @Override
     public String getTitle() {
         return "New Interest Rates are Dangerously High.";

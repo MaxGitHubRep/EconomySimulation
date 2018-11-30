@@ -8,8 +8,6 @@ import economysimulation.classes.managers.popup.hint.Urgency;
  */
 public class ErrorServerSlotFull extends Hint {
 
-    public int cooldown = super.COOLDOWN_TIME;
-
     @Override
     public String getTitle() {
         return "Server Slot is Full!";
