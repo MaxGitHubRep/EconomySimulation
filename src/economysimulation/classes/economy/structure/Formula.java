@@ -17,6 +17,14 @@ import economysimulation.classes.managers.events.EventManager;
  */
 public class Formula extends Component implements GamePulse, SectorEvent {
     
+    private static final String[] CAUSES_OF_COMPLETION = new String[]{
+        "Standard of Living below 0%.",
+        "Political Influence below 0%.",
+        "Employment hit 0%.",
+        "Consumer Support hit 0%.",
+        "Corporation Support hit 0%."
+    };
+    
     /**
      * Creates new Formula class.
      */
@@ -51,8 +59,13 @@ public class Formula extends Component implements GamePulse, SectorEvent {
 
         if (StandardOfLiving > 1) StandardOfLiving = 1;
         
-        if (StandardOfLiving <= 0 || PoliticalInflluence <= 0 || Unemployment >= 100 || ConsumerConfidence <= 0 || CorporationConfidence <= 0) {
-            Completed.simulationCompleted();
+        int index = 0;
+        for (double component : new double[]{ StandardOfLiving, PoliticalInflluence, 100-Unemployment, ConsumerConfidence, CorporationConfidence }) {
+            if (component <= 0) {
+                Completed.simulationCompleted(CAUSES_OF_COMPLETION[index]);
+                return;
+            }
+            index++;
         }
     }//</editor-fold>
 

@@ -341,7 +341,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
     }//GEN-LAST:event_back4MouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
-        Completed.simulationCompleted();
+        Completed.simulationCompleted("Declared Bankruptcy!");
     }//GEN-LAST:event_back3MouseClicked
 
     @Override

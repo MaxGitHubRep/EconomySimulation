@@ -11,6 +11,9 @@ import economysimulation.classes.gui.endgame.EndScreen;
 import economysimulation.classes.gui.frame.MainFrame;
 import java.awt.Frame;
 import economysimulation.classes.managers.extcon.Connection;
+import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.hints.Hint;
+import economysimulation.classes.managers.popup.hint.hints.HintCauseOfCompletion;
 import java.sql.SQLException;
 
 /**
@@ -29,8 +32,7 @@ public class Completed {
         
     }
     
-    public static void simulationCompleted() {
- 
+    public static void simulationCompleted(String causeOfCompletion) {
         try {
             if (Connection.isConnected) {
                 if (DBConnector.getConnection().isValid(60)) {
@@ -62,6 +64,12 @@ public class Completed {
                 frame.dispose();
             }
         } 
+        
+        Hint hint = new HintCauseOfCompletion(causeOfCompletion);
+        
+        if (causeOfCompletion != null) {
+            HintManager.createHint(hint);
+        }
         
     }
     
