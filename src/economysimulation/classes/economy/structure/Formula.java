@@ -47,8 +47,11 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     /** Uses the budget to adjust economic behaviour.*/
     private void calculateSpendingInfluence() {
         for (BudgetSector sector : SectorInstance.SectorList) {
-            if (sector.getSpendingInfluence() >= 0.1) sector.addSpendingInfluence(-0.1);
-            
+            if (sector.getSpendingInfluence() >= 0.1) {
+                sector.addSpendingInfluence(-0.1);
+            } else {
+                sector.setSpendingInfluence(0);
+            }
             StandardOfLiving += sector.getSpendingInfluence() > 0 ? sector.getStandardLivingInfluence() : - sector.getStandardLivingInfluence();
             Population += sector.getSpendingInfluence() > 0 ? sector.getPopulationInfluence() : - sector.getPopulationInfluence();
             WageMultiplier *= sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
