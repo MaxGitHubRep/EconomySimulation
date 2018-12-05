@@ -50,17 +50,17 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         
         UsersInSlot = new ArrayList<>();
         
-        backPanels = new JPanel[]{ back1, back2, back3, back4 };
-        colorPanels = new JPanel[]{ color1, color2, color3, color4 };
+        backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6, back7 };
+        colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6, color7 };
         
-        titleLabels = new JLabel[]{ display1, display2, display3, display4 };
+        titleLabels = new JLabel[]{ display1, display2, display3, display4, display5, display6, display7 };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
         this.ServerId = ServerId;
-        serverIdTitle.setText("SERVER " + ServerId);
+        serverIdTitle.setText("PARTY " + ServerId);
         
         ThemeManager.addThemeUpdateListener(this);
     }
@@ -74,7 +74,8 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             UsersInSlot.add(Methods.Username);
             titleLabels[UserInSlotId].setText(Methods.Username);
             display6.setText("Leave Channel");
-            //update server
+            //TODO replace list with putting people into database
+            // ^ usernames will need to be generated beforehand. -> local session user ids?
         }
     }
     
@@ -85,7 +86,8 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             UsersInSlot.remove(UserInSlotId);
             display6.setText("Join Channel");
             UserInSlotId = -1;
-            //update server
+            //TODO remove user from database
+            // remove local session user id from database
         }
     }
     
@@ -99,8 +101,8 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void updateThemeEvent(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, back5, back6, color1, color2, color3, color4, color5, color6 }, null);
-        updater.applyTextThemes(new JLabel[]{ display1, display2, display3, display4, display5, display6, playerListTitle, serverIdTitle, channelOptionsTitle }, null);
+        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, back5, back6, back7, color1, color2, color3, color4, color5, color6, color7 }, null);
+        updater.applyTextThemes(new JLabel[]{ display1, display2, display3, display4, display5, display6, display7 , playerListTitle, serverIdTitle, channelOptionsTitle }, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -131,13 +133,17 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         back6 = new javax.swing.JPanel();
         color6 = new javax.swing.JPanel();
         display6 = new javax.swing.JLabel();
+        back7 = new javax.swing.JPanel();
+        color7 = new javax.swing.JPanel();
+        display7 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         serverIdTitle.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
         serverIdTitle.setForeground(new java.awt.Color(204, 0, 0));
         serverIdTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        serverIdTitle.setText("SERVER [id]");
+        serverIdTitle.setText("PARTY [id]");
 
         playerListTitle.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         playerListTitle.setForeground(new java.awt.Color(204, 0, 0));
@@ -303,7 +309,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         channelOptionsTitle.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         channelOptionsTitle.setForeground(new java.awt.Color(204, 0, 0));
         channelOptionsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        channelOptionsTitle.setText("Channel Options");
+        channelOptionsTitle.setText("Party Options");
 
         back5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -396,6 +402,50 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addContainerGap())
         );
 
+        back7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back7MouseClicked(evt);
+            }
+        });
+
+        color7.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color7Layout = new javax.swing.GroupLayout(color7);
+        color7.setLayout(color7Layout);
+        color7Layout.setHorizontalGroup(
+            color7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+        color7Layout.setVerticalGroup(
+            color7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        display7.setFont(new java.awt.Font("Agency FB", 0, 30)); // NOI18N
+        display7.setForeground(new java.awt.Color(204, 0, 0));
+        display7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        display7.setText("Launch Simulation");
+
+        javax.swing.GroupLayout back7Layout = new javax.swing.GroupLayout(back7);
+        back7.setLayout(back7Layout);
+        back7Layout.setHorizontalGroup(
+            back7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(back7Layout.createSequentialGroup()
+                .addComponent(color7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(display7, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back7Layout.setVerticalGroup(
+            back7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(display7, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -413,22 +463,24 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                             .addComponent(back3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(back4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(back5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(back6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(back7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator3)
                             .addComponent(jSeparator1)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(channelOptionsTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(channelOptionsTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(serverIdTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addComponent(serverIdTitle)
+                .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
                 .addComponent(back5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -442,13 +494,17 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(20, 20, 20)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(channelOptionsTitle)
                 .addGap(18, 18, 18)
                 .addComponent(back6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(back7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -461,13 +517,23 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     }//GEN-LAST:event_back6MouseClicked
 
     private void back5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseEntered
-        display5.setText(SERVER_STATES[1]);
         //gets the game state from the server
+        display5.setText(SERVER_STATES[1]);
     }//GEN-LAST:event_back5MouseEntered
 
     private void back5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseExited
         display5.setText(SERVER_STATES[0]);
     }//GEN-LAST:event_back5MouseExited
+
+    private void back7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back7MouseClicked
+        if (UserInSlotId == 0) {
+            //TODO may need to develop socket system to connect users
+            //signal to other players to start simulation
+            //start simulation
+        } else {
+            HintManager.createHint(Hints.NotPartyLeader);
+        }
+    }//GEN-LAST:event_back7MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -477,6 +543,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel back4;
     private javax.swing.JPanel back5;
     private javax.swing.JPanel back6;
+    private javax.swing.JPanel back7;
     private javax.swing.JLabel channelOptionsTitle;
     private javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
@@ -484,15 +551,18 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel color4;
     private javax.swing.JPanel color5;
     private javax.swing.JPanel color6;
+    private javax.swing.JPanel color7;
     private javax.swing.JLabel display1;
     private javax.swing.JLabel display2;
     private javax.swing.JLabel display3;
     private javax.swing.JLabel display4;
     private javax.swing.JLabel display5;
     private javax.swing.JLabel display6;
+    private javax.swing.JLabel display7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel playerListTitle;
     private javax.swing.JLabel serverIdTitle;
     // End of variables declaration//GEN-END:variables

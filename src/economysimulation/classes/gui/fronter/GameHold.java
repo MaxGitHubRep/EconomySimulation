@@ -3,12 +3,14 @@ package economysimulation.classes.gui.fronter;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.FormulaInstance;
+import static economysimulation.classes.global.Methods.ModeHandler;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.comp.CircleProgressBar;
 import economysimulation.classes.managers.events.EventManager;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.GamePulse;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -63,6 +65,17 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
      */
     public GameHold() {
         initComponents();
+        
+        //Checks to see if the mode allows time changes.
+        if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
+            time.setValue(time.getMaximum());
+            time.setEnabled(false);
+        } else {
+            time.setValue(time.getMaximum()/2);
+            time.setEnabled(true);
+        }
+        onSliderChange(time);
+        
         Methods.SideBarDisplay = new SideBar();
         Methods.addToFrontPanel(sideBarBack, Methods.SideBarDisplay, false);
         Methods.SideBarDisplay.addPanelButtons();
@@ -187,12 +200,16 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         
     }//</editor-fold>
     
+    private void onSliderChange(JSlider slider) {
+        titleSpeed.setText(String.format("Speed: %s", slider.getValue()) + "%");
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Slider Event.">   
     private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                titleSpeed.setText(String.format("Speed: %s", slider.getValue()) + "%");
+                onSliderChange(slider);
             }
         });
         

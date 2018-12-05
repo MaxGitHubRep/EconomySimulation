@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.popup.hint;
 
+import economysimulation.classes.managers.popup.hint.hints.ErrorNotLeader;
 import economysimulation.classes.managers.popup.hint.hints.ErrorServerSlotFull;
 import economysimulation.classes.managers.popup.hint.hints.Hint;
 import economysimulation.classes.managers.popup.hint.hints.HintBankRateTooHigh;
@@ -19,6 +20,7 @@ public class Hints {
             CorporationBankrupt = new HintBankruptcy("Corporations"),
             TaxesTooHigh = new HintTaxesTooHigh(),
             InterestRatesTooHigh = new HintBankRateTooHigh(),
-            ServerSlotFull = new ErrorServerSlotFull();
+            ServerSlotFull = new ErrorServerSlotFull(),
+            NotPartyLeader = new ErrorNotLeader();
     
 }

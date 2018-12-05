@@ -4,14 +4,14 @@ package economysimulation.classes.mode;
  *
  * @author Max Carter
  */
-public enum Mod {
+public enum Mode {
     UNSELECTED(0),
     SINGLE_PLAYER(1),
     MULTI_PLAYER(2);
     
     private int index = -1;
     
-    Mod(int index) {
+    Mode(int index) {
         this.index = index;
     }
     
