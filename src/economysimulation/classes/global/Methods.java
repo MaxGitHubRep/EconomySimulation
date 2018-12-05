@@ -23,6 +23,7 @@ import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
+import economysimulation.classes.mode.ModeManager;
 import economysimulation.classes.pulse.PulseThread;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -64,6 +65,7 @@ public class Methods {
     public static BudgetHold BudgetBack;
     public static Tutorial TutorialDisplay;
     public static PlayerSearch PlayerSearchDisplay = null;
+    public static ModeManager ModeHandler;
     
     
     public static String Username;

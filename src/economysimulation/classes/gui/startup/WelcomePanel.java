@@ -2,6 +2,7 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ModeHandler;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
@@ -14,7 +15,8 @@ import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
-import economysimulation.classes.mode.Mode;
+import economysimulation.classes.mode.Mod;
+import economysimulation.classes.mode.ModeManager;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -82,6 +84,8 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
+        ModeHandler = new ModeManager(Mod.UNSELECTED);
+        
         Methods.resetCurrentUserData();
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         
@@ -142,17 +146,17 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 } else if (enterUsername.getText().length() < 3) {
                     setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
 
-                } else if ((id + 1 == Mode.COOP) && !Connection.isConnected) {   
+                } else if ((id + 1 == Mod.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
                     setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
                     
                 } else {
                     Methods.Username = enterUsername.getText();
-                    Mode.setMode(id+1);
+                    ModeHandler.setMode(id+1);
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
-                    if (Mode.isMode(Mode.COOP)) {
+                    if (ModeHandler.isMode(Mod.MULTI_PLAYER)) {
                         if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
                         Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {
