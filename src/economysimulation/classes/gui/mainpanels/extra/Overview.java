@@ -337,7 +337,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
     }// </editor-fold>//GEN-END:initComponents
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
-        System.exit(0);
+        Methods.quitSystem();
     }//GEN-LAST:event_back4MouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked

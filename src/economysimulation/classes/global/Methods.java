@@ -18,6 +18,7 @@ import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
+import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
@@ -72,7 +73,7 @@ public class Methods {
     public static StorageConnector StorageConnection;
     
     
-    public static String Username;
+    public static String Username = null;
     public static int UserID = -1;
     
     public static int MPServerSlot = -1;
@@ -81,6 +82,15 @@ public class Methods {
     public static boolean MemorySaver = false;
     
     public static boolean SimulationInProgress = false;
+    
+    public static void quitSystem() {
+        if (Connection.isConnected && UserID != -1) {
+            if (DBUsers.isRedundantUser(UserID)) {
+                DBUsers.removeUser(UserID);
+            }
+        }
+        System.exit(0);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Reset local user data in current session."> 
     /**

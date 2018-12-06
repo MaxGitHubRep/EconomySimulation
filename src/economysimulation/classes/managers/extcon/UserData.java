@@ -91,4 +91,29 @@ public class UserData {
         }
     }
     
+    public boolean isRedundantUser(int userId) {
+        try {
+            String SQLStatement = "SELECT UserID FROM mxcrtr_db.LinkUsersGames WHERE UserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            
+            DBConnector.setResultSet(pt.executeQuery());
+            return !(DBConnector.getResultSet().next());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void removeUser(int userId) {
+        try {
+            String SQLStatement = "DELETE FROM mxcrtr_db.Users WHERE UserID = ?;";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            pt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

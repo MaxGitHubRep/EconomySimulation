@@ -69,16 +69,16 @@ public class StorageConnector {
         int state = -1;
         try {
             //Gets the server state from the database table.
-            String SQLStatement = "SELECT ServerState FROM mxcrtr_db.ServerState WHERE SlotID = ?";
+            String SQLStatement = "SELECT ServerState FROM mxcrtr_db.Servers WHERE ServerID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, slotId);
             
             DBConnector.setResultSet(pt.executeQuery());
             DBConnector.getResultSet().next();
-            state = DBConnector.getResultSet().getInt("ServerState");
+            state = DBConnector.getResultSet().getInt(1);
                 
         } catch (SQLException ex) {
-            HintManager.createHint(Hints.NotConnected);
+            HintManager.createHint(Hints.DatabaseError);
             ex.printStackTrace();
         }
         
@@ -94,7 +94,7 @@ public class StorageConnector {
                 return State.RESETTING;
             case -1:
             default:
-                return State.LOBBY;
+                return State.ERROR;
         }
     }
     

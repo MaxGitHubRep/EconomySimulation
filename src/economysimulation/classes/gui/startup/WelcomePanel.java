@@ -2,6 +2,7 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.DBUsers;
 import static economysimulation.classes.global.Methods.ModeHandler;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.coop.PlayerSearch;
@@ -12,8 +13,6 @@ import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
-import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
-import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.ui.Format;
@@ -164,6 +163,8 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
+                        Methods.UserID = DBUsers.getNextAvailableUserID();
+                        DBUsers.createNewUser(Methods.UserID, Methods.Username);
                         if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
                         Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {
@@ -584,7 +585,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }// </editor-fold>//GEN-END:initComponents
 
     private void back6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back6MouseClicked
-        System.exit(0);
+        Methods.quitSystem();
     }//GEN-LAST:event_back6MouseClicked
 
     private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked

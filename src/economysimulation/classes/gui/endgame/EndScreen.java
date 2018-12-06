@@ -132,7 +132,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
                         optionOpenLeaderboards();
                         break;
                     case 3:
-                        System.exit(0);
+                        Methods.quitSystem();
                         break;
                 }
             }

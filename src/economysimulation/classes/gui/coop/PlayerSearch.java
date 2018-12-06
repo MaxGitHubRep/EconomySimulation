@@ -3,6 +3,8 @@ package economysimulation.classes.gui.coop;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.WelcomePanel;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -27,6 +29,9 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
     public PlayerSearch() {
         initComponents();
 
+        Methods.StorageEvent = new StorageReceiver();
+        Methods.StorageConnection = new StorageConnector();
+        
         slotPanels = new JPanel[]{ add1, add2, add3, add4, add5 };
         
         backPanels = new JPanel[]{ back1, back2 };
@@ -326,7 +331,7 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back2MouseClicked
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
-        System.exit(0);
+        Methods.quitSystem();
     }//GEN-LAST:event_back1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

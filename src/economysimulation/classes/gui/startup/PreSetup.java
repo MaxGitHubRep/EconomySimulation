@@ -378,8 +378,6 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
                 HintManager.createHint(Hints.NotPartyLeader);
                 return;
             } else {
-                Methods.StorageEvent = new StorageReceiver();
-                Methods.StorageConnection = new StorageConnector();
                 //TODO signal other users to launch sim.
             }
         }
@@ -387,7 +385,7 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     }//GEN-LAST:event_back1MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
-        System.exit(0);
+        Methods.quitSystem();
     }//GEN-LAST:event_back4MouseClicked
 
     private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked

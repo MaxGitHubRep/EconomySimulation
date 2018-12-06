@@ -3,8 +3,6 @@ package economysimulation.classes.gui.coop;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.PreSetup;
-import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
-import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -522,12 +520,11 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private void back5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseEntered
         try {
-            Methods.StorageConnection.getServerState(ServerId);
+            display5.setText(Methods.StorageConnection.getServerState(ServerId).getTextState());
         } catch (SQLException ex) {
             HintManager.createHint(Hints.NotConnected);
             ex.printStackTrace();
         }
-        display5.setText(SERVER_STATES[1]);
     }//GEN-LAST:event_back5MouseEntered
 
     private void back5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseExited
