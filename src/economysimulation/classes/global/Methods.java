@@ -85,6 +85,10 @@ public class Methods {
     
     public static void quitSystem() {
         if (Connection.isConnected && UserID != -1) {
+            if (StorageConnection.isUserInServer(UserID)) {
+                StorageConnection.removeServerUser(MPServerSlot, UserInSlot);
+            }
+            
             if (DBUsers.isRedundantUser(UserID)) {
                 DBUsers.removeUser(UserID);
             }

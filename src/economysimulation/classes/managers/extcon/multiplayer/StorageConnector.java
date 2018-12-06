@@ -65,6 +65,50 @@ public class StorageConnector {
         return latestPackages.size();
     }
     
+    public void addServerUser(int slotId, int userSlot, int userId) {
+        try {
+            String SQLStatement = "UPDATE mxcrtr_db.Servers SET UserSlot" + (userSlot + 1) + " = ? WHERE ServerID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            pt.setInt(2, slotId);
+            pt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void removeServerUser(int slotId, int userSlot) {
+        try {
+            String SQLStatement = "UPDATE mxcrtr_db.Servers SET UserSlot" + (userSlot + 1) + " = 0 WHERE ServerID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, slotId);
+            pt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public boolean isUserInServer(int userId) {
+        try {
+            String SQLStatement = "SELECT UserSlot1, UserSlot2, UserSlot3, UserSlot4 FROM mxcrtr_db.Servers";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            
+            DBConnector.setResultSet(pt.executeQuery());
+            while (DBConnector.getResultSet().next()) {
+                for (int i = 1; i < 5; i++) {
+                    if (userId == DBConnector.getResultSet().getInt(i)) {
+                        return true;
+                    }
+                }
+            }
+                
+        } catch (SQLException ex) {
+            HintManager.createHint(Hints.DatabaseError);
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
     public State getServerState(int slotId) throws SQLException {
         int state = -1;
         try {

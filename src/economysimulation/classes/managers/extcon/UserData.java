@@ -70,6 +70,7 @@ public class UserData {
             pt.setInt(1, id);
             
             DBConnector.setResultSet(pt.executeQuery());
+            pt.close();
             DBConnector.getResultSet().next();
             
             name = DBConnector.getResultSet().getString("Username");
@@ -107,7 +108,7 @@ public class UserData {
     
     public void removeUser(int userId) {
         try {
-            String SQLStatement = "DELETE FROM mxcrtr_db.Users WHERE UserID = ?;";
+            String SQLStatement = "DELETE FROM mxcrtr_db.Users WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, userId);
             pt.executeUpdate();

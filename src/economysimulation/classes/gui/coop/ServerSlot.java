@@ -1,8 +1,10 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.StorageConnection;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.PreSetup;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -76,8 +78,9 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             UsersInSlot.add(Methods.Username);
             titleLabels[UserInSlotId].setText(Methods.Username);
             display6.setText("Leave Channel");
-            //TODO replace list with putting people into database
-            // ^ usernames will need to be generated beforehand. -> local session user ids?
+            Methods.MPServerSlot = ServerId;
+            Methods.UserInSlot = UserInSlotId;
+            StorageConnection.addServerUser(ServerId, UserInSlotId, Methods.UserID);
         }
     }
     
@@ -87,9 +90,10 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
             titleLabels[UserInSlotId].setText(EMPTY_TEXT);
             UsersInSlot.remove(UserInSlotId);
             display6.setText("Join Channel");
+            StorageConnection.removeServerUser(ServerId, UserInSlotId);
             UserInSlotId = -1;
-            //TODO remove user from database
-            // remove local session user id from database
+            Methods.MPServerSlot = -1;
+            Methods.UserInSlot = -1;
         }
     }
     
@@ -533,8 +537,6 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private void back7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back7MouseClicked
         if (UserInSlotId == 0) {
-            Methods.MPServerSlot = ServerId;
-            Methods.UserInSlot = UserInSlotId;
             //TODO may need to develop socket system to connect users
             //signal to other players to start simulation
             
