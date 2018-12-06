@@ -2,11 +2,15 @@ package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.gui.startup.PreSetup;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -517,7 +521,12 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     }//GEN-LAST:event_back6MouseClicked
 
     private void back5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseEntered
-        //gets the game state from the server
+        try {
+            Methods.StorageConnection.getServerState(ServerId);
+        } catch (SQLException ex) {
+            HintManager.createHint(Hints.NotConnected);
+            ex.printStackTrace();
+        }
         display5.setText(SERVER_STATES[1]);
     }//GEN-LAST:event_back5MouseEntered
 
@@ -527,9 +536,12 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private void back7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back7MouseClicked
         if (UserInSlotId == 0) {
+            Methods.MPServerSlot = ServerId;
+            Methods.UserInSlot = UserInSlotId;
             //TODO may need to develop socket system to connect users
             //signal to other players to start simulation
-            //start simulation
+            
+            Methods.FrameDisplay.addToMainFrame(new PreSetup());
         } else {
             HintManager.createHint(Hints.NotPartyLeader);
         }

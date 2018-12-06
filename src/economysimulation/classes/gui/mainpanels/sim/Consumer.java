@@ -49,7 +49,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
 
             ConsumerConfidence = StandardOfLiving * (1 - TaxManager.getTaxRate(Tax.INCOME)) * ((100 - Unemployment)/100);
 
-            PropensityToConsume = (((-0.009 * (Math.pow((InterestRate), 2))) + 100)/100) * ConsumerConfidence;
+            PropensityToConsume = (((-0.006 * (Math.pow((InterestRate), 2))) + 100)/100) * ConsumerConfidence;
             if (PropensityToConsume == 0) PropensityToConsume+=0.01;
 
             if (DisposableIncome == 0 && TotalSavings >= 0.1) {

@@ -68,11 +68,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         
         //Checks to see if the mode allows time changes.
         if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
-            time.setValue(time.getMaximum());
+            time.setValue(time.getMinimum());
             time.setEnabled(false);
+            time.setToolTipText("You cannot alter the time in multiplayer.");
         } else {
             time.setValue(time.getMaximum()/2);
             time.setEnabled(true);
+            time.setToolTipText("Drag the slider to change the speed.");
         }
         onSliderChange(time);
         
@@ -135,6 +137,12 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
      * @param id         Index of the percent array.
      */
     private synchronized void updateProgressBar(double newPercent, int id) {
+        if (Methods.MemorySaver) {
+            Percents[id] = newPercent;
+            repaint();
+            return;
+        }
+        
         boolean increase = newPercent > Percents[id];
         CBPThread = new Thread(new Runnable() {
             @Override

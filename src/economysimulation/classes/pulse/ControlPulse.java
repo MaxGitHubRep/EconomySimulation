@@ -1,7 +1,9 @@
 package economysimulation.classes.pulse;
 
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ModeHandler;
 import static economysimulation.classes.global.Methods.PulseUpdater;
+import economysimulation.classes.mode.Mode;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +12,6 @@ import java.util.ArrayList;
  */
 public class ControlPulse {
     
-    
     /**
      * Initiates simulation pulse.
      */
@@ -18,6 +19,8 @@ public class ControlPulse {
         PulseUpdater = new PulseThread();
         
         PulseUpdater.Pulses = new ArrayList<>();
+        
+        if (ModeHandler.isMode(Mode.MULTI_PLAYER)) PulseUpdater.addGamePulseEventListener(Methods.StorageEvent);
         
         PulseUpdater.addGamePulseEventListener(Methods.FormulaInstance);
         PulseUpdater.addGamePulseEventListener(Methods.ConsumerDisplay);

@@ -20,6 +20,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.global.Methods;
 
 
 /**
@@ -101,10 +102,14 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                 } else if (slider.getValue() <= Component.SpendingBudget) { 
                     int spending = SectorInstance.getSector(selectedType).getSpending();
 
-                    try {
-                        new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
-                    } catch (InvalidTimeException ex) {
-                        ex.printStackTrace();
+                    if (Methods.MemorySaver) {
+                        spendings.setText(String.format("£%sbn", (spending + slider.getValue())));
+                    } else {
+                        try {
+                            new NumberIncrementer(spendings, "£%sbn", spending, (spending + slider.getValue()), 500).startIncrementer();
+                        } catch (InvalidTimeException ex) {
+                            ex.printStackTrace();
+                        }
                     }
                     Budget.spendMoney(SectorInstance.getSector(selectedType), slider.getValue());
                     updatePercent(true);

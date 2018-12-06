@@ -21,6 +21,8 @@ import economysimulation.classes.managers.animation.StockGraph;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.Theme;
 import economysimulation.classes.mode.ModeManager;
@@ -66,10 +68,17 @@ public class Methods {
     public static Tutorial TutorialDisplay;
     public static PlayerSearch PlayerSearchDisplay = null;
     public static ModeManager ModeHandler;
+    public static StorageReceiver StorageEvent;
+    public static StorageConnector StorageConnection;
     
     
     public static String Username;
     public static int UserID = -1;
+    
+    public static int MPServerSlot = -1;
+    public static int UserInSlot = -1;
+    
+    public static boolean MemorySaver = false;
     
     public static boolean SimulationInProgress = false;
     

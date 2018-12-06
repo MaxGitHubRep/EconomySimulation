@@ -12,6 +12,10 @@ import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
+import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -119,6 +123,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             Methods.DBGames = new GameData();
             Connection.isConnected = true;
         } catch (SQLException ex) {
+            HintManager.createHint(Hints.NotConnected);
             ex.printStackTrace();
         }
         connectionState.setText("O" + (Connection.isConnected ? "n" : "ff") + "line");
@@ -152,6 +157,8 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 } else {
                     Methods.Username = enterUsername.getText();
                     ModeHandler.setMode(id+1);
+                    Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
+                    
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new Sector();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();

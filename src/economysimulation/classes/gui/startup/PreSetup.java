@@ -2,6 +2,7 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ModeHandler;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
@@ -11,8 +12,13 @@ import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
+import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -60,6 +66,16 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
         if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         LBFrame = new PopUpFrame(Methods.LBDisplay, LBTitle);
         LBFrame.createPopUpFrame();
+    }
+    
+    public void launchSim() {
+        Methods.ConsumerDisplay = new Consumer();
+        Methods.CorporationDisplay = new Corporation();
+        Methods.GameDisplay = new GameHold();
+        Methods.FormulaInstance = new Formula();
+        Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
+        Methods.SimulationInProgress = true;
+        new ControlPulse();
     }
     
     @SuppressWarnings("unchecked")
@@ -357,13 +373,17 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
-        Methods.ConsumerDisplay = new Consumer();
-        Methods.CorporationDisplay = new Corporation();
-        Methods.GameDisplay = new GameHold();
-        Methods.FormulaInstance = new Formula();
-        Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
-        Methods.SimulationInProgress = true;
-        new ControlPulse();
+        if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
+            if (Methods.UserInSlot != 0) {
+                HintManager.createHint(Hints.NotPartyLeader);
+                return;
+            } else {
+                Methods.StorageEvent = new StorageReceiver();
+                Methods.StorageConnection = new StorageConnector();
+                //TODO signal other users to launch sim.
+            }
+        }
+        launchSim();
     }//GEN-LAST:event_back1MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
