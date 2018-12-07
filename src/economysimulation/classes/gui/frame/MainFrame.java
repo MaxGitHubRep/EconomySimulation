@@ -108,6 +108,7 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
                 ThemeManager = new Theme();
                 Methods.FrameDisplay = new MainFrame();
                 Methods.FrameDisplay.setVisible(true);
+                Methods.FrameDisplay.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             }
         });
     }

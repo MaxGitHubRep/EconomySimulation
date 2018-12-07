@@ -65,23 +65,63 @@ public class StorageConnector {
         return latestPackages.size();
     }
     
-    public void addServerUser(int slotId, int userSlot, int userId) {
+    public boolean addServerUser(int serverId, int userId) {
         try {
-            String SQLStatement = "UPDATE mxcrtr_db.Servers SET UserSlot" + (userSlot + 1) + " = ? WHERE ServerID = ?";
+            List<Integer> usersInServer = getUsersInServer(serverId);
+            
+            if (usersInServer.size() == 4) return false;
+            
+            //update next available user slot
+            String SQLStatement = "UPDATE mxcrtr_db.Servers SET UserSlot" + (usersInServer.size()+1) + " = ? WHERE ServerID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, userId);
-            pt.setInt(2, slotId);
+            pt.setInt(2, serverId);
             pt.executeUpdate();
+            System.out.println("added to slot" + (usersInServer.size()+1));
+            return true;
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return false;
     }
     
-    public void removeServerUser(int slotId, int userSlot) {
+    public List<Integer> getUsersInServer(int serverId) {
+        List<Integer> list = new ArrayList<>();
+        
+        try {
+            //get all users in the server slot first
+            String SQLStatement = "SELECT UserSlot1, UserSlot2, UserSlot3, UserSlot4 FROM mxcrtr_db.Servers WHERE ServerID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, serverId);
+            DBConnector.setResultSet(pt.executeQuery());
+            
+            //adds user to list if they're found.
+            DBConnector.getResultSet().next();
+
+            for (int i = 1; i < 5; i++) {
+                int nextUser = DBConnector.getResultSet().getInt(i);
+                if (nextUser != 0) {
+                    list.add(nextUser);
+                }
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return list;
+    }
+    
+    public boolean isServerFull(int serverId) {
+        return (getUsersInServer(serverId).size() == 4);
+    }
+    
+    public void removeServerUser(int serverId, int userSlot) {
         try {
             String SQLStatement = "UPDATE mxcrtr_db.Servers SET UserSlot" + (userSlot + 1) + " = 0 WHERE ServerID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, slotId);
+            pt.setInt(1, serverId);
             pt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -109,13 +149,13 @@ public class StorageConnector {
         return false;
     }
     
-    public State getServerState(int slotId) throws SQLException {
+    public State getServerState(int serverId) throws SQLException {
         int state = -1;
         try {
             //Gets the server state from the database table.
             String SQLStatement = "SELECT ServerState FROM mxcrtr_db.Servers WHERE ServerID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, slotId);
+            pt.setInt(1, serverId);
             
             DBConnector.setResultSet(pt.executeQuery());
             DBConnector.getResultSet().next();

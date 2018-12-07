@@ -163,8 +163,11 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
-                        Methods.UserID = DBUsers.getNextAvailableUserID();
-                        DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                        if (Methods.UserID == -1) {
+                            DBUsers.refresh();
+                            Methods.UserID = DBUsers.getNextAvailableUserID();
+                            DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                        }
                         if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
                         Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {

@@ -4,7 +4,6 @@ import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.StorageConnection;
 import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.PreSetup;
-import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -66,22 +65,38 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         this.ServerId = ServerId;
         serverIdTitle.setText("PARTY " + ServerId);
         
+        updateServerSlot();
+        
         ThemeManager.addThemeUpdateListener(this);
     }
 
+    public void setUserSlot(int slotId, String text) {
+        System.out.println("update labewl: " + slotId + ":" + text);
+        titleLabels[slotId].setText(text);
+        UsersInSlot.add(slotId, text);
+    }
+    
+    public void updateServerSlot() {
+        List<Integer> players = StorageConnection.getUsersInServer(ServerId);
+        System.out.println("size: " + players.size());
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println(i + ")  updatring.... ");
+            setUserSlot(i, "#" + players.get(i).toString());
+        }
+    }
+    
     /** Adds the current user to the server slot. */
-    public void joinServerSlot() {
-        if (UsersInSlot.size() == MAX_PLAYERS) {
-            HintManager.createHint(Hints.ServerSlotFull);
-        } else {
-            UserInSlotId = UsersInSlot.size();
-            UsersInSlot.add(Methods.Username);
-            titleLabels[UserInSlotId].setText(Methods.Username);
+    public void joinServerSlot() {UserInSlotId = UsersInSlot.size();
+        if (StorageConnection.addServerUser(ServerId, Methods.UserID)) {
             display6.setText("Leave Channel");
             Methods.MPServerSlot = ServerId;
             Methods.UserInSlot = UserInSlotId;
-            StorageConnection.addServerUser(ServerId, UserInSlotId, Methods.UserID);
+            updateServerSlot();
+
+        } else {
+            HintManager.createHint(Hints.ServerSlotFull);
         }
+        
     }
     
     /** Removes the current user from the server slot. */
