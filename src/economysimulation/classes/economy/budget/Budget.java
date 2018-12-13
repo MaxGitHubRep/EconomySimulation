@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Max Carter
  */
-public class Budget extends Component {
+public class Budget {
     
     private static List<MoneySpent> listeners = new ArrayList<>();
     
@@ -26,7 +26,7 @@ public class Budget extends Component {
      * @param money 
      */
     public static void spendMoney(Sector sector, int money) {
-        SpendingBudget -= money;
+        Component.SpendingBudget -= money;
         sector.addSpending(money);
         sector.addSpendingInfluence((double) money);
         listeners.forEach((listener) -> {
