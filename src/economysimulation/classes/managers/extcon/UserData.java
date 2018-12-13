@@ -70,7 +70,6 @@ public class UserData {
             pt.setInt(1, id);
             
             DBConnector.setResultSet(pt.executeQuery());
-            pt.close();
             DBConnector.getResultSet().next();
             
             name = DBConnector.getResultSet().getString("Username");
