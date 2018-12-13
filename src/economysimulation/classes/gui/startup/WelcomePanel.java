@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.startup;
 
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBUsers;
 import static economysimulation.classes.global.Methods.ModeHandler;
@@ -159,7 +159,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
                     
                     Methods.AnimationGraph.stop();
-                    Methods.SectorInstance = new Sector();
+                    Methods.SectorInstance = new SectorManager();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {

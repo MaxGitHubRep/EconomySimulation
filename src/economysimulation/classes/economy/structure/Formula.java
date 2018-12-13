@@ -1,7 +1,7 @@
 package economysimulation.classes.economy.structure;
 
 import economysimulation.classes.economy.budget.Budget;
-import economysimulation.classes.economy.sectors.BudgetSector;
+import economysimulation.classes.economy.sectors.Sector;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.sectors.SectorEvent;
@@ -46,7 +46,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
     /** Uses the budget to adjust economic behaviour.*/
     private void calculateSpendingInfluence() {
-        for (BudgetSector sector : SectorInstance.SectorList) {
+        for (Sector sector : SectorInstance.SectorList) {
             if (sector.getSpendingInfluence() >= 0.1) {
                 sector.addSpendingInfluence(-0.1);
             } else {
@@ -89,7 +89,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     }
 
     @Override
-    public void sectorSpendingEvent(BudgetSector sector, int value) {
+    public void sectorSpendingEvent(Sector sector, int value) {
         if (sector.equals(SectorInstance.Benefits)) {
             TotalConsumption += value * (1-(TaxManager.getTaxRate(Tax.INCOME)));
         }

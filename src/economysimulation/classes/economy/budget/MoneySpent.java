@@ -1,6 +1,6 @@
 package economysimulation.classes.economy.budget;
 
-import economysimulation.classes.economy.sectors.BudgetSector;
+import economysimulation.classes.economy.sectors.Sector;
 
 /**
  *
@@ -8,6 +8,6 @@ import economysimulation.classes.economy.sectors.BudgetSector;
  */
 public interface MoneySpent {
     
-    public void onMoneySpent(BudgetSector sector, int money);
+    public void onMoneySpent(Sector sector, int money);
     
 }

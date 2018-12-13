@@ -1,6 +1,6 @@
 package economysimulation.classes.gui.endgame;
 
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.simulation.reset.ResetSimulation;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
@@ -145,7 +145,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         ResetSimulation.resetSimulation();
         
         if (replay) {
-            Methods.SectorInstance = new Sector();
+            Methods.SectorInstance = new SectorManager();
             Methods.TaxRevenueDisplay = new TaxRevenueList();
             Methods.FrameDisplay.addToMainFrame(new PreSetup());
         } else {

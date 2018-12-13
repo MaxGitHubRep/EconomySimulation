@@ -11,6 +11,6 @@ public interface SectorEvent {
      * @param sector Sector which was changed.
      * @param value  Value which the sector was changed by.
      */
-    public void sectorSpendingEvent(BudgetSector sector, int value);
+    public void sectorSpendingEvent(Sector sector, int value);
     
 }

@@ -1,6 +1,6 @@
 package economysimulation.classes.global;
 
-import economysimulation.classes.economy.sectors.Sector;
+import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.frame.MainFrame;
@@ -51,7 +51,7 @@ public class Methods {
     public static MainFrame FrameDisplay;
     public static Formula FormulaInstance;
     public static TaxRevenueList TaxRevenueDisplay;
-    public static Sector SectorInstance;
+    public static SectorManager SectorInstance;
     public static Theme ThemeManager;
     public static GraphicUpdater Updater;
     public static Consumer ConsumerDisplay;

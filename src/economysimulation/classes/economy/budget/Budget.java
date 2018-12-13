@@ -1,6 +1,6 @@
 package economysimulation.classes.economy.budget;
 
-import economysimulation.classes.economy.sectors.BudgetSector;
+import economysimulation.classes.economy.sectors.Sector;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.economy.structure.Component;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class Budget extends Component {
      * @param sector
      * @param money 
      */
-    public static void spendMoney(BudgetSector sector, int money) {
+    public static void spendMoney(Sector sector, int money) {
         SpendingBudget -= money;
         sector.addSpending(money);
         sector.addSpendingInfluence((double) money);
@@ -41,7 +41,7 @@ public class Budget extends Component {
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0, index = 0;
         
-        for (BudgetSector sector : SectorInstance.SectorList) {
+        for (Sector sector : SectorInstance.SectorList) {
             if (!(!includeTransfer && index == 7)) {
                 value+= sector.getSpending();
             }

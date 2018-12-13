@@ -74,7 +74,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
         title.setText(titles[id]);
         slider.setValue(0);
         saveChanges.setText(saveTexts[0]);
-        spendings.setText("£" + SectorInstance.getSector(selectedType).getSpending() + "bn");
+        spendings.setText("£" + Methods.SectorInstance.getSector(selectedType).getSpending() + "bn");
         updatePercent(false);
         
     }//</editor-fold>

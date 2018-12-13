@@ -2,7 +2,7 @@ package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.budget.MoneySpent;
-import economysimulation.classes.economy.sectors.BudgetSector;
+import economysimulation.classes.economy.sectors.Sector;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import static economysimulation.classes.global.Methods.SideBarDisplay;
@@ -24,7 +24,7 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
     private static JFreeChart pieChart;
 
     @Override
-    public void onMoneySpent(BudgetSector sector, int money) {
+    public void onMoneySpent(Sector sector, int money) {
         displaySpendingGraph();
     }
 
