@@ -4,7 +4,6 @@ import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.simulation.reset.ResetSimulation;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.startup.PreSetup;
 import economysimulation.classes.gui.startup.WelcomePanel;
@@ -18,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -89,7 +89,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             displayRelativeScore(i);
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
 
     @Override

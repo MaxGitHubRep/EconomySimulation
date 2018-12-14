@@ -2,7 +2,6 @@ package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.StorageConnection;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.PreSetup;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -67,7 +67,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
         
         updateServerSlot();
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
 
     public void setUserSlot(int slotId, String text) {

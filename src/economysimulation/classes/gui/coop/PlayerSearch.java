@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.startup.WelcomePanel;
 import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
 import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
@@ -10,6 +9,7 @@ import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -46,7 +46,7 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
             Methods.addToFrontPanel(slotPanels[i], serverSlots[i], false);
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
 
     @Override

@@ -3,7 +3,6 @@ package economysimulation.classes.gui.startup;
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ModeHandler;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
@@ -22,6 +21,7 @@ import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -52,7 +52,7 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
         Methods.addDraggablePanel(this);
     }
     

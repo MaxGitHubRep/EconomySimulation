@@ -1,6 +1,5 @@
 package economysimulation.classes.managers.events;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -12,6 +11,7 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -29,7 +29,7 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         setSize(600, 400);
         Format.addButtonFormat(this, null);
         frameDragged(this);
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
     
     @Override

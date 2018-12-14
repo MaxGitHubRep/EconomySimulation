@@ -40,7 +40,7 @@ public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
             SearchComponent.FIRM_SUPPORT
         };
         
-        Methods.ThemeManager.addThemeUpdateListener(this);
+        Methods.ThemeHandler.addThemeUpdateListener(this);
         Format.addButtonFormat(back1, col1);
         Format.addButtonFormat(back2, col2);
         

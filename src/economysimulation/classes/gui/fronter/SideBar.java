@@ -2,7 +2,6 @@ package economysimulation.classes.gui.fronter;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.GameDisplay;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.hold.BudgetHold;
 import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.extra.settings.Settings;
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -155,7 +155,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
 
         listeners = new ArrayList<>();
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }//</editor-fold>
 
     @SuppressWarnings("unchecked")

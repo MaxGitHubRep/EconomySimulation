@@ -25,7 +25,7 @@ import economysimulation.classes.managers.extcon.UserData;
 import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
 import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.theme.GraphicUpdater;
-import economysimulation.classes.managers.theme.Theme;
+import economysimulation.classes.managers.theme.ThemeManager;
 import economysimulation.classes.mode.ModeManager;
 import economysimulation.classes.pulse.PulseThread;
 import java.awt.BorderLayout;
@@ -52,7 +52,7 @@ public class Methods {
     public static Formula FormulaInstance;
     public static TaxRevenueList TaxRevenueDisplay;
     public static SectorManager SectorInstance;
-    public static Theme ThemeManager;
+    public static ThemeManager ThemeHandler;
     public static GraphicUpdater Updater;
     public static Consumer ConsumerDisplay;
     public static Corporation CorporationDisplay;
@@ -160,15 +160,15 @@ public class Methods {
     public static void applyChartTheme(JFreeChart chart) {
         StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
-        theme.setTitlePaint(ThemeManager.Theme.getPrimaryColor());
+        theme.setTitlePaint(ThemeHandler.getTheme().getPrimaryColor());
         theme.setExtraLargeFont(new Font("Agency FB",Font.PLAIN, 32));
         theme.setLargeFont(new Font("Agency FB",Font.PLAIN, 25));
         theme.setRegularFont(new Font("Agency FB",Font.PLAIN, 20));
 
-        theme.setAxisLabelPaint(ThemeManager.Theme.getPrimaryTextColor());
-        theme.setChartBackgroundPaint(ThemeManager.Theme.getPrimaryColor());
-        theme.setPlotBackgroundPaint(ThemeManager.Theme.getPrimaryHoverColor());
-        theme.setRangeGridlinePaint(ThemeManager.Theme.getSecondaryColor());
+        theme.setAxisLabelPaint(ThemeHandler.getTheme().getPrimaryTextColor());
+        theme.setChartBackgroundPaint(ThemeHandler.getTheme().getPrimaryColor());
+        theme.setPlotBackgroundPaint(ThemeHandler.getTheme().getPrimaryHoverColor());
+        theme.setRangeGridlinePaint(ThemeHandler.getTheme().getSecondaryColor());
         theme.setShadowVisible(true);
         
         theme.apply(chart);

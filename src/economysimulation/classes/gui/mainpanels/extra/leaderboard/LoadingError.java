@@ -1,12 +1,12 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
 import static economysimulation.classes.global.Methods.LBDisplay;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -21,7 +21,7 @@ public class LoadingError extends javax.swing.JPanel implements ThemeUpdateEvent
         initComponents();
         errorMessage.setText(message);
         Format.addButtonFormat(back1, color1);
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
     
     @Override

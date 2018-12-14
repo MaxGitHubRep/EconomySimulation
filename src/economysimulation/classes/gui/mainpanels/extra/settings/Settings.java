@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.mainpanels.extra.settings;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.positions.FramePosition;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -10,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -61,7 +61,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             index++;
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
     
     private void optionPositionEvent(int id) {
@@ -93,7 +93,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (stateLabels[id].getText().equals("Unselected")){
-                    ThemeManager.setTheme(ThemeManager.Themes[id]);
+                    ThemeHandler.setTheme(ThemeHandler.Themes[id]);
                     stateLabels[id].setText("Selected");
                     stateLabels[oldIndex].setText("Unselected");
                     oldIndex = id;

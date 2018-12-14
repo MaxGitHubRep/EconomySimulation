@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.subpanels;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -14,6 +13,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 
 /**
@@ -141,7 +142,7 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
         }
         Format.addButtonFormat(saveChangesPanel, panelPic);
         
-        ThemeManager.addThemeUpdateListener(this);
+        Methods.ThemeHandler.addThemeUpdateListener(this);
         applySelectedType(0);
     }
 

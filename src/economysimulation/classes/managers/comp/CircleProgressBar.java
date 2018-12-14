@@ -1,11 +1,11 @@
 package economysimulation.classes.managers.comp;
 
 import static economysimulation.classes.global.Methods.GameDisplay;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -21,24 +21,24 @@ public class CircleProgressBar extends JPanel {
         for (int i = 0; i < GameDisplay.Percents.length; i++) {
             
             // Draws the respected progess bar title.
-            g.setColor(ThemeManager.Theme.getSecondaryTextColor());
+            g.setColor(ThemeHandler.getTheme().getSecondaryTextColor());
             g.setFont(new Font("Agency FB", Font.PLAIN, 40));
             g.drawString(GameDisplay.TITLES[i], 1, 32 + (i * plus));
             
             // Draws background of progress bar.
-            g.setColor(ThemeManager.Theme.getSecondaryColor());
+            g.setColor(ThemeHandler.getTheme().getSecondaryColor());
             g.fillOval(1, 41 + (i * plus), 238, 238);
 
             // Draws progress bar.
-            g.setColor(ThemeManager.Theme.getPrimaryTextColor());
+            g.setColor(ThemeHandler.getTheme().getPrimaryTextColor());
             g.fillArc(0, 40 + (i * plus), 240, 240, 90, -(int) (360 * GameDisplay.Percents[i]));
 
             // Fills in middle of circle.
-            g.setColor(ThemeManager.Theme.getSecondaryColor());
+            g.setColor(ThemeHandler.getTheme().getSecondaryColor());
             g.fillOval(20, 60 + (i * plus), 200, 200);
 
             //Configures color and font for percentage display.
-            g.setColor(ThemeManager.Theme.getPrimaryTextColor());
+            g.setColor(ThemeHandler.getTheme().getPrimaryTextColor());
             g.setFont(new Font("Agency FB", Font.PLAIN, 82));
             String text = new DecimalFormat("0").format(GameDisplay.Percents[i]*100) + "%";
             text = text.equals("0%") ? "1%" : text;

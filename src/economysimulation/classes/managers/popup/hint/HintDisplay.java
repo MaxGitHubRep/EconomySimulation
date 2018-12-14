@@ -1,6 +1,5 @@
 package economysimulation.classes.managers.popup.hint;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.shadow.ShadowFrame;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -11,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -25,7 +25,7 @@ public class HintDisplay extends JPanel implements ThemeUpdateEvent {
         setSize(500, 100);
         
         Format.addButtonFormat(bottom, null);
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
         frameDragged(top);
     }
     

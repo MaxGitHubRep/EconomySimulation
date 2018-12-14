@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -10,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -48,7 +48,7 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         
         applyButtonListener(this);
         Format.addButtonFormat(this, null);
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
     
     private void applyButtonListener(JPanel panel) {

@@ -4,7 +4,6 @@ import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBUsers;
 import static economysimulation.classes.global.Methods.ModeHandler;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -28,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingWorker;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -95,7 +95,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
         runConnectionTest();

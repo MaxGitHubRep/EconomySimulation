@@ -3,7 +3,6 @@ package economysimulation.classes.gui.mainpanels.sim;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.economy.structure.tax.Tax;
 import economysimulation.classes.economy.structure.tax.TaxManager;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -16,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -81,7 +81,7 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
             addHoverEvent(i);
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
 
     private void addHoverEvent(int id) {

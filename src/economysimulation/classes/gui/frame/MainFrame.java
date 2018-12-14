@@ -3,8 +3,7 @@ package economysimulation.classes.gui.frame;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.gui.startup.WelcomePanel;
-import economysimulation.classes.managers.theme.Theme;
-import static economysimulation.classes.global.Methods.ThemeManager;
+import economysimulation.classes.managers.theme.ThemeManager;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -13,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
     
     public MainFrame() {
         initComponents();
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
         setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
         addToMainFrame(new WelcomePanel());
     }
@@ -105,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ThemeManager = new Theme();
+                ThemeHandler = new ThemeManager();
                 Methods.FrameDisplay = new MainFrame();
                 Methods.FrameDisplay.setVisible(true);
                 Methods.FrameDisplay.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

@@ -1,6 +1,5 @@
 package economysimulation.classes.gui.startup;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.Cursor;
@@ -10,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -45,7 +45,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         imageIndexPanel.add(indexer);
         indexer.setSize(342, 70);
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             super.setOpaque(false);
             super.setSize(Width, Height);
             initImages();
-            ThemeManager.addThemeUpdateListener(this);
+            ThemeHandler.addThemeUpdateListener(this);
         }
         
         private void initImages() {

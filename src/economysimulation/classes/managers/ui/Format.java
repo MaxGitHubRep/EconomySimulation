@@ -1,12 +1,12 @@
 package economysimulation.classes.managers.ui;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -30,14 +30,14 @@ public class Format {
         backPanel.addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseEntered(MouseEvent e) {
-                backPanel.setBackground(ThemeManager.Theme.getPrimaryHoverColor());
-                if (colorPanel != null) colorPanel.setBackground(ThemeManager.Theme.getSecondaryHoverColor());
+                backPanel.setBackground(ThemeHandler.getTheme().getPrimaryHoverColor());
+                if (colorPanel != null) colorPanel.setBackground(ThemeHandler.getTheme().getSecondaryHoverColor());
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
-                backPanel.setBackground(ThemeManager.Theme.getPrimaryColor());
-                if (colorPanel != null) colorPanel.setBackground(ThemeManager.Theme.getPrimaryColor());
+                backPanel.setBackground(ThemeHandler.getTheme().getPrimaryColor());
+                if (colorPanel != null) colorPanel.setBackground(ThemeHandler.getTheme().getPrimaryColor());
             }
         });
     }//</editor-fold>
@@ -48,14 +48,14 @@ public class Format {
             @Override
             public void focusGained(FocusEvent e) {
                 field.setText(field.getText().replace(ghostText, ""));
-                field.setForeground(ThemeManager.Theme.getGhostTextColor());
+                field.setForeground(ThemeHandler.getTheme().getGhostTextColor());
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 if ("".equals(field.getText())) {
                     field.setText(ghostText);
-                    field.setForeground(ThemeManager.Theme.getGhostTextColor());
+                    field.setForeground(ThemeHandler.getTheme().getGhostTextColor());
                 }
                 
             }

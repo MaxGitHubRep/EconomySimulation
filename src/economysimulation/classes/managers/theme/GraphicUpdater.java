@@ -1,9 +1,9 @@
 package economysimulation.classes.managers.theme;
 
-import static economysimulation.classes.global.Methods.ThemeManager;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -20,13 +20,13 @@ public class GraphicUpdater {
     public void applyTextThemes(JLabel[] primaryTextLabels, JLabel[] secondaryTextLabels) {
         if (primaryTextLabels != null) {
             for (JLabel text : primaryTextLabels) {
-                text.setForeground(ThemeManager.Theme.getPrimaryTextColor());
+                text.setForeground(ThemeHandler.getTheme().getPrimaryTextColor());
             }
         }
         
         if (secondaryTextLabels != null) {
             for (JLabel text : secondaryTextLabels) {
-                text.setForeground(ThemeManager.Theme.getSecondaryTextColor());
+                text.setForeground(ThemeHandler.getTheme().getSecondaryTextColor());
             }
         }
     }
@@ -40,13 +40,13 @@ public class GraphicUpdater {
     public void applyPanelThemes(JPanel[] primaryBackPanels, JPanel[] secondaryBackPanels) {
         if (primaryBackPanels != null) {
             for (JPanel panel : primaryBackPanels) {
-                panel.setBackground(ThemeManager.Theme.getPrimaryColor());
+                panel.setBackground(ThemeHandler.getTheme().getPrimaryColor());
             }
         }
          
         if (secondaryBackPanels != null) {
             for (JPanel panel : secondaryBackPanels) {
-                panel.setBackground(ThemeManager.Theme.getSecondaryColor());
+                panel.setBackground(ThemeHandler.getTheme().getSecondaryColor());
             }
         }
     }
@@ -60,15 +60,15 @@ public class GraphicUpdater {
     public void applyRadioButtonThemes(JRadioButton[] primaryButtons, JRadioButton[] secondaryButtons) {
         if (primaryButtons != null) {
             for (JRadioButton button : primaryButtons) {
-                button.setBackground(ThemeManager.Theme.getPrimaryColor());
-                button.setForeground(ThemeManager.Theme.getPrimaryTextColor());
+                button.setBackground(ThemeHandler.getTheme().getPrimaryColor());
+                button.setForeground(ThemeHandler.getTheme().getPrimaryTextColor());
             }
         }
         
         if (secondaryButtons != null) {
             for (JRadioButton button : secondaryButtons) {
-                button.setBackground(ThemeManager.Theme.getSecondaryColor());
-                button.setForeground(ThemeManager.Theme.getSecondaryTextColor());
+                button.setBackground(ThemeHandler.getTheme().getSecondaryColor());
+                button.setForeground(ThemeHandler.getTheme().getSecondaryTextColor());
             }
         }
         

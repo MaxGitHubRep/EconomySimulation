@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra.leaderboard;
 
 import static economysimulation.classes.global.Methods.DBGames;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -88,7 +88,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         
         configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.LOW_TO_HIGH);
 
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
         applyScroller(changeArrow1, false, Scroll.MODE);
         applyScroller(changeArrow2, true, Scroll.MODE);
         applyScroller(changeArrow3, true, Scroll.PAGE);

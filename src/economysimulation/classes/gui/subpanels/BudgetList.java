@@ -2,7 +2,6 @@ package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.budget.Budget;
 import static economysimulation.classes.global.Methods.SectorInstance;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidTimeException;
 import economysimulation.classes.managers.popup.hint.HintManager;
@@ -21,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 
 /**
@@ -65,7 +65,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
         addSliderListener(slider);
         applySelectedType(0);
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Updates content when a button is clicked."> 

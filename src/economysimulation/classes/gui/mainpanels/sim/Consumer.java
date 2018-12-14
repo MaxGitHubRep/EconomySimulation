@@ -4,7 +4,6 @@ import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.economy.structure.tax.Tax;
 import economysimulation.classes.economy.structure.tax.TaxManager;
 import economysimulation.classes.gui.mainpanels.sim.middle.ComponentMiddle;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -16,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -91,7 +91,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
             addHoverEvent(i);
         }
         
-        ThemeManager.addThemeUpdateListener(this);
+        ThemeHandler.addThemeUpdateListener(this);
 
     }
 

@@ -7,10 +7,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.GameDisplay;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.structure.Component;
+import economysimulation.classes.global.Methods;
 
 /**
  *
@@ -43,7 +43,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
         backPanels = new JPanel[]{ subback1, subback2 };
         colorPanels = new JPanel[]{ subcolor1, subcolor2 };
         
-        ThemeManager.addThemeUpdateListener(this);
+        Methods.ThemeHandler.addThemeUpdateListener(this);
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);

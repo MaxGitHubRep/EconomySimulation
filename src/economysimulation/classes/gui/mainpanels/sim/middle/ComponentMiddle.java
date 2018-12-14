@@ -1,13 +1,13 @@
 package economysimulation.classes.gui.mainpanels.sim.middle;
 
 import economysimulation.classes.economy.structure.Component;
-import static economysimulation.classes.global.Methods.ThemeManager;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
+import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
  *
@@ -46,14 +46,14 @@ public class ComponentMiddle extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         for (int i = 0; i < 6; i++) {
-            g.setColor(sector == i ? ThemeManager.Theme.getPrimaryColor() : ThemeManager.Theme.getPrimaryTextColor());
+            g.setColor(sector == i ? ThemeHandler.getTheme().getPrimaryColor() : ThemeHandler.getTheme().getPrimaryTextColor());
             g.fillArc(0, 0, 450, 450, (60*i)+62, 52);
         }
         
-        g.setColor(ThemeManager.Theme.getPrimaryColor());
+        g.setColor(ThemeHandler.getTheme().getPrimaryColor());
         g.fillOval(75, 75, 300, 300);
         
-        g.setColor(ThemeManager.Theme.getPrimaryTextColor());
+        g.setColor(ThemeHandler.getTheme().getPrimaryTextColor());
         g.setFont(new Font("Agency FB", Font.PLAIN, 60));
         g.drawString(this.title, 110 - (this.title.length() > 10 ? 18: 0), 220);
         
