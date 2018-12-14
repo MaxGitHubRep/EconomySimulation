@@ -89,7 +89,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
     }
 
     @Override
-    public void sectorSpendingEvent(Sector sector, int value) {
+    public void onSectorSpend(Sector sector, int value) {
         if (sector.equals(SectorInstance.Benefits)) {
             TotalConsumption += value * (1-(TaxManager.getTaxRate(Tax.INCOME)));
         }

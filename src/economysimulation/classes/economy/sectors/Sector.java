@@ -37,7 +37,7 @@ public class Sector {
 
     public void spendingEventListener(int value) {
         for (SectorEvent event : SectorInstance.spendingListeners) {
-            event.sectorSpendingEvent(this, value);
+            event.onSectorSpend(this, value);
         }
     }
     
