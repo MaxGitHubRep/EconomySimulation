@@ -54,7 +54,7 @@ public class HintDisplay extends JPanel implements ThemeUpdateEvent {
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ bottom }, null);
         updater.applyTextThemes(new JLabel[]{ descLabel }, null);
     }

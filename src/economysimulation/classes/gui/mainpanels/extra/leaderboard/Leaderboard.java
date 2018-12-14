@@ -361,7 +361,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this, back1, back2, col1, col2, gback1, gback2 }, new JPanel[]{ topBar, leftBar, gback1, gback2, gback3, gback4, gback5, gback6, gback7, gback8, gback9, gback10, gback11 });
         updater.applyTextThemes(new JLabel[]{ changeArrow1, changeArrow2, changeArrow3, changeArrow4, playerTypeDisplay, pageReference, title1, title2 }, 
                 new JLabel[]{ rankTitle, scoreTitle, playersTitle, gameIndexDisplay, extraLabel, var1, var2, var3, var4, var5, var6, var7, var8, var9, var10, var11 });

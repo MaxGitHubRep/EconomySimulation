@@ -57,7 +57,7 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back1, back2, back3,subback1, subback2, subcolor1, subcolor2 }, new JPanel[]{ color1, color2, color3 } );
         updater.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, it4, tt1, tt4, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
     }

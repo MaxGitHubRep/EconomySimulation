@@ -61,7 +61,7 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this }, null);
         updater.applyTextThemes(new JLabel[]{ rankDisplay, scoreDisplay, playersDisplay }, null);
     }

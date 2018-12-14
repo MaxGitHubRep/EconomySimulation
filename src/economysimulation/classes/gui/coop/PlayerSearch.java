@@ -50,7 +50,7 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ topBar, back1, back2, color1, color2 }, new JPanel[]{ this });
         updater.applyTextThemes(new JLabel[]{ title1, title2 }, null);
     }

@@ -58,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back }, null);
     }
 

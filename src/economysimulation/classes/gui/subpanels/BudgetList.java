@@ -144,7 +144,7 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
     }//</editor-fold>
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ subBack, saveChangesPanel, picPanel,
             panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8,
             color1, color2, color3, color4, color5, color6, color7, color8 }, null);

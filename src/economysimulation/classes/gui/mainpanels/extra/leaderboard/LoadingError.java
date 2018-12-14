@@ -25,7 +25,7 @@ public class LoadingError extends javax.swing.JPanel implements ThemeUpdateEvent
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back1 }, new JPanel[]{ prop });
         updater.applyTextThemes(new JLabel[]{ titleMain, reload }, new JLabel[]{ errorMessage });
     }

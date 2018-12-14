@@ -32,13 +32,13 @@ public class ThemeManager {
     
     public void addThemeUpdateListener(ThemeUpdateEvent event) {
         listeners.add(event);
-        event.updateThemeEvent(Methods.Updater);
+        event.onThemeUpdate(Methods.Updater);
     }
     
     public void setTheme(Theme theme) {
         Theme = theme;
         listeners.forEach((listener) -> {
-            listener.updateThemeEvent(Methods.Updater);
+            listener.onThemeUpdate(Methods.Updater);
         });
     }
     

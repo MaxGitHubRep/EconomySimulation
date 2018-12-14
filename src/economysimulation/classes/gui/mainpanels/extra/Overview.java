@@ -345,7 +345,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
     }//GEN-LAST:event_back3MouseClicked
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, color1, color2, color3, color4 }, null);
         updater.applyTextThemes(new JLabel[]{ title1, title2, title3, title4 }, null);
     }

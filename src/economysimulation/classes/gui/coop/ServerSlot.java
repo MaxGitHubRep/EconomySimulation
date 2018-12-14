@@ -121,7 +121,7 @@ public class ServerSlot extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, back5, back6, back7, color1, color2, color3, color4, color5, color6, color7 }, null);
         updater.applyTextThemes(new JLabel[]{ display1, display2, display3, display4, display5, display6, display7 , playerListTitle, serverIdTitle, channelOptionsTitle }, null);
     }

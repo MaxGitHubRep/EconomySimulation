@@ -57,7 +57,7 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back1, back4, col1, col4 }, null);
         updater.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, titleQuit }, null);
     }

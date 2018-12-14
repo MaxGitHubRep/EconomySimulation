@@ -49,7 +49,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this }, null);
         updater.applyTextThemes(new JLabel[]{ title, arrowLeft, arrowRight }, null);
     }
@@ -105,7 +105,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         }
         
         @Override
-        public void updateThemeEvent(GraphicUpdater updater) {
+        public void onThemeUpdate(GraphicUpdater updater) {
             updater.applyTextThemes(labels, null);
         }
         

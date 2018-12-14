@@ -103,7 +103,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back1, back2, back3, back4, back5, back6, back7, back8, back9, color1, color2, color3, color4 }, new JPanel[]{ top1, top2, top3, top4 });
         updater.applyTextThemes(new JLabel[]{ state1, state2, state3, state4, saveChanges, title6, title7, title8, title9 }, new JLabel[]{ label1, label2, label3, label4 });
     }

@@ -129,7 +129,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ sideBarLeft, back1, back2, back3, back4, back5, back6, co1, co2, co3, co4, co5, co6 }, new JPanel[]{ animBack });
         updater.applyTextThemes(titleLabels, null);
     }

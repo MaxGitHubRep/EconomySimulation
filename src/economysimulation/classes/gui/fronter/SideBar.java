@@ -101,7 +101,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
     }//</editor-fold>
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7, colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7 }, null);
         updater.applyTextThemes(titles, null);
     }

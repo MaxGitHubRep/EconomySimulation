@@ -93,7 +93,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
 
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ back, back1, back2, back3, back4,
             color1, color2, color3, color4, opCol1, opCol2, opCol3, opCol4, opCol5, opCol6, opCol7, opCol8, opCol9, opCol10, opCol11, opCol12,
             opBack1, opBack2, opBack3, opBack4, opBack5, opBack6, opBack7, opBack8, opBack9, opBack10, opBack11, opBack12, opBack13

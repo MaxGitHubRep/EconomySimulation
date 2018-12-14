@@ -9,6 +9,6 @@ public interface ThemeUpdateEvent {
     /**
      * When the colour them is updated.
      */
-    public void updateThemeEvent(GraphicUpdater updater);
+    public void onThemeUpdate(GraphicUpdater updater);
     
 }

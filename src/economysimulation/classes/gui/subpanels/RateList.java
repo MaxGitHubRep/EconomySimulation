@@ -120,7 +120,7 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
     }
     
     @Override
-    public void updateThemeEvent(GraphicUpdater updater) {
+    public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ displayPanel, color1, color2, color3, panelPic, panel1, panel2, panel3, saveChangesPanel }, null);
         updater.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
     }
