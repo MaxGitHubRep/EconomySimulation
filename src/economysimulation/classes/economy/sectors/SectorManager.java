@@ -1,27 +1,10 @@
 package economysimulation.classes.economy.sectors;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Max Carter
  */
 public class SectorManager {
-    
-    /**
-     * List of sector event implementations that
-     * listen to change in sector value.
-     */
-    public List<SectorEvent> spendingListeners;
-    
-    public SectorManager() {
-        spendingListeners = new ArrayList<>();
-    }
-    
-    public void addSectorEventListener(SectorEvent listener) {
-        spendingListeners.add(listener);
-    }
     
     public final Sector
             NHS = new Sector(0.004, 3, 0),

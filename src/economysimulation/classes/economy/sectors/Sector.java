@@ -27,18 +27,11 @@ public class Sector {
     }
     
     public void addSpending(int value) {
-        spendingEventListener(value);
         this.spending += value;
     }
 
     public void setSpending(int value) {
         this.spending = value;
-    }
-
-    public void spendingEventListener(int value) {
-        for (SectorEvent event : SectorInstance.spendingListeners) {
-            event.onSectorSpend(this, value);
-        }
     }
     
     public double getSpendingInfluence() {

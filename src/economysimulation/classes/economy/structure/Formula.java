@@ -1,10 +1,10 @@
 package economysimulation.classes.economy.structure;
 
 import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.budget.MoneySpent;
 import economysimulation.classes.economy.sectors.Sector;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import economysimulation.classes.pulse.GamePulse;
-import economysimulation.classes.economy.sectors.SectorEvent;
 import economysimulation.classes.economy.simulation.end.Completed;
 import economysimulation.classes.economy.structure.tax.Tax;
 import economysimulation.classes.economy.structure.tax.TaxManager;
@@ -15,7 +15,7 @@ import economysimulation.classes.managers.events.EventManager;
  *
  * @author Max Carter
  */
-public class Formula extends Component implements GamePulse, SectorEvent {
+public class Formula extends Component implements GamePulse, MoneySpent {
     
     private static final String[] CAUSES_OF_COMPLETION = new String[]{
         "Standard of Living below 0%.",
@@ -29,7 +29,7 @@ public class Formula extends Component implements GamePulse, SectorEvent {
      * Creates new Formula class.
      */
     public Formula() {
-        SectorInstance.addSectorEventListener(this);
+        Budget.addMoneySpentListener(this);
     }
     
     //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
@@ -87,11 +87,11 @@ public class Formula extends Component implements GamePulse, SectorEvent {
         if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
     }
-
+    
     @Override
-    public void onSectorSpend(Sector sector, int value) {
+    public void onMoneySpent(Sector sector, int money) {
         if (sector.equals(SectorInstance.Benefits)) {
-            TotalConsumption += value * (1-(TaxManager.getTaxRate(Tax.INCOME)));
+            TotalConsumption += money * (1-(TaxManager.getTaxRate(Tax.INCOME)));
         }
     }
 
