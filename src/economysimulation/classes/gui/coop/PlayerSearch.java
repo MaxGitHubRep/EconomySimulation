@@ -47,6 +47,8 @@ public class PlayerSearch extends javax.swing.JPanel implements ThemeUpdateEvent
         }
         
         ThemeHandler.addThemeUpdateListener(this);
+        
+        Methods.addDraggablePanel(new JPanel[]{ this, topBar });
     }
 
     @Override
