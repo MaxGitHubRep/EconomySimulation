@@ -28,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingWorker;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.gui.coop.TeammateFinder;
 
 /**
  *
@@ -164,12 +165,15 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
                         if (Methods.UserID == -1) {
-                            DBUsers.refresh();
-                            Methods.UserID = DBUsers.getNextAvailableUserID();
-                            DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                            //DBUsers.refresh();
+                            //Methods.UserID = DBUsers.getNextAvailableUserID();
+                            //DBUsers.createNewUser(Methods.UserID, Methods.Username);
                         }
-                        if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
-                        Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
+                        if (Methods.FindTeammate == null) Methods.FindTeammate = new TeammateFinder();
+                        Methods.FrameDisplay.addToMainFrame(Methods.FindTeammate);
+                        
+                        //if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
+                        //Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {
                         Methods.FrameDisplay.addToMainFrame(new PreSetup());
                     }

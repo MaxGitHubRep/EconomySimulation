@@ -2,7 +2,9 @@ package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.structure.Formula;
+import economysimulation.classes.gui.coop.ControlPanel;
 import economysimulation.classes.gui.coop.PlayerSearch;
+import economysimulation.classes.gui.coop.TeammateFinder;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.fronter.SideBar;
@@ -14,6 +16,7 @@ import economysimulation.classes.gui.mainpanels.hold.RateHold;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
 import economysimulation.classes.gui.mainpanels.sim.Corporation;
 import economysimulation.classes.gui.startup.Tutorial;
+import economysimulation.classes.gui.startup.WelcomePanel;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
@@ -44,6 +47,7 @@ import org.jfree.chart.StandardChartTheme;
 public class Methods {
 
     //Instances of objects.
+    public static WelcomePanel IntroPanel;
     public static BudgetList BudgetDisplay;
     public static RateList RateDisplay;
     public static GameHold GameDisplay;
@@ -72,6 +76,7 @@ public class Methods {
     public static StorageReceiver StorageEvent;
     public static StorageConnector StorageConnection;
     
+    public static TeammateFinder FindTeammate = null;
     
     public static String Username = null;
     public static int UserID = -1;

@@ -26,7 +26,8 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
         initComponents();
         ThemeHandler.addThemeUpdateListener(this);
         setIconImage(new ImageIcon(getClass().getResource("/economysimulation/resources/icon/icon128.png")).getImage());
-        addToMainFrame(new WelcomePanel());
+        Methods.IntroPanel = new WelcomePanel();
+        addToMainFrame(Methods.IntroPanel);
     }
 
     public void addToMainFrame(JPanel panel) {
