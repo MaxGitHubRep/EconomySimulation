@@ -3,6 +3,7 @@ package economysimulation.classes.gui.coop;
 import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import economysimulation.classes.managers.ui.Format;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,6 +18,9 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
      */
     public ControlPanel() {
         initComponents();
+        
+        Format.addButtonFormat(back1, color1);
+        Format.addButtonFormat(back2, color2);
     }
     
     /**
