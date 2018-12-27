@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
  */
 public class UserData {
 
-    private int lastUserID = 0;
+    private int nextAvailableUserID = -1, totalUsers = 0;
     
     /**
      * Deals with the user data.
@@ -24,14 +24,28 @@ public class UserData {
      * Pulls data from the database and updates the locally saved data.
      */
     public void refresh() {
-        lastUserID = 0;
+        totalUsers = 0;
         
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.Users"));
             
             while (DBConnector.getResultSet().next()) {
-                lastUserID = DBConnector.getResultSet().getInt(1);
+                totalUsers = DBConnector.getResultSet().getInt(1);
             }
+            
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT UserID FROM mxcrtr_db.Users"));
+            
+            int previousUser, nextUser = 0;
+            
+            while (DBConnector.getResultSet().next()) {
+                previousUser = nextUser;
+                nextUser = DBConnector.getResultSet().getInt(1);
+                if (nextUser-1 != previousUser) {
+                    nextAvailableUserID = nextUser-1;
+                    return;
+                }
+            }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -42,7 +56,7 @@ public class UserData {
      * @return Size of users list.
      */
     public int getUserCount() {
-        return lastUserID;
+        return totalUsers;
     }
     
     /**
@@ -58,7 +72,7 @@ public class UserData {
             }
         }
 
-        return lastUserID + 1;
+        return nextAvailableUserID;
 
     }
     

@@ -63,6 +63,25 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     public ControlPanel getTeammateController() {
         return teammateController;
     }
+    
+    public void onRefreshData() {
+        /** if (user is NOT in a party)
+          *     load invites
+          * else 
+          *     list people in the party
+          *     load READY button
+          *     if (ready button is pressed)
+          *         // { onGameReady() }
+         */
+    }
+    
+    public void onGameReady() {
+        /** tell database that it is ready
+          * retrieve i am ready data from other users
+          * if (everyone else is ready)
+          *     launch simulation
+         */ 
+    }
 
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
