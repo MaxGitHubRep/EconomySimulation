@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
+import economysimulation.classes.managers.comp.ScrollableList;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -21,6 +22,15 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
+        
+        ScrollableList list = new ScrollableList();
+        list.addItem("test user 1");
+        list.addItem("test user 2");
+        list.addItem("test user 3");
+        list.addItem("test user 4");
+        list.addItem("test user 5");
+        list.updateList();
+        
     }
     
     /**
@@ -50,6 +60,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         back2 = new javax.swing.JPanel();
         color2 = new javax.swing.JPanel();
         label2 = new javax.swing.JLabel();
+        panelInvites = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -151,19 +162,35 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addComponent(color2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        javax.swing.GroupLayout panelInvitesLayout = new javax.swing.GroupLayout(panelInvites);
+        panelInvites.setLayout(panelInvitesLayout);
+        panelInvitesLayout.setHorizontalGroup(
+            panelInvitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 472, Short.MAX_VALUE)
+        );
+        panelInvitesLayout.setVerticalGroup(
+            panelInvitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 469, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(263, 263, 263)
-                .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(263, 263, 263)
+                        .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -176,7 +203,9 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                         .addComponent(jLabel1))
                     .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -207,5 +236,6 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
+    private javax.swing.JPanel panelInvites;
     // End of variables declaration//GEN-END:variables
 }

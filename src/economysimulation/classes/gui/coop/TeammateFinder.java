@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.coop;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import javax.swing.JPanel;
@@ -43,6 +44,11 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     }
     
     private void moveControlPanel(boolean up) {
+        if (Methods.MemorySaver) {
+            teammateController.setLocation(0, teammateController.getY() + (up ? - 470 : 470));
+            return;
+        }
+        
         animationThread = new Thread(new Runnable() {
             @Override
             public void run() {
