@@ -4,6 +4,7 @@ import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.exception.InvalidServerSlot;
+import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.GamePulse;
 import java.util.List;
 
@@ -13,8 +14,12 @@ import java.util.List;
  */
 public class StorageReceiver implements GamePulse {
 
+    private MultiplayerComponentUpdate listener;
+    
     @Override
     public void onGamePulseEvent() {
+        if (!Methods.ModeHandler.isMode(Mode.MULTI_PLAYER)) return;
+        
         if (Methods.MPServerSlot == -1) {
             try {
                 throw new InvalidServerSlot(Methods.MPServerSlot);
@@ -86,9 +91,12 @@ public class StorageReceiver implements GamePulse {
         }
     }
     
+    public void setComponentUpdateListener(MultiplayerComponentUpdate listener) {
+        this.listener = listener;
+    }
+    
     private void onComponentUpdate(String componentName, double value, String user) {
-        //TODO link to ui
-        System.out.println(user +": " + componentName + " -> " + value);
+        listener.onComponentUpdate(componentName, value, user);
     }
     
 }

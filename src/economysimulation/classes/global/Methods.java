@@ -2,7 +2,6 @@ package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.structure.Formula;
-import economysimulation.classes.gui.coop.ControlPanel;
 import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.coop.TeammateFinder;
 import economysimulation.classes.gui.frame.MainFrame;

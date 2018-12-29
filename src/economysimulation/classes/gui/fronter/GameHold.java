@@ -19,12 +19,13 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.managers.extcon.multiplayer.MultiplayerComponentUpdate;
 
 /**
  *
  * @author Max Carter
  */
-public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
+public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent, MultiplayerComponentUpdate {
 
     public ArrayList<Double> HistoryGDP = new ArrayList<>();
     
@@ -58,7 +59,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         "Political Influence",
         "Consumption Rate"
     };
-
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     /**'
      * Creates new game set up.
@@ -94,8 +95,19 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         }
         
         addCircleProgressBar(circleAdd, ProgressBar);
-        ThemeHandler.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ leftBar, rightBar, topBar });
+        
+        ThemeHandler.addThemeUpdateListener(this);
+        
+        // sets the layout if multiplayer is enabled
+        if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
+            Methods.StorageEvent.setComponentUpdateListener(this);
+        }
+        
+        for (JLabel label : new JLabel[]{ mpTitle, mpComponent, mpUser, mpValue }) {
+            label.setVisible(ModeHandler.isMode(Mode.MULTI_PLAYER));
+        }
+        mpSeperator.setVisible(ModeHandler.isMode(Mode.MULTI_PLAYER));
     }//</editor-fold>
     
     /**
@@ -127,7 +139,18 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         FormulaInstance.calculateBudget();
         
         labelBudget.setText("£" + m.format(Component.SpendingBudget) + "bn");
-        if (Ticks % 110 == 0) EventManager.createEvent();
+        
+        if (ModeHandler.isMode(Mode.SINGLE_PLAYER) && Ticks % 110 == 0) {
+            EventManager.createEvent();
+        }
+        
+    }
+    
+    @Override
+    public void onComponentUpdate(String componentName, double value, String user) {
+        mpComponent.setText(componentName);
+        mpUser.setText(user);
+        mpValue.setText(value + "");
     }
     
     /**
@@ -226,7 +249,8 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ backadd, leftBar, panel1, panel2, color1, color2 }, new JPanel[]{ topBar, rightBar });
-        updater.applyTextThemes(new JLabel[]{ titleSpeed, titleTime }, new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
+        updater.applyTextThemes(new JLabel[]{ titleSpeed, titleTime, mpTitle, mpComponent, mpUser, mpValue },
+                new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
     }
 
     @SuppressWarnings("unchecked")
@@ -246,6 +270,11 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         titleSpeed = new javax.swing.JLabel();
         color2 = new javax.swing.JPanel();
         onlineStatePanel = new javax.swing.JPanel();
+        mpTitle = new javax.swing.JLabel();
+        mpSeperator = new javax.swing.JSeparator();
+        mpUser = new javax.swing.JLabel();
+        mpComponent = new javax.swing.JLabel();
+        mpValue = new javax.swing.JLabel();
         rightBar = new javax.swing.JPanel();
         circleAdd = new javax.swing.JPanel();
         topBar = new javax.swing.JPanel();
@@ -297,7 +326,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         );
         sideBarBackLayout.setVerticalGroup(
             sideBarBackLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
+            .addGap(0, 516, Short.MAX_VALUE)
         );
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -378,15 +407,59 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             .addComponent(color2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        onlineStatePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        mpTitle.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        mpTitle.setForeground(new java.awt.Color(204, 0, 0));
+        mpTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mpTitle.setText("Multiplayer :: Component Updates");
+
+        mpUser.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
+        mpUser.setForeground(new java.awt.Color(204, 0, 0));
+        mpUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mpUser.setText("<User>");
+
+        mpComponent.setFont(new java.awt.Font("Agency FB", 0, 32)); // NOI18N
+        mpComponent.setForeground(new java.awt.Color(204, 0, 0));
+        mpComponent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mpComponent.setText("<Component>");
+
+        mpValue.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        mpValue.setForeground(new java.awt.Color(204, 0, 0));
+        mpValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mpValue.setText("<Value>");
+
         javax.swing.GroupLayout onlineStatePanelLayout = new javax.swing.GroupLayout(onlineStatePanel);
         onlineStatePanel.setLayout(onlineStatePanelLayout);
         onlineStatePanelLayout.setHorizontalGroup(
             onlineStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(onlineStatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(onlineStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mpValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mpTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(onlineStatePanelLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(mpSeperator))
+                    .addGroup(onlineStatePanelLayout.createSequentialGroup()
+                        .addComponent(mpUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mpComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         onlineStatePanelLayout.setVerticalGroup(
             onlineStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(onlineStatePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mpSeperator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(onlineStatePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mpUser)
+                    .addComponent(mpComponent))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(mpValue))
         );
 
         javax.swing.GroupLayout leftBarLayout = new javax.swing.GroupLayout(leftBar);
@@ -418,9 +491,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sideBarBack, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(onlineStatePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sideBarBack, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(onlineStatePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -522,7 +595,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
                     .addGroup(topBarLayout.createSequentialGroup()
                         .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                        .addComponent(description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(topBarLayout.createSequentialGroup()
                         .addGroup(topBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelGDP, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -577,6 +650,11 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     public static javax.swing.JLabel labelBudget;
     public static javax.swing.JLabel labelGDP;
     public static javax.swing.JPanel leftBar;
+    private javax.swing.JLabel mpComponent;
+    private javax.swing.JSeparator mpSeperator;
+    private javax.swing.JLabel mpTitle;
+    private javax.swing.JLabel mpUser;
+    private javax.swing.JLabel mpValue;
     private javax.swing.JPanel onlineStatePanel;
     public static javax.swing.JPanel panel1;
     public static javax.swing.JPanel panel2;
