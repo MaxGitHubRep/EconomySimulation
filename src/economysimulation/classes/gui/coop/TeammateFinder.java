@@ -13,7 +13,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
 
     private ControlPanel teammateController;
     
-    public final int HEIGHT = 600, SPEED = 2;
+    public final int HEIGHT = 600, SPEED = 1;
     public int START = 0, plus = 0;
     
     private Thread animationThread, connectionThread;

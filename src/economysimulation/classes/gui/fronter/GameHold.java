@@ -6,7 +6,7 @@ import static economysimulation.classes.global.Methods.FormulaInstance;
 import static economysimulation.classes.global.Methods.ModeHandler;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
-import economysimulation.classes.managers.comp.CircleProgressBar;
+import economysimulation.classes.managers.comp.cpb.CircleProgressBar;
 import economysimulation.classes.managers.events.EventManager;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.mode.Mode;

@@ -1,7 +1,8 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
-import economysimulation.classes.managers.comp.ScrollableList;
+import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.managers.comp.list.ScrollableList;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -14,22 +15,28 @@ import javax.swing.JPanel;
  */
 public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    private ScrollableList inviteList = null;
+    private final String EMPTY_USER = "#empty invite#";
+    
     /**
      * Creates new form ControlPanel
      */
     public ControlPanel() {
         initComponents();
         
+        ThemeHandler.addThemeUpdateListener(this);
+        
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
         
-        ScrollableList list = new ScrollableList();
-        list.addItem("test user 1");
-        list.addItem("test user 2");
-        list.addItem("test user 3");
-        list.addItem("test user 4");
-        list.addItem("test user 5");
-        list.updateList();
+        inviteList = new ScrollableList();
+        inviteList.addItem("test user 1");
+        inviteList.addItem("test user 2");
+        inviteList.addItem("test user 3");
+        inviteList.addItem("test user 4");
+        inviteList.addItem("test user 5");
+        inviteList.updateList();
+        Methods.addToFrontPanel(panelInvites, inviteList, false);
         
     }
     
@@ -48,6 +55,17 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         updater.applyTextThemes(new JLabel[]{ buttonState, label1, label2 }, null);
     }
 
+    private void inviteOutcome(boolean join) {
+        if (inviteList.getItem(0).equals("")) return;
+        //another check to see if not in party already
+        
+        if (join) {
+            //sql statement to join user's party
+        } else {
+            //sql statement to remove user's invitation.
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -61,6 +79,9 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         color2 = new javax.swing.JPanel();
         label2 = new javax.swing.JLabel();
         panelInvites = new javax.swing.JPanel();
+        joinLabel = new javax.swing.JLabel();
+        ignoreLabel = new javax.swing.JLabel();
+        joinLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -170,8 +191,38 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         );
         panelInvitesLayout.setVerticalGroup(
             panelInvitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGap(0, 457, Short.MAX_VALUE)
         );
+
+        joinLabel.setFont(new java.awt.Font("Agency FB", 0, 28)); // NOI18N
+        joinLabel.setForeground(new java.awt.Color(204, 0, 0));
+        joinLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        joinLabel.setText("Join?");
+        joinLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                joinLabelMouseClicked(evt);
+            }
+        });
+
+        ignoreLabel.setFont(new java.awt.Font("Agency FB", 0, 28)); // NOI18N
+        ignoreLabel.setForeground(new java.awt.Color(204, 0, 0));
+        ignoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ignoreLabel.setText("Ignore?");
+        ignoreLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ignoreLabelMouseClicked(evt);
+            }
+        });
+
+        joinLabel1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        joinLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        joinLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        joinLabel1.setText("<");
+        joinLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                joinLabel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -180,17 +231,24 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(263, 263, 263)
+                        .addGap(71, 71, 71)
                         .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(joinLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(joinLabel)
+                        .addGap(26, 26, 26)
+                        .addComponent(ignoreLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -203,8 +261,15 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                         .addComponent(jLabel1))
                     .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(joinLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(joinLabel)
+                            .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -226,6 +291,18 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         System.gc();
     }//GEN-LAST:event_back1MouseClicked
 
+    private void joinLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinLabelMouseClicked
+        inviteOutcome(true);
+    }//GEN-LAST:event_joinLabelMouseClicked
+
+    private void ignoreLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ignoreLabelMouseClicked
+        inviteOutcome(false);
+    }//GEN-LAST:event_ignoreLabelMouseClicked
+
+    private void joinLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinLabel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_joinLabel1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;
@@ -233,7 +310,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JLabel buttonState;
     private javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
+    private javax.swing.JLabel ignoreLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel joinLabel;
+    private javax.swing.JLabel joinLabel1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JPanel panelInvites;

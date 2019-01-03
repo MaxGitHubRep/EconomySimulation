@@ -1,4 +1,4 @@
-package economysimulation.classes.managers.comp;
+package economysimulation.classes.managers.comp.cpb;
 
 import static economysimulation.classes.global.Methods.GameDisplay;
 import java.awt.Font;

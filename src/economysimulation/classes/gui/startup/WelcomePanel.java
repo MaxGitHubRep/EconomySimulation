@@ -151,13 +151,13 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 } else if (enterUsername.getText().length() < 3) {
                     setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
 
-                } else if ((id + 1 == Mode.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
-                    setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
+                //} else if ((id + 1 == Mode.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
+                //    setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
                     
                 } else {
                     Methods.Username = enterUsername.getText();
                     ModeHandler.setMode(id+1);
-                    Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
+                    //Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
                     
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new SectorManager();
