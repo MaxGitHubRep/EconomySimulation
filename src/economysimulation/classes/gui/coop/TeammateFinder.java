@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
+import economysimulation.classes.managers.extcon.lobby.LobbyConnector;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import javax.swing.JPanel;
@@ -11,12 +12,13 @@ import javax.swing.JPanel;
  */
 public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    private ControlPanel teammateController;
+    private ControlPanel teammateController = null;
+    private LobbyConnector lobbyConnector = null;
     
     public final int HEIGHT = 600, SPEED = 1;
     public int START = 0, plus = 0;
     
-    private Thread animationThread, connectionThread;
+    private Thread animationThread;
     
     /**
      * Creates new form TeammateFinder
@@ -26,11 +28,18 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         START = 870;
         
         teammateController = new ControlPanel();
+        lobbyConnector = new LobbyConnector(teammateController, this);
         
         add(teammateController);
         teammateController.setSize(1800, 600);
         teammateController.setLocation(0, START);
         
+        lobbyConnector.startLoop();
+        
+    }
+    
+    public void onLobbyUpdateEvent() {
+        //display all users not in a party
     }
     
     public void openControlPanel() {

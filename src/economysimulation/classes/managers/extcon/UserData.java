@@ -121,10 +121,13 @@ public class UserData {
     
     public void removeUser(int userId) {
         try {
-            String SQLStatement = "DELETE FROM mxcrtr_db.Users WHERE UserID = ?";
-            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, userId);
-            pt.executeUpdate();
+            for (String table : new String[]{ "Users", "LobbyData" }) {
+                String SQLStatement = "DELETE FROM mxcrtr_db." + table + " WHERE UserID = ?";
+                PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+                pt.setInt(1, userId);
+                pt.executeUpdate();
+            }
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

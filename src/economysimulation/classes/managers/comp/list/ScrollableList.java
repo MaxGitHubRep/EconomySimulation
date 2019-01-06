@@ -23,8 +23,22 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     
     private LabelClickEvent listener = null;
     
+    private String emptySlotText = "";
+     
+    public ScrollableList(List<String> defaultList, String emptySlotText) {
+        setList(list);
+        setEmptySlotText(emptySlotText);
+        init();
+    }
+    
     public ScrollableList(List<String> defaultList) {
         setList(list);
+        init();
+    }
+    
+    public ScrollableList(String emptySlotText) {
+        setList(new ArrayList());
+        setEmptySlotText(emptySlotText);
         init();
     }
     
@@ -38,7 +52,7 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         
         labels = new JLabel[10];
         for (int i = 0; i < labels.length; i++) {
-            labels[i] = new JLabel();
+            labels[i] = new JLabel(emptySlotText);
             this.add(labels[i]);
             labels[i].setFont(new Font("Agency FB",Font.PLAIN, 20));
             labels[i].setLocation(0, i * (472 / labels.length));
@@ -73,6 +87,14 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         
     }
     
+    public void setEmptySlotText(String emptySlotText) {
+        this.emptySlotText = emptySlotText;
+    }
+    
+    public String getEmptySlotText() {
+        return emptySlotText;
+    }
+    
     public void setLabelClickListener(LabelClickEvent listener) {
         this.listener = listener;
     }
@@ -80,7 +102,7 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     public void updateList() {
         for (int i = 0; i < labels.length; i++) {
             if (list.size() > i) labels[i].setText(list.get(i));
-            else return;
+            else labels[i].setText(emptySlotText);
         }
     }
     
@@ -97,11 +119,24 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     }
     
     public void removeItem(int index) {
-        if (list.size() < index) list.remove(index);
+        if (list.size() > index) {
+            list.remove(index);
+            fillEmptySlots();
+        }
+    }
+    
+    private void fillEmptySlots() {
+        if (list.size() >= 10) return;
+        
+        for (int i = labels.length-1; i >= 0; i--) {
+            if (list.size()-1 < i) labels[i].setText(emptySlotText); else return;
+        }
+        
     }
     
     public void removeItem(String item) {
         list.remove(item);
+        fillEmptySlots();
     }
     
     public String getItem(int index) {

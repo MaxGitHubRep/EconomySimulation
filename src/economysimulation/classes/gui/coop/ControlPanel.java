@@ -3,9 +3,12 @@ package economysimulation.classes.gui.coop;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.managers.comp.list.ScrollableList;
+import economysimulation.classes.managers.extcon.lobby.LobbyUpdateEvent;
+import economysimulation.classes.managers.extcon.lobby.PartyInvite;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -13,10 +16,13 @@ import javax.swing.JPanel;
  *
  * @author Max Carter
  */
-public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent {
+public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent, LobbyUpdateEvent {
 
     private ScrollableList inviteList = null;
-    private final String EMPTY_USER = "#empty invite#";
+    private final String EMPTY_USER = "-";
+    private PartyInvite latestPartyInvite = null;
+    
+    int partyId = 0;
     
     /**
      * Creates new form ControlPanel
@@ -29,7 +35,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
         
-        inviteList = new ScrollableList();
+        inviteList = new ScrollableList(EMPTY_USER);
         inviteList.addItem("test user 1");
         inviteList.addItem("test user 2");
         inviteList.addItem("test user 3");
@@ -38,6 +44,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         inviteList.updateList();
         Methods.addToFrontPanel(panelInvites, inviteList, false);
         
+    }
+    
+    public int getPartyID() {
+        return partyId;
     }
     
     /**
@@ -50,22 +60,35 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }
     
     @Override
+    public void onPartyInviteEvent(PartyInvite partyInvite) {
+        this.latestPartyInvite = partyInvite;
+        inviteList.addItem(partyInvite.getUser() + "#" + partyInvite.getUserID());
+    }
+    
+    public void onPartyUpdateEvent(List<String> users) {
+        //update table to show other users in party
+    }
+    
+    private void inviteOutcome(boolean join) {
+        if (inviteList.getList().isEmpty()) return;
+        
+        // <-- another check to see if not in party already
+        
+        if (join) {
+            latestPartyInvite.accept();
+        } else {
+            inviteList.removeItem(0);
+            inviteList.updateList();
+            latestPartyInvite.ignore();
+        }
+    }
+    
+    @Override
     public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this, back1, back2, color1, color2 }, null);
         updater.applyTextThemes(new JLabel[]{ buttonState, label1, label2 }, null);
     }
 
-    private void inviteOutcome(boolean join) {
-        if (inviteList.getItem(0).equals("")) return;
-        //another check to see if not in party already
-        
-        if (join) {
-            //sql statement to join user's party
-        } else {
-            //sql statement to remove user's invitation.
-        }
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -81,7 +104,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         panelInvites = new javax.swing.JPanel();
         joinLabel = new javax.swing.JLabel();
         ignoreLabel = new javax.swing.JLabel();
-        joinLabel1 = new javax.swing.JLabel();
+        arrow = new javax.swing.JLabel();
+        back3 = new javax.swing.JPanel();
+        color3 = new javax.swing.JPanel();
+        label3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -97,6 +123,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/logos/border280.png"))); // NOI18N
 
+        back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back1MouseClicked(evt);
@@ -140,6 +167,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addComponent(color1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 back2MouseClicked(evt);
@@ -198,6 +226,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         joinLabel.setForeground(new java.awt.Color(204, 0, 0));
         joinLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         joinLabel.setText("Join?");
+        joinLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         joinLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 joinLabelMouseClicked(evt);
@@ -208,21 +237,61 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         ignoreLabel.setForeground(new java.awt.Color(204, 0, 0));
         ignoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ignoreLabel.setText("Ignore?");
+        ignoreLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ignoreLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ignoreLabelMouseClicked(evt);
             }
         });
 
-        joinLabel1.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
-        joinLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        joinLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        joinLabel1.setText("<");
-        joinLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        arrow.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        arrow.setForeground(new java.awt.Color(204, 0, 0));
+        arrow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        arrow.setText("<");
+
+        back3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                joinLabel1MouseClicked(evt);
+                back3MouseClicked(evt);
             }
         });
+
+        color3.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color3Layout = new javax.swing.GroupLayout(color3);
+        color3.setLayout(color3Layout);
+        color3Layout.setHorizontalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        color3Layout.setVerticalGroup(
+            color3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        label3.setFont(new java.awt.Font("Agency FB", 0, 52)); // NOI18N
+        label3.setForeground(new java.awt.Color(204, 0, 0));
+        label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label3.setText("READY");
+
+        javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
+        back3.setLayout(back3Layout);
+        back3Layout.setHorizontalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(back3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back3Layout.setVerticalGroup(
+            back3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -235,21 +304,27 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(71, 71, 71)
+                                .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(joinLabel)
+                                .addGap(26, 26, 26)
+                                .addComponent(ignoreLabel)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(joinLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(joinLabel)
-                        .addGap(26, 26, 26)
-                        .addComponent(ignoreLabel)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(352, 352, 352)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,13 +339,18 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(joinLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(joinLabel)
-                            .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(joinLabel)
+                                    .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(415, 415, 415))
+                            .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -299,23 +379,26 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         inviteOutcome(false);
     }//GEN-LAST:event_ignoreLabelMouseClicked
 
-    private void joinLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinLabel1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_joinLabel1MouseClicked
+    private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
+        //I AM READY
+    }//GEN-LAST:event_back3MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel arrow;
     private javax.swing.JPanel back1;
     private javax.swing.JPanel back2;
+    private javax.swing.JPanel back3;
     private javax.swing.JLabel buttonState;
     private javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
+    private javax.swing.JPanel color3;
     private javax.swing.JLabel ignoreLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel joinLabel;
-    private javax.swing.JLabel joinLabel1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
+    private javax.swing.JLabel label3;
     private javax.swing.JPanel panelInvites;
     // End of variables declaration//GEN-END:variables
 }
