@@ -2,9 +2,12 @@ package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.global.User;
 import economysimulation.classes.managers.comp.list.ScrollableList;
 import economysimulation.classes.managers.extcon.lobby.LobbyUpdateEvent;
 import economysimulation.classes.managers.extcon.lobby.PartyInvite;
+import economysimulation.classes.managers.popup.hint.HintManager;
+import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
@@ -35,22 +38,12 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
         Format.addButtonFormat(back3, color3);
+        Format.addButtonFormat(back4, color4);
         
         inviteList = new ScrollableList(EMPTY_USER);
-        inviteList.addItem("test user 1");
-        inviteList.addItem("test user 2");
-        inviteList.addItem("test user 3");
-        inviteList.addItem("test user 4");
-        inviteList.addItem("test user 5");
-        inviteList.updateList();
         Methods.addToFrontPanel(panelInvites, inviteList, false);
         
         partyList = new ScrollableList(EMPTY_USER);
-        partyList.addItem("test user 1");
-        partyList.addItem("test user 2");
-        partyList.addItem("test user 3");
-        partyList.addItem("test user 4");
-        partyList.addItem("test user 5");
         partyList.updateList();
         Methods.addToFrontPanel(panelParty, partyList, false);
         
@@ -78,21 +71,31 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     @Override
     public void onPartyInviteEvent(PartyInvite partyInvite) {
         this.latestPartyInvite = partyInvite;
-        inviteList.addItem(partyInvite.getUser() + "#" + partyInvite.getUserID());
+        inviteList.addItem(partyInvite.getUser().getFullUsername());
     }
     
-    public void onPartyUpdateEvent(List<String> users) {
-        //update table to show other users in party
+    /**
+     * Adds everyone in the user's party to a list.
+     * @param users Party list.
+     */
+    public void onPartyUpdateEvent(List<User> users) {
+        partyList.clear();
+        users.forEach((user) -> {
+            partyList.addItem(user.getFullUsername());
+        });
+        //display a count of teammates if not all of them can be displayed on the main list.
+        moreUsers.setText(partyList.overflows() ? "And " + partyList.getOverflowSize() + " more users..." : "");
     }
     
+    /** Handles the outcome of an invitation. */
     private void inviteOutcome(boolean join) {
         //checks that the user is not in a party, and that there is a valid invite
-        if (inviteList.getList().isEmpty() && getPartyID() == 0) return;
+        if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
         
-        if (join) {
+        if (join && getPartyID() == 0) {
             inviteList.disable();
             latestPartyInvite.accept();
-        } else {
+        } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();
             latestPartyInvite.ignore();
@@ -101,7 +104,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, color1, color2, color3 }, null);
+        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, back4, color1, color2, color3, color4 }, null);
         updater.applyTextThemes(new JLabel[]{ buttonState, label1, label2 }, null);
     }
 
@@ -125,6 +128,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         color3 = new javax.swing.JPanel();
         label3 = new javax.swing.JLabel();
         panelParty = new javax.swing.JPanel();
+        back4 = new javax.swing.JPanel();
+        color4 = new javax.swing.JPanel();
+        label4 = new javax.swing.JLabel();
+        moreUsers = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -289,7 +296,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         label3.setFont(new java.awt.Font("Agency FB", 0, 52)); // NOI18N
         label3.setForeground(new java.awt.Color(204, 0, 0));
         label3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label3.setText("READY");
+        label3.setText("Quit Party");
 
         javax.swing.GroupLayout back3Layout = new javax.swing.GroupLayout(back3);
         back3.setLayout(back3Layout);
@@ -321,6 +328,54 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        back4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        back4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                back4MouseClicked(evt);
+            }
+        });
+
+        color4.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout color4Layout = new javax.swing.GroupLayout(color4);
+        color4.setLayout(color4Layout);
+        color4Layout.setHorizontalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        color4Layout.setVerticalGroup(
+            color4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        label4.setFont(new java.awt.Font("Agency FB", 0, 52)); // NOI18N
+        label4.setForeground(new java.awt.Color(204, 0, 0));
+        label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label4.setText("READY");
+
+        javax.swing.GroupLayout back4Layout = new javax.swing.GroupLayout(back4);
+        back4.setLayout(back4Layout);
+        back4Layout.setHorizontalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(color4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(back4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        back4Layout.setVerticalGroup(
+            back4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, back4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(color4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        moreUsers.setFont(new java.awt.Font("Agency FB", 1, 14)); // NOI18N
+        moreUsers.setForeground(new java.awt.Color(204, 0, 0));
+        moreUsers.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -342,43 +397,54 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                         .addGap(26, 26, 26)
                         .addComponent(ignoreLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(352, 352, 352)
-                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                        .addGap(96, 96, 96)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelParty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelParty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(moreUsers, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(back2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonState)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonState)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel1))
+                            .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(moreUsers, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelParty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(joinLabel)
-                                    .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(415, 415, 415))
                             .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(joinLabel)
+                            .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(304, 304, 304)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -408,8 +474,20 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_ignoreLabelMouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
-        //I AM READY
+        if (latestPartyInvite == null || partyId == 0) {
+            HintManager.createHint(Hints.NoPartyFound);
+            return;
+        }
+        
+        partyId = 0;
+        latestPartyInvite.undo();
+        inviteList.enable();
+        partyList.disable();
     }//GEN-LAST:event_back3MouseClicked
+
+    private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
+        // I AM READY
+    }//GEN-LAST:event_back4MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -417,16 +495,20 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JPanel back1;
     private javax.swing.JPanel back2;
     private javax.swing.JPanel back3;
+    private javax.swing.JPanel back4;
     private javax.swing.JLabel buttonState;
     private javax.swing.JPanel color1;
     private javax.swing.JPanel color2;
     private javax.swing.JPanel color3;
+    private javax.swing.JPanel color4;
     private javax.swing.JLabel ignoreLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel joinLabel;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
+    private javax.swing.JLabel label4;
+    private javax.swing.JLabel moreUsers;
     private javax.swing.JPanel panelInvites;
     private javax.swing.JPanel panelParty;
     // End of variables declaration//GEN-END:variables

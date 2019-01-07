@@ -1,9 +1,13 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
+import economysimulation.classes.global.User;
 import economysimulation.classes.managers.extcon.lobby.LobbyConnector;
+import economysimulation.classes.managers.extcon.lobby.UserHold;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
@@ -20,6 +24,8 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     
     private Thread animationThread;
     
+    private List<UserHold> lonelyUsers;
+    
     /**
      * Creates new form TeammateFinder
      */
@@ -30,6 +36,8 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         teammateController = new ControlPanel();
         lobbyConnector = new LobbyConnector(teammateController, this);
         
+        lonelyUsers = new ArrayList<>();
+        
         add(teammateController);
         teammateController.setSize(1800, 600);
         teammateController.setLocation(0, START);
@@ -38,8 +46,23 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         
     }
     
+    /** Displays all users that are not in a party */
     public void onLobbyUpdateEvent() {
-        //display all users not in a party
+        List<User> freshLonelyUsers = LobbyConnector.getUsersNotInParty(), toAddList = new ArrayList<>();
+        for (UserHold user : lonelyUsers) {
+            if (!freshLonelyUsers.contains(user.getUser())) {
+                toAddList.add(user.getUser());
+            }
+        }
+        addUsersToLobby(toAddList);
+    }
+    
+    private void addUsersToLobby(List<User> users) {
+        for (User user : users) {
+            UserHold hold = new UserHold(user); 
+            lonelyUsers.add(hold);
+            hold.setLocation(Methods.randomInt(0, 500), Methods.randomInt(0, 500));
+        }
     }
     
     public void openControlPanel() {
@@ -77,17 +100,6 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     
     public ControlPanel getTeammateController() {
         return teammateController;
-    }
-    
-    public void onRefreshData() {
-        /** if (user is NOT in a party)
-          *     load invites
-          * else 
-          *     list people in the party
-          *     load READY button
-          *     if (ready button is pressed)
-          *         // { onGameReady() }
-         */
     }
     
     public void onGameReady() {

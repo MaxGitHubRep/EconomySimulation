@@ -84,7 +84,21 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         enabled = state;
         for (JLabel label : labels) label.setEnabled(state);
     }
+    
+    public void clear() {
+        list.clear();
+        updateList();
+    }
 
+    public boolean overflows() {
+        return list.size() > labels.length;
+    }
+    
+    public int getOverflowSize() {
+        if (!overflows()) return 0;
+        return list.size() - labels.length;
+    }
+    
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ this }, null);
