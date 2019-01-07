@@ -40,7 +40,14 @@ public class PartyInvite {
     
     /* Denies the party invite and sends the request to the database. */
     public void ignore() {
-        //send sql statement
+        /**
+         * TODO
+         * add sql table for invites
+         */
+    }
+    
+    public void undo() {
+        LobbyConnector.removeUserFromParty(userId);
     }
     
 }

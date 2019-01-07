@@ -18,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent, LobbyUpdateEvent {
 
-    private ScrollableList inviteList = null;
+    private ScrollableList inviteList = null, partyList = null;
     private final String EMPTY_USER = "-";
     private PartyInvite latestPartyInvite = null;
     
@@ -34,6 +34,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
+        Format.addButtonFormat(back3, color3);
         
         inviteList = new ScrollableList(EMPTY_USER);
         inviteList.addItem("test user 1");
@@ -44,8 +45,23 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         inviteList.updateList();
         Methods.addToFrontPanel(panelInvites, inviteList, false);
         
+        partyList = new ScrollableList(EMPTY_USER);
+        partyList.addItem("test user 1");
+        partyList.addItem("test user 2");
+        partyList.addItem("test user 3");
+        partyList.addItem("test user 4");
+        partyList.addItem("test user 5");
+        partyList.updateList();
+        Methods.addToFrontPanel(panelParty, partyList, false);
+        
     }
     
+    /**
+     * Gets the ID of the party that the user is
+     * in. If the user's party ID is 0, they are
+     * not in a party.
+     * @return User's party ID.
+     */
     public int getPartyID() {
         return partyId;
     }
@@ -70,11 +86,11 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }
     
     private void inviteOutcome(boolean join) {
-        if (inviteList.getList().isEmpty()) return;
-        
-        // <-- another check to see if not in party already
+        //checks that the user is not in a party, and that there is a valid invite
+        if (inviteList.getList().isEmpty() && getPartyID() == 0) return;
         
         if (join) {
+            inviteList.disable();
             latestPartyInvite.accept();
         } else {
             inviteList.removeItem(0);
@@ -85,7 +101,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, color1, color2 }, null);
+        updater.applyPanelThemes(new JPanel[]{ this, back1, back2, back3, color1, color2, color3 }, null);
         updater.applyTextThemes(new JLabel[]{ buttonState, label1, label2 }, null);
     }
 
@@ -108,6 +124,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         back3 = new javax.swing.JPanel();
         color3 = new javax.swing.JPanel();
         label3 = new javax.swing.JLabel();
+        panelParty = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -293,6 +310,17 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addComponent(color3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        javax.swing.GroupLayout panelPartyLayout = new javax.swing.GroupLayout(panelParty);
+        panelParty.setLayout(panelPartyLayout);
+        panelPartyLayout.setHorizontalGroup(
+            panelPartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 472, Short.MAX_VALUE)
+        );
+        panelPartyLayout.setVerticalGroup(
+            panelPartyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -304,27 +332,26 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(71, 71, 71)
-                                .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-                                .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(joinLabel)
-                                .addGap(26, 26, 26)
-                                .addComponent(ignoreLabel)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addGap(71, 71, 71)
+                        .addComponent(buttonState, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(joinLabel)
+                        .addGap(26, 26, 26)
+                        .addComponent(ignoreLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(352, 352, 352)
-                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelParty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,8 +365,12 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelParty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(arrow, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,10 +378,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                                     .addComponent(ignoreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(415, 415, 415))
                             .addComponent(panelInvites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(back3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -400,5 +428,6 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
     private javax.swing.JPanel panelInvites;
+    private javax.swing.JPanel panelParty;
     // End of variables declaration//GEN-END:variables
 }

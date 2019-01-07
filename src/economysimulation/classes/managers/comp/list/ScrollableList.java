@@ -24,6 +24,8 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     private LabelClickEvent listener = null;
     
     private String emptySlotText = "";
+    
+    private boolean enabled = true;
      
     public ScrollableList(List<String> defaultList, String emptySlotText) {
         setList(list);
@@ -65,6 +67,23 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         ThemeHandler.addThemeUpdateListener(this);
         updateList();
     }
+    
+    public void enable() {
+        toggle(true);
+    }
+    
+    public void disable() {
+        toggle(false);
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
+    private void toggle(boolean state) {
+        enabled = state;
+        for (JLabel label : labels) label.setEnabled(state);
+    }
 
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
@@ -100,6 +119,7 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     }
     
     public void updateList() {
+        if (!enabled) return;
         for (int i = 0; i < labels.length; i++) {
             if (list.size() > i) labels[i].setText(list.get(i));
             else labels[i].setText(emptySlotText);
@@ -111,14 +131,15 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     }
     
     public void setList(List<String> list) {
-        this.list = list;
+        if (enabled) this.list = list;
     }
     
     public void addItem(String item) {
-        list.add(item);
+        if (enabled) list.add(item);
     }
     
     public void removeItem(int index) {
+        if (!enabled) return;
         if (list.size() > index) {
             list.remove(index);
             fillEmptySlots();
@@ -135,6 +156,7 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
     }
     
     public void removeItem(String item) {
+        if (!enabled) return;
         list.remove(item);
         fillEmptySlots();
     }
