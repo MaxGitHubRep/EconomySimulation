@@ -40,11 +40,12 @@ public class UserData {
             while (DBConnector.getResultSet().next()) {
                 previousUser = nextUser;
                 nextUser = DBConnector.getResultSet().getInt(1);
-                if (nextUser-1 != previousUser) {
-                    nextAvailableUserID = nextUser-1;
+                if (nextUser != previousUser+1) {
+                    nextAvailableUserID = previousUser+1;
                     return;
                 }
             }
+            nextAvailableUserID = nextUser+1;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -64,16 +65,14 @@ public class UserData {
      * @return Unique user ID.
      */
     public int getNextAvailableUserID() {
-        if (this.getUserCount() >= 99999) {
+        if (getUserCount() >= 99999) {
             try {
                 throw new UserDataOverflowException();
             } catch (UserDataOverflowException ex) {
                 ex.printStackTrace();
             }
         }
-
         return nextAvailableUserID;
-
     }
     
     public String getUsernameFromId(int id) {
@@ -94,6 +93,7 @@ public class UserData {
     }
     
     public void createNewUser(int id, String name) {
+        if (id < 1) return;
         try {
             String SQLStatement = "INSERT INTO mxcrtr_db.Users VALUES (?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);

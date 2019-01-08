@@ -40,6 +40,8 @@ public class LobbyConnector {
             //get data from database if all users are ready.
         }
         
+        teammateFinder.onLobbyUpdateEvent();
+        
         if (looped) {
             try {
                 connectionThread.sleep(2000);
@@ -74,7 +76,7 @@ public class LobbyConnector {
      * @param fromUser ID of the inviter.
      * @param toUser   ID of the invitee.
      */
-    public static void addPartyInvite(int partyId, int fromUser, int toUser) {
+    public void addPartyInvite(int partyId, int fromUser, int toUser) {
         try {
             String SQLStatement = "INSERT INTO mxcrtr_db.PartyInvites VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -92,7 +94,7 @@ public class LobbyConnector {
      * Removes all invites and connected users from {@code partyId}.
      * @param partyId The ID of the party.
      */
-    public static void removeParty(int partyId) {
+    public void removeParty(int partyId) {
         try {
             String SQLStatement = "DELETE FROM mxcrtr_db.PartyInvites WHERE PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -113,7 +115,7 @@ public class LobbyConnector {
      * Removes all invites sent to {@code toUser}.
      * @param toUser ID of the invitee.
      */
-    public static void removePartyInvitesIncomming(int toUser) {
+    public void removePartyInvitesIncomming(int toUser) {
         try {
             String SQLStatement = "DELETE FROM mxcrtr_db.PartyInvites WHERE ToUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -129,7 +131,7 @@ public class LobbyConnector {
      * Removes all invites sent by {@code fromUser}
      * @param fromUser ID of the inviter.
      */
-    public static void removePartyInvitesOutgoing(int fromUser) {
+    public void removePartyInvitesOutgoing(int fromUser) {
         try {
             String SQLStatement = "DELETE FROM mxcrtr_db.PartyInvites WHERE FromUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -145,7 +147,7 @@ public class LobbyConnector {
      * Gets the next available ID for a party.
      * @return Next available Party ID.
      */
-    public static int getNextAvailablePartyID() {
+    public int getNextAvailablePartyID() {
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT PartyID FROM mxcrtr_db.PartyInvites"));
             
@@ -154,8 +156,11 @@ public class LobbyConnector {
             while (DBConnector.getResultSet().next()) {         //needs testing
                 previousID = nextID;
                 nextID = DBConnector.getResultSet().getInt(1);
-                if (nextID-1 != previousID) return nextID-1;
+                if (nextID != previousID+1) {
+                    return previousID+1;
+                }
             }
+            return nextID+1;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -167,7 +172,7 @@ public class LobbyConnector {
      * Gets a list of all the invites received by the user..
      * @return List of invites.
      */
-    public static List<PartyInvite> getPartyInvitesReceived() {
+    public List<PartyInvite> getPartyInvitesReceived() {
         return getPartyInvitesReceived(Methods.UserID);
     }
     
@@ -176,10 +181,11 @@ public class LobbyConnector {
      * @param userId ID of user.
      * @return List of invites.
      */
-    public static List<PartyInvite> getPartyInvitesReceived(int userId) {
+    public List<PartyInvite> getPartyInvitesReceived(int userId) {
         List<PartyInvite> list = new ArrayList<>();
+        if (userId < 0) return list;
         try {
-            String SQLStatement = "SELECT PartyID, FromUserID mxcrtr_db.PartyInvites WHERE ToUserID = ?";
+            String SQLStatement = "SELECT PartyID, FromUserID FROM mxcrtr_db.PartyInvites WHERE ToUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
@@ -201,7 +207,7 @@ public class LobbyConnector {
      * Gets a list of all the invites received by the user..
      * @return List of invites.
      */
-    public static List<PartyInvite> getPartyInvitesSent() {
+    public List<PartyInvite> getPartyInvitesSent() {
         return getPartyInvitesSent(Methods.UserID);
     }
     
@@ -210,10 +216,11 @@ public class LobbyConnector {
      * @param userId ID of user.
      * @return List of invites.
      */
-    public static List<PartyInvite> getPartyInvitesSent(int userId) {
+    public List<PartyInvite> getPartyInvitesSent(int userId) {
         List<PartyInvite> list = new ArrayList<>();
+        if (userId < 0) return list;
         try {
-            String SQLStatement = "SELECT PartyID, ToUserID mxcrtr_db.PartyInvites WHERE FromUserID = ?";
+            String SQLStatement = "SELECT PartyID, ToUserID FROM mxcrtr_db.PartyInvites WHERE FromUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
@@ -235,7 +242,7 @@ public class LobbyConnector {
      * Add a user to the coop lobby.
      * @param userId ID of the user.
      */
-    public static void addCoopUser(int userId) {
+    public void addCoopUser(int userId) {
         try {
             String SQLStatement = "INSERT INTO mxcrtr_db.LobbyData VALUES (?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -256,7 +263,7 @@ public class LobbyConnector {
      * @param userId    The ID of the user.
      * @return ID of the user's party.
      */
-    public static int getPartyId(int userId) {
+    public int getPartyId(int userId) {
         int id = 0;
         try {
             //get all users in the server slot first
@@ -283,7 +290,7 @@ public class LobbyConnector {
      * @param partyId ID of the party.
      * @return The list of users in the party.
      */
-    public static List<User> getUsersInParty(int partyId) {
+    public List<User> getUsersInParty(int partyId) {
         List<User> list = new ArrayList<>();
         
         try {
@@ -294,8 +301,9 @@ public class LobbyConnector {
             DBConnector.setResultSet(pt.executeQuery());
             
             //adds user to list if they're found.
-            while (DBConnector.getResultSet().next()) {                                             //needs checking
-                int nextUser = DBConnector.getResultSet().getInt(0);
+            while (DBConnector.getResultSet().next()) { 
+                int nextUser = DBConnector.getResultSet().getInt(1);
+                System.out.println("user: " + nextUser);//needs checking
                 list.add(new User(Methods.DBUsers.getUsernameFromId(nextUser), nextUser));
             }
             
@@ -310,7 +318,7 @@ public class LobbyConnector {
      * Gets all the users in the party, via their usernames.
      * @return The list of users in the party.
      */
-    public static List<User> getUsersNotInParty() {
+    public List<User> getUsersNotInParty() {
         return getUsersInParty(0);
     }
     
@@ -319,7 +327,7 @@ public class LobbyConnector {
      * @param userId    ID of the user.
      * @param partyId   ID of the party.
      */
-    public static void addUserToParty(int userId, int partyId) {
+    public void addUserToParty(int userId, int partyId) {
         try {
             String SQLStatement = "UPDATE mxcrtr_db.LobbyData SET PartyID = ? WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -336,7 +344,7 @@ public class LobbyConnector {
      * Removes {@code userId} from their party.
      * @param userId ID of the user.
      */
-    public static void removeUserFromParty(int userId) {
+    public void removeUserFromParty(int userId) {
         try {
             String SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);

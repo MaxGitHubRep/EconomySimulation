@@ -151,8 +151,8 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                 } else if (enterUsername.getText().length() < 3) {
                     setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
 
-                //} else if ((id + 1 == Mode.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
-                //    setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
+                } else if ((id + 1 == Mode.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
+                    setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
                     
                 } else {
                     Methods.Username = enterUsername.getText();
@@ -165,9 +165,9 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
                         if (Methods.UserID == -1) {
-                            //DBUsers.refresh();
-                            //Methods.UserID = DBUsers.getNextAvailableUserID();
-                            //DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                            DBUsers.refresh();
+                            Methods.UserID = DBUsers.getNextAvailableUserID();
+                            DBUsers.createNewUser(Methods.UserID, Methods.Username);
                         }
                         if (Methods.FindTeammate == null) Methods.FindTeammate = new TeammateFinder();
                         Methods.FrameDisplay.addToMainFrame(Methods.FindTeammate);

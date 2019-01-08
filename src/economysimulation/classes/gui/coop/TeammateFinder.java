@@ -17,14 +17,11 @@ import javax.swing.JPanel;
 public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private ControlPanel teammateController = null;
-    private LobbyConnector lobbyConnector = null;
     
     public final int HEIGHT = 600, SPEED = 1;
     public int START = 0, plus = 0;
     
     private Thread animationThread;
-    
-    private List<UserHold> lonelyUsers;
     
     /**
      * Creates new form TeammateFinder
@@ -34,35 +31,35 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         START = 870;
         
         teammateController = new ControlPanel();
-        lobbyConnector = new LobbyConnector(teammateController, this);
+        Methods.LobbyHandler = new LobbyConnector(teammateController, this);
         
-        lobbyConnector.startLoop();
+        Methods.LobbyHandler.addCoopUser(Methods.UserID);
         
-        lonelyUsers = new ArrayList<>();
+        Methods.LobbyHandler.startLoop();
         
         add(teammateController);
         teammateController.setSize(1800, 600);
         teammateController.setLocation(0, START);
         
-        lobbyConnector.startLoop();
+        Methods.LobbyHandler.startLoop();
         
     }
     
     /** Displays all users that are not in a party */
     public void onLobbyUpdateEvent() {
-        List<User> freshLonelyUsers = LobbyConnector.getUsersNotInParty(), toAddList = new ArrayList<>();
-        for (UserHold user : lonelyUsers) {
-            if (!freshLonelyUsers.contains(user.getUser())) {
-                toAddList.add(user.getUser());
-            }
+        List<User> freshLonelyUsers = Methods.LobbyHandler.getUsersNotInParty(), toAddList = new ArrayList<>();
+        for (User user : freshLonelyUsers) {
+            if (user.getUserID() != Methods.UserID) toAddList.add(user);
+            
         }
         addUsersToLobby(toAddList);
     }
     
     private void addUsersToLobby(List<User> users) {
         for (User user : users) {
-            UserHold hold = new UserHold(user); 
-            lonelyUsers.add(hold);
+            System.out.println("adding " + user.getFullUsername());
+            UserHold hold = new UserHold(user);
+            add(hold);
             hold.setLocation(Methods.randomInt(0, 500), Methods.randomInt(0, 500));
         }
     }

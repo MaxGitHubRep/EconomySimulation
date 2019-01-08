@@ -38,6 +38,8 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         ThemeHandler.addThemeUpdateListener(this);
         
+        userLabel.setText(Methods.Username);
+        
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
         Format.addButtonFormat(back3, color3);
@@ -142,6 +144,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         color4 = new javax.swing.JPanel();
         label4 = new javax.swing.JLabel();
         moreUsers = new javax.swing.JLabel();
+        userLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -386,6 +389,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         moreUsers.setForeground(new java.awt.Color(204, 0, 0));
         moreUsers.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        userLabel.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        userLabel.setForeground(new java.awt.Color(204, 0, 0));
+        userLabel.setText("Quit Party");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -393,7 +400,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(userLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelInvites, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -429,10 +439,12 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonState)
+                            .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1))
-                            .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(userLabel)
+                                    .addComponent(jLabel1))))
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -521,5 +533,6 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JLabel moreUsers;
     private javax.swing.JPanel panelInvites;
     private javax.swing.JPanel panelParty;
+    private javax.swing.JLabel userLabel;
     // End of variables declaration//GEN-END:variables
 }

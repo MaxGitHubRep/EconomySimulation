@@ -35,20 +35,20 @@ public class PartyInvite {
     
     /* Accepts the party invite and sends the request to the database. */
     public boolean accept() {
-        if (LobbyConnector.getPartyId(user.getUserID()) != this.partyId && Methods.UserID < 0) return false;
+        if (Methods.LobbyHandler.getPartyId(user.getUserID()) != this.partyId && Methods.UserID < 0) return false;
         else {
-            LobbyConnector.addUserToParty(Methods.UserID, partyId);
+            Methods.LobbyHandler.addUserToParty(Methods.UserID, partyId);
             return true;
         }
     }
     
     /* Denies the party invite and sends the request to the database. */
     public void ignore() {
-        LobbyConnector.removePartyInvitesOutgoing(user.getUserID());
+        Methods.LobbyHandler.removePartyInvitesOutgoing(user.getUserID());
     }
     
     public void undo() {
-        LobbyConnector.removeUserFromParty(user.getUserID());
+        Methods.LobbyHandler.removeUserFromParty(user.getUserID());
     }
     
 }

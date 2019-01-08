@@ -4,6 +4,7 @@ import economysimulation.classes.global.Methods;
 import economysimulation.classes.global.User;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,12 +22,16 @@ public class UserHold extends JLabel {
     
     public UserHold(User user) {
         super(user.getFullUsername());
+        this.user = user;
         init();
     }
     
     private void init() {
-        setFont(new Font("Agency FB",Font.PLAIN, 20));
-        setSize(100, 50);
+        setFont(new Font("Agency FB",Font.BOLD, 30));
+        setForeground(new Color(204, 0, 0));
+        setOpaque(true);
+        setBackground(Color.black);
+        setSize(100, 40);
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
         
@@ -53,14 +58,16 @@ public class UserHold extends JLabel {
         //needs testing
         @Override
         public void mouseClicked(MouseEvent me) {
+            System.out.println("clicked");
             if (validating) return;
             
             connectionThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println("running");
                     validating = true;
                     
-                    for (PartyInvite inv : LobbyConnector.getPartyInvitesSent()) {
+                    for (PartyInvite inv : Methods.LobbyHandler.getPartyInvitesSent()) {
                         if (inv.getUser().equals(userHold.getUser())) {
                             HintManager.createHint(Hints.AlreadyInvited);
                             validating = false;
@@ -69,7 +76,7 @@ public class UserHold extends JLabel {
                     }
                     
                     int partyId = Methods.FindTeammate.getTeammateController().getPartyID();
-                    LobbyConnector.addPartyInvite(partyId == 0 ? LobbyConnector.getNextAvailablePartyID() : partyId,
+                    Methods.LobbyHandler.addPartyInvite(partyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : partyId,
                         Methods.UserID, user.getUserID());
                     validating = false;
                 }

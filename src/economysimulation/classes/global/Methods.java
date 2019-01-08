@@ -24,6 +24,7 @@ import economysimulation.classes.managers.extcon.Connection;
 import economysimulation.classes.managers.extcon.DatabaseConnector;
 import economysimulation.classes.managers.extcon.GameData;
 import economysimulation.classes.managers.extcon.UserData;
+import economysimulation.classes.managers.extcon.lobby.LobbyConnector;
 import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
 import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.theme.GraphicUpdater;
@@ -74,6 +75,7 @@ public class Methods {
     public static ModeManager ModeHandler;
     public static StorageReceiver StorageEvent;
     public static StorageConnector StorageConnection;
+    public static LobbyConnector LobbyHandler;
     
     public static TeammateFinder FindTeammate = null;
     
@@ -89,10 +91,6 @@ public class Methods {
     
     public static void quitSystem() {
         if (Connection.isConnected && UserID != -1) {
-            if (StorageConnection.isUserInServer(UserID)) {
-                StorageConnection.removeServerUser(MPServerSlot, UserInSlot);
-            }
-            
             if (DBUsers.isRedundantUser(UserID)) {
                 DBUsers.removeUser(UserID);
             }
