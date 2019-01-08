@@ -31,7 +31,7 @@ public class LobbyConnector {
     private synchronized void data() {
         if (controlPanel.getPartyID() == 0) {
             //signal a new invite has occured.
-            getPartyInvites().forEach((invite) -> {
+            getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
             });
             
@@ -142,22 +142,87 @@ public class LobbyConnector {
     }
     
     /**
-     * Gets a list of all the invites received by a user.
+     * Gets the next available ID for a party.
+     * @return Next available Party ID.
+     */
+    public static int getNextAvailablePartyID() {
+        try {
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT PartyID FROM mxcrtr_db.PartyInvites"));
+            
+            int previousID, nextID = 0;
+            
+            while (DBConnector.getResultSet().next()) {         //needs testing
+                previousID = nextID;
+                nextID = DBConnector.getResultSet().getInt(1);
+                if (nextID-1 != previousID) return nextID-1;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    
+    /**
+     * Gets a list of all the invites received by the user..
      * @return List of invites.
      */
-    public static List<PartyInvite> getPartyInvites() {
+    public static List<PartyInvite> getPartyInvitesReceived() {
+        return getPartyInvitesReceived(Methods.UserID);
+    }
+    
+    /**
+     * Gets a list of all the invites received by {@code userId}.
+     * @param userId ID of user.
+     * @return List of invites.
+     */
+    public static List<PartyInvite> getPartyInvitesReceived(int userId) {
         List<PartyInvite> list = new ArrayList<>();
         try {
-            String SQLStatement = "SELECT * mxcrtr_db.PartyInvites WHERE ToUserID = ?";
+            String SQLStatement = "SELECT PartyID, FromUserID mxcrtr_db.PartyInvites WHERE ToUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, Methods.UserID);
+            pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
             
             //adds user to list if they're found.
             while (DBConnector.getResultSet().next()) {
-                int partyId = DBConnector.getResultSet().getInt(0),
-                    fromUser = DBConnector.getResultSet().getInt(1);
+                int partyId = DBConnector.getResultSet().getInt(1),
+                    fromUser = DBConnector.getResultSet().getInt(2);
                 list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(fromUser), fromUser), partyId));
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }
+    
+    /**
+     * Gets a list of all the invites received by the user..
+     * @return List of invites.
+     */
+    public static List<PartyInvite> getPartyInvitesSent() {
+        return getPartyInvitesSent(Methods.UserID);
+    }
+    
+    /**
+     * Gets a list of all the invites received by {@code userId}.
+     * @param userId ID of user.
+     * @return List of invites.
+     */
+    public static List<PartyInvite> getPartyInvitesSent(int userId) {
+        List<PartyInvite> list = new ArrayList<>();
+        try {
+            String SQLStatement = "SELECT PartyID, ToUserID mxcrtr_db.PartyInvites WHERE FromUserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            DBConnector.setResultSet(pt.executeQuery());
+            
+            //adds user to list if they're found.
+            while (DBConnector.getResultSet().next()) {
+                int partyId = DBConnector.getResultSet().getInt(1),
+                    toUser = DBConnector.getResultSet().getInt(2);
+                list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(toUser), toUser), partyId));
             }
             
         } catch (SQLException ex) {

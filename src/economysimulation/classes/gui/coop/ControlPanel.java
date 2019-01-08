@@ -11,6 +11,7 @@ import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,8 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private ScrollableList inviteList = null, partyList = null;
     private final String EMPTY_USER = "-";
     private PartyInvite latestPartyInvite = null;
+    
+    private List<PartyInvite> localInvites = null;
     
     int partyId = 0;
     
@@ -39,6 +42,8 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Format.addButtonFormat(back2, color2);
         Format.addButtonFormat(back3, color3);
         Format.addButtonFormat(back4, color4);
+        
+        localInvites = new ArrayList<>();
         
         inviteList = new ScrollableList(EMPTY_USER);
         Methods.addToFrontPanel(panelInvites, inviteList, false);
@@ -70,8 +75,11 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void onPartyInviteEvent(PartyInvite partyInvite) {
-        this.latestPartyInvite = partyInvite;
-        inviteList.addItem(partyInvite.getUser().getFullUsername());
+        if (!localInvites.contains(partyInvite)) {
+            this.latestPartyInvite = partyInvite;
+            inviteList.addItem(partyInvite.getUser().getFullUsername());
+            localInvites.add(partyInvite);
+        }
     }
     
     /**
@@ -91,6 +99,8 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private void inviteOutcome(boolean join) {
         //checks that the user is not in a party, and that there is a valid invite
         if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
+        
+        if (localInvites.contains(latestPartyInvite)) localInvites.remove(latestPartyInvite);
         
         if (join && getPartyID() == 0) {
             inviteList.disable();

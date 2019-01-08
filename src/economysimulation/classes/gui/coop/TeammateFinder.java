@@ -36,6 +36,8 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         teammateController = new ControlPanel();
         lobbyConnector = new LobbyConnector(teammateController, this);
         
+        lobbyConnector.startLoop();
+        
         lonelyUsers = new ArrayList<>();
         
         add(teammateController);
