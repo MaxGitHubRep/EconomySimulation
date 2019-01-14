@@ -22,12 +22,21 @@ public class DatabaseConnector {
     private ResultSet ResultSet;
     
     /**
-     * Establishes connection to database.
+     * Creates a new instance of the database connector.
      * @throws SQLException When a safe connection cannot be established.
      */
     public DatabaseConnector() throws SQLException {
+        initConnection();
+    }
+    
+    /**
+     * Establishes a connection to the database.
+     * @throws SQLException When a safe connection cannot be established.
+     */
+    public void initConnection() throws SQLException {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        
     }
     
     public Statement getStatement() {
