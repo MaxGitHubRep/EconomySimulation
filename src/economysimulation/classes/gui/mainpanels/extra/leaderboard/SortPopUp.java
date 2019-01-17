@@ -80,7 +80,7 @@ public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back1, back2, this }, new JPanel[]{ top });
+        updater.applyPanelThemes(new JPanel[]{ back1, back2, col1, col2, this }, new JPanel[]{ top });
         updater.applyTextThemes(new JLabel[]{ title1, title2, component, arrow1, arrow2 }, new JLabel[]{ title });
         updater.applyRadioButtonThemes(new JRadioButton[]{ state1, state2 }, null);
     }

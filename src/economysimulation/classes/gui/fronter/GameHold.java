@@ -248,7 +248,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
 
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ backadd, leftBar, panel1, panel2, color1, color2 }, new JPanel[]{ topBar, rightBar });
+        updater.applyPanelThemes(new JPanel[]{ backadd, leftBar, panel1, panel2, color1, color2, onlineStatePanel }, new JPanel[]{ topBar, rightBar });
         updater.applyTextThemes(new JLabel[]{ titleSpeed, titleTime, mpTitle, mpComponent, mpUser, mpValue },
                 new JLabel[]{ title, description, label1, label2, labelGDP, labelBudget });
     }
