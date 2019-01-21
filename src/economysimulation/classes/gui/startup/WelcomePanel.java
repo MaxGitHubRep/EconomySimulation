@@ -39,28 +39,20 @@ import javax.swing.event.DocumentListener;
  */
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    /**
-    * List of panels that change colour when hovered over.
-    */
+    /** List of panels that change colour when hovered over. */
     private static JPanel[]
             colorPanels,
             backPanels;
     
-    /**
-     * List of labels used for the buttons.
-     */
+    /** List of labels used for the buttons. */
     private static JLabel[]
             titleLabels;
     
-    /**
-    * Ghost text applied to text field.
-    */
+    /** Ghost text applied to text field. */
     private static final String
             USERNAME_GHOST_TEXT = "Username";
     
-    /**
-     * List of titles and descriptions for buttons.
-     */
+    /** List of titles and descriptions for buttons. */
     private static final String[]
             TITLES = new String[]{
         "Solo", "Cooperative", "Tutorial", "Leaderboards" },
@@ -72,9 +64,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         "Check out the highest scores in solo/cooperative simulations"
     };
   
-    /**
-     * Creates new starter panel.
-     */
+    /** Creates new main menu panel. */
     public WelcomePanel() {
         initComponents();
         
@@ -148,7 +138,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
      * to validate the input username against what is
      * required.
      * The regular expression pattern used is
-     * {@code [a-zA-Z0-9]+}.
+     * {@code ^[a-zA-Z0-9]{3,10}+$}.
      * 
      * @param username  The input username to check.
      * @return Returns  {@code true} if the {@code username}
@@ -169,17 +159,17 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-              onUsernameUpdate();
+                onUsernameUpdate();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-              onUsernameUpdate();
+                onUsernameUpdate();
             }
 
             @Override
             public void insertUpdate(DocumentEvent e) {
-              onUsernameUpdate();
+                onUsernameUpdate();
             }
 
             public void onUsernameUpdate() {
