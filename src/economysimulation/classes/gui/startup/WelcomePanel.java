@@ -29,6 +29,9 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingWorker;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.gui.coop.TeammateFinder;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -69,7 +72,6 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         "Check out the highest scores in solo/cooperative simulations"
     };
   
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     /**
      * Creates new starter panel.
      */
@@ -92,6 +94,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         Methods.resetCurrentUserData();
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
+        addUsernameUpdateListener(enterUsername);
         
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
@@ -100,8 +103,9 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
         runConnectionTest();
-    }//</editor-fold>
+    }
     
+    /** Tests the connection in a different thread. */
     private void runConnectionTest() {
         SwingWorker<Void, String> worker = new SwingWorker<Void, String>(){
             @Override
@@ -116,6 +120,10 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         worker.execute();
     }
     
+    /**
+     * Attempts to establish a connection between
+     * the client and the database.
+     */
     private void establishConnection() {
         try {
             Methods.DBConnector = new DatabaseConnector();
@@ -132,49 +140,106 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
         updater.applyPanelThemes(new JPanel[]{ sideBarLeft, back1, back2, back3, back4, back5, back6, co1, co2, co3, co4, co5, co6 }, new JPanel[]{ animBack });
-        updater.applyTextThemes(titleLabels, null);
+        updater.applyTextThemes(new JLabel[]{ title1, title2, title3, title4, connectionState, leave, usernameStatus }, null);
     }
 
+    /**
+     * Runs a pattern match check against {@code username}
+     * to validate the input username against what is
+     * required.
+     * The regular expression pattern used is
+     * {@code [a-zA-Z0-9]+}.
+     * 
+     * @param username  The input username to check.
+     * @return Returns  {@code true} if the {@code username}
+     *                  argument matches the regex pattern.
+     */
+    private boolean validUsername(String username) {
+        return username.matches("^[a-zA-Z0-9]{3,10}+$");
+    }
+    
+    /**
+     * Uses a {@code DocumentListener} to see when a change
+     * in the text field text changes. This event will cause
+     * a check in real time to see if the username is valid.
+     * @param field The textfield of the code.
+     */
+    private void addUsernameUpdateListener(JTextField field) {
+        field.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+              onUsernameUpdate();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+              onUsernameUpdate();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+              onUsernameUpdate();
+            }
+
+            public void onUsernameUpdate() {
+                usernameStatus.setText(validUsername(field.getText()) ? "" : "x");
+            }
+      });
+    }
+    
+    /**
+     * Formats the button that checks that the username
+     * is valid and initiates the simulation start-event
+     * depending on what option the user clicks.
+     * @param id Index of the button in the list.
+     */
     private void addButtonSimStartEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
+            //adds the mouse event when the button is clicked.
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (enterUsername.getText().equals(USERNAME_GHOST_TEXT)) {
                     setLabelText(id, USERNAME_GHOST_TEXT + " is not a valid username");
-
-                } else if (enterUsername.getText().contains("#")) {    
-                    setLabelText(id, "Username cannot contain a #");
+                
+                //makes sure the username is valid.    
+                } else if (!validUsername(enterUsername.getText())) {    
+                    setLabelText(id, "Username must be only characters and numbers");
                     
-                } else if (enterUsername.getText().length() > 10) {
-                    setLabelText(id, "Username must be less than " + 10 + " characters to proceed");
-
-                } else if (enterUsername.getText().length() < 3) {
-                    setLabelText(id, "Username must be more than " + 3 + " characters to proceed");
-
+                //performs a check to make sure that if the player wants to do multiplayer, they have a good connection to the database already.    
                 } else if ((id + 1 == Mode.MULTI_PLAYER.getIndex()) && !Connection.isConnected) {   
                     setLabelText(id, "A connection cannot be established to the server meaning online play is disabled at this time");
                     
                 } else {
+                    //sets the global username to what the textbox is set to.
                     Methods.Username = enterUsername.getText();
-                    ModeHandler.setMode(id+1);
-                    //Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
                     
+                    //sets the mode based on what button was pressed.
+                    ModeHandler.setMode(id+1);
+                    
+                    //automatically adjusts the memory saver option.
+                    Methods.MemorySaver = ModeHandler.isMode(Mode.MULTI_PLAYER);
+                    
+                    //starts creating instances for the pre-sim-setup option.
                     Methods.AnimationGraph.stop();
                     Methods.SectorInstance = new SectorManager();
                     Methods.TaxRevenueDisplay = new TaxRevenueList();
                     
+                    //if the user is playing multiplayer, it generates a unique player id.
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
                         if (Methods.UserID == -1) {
                             DBUsers.refresh();
                             Methods.UserID = DBUsers.getNextAvailableUserID();
                             DBUsers.createNewUser(Methods.UserID, Methods.Username);
                         }
+                        //starts the teammate finder menu.
                         if (Methods.FindTeammate == null) Methods.FindTeammate = new TeammateFinder();
                         Methods.FrameDisplay.addToMainFrame(Methods.FindTeammate);
                         
                         //if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
                         //Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {
+                        //loads the pre-setup menu for the user.
                         Methods.FrameDisplay.addToMainFrame(new PreSetup());
                     }
                     
@@ -238,6 +303,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         back6 = new javax.swing.JPanel();
         co6 = new javax.swing.JPanel();
         leave = new javax.swing.JLabel();
+        usernameStatus = new javax.swing.JLabel();
         animBack = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -515,6 +581,11 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addComponent(leave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        usernameStatus.setFont(new java.awt.Font("Agency FB", 0, 48)); // NOI18N
+        usernameStatus.setForeground(new java.awt.Color(204, 0, 0));
+        usernameStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        usernameStatus.setText("x");
+
         javax.swing.GroupLayout sideBarLeftLayout = new javax.swing.GroupLayout(sideBarLeft);
         sideBarLeft.setLayout(sideBarLeftLayout);
         sideBarLeftLayout.setHorizontalGroup(
@@ -522,10 +593,13 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLeftLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(sideBarLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(sideBarLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLeftLayout.createSequentialGroup()
                         .addGroup(sideBarLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(enterUsername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLeftLayout.createSequentialGroup()
+                                .addComponent(usernameStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(enterUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24))
                     .addComponent(back1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -542,7 +616,9 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             .addGroup(sideBarLeftLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(enterUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(sideBarLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(usernameStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(enterUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -636,5 +712,6 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private javax.swing.JLabel title2;
     private javax.swing.JLabel title3;
     private javax.swing.JLabel title4;
+    private javax.swing.JLabel usernameStatus;
     // End of variables declaration//GEN-END:variables
 }

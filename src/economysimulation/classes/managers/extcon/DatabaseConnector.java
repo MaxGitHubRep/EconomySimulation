@@ -14,8 +14,8 @@ public class DatabaseConnector {
     
     private final String
             HOST = "jdbc:mysql://rds-mxcrtr-db.cejdk9ogcqcy.eu-west-2.rds.amazonaws.com:3306/mxcrtr_db",
-            USERNAME = "",
-            PASSWORD = "";
+            USERNAME = "maxcarter",
+            PASSWORD = "1_>_FRXvrMZ>6yR^40htM";
     
     private Connection Connection;
     private Statement Statement;
