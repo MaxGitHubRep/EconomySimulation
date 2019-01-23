@@ -62,20 +62,28 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     /** Leaderboard sorter instance. */
     private GameSorter gameSorter;
     
+    /** Instance of the {@code PopUpFrame} used to inflate the sort menu. */
     private PopUpFrame popUpFrame = null;
+    
+    /** Instance of the leaderboard list sorter. */
     private SortPopUp sortPopUp = null;
     
+    /** Title of the leaderboard sorter which opens in a new window */
     public final String SORT_TITLE = "Custom Sort";
     
     /** Creates new form Leader board. */
     public Leaderboard() {
         initComponents();
+        
+        //load a default no display message.
         sendErrorMessage("No games loaded.");
         
+        //initiate the score displays.
         for (int i = 0; i < SCORES_PER_PAGE; i++) {
             scoreDisplays[i] = new ScoreDisplay();
         }
         
+        //list of all the sortable data types.
         dataList = new GameData[]{
             GameData.GDP, GameData.TICKS, GameData.CONSUMPTION, GameData.SAVINGS, GameData.POPULATION,
             GameData.UNEMPLOYMENT, GameData.PEOPLE_SUPPORT, GameData.INVESTMENT, GameData.TAXATION,
@@ -83,49 +91,75 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         };
         
         for (GameData data : dataList) {
-            gameInfoHoverEvent(data);
+            onGameInfoHoverEvent(data);
         }
         
-        configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.LOW_TO_HIGH);
+        //configurates the leaderboard with default sort patterns.
+        configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.HIGH_TO_LOW);
 
+        //load the theme.
         ThemeHandler.addThemeUpdateListener(this);
+        
+        //adda the page and mode scroller.
         applyScroller(changeArrow1, false, Scroll.MODE);
         applyScroller(changeArrow2, true, Scroll.MODE);
         applyScroller(changeArrow3, true, Scroll.PAGE);
         applyScroller(changeArrow4, false, Scroll.PAGE);
         
+        //formats the buttons that change colour when hovered over.
         Format.addButtonFormat(back1, col1);
         Format.addButtonFormat(back2, col2);
     }
     
+    //** Configurates the leaderboard with default options. */
     public void configLeaderboard() {
         configLeaderboard(DisplayOrder[viewSelection], null, null);
     }
     
+    /**
+     * Configurates the leaderboard with arguments
+     * defining the default sorting patterns.
+     * @param displayType      Whether the leaderboard will display single/multiplayer, or both. 
+     * @param searchComponent  Which component is used to sort the entries. 
+     * @param searchCondition  Whether the data will be sorted from low-to-high or high-to-low.
+     */
     public void configLeaderboard(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
+        //clear all the existing labels.
         backScore.removeAll();
         playerTypeDisplay.setText("");
         pageReference.setText("");
         extraLabel.setText("");
+        //checks connection.
         if (Connection.isConnected) {
+            //pulls data from the leaderboards.
             pullLeaderboardData(displayType, searchComponent, searchCondition);
-            
         } else {
+            //error message if no connection is established.
             sendErrorMessage("No connection to the server.");
         }
     }
     
+    /**
+     * 
+     * @param displayType
+     * @param searchComponent
+     * @param searchCondition 
+     */
     private void pullLeaderboardData(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
+        //new event queue when pulling data.
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ScoreList = new ArrayList<>();
+                //makes sure there are games in the database to use.
                 int gamesPlayed = DBGames.getGamesPlayed(true);
                 if (gamesPlayed == 0) {
                     sendErrorMessage("No games found.");
                     
                 } else {
-                    totalPages = (int) Math.floor(gamesPlayed/SCORES_PER_PAGE)+1;
+                    //calculates total pages required.
+                    totalPages = (int) Math.floor(gamesPlayed-1/SCORES_PER_PAGE)+1;
 
+                    //sorts the game data.
                     gameSorter = new GameSorter(DBGames.getAllGameData());
                     gameSorter.setDisplayType(displayType);
                     gameSorter.setSearchComponent(searchComponent);
@@ -136,11 +170,13 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                     
                     frontPointer = 0;
 
+                    //formats the top scores into game packages for the score display.
                     for (int i = 0; i < gameData.size(); i++) {
                         GamePackage pkg = gameData.get(i);
                         addScore(i+1, pkg);
                     }
 
+                    //update display of leaderboard data.
                     refreshDisplayList();
                     updatePageNumberedDisplay();
                 }
@@ -148,6 +184,10 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         });
     }
 
+    /**
+     * Sets the leaderboard score list to an error message of {@code message}.
+     * @param message 
+     */
     private void sendErrorMessage(String message) {
         backScore.removeAll();
         DummyErrorDisplay = new LoadingError(message);
@@ -155,6 +195,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         DummyErrorDisplay.setSize(900, 800);
     }
     
+    /** Updates the text that indicates how many pages there are in total. */
     private void updatePageNumberedDisplay() {
         pageReference.setText("Page: " + ((int) Math.floor(frontPointer/SCORES_PER_PAGE)+1) + "/" + totalPages);
         playerTypeDisplay.setText(DisplayOrder[viewSelection].getTitle());
@@ -166,10 +207,18 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         PAGE
     }
     
+    /**
+     * Adds a scroll option to a button which can move a list back and forth.
+     * @param label    Label button to click.
+     * @param forward  Whether the button will move backwards of forwards on the list.
+     * @param scroll   The Scroll type of the scroller, either
+     *                 {@code Scroll.MODE} or {@code Scroll.PAGE}.
+     */
     private void applyScroller(JLabel label, boolean forward, Scroll scroll) {
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //determines the type of scrolling occurring.
                 if (scroll == Scroll.MODE) {
                     if (forward) {
                         viewSelection = (viewSelection == DisplayOrder.length-1) ? 0 : viewSelection+1;
@@ -193,28 +242,44 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         });
     }
     
+    /**
+     * Adds {@code value} to the front pointer value.
+     * @param value New value of the front pointer.
+     */
     private void updateFrontPointer(int value) {
         frontPointer+=value;
+        //validation to make sure the pointer is always positive.
+        if (frontPointer < 0) frontPointer = 0;
         refreshDisplayList();
         updatePageNumberedDisplay();
     }
     
+    /**
+     * Creates a new {@code Score} instance and adds it to the score list.
+     * @param rank  The ranking index of the score.
+     * @param pkg   The {@code GamePackage} containing data about that score.
+     */
     public void addScore(int rank, GamePackage pkg) {
         ScoreList.add(new Score(rank, pkg));
     }
     
+    /** Refreshes the display list of the leaderboard list data. */
     private void refreshDisplayList() {
+        //clears the list.
         backScore.removeAll();
+        //loops through all the scores and adds a score.
         for (int i = 0; i < SCORES_PER_PAGE; i++) {
             backScore.add(scoreDisplays[i]);
             scoreDisplays[i].setLocation(0, (i*78));
             scoreDisplays[i].setVisible(true);
             scoreDisplays[i].setSize(900, 76);
             
+            //check to see if a score at the loop-index exists.
             if (ScoreList.size() <= i + frontPointer) {
                 scoreDisplays[i].setDisplayData(0, null);
                 
             } else {
+                //adds the score to the leaderboard list.
                 Score score = ScoreList.get(i + frontPointer);
                 int rank = score.getRank();
                 if (gameSorter.getSearchCondition() == SearchCondition.LOW_TO_HIGH) {
@@ -226,6 +291,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         }
     }
     
+    /** The type of game data that can be compared. */
     enum GameData {
         GDP("GDP", gback1, var1, "£%sm", -1, null),
         TICKS("Ticks", gback2, var2, "%s", -2, null),
@@ -284,12 +350,10 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     /**
-     * Displays data about the current game package.
-     * 
-     * @param id   Index of the game package.
-     * @param data The actual game package.
+     * When a user hovers over a specific label to display game data.
+     * @param data The label and action of the event data.
      */
-    private void gameInfoHoverEvent(GameData data) {
+    private void onGameInfoHoverEvent(GameData data) {
         data.getPanel().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -317,6 +381,10 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         });
     }
     
+    /**
+     * When the display information needs an update.
+     * @param data The label and action of the event data.
+     */
     private void updateDisplayInfo(GameData data) {
         extraLabel.setText("");
         if (selectedPackage == null || data == null) {
@@ -326,6 +394,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             
         double component;
 
+        //switch/case to get id of the component.
         switch (data.getIndex()) {
             case -1:
                 component = selectedPackage.getScore();
@@ -353,6 +422,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         }
     }
 
+    /**
+     * When the user has chosen to edit the search parameters.
+     * @param searchCondition Conditions of the search.
+     * @param searchComponent Type of component to measure.
+     */
     public void onSortCustomClose(SearchCondition searchCondition, SearchComponent searchComponent) {
         popUpFrame.dispose();
         if (searchCondition != null && searchComponent != null){
@@ -373,7 +447,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
         /**
          * Creates a new entry of a score for the leader board.
-         * 
          * @param rank Game rank.
          * @param pkg  Game package.
          */
@@ -1036,10 +1109,12 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }//GEN-LAST:event_back1MouseClicked
 
     private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
+        //creates a new sort editor.
         if (sortPopUp == null) {
             sortPopUp = new SortPopUp();
         }
         
+        //inflates the sort editor.
         if (popUpFrame == null) {
             popUpFrame = new PopUpFrame(sortPopUp, SORT_TITLE);
         }
