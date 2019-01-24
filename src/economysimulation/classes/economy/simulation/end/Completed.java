@@ -32,6 +32,10 @@ public class Completed {
         
     }
     
+    /**
+     * Ends the simulation and sends scores to database.
+     * @param causeOfCompletion The reason behind why the simulation was ended.
+     */
     public static void simulationCompleted(String causeOfCompletion) {
         try {
             if (Connection.isConnected) {

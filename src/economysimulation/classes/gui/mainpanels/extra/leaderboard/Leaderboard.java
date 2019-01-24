@@ -157,7 +157,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                     
                 } else {
                     //calculates total pages required.
-                    totalPages = (int) Math.floor(gamesPlayed-1/SCORES_PER_PAGE)+1;
+                    totalPages = (int) (Math.floor(gamesPlayed/SCORES_PER_PAGE)+1);
 
                     //sorts the game data.
                     gameSorter = new GameSorter(DBGames.getAllGameData());

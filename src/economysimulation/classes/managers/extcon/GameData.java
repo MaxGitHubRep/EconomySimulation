@@ -70,16 +70,13 @@ public class GameData {
         try {
             if (getGamesPlayed(false) == 0) {
                 throw new NonExistentGameException();
-                
-            } else if (id > getGamesPlayed(false)) {
-                throw new NonExistentGameException(id);
             }
         } catch (NonExistentGameException ex) {
             ex.printStackTrace();
         }
 
         GamePackage pkg = null;
-        
+        System.out.println(id + " : " + getGamesPlayed(false));
         try {
             String SQLStatement = "SELECT * FROM mxcrtr_db.Games WHERE GameID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -129,21 +126,22 @@ public class GameData {
     }
     
     /**
-     * Cycles through every game on the database and returns a list of {@code GamePackage}s.
-     * 
+     * Cycles through every game on the database
+     * and returns a list of {@code GamePackage}.
      * @return List of all the information about every game.
      */
     public List<GamePackage> getAllGameData() {
         List<GamePackage> gameData = new ArrayList<>();
-        for (int i = 1; i < getGamesPlayed(false)+1; i++) {
+        refreshGamesPlayed();
+        for (int i = 1; i <= getGamesPlayed(false); i++) {
             gameData.add(getGameDataFromID(i));
         }
         return gameData;
     }
     
     /**
-     * Creates a new record in the database that links the users and the games.
-     * 
+     * Creates a new record in the database that
+     * links the users and the games.
      * @param gameId Index of the game.
      * @param userId Indexes of the players in the game.
      */
