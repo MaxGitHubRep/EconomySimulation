@@ -50,14 +50,12 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         List<User> freshLonelyUsers = Methods.LobbyHandler.getUsersNotInParty(), toAddList = new ArrayList<>();
         for (User user : freshLonelyUsers) {
             if (user.getUserID() != Methods.UserID) toAddList.add(user);
-            
         }
         addUsersToLobby(toAddList);
     }
     
     private void addUsersToLobby(List<User> users) {
         for (User user : users) {
-            System.out.println("adding " + user.getFullUsername());
             UserHold hold = new UserHold(user);
             add(hold);
             hold.setLocation(Methods.randomInt(0, 500), Methods.randomInt(0, 500));

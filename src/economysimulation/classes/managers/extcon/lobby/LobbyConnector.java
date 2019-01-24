@@ -69,6 +69,25 @@ public class LobbyConnector {
         looped = false;
     }
     
+    public boolean isInviting(int fromUser, int toUser) {
+        try {
+            String SQLStatement = "SELECT EXISTS(SELECT * FROM mxcrtr_db.PartyInvites WHERE FromUserID = ? AND ToUserID = ?)";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, fromUser);
+            pt.setInt(2, toUser);
+            DBConnector.setResultSet(pt.executeQuery());
+            
+            if (DBConnector.getResultSet().next()) {
+                System.out.println("inviter");
+                return true;
+            }
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
     /**
      * Adds a new party invite from {@code fromUser} to {@code toUser}.
      * 
@@ -78,6 +97,9 @@ public class LobbyConnector {
      */
     public void addPartyInvite(int partyId, int fromUser, int toUser) {
         try {
+            //validation to make sure that no other invites are open.
+            if (isInviting(fromUser, toUser)) return;
+            
             String SQLStatement = "INSERT INTO mxcrtr_db.PartyInvites VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, partyId);
@@ -190,12 +212,20 @@ public class LobbyConnector {
             pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
             
+            List<Integer> users = new ArrayList<>(), parties = new ArrayList<>();
+            
             //adds user to list if they're found.
             while (DBConnector.getResultSet().next()) {
                 int partyId = DBConnector.getResultSet().getInt(1),
                     fromUser = DBConnector.getResultSet().getInt(2);
-                list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(fromUser), fromUser), partyId));
+                users.add(fromUser);
+                parties.add(partyId);
             }
+            
+            for (int i = 0; i < users.size(); i++) {
+                list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(users.get(i)), users.get(i)), parties.get(i)));
+            }
+            
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -225,12 +255,20 @@ public class LobbyConnector {
             pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
             
+            List<Integer> users = new ArrayList<>(), parties = new ArrayList<>();
+            
             //adds user to list if they're found.
             while (DBConnector.getResultSet().next()) {
                 int partyId = DBConnector.getResultSet().getInt(1),
                     toUser = DBConnector.getResultSet().getInt(2);
-                list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(toUser), toUser), partyId));
+                users.add(toUser);
+                parties.add(partyId);
             }
+            
+            for (int i = 0; i < users.size(); i++) {
+                list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(users.get(i)), users.get(i)), parties.get(i)));
+            }
+            
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -281,7 +319,6 @@ public class LobbyConnector {
             ex.printStackTrace();
             return 0;
         }
-        
         return id;
     }
     
@@ -300,12 +337,16 @@ public class LobbyConnector {
             pt.setInt(1, partyId);
             DBConnector.setResultSet(pt.executeQuery());
             
+            List<Integer> users = new ArrayList<>();
+            
             //adds user to list if they're found.
             while (DBConnector.getResultSet().next()) { 
                 int nextUser = DBConnector.getResultSet().getInt(1);
                 System.out.println("user: " + nextUser);//needs checking
-                list.add(new User(Methods.DBUsers.getUsernameFromId(nextUser), nextUser));
+                users.add(nextUser);
             }
+            
+            for (int user : users) list.add(new User(Methods.DBUsers.getUsernameFromId(user), user));
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -353,7 +394,7 @@ public class LobbyConnector {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
+        } 
     }
     
 }

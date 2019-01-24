@@ -35,12 +35,20 @@ public class DatabaseConnector {
      */
     public void initConnection() throws SQLException {
         Connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
-        Statement = Connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        Statement = Connection.createStatement();
         
     }
     
     public Statement getStatement() {
-        return this.Statement;
+        try {
+            if (Statement.isClosed()) {
+                initConnection();
+            }
+            return this.Statement;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
     
     public void setResultSet(ResultSet resultSet) {
@@ -52,7 +60,15 @@ public class DatabaseConnector {
     }
     
     public Connection getConnection() {
-        return this.Connection;
+        try {
+            if (Connection.isClosed()) {
+                initConnection();
+            }
+            return this.Connection;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
     
 }

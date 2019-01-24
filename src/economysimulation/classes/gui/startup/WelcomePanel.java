@@ -140,9 +140,9 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
      * The regular expression pattern used is
      * {@code ^[a-zA-Z0-9]{3,10}+$}.
      * 
-     * @param username  The input username to check.
-     * @return Returns  {@code true} if the {@code username}
-     *                  argument matches the regex pattern.
+     * @param username The input username to check.
+     * @return Returns {@code true} if the {@code username}
+     *                 argument matches the regex pattern.
      */
     private boolean validUsername(String username) {
         return username.matches("^[a-zA-Z0-9]{3,10}+$");
