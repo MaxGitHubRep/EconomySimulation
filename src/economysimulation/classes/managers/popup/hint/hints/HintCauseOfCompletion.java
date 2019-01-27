@@ -7,9 +7,7 @@ import economysimulation.classes.managers.popup.hint.Urgency;
  * @author Max Carter
  */
 public class HintCauseOfCompletion extends Hint {
-
-    public int cooldown = super.COOLDOWN_TIME;
-
+    
     private String causeOfCompletion = null;
     
     public HintCauseOfCompletion(String causeOfCompletion) {

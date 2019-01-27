@@ -15,26 +15,46 @@ import javax.swing.Timer;
  */
 public class HintManager {
     
-    protected static HintDisplay hintDisplay = new HintDisplay();
-    protected static int HintCount = 0;
+    private static int HintCount = 0;
     
-    public static void createHint(Hint hint) {
-        if (!hint.isOnCooldown()) {
-            hint.resetCooldown();
-            new HintCooldown(hint);
-            HintCount++;
-            hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());
-            try {
-                new ShadowFrame("Hint #" + HintCount, hintDisplay, FramePosition.getPositionFromId(3 - hint.getUrgency()), ShadowSize.STANDARD, Speed.MEDIUM);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+    /**
+     * Creates a new pop-up hint.
+     * @param hint The hint that will be inflated.
+     */
+    public static synchronized void createHint(Hint hint) {
+        if (hint.isCooldownEnabled()) return;
+        
+        hint.setCooldownState(true);
+        HintCooldown cooldownTimer = new HintCooldown(hint);
+        cooldownTimer.startCooldown();
+
+        HintCount++;
+        HintDisplay hintDisplay = new HintDisplay();
+        hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());
+
+        try {
+            ShadowFrame shadowFrame = new ShadowFrame("Hint #" + HintCount, hintDisplay, FramePosition.getPositionFromId(3 - hint.getUrgency()), ShadowSize.STANDARD, Speed.MEDIUM);
+            shadowFrame.inflate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
     
+    /**
+     * Gets the amount of hints created.
+     * @return Amount of hints created.
+     */
+    public int getHintCount() {
+        return HintCount;
+    }
+    
     private static class HintCooldown {
+        
+        /** Instance of the timer. */
         private Timer timer;
-        private Hint hint;
+        
+        /** Instance of the hint. */
+        private Hint hint = null;
 
         /**
          * Initiates a timer to start cool down on specific hint.
@@ -43,20 +63,18 @@ public class HintManager {
          */
         private HintCooldown(Hint hint) {
             this.hint = hint;
-            initCooldown();
+        }
+        
+        public void startCooldown() {
+            if (hint != null) initCooldown();
         }
 
-        private void initCooldown() {
-            timer = new Timer(100, new AbstractAction() {
+        /** Initiates the cooldown for the hint. */
+        private synchronized void initCooldown() {
+            timer = new Timer(hint.getCooldownTime() * 1000, new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    timer.stop();
-                    if (hint.getCooldown() == 0) {
-                        hint.resetCooldown();  
-                    } else {
-                        hint.reduceCooldown();
-                        initCooldown();
-                    }
+                    hint.setCooldownState(false);
                 }
             }); 
             timer.start();
