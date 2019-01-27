@@ -23,7 +23,7 @@ public class ShadowFrame extends JFrame {
     protected static final int
             frameWidth = 1800,
             frameHeight = 1000;
-    protected static int
+    protected int
             xCoord, yCoord,
             shadowSize,
             shadowedMargin,
@@ -63,6 +63,9 @@ public class ShadowFrame extends JFrame {
         animationGap = 20;
         isRising = true;
         
+    }
+    
+    public void inflate() {
         // Creates the frame
         super.setAlwaysOnTop(true);
         super.setUndecorated(true);
@@ -71,11 +74,12 @@ public class ShadowFrame extends JFrame {
         super.setBackground(new Color(0, 0, 0, 0));
         this.add(new ShadowPanel());
         
-        setLocationInFrame(panelPosition);
+        setLocationInFrame(position);
         
-        if (durationInSeconds > 0) {
+        if (duration > 0) {
             initTimer(isRising);
         }
+        
     }
     
     protected final void setLocationInFrame(int panelPosition) {

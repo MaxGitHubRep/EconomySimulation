@@ -41,7 +41,8 @@ public class EventManager {
             
             eventDisplay.createEvent(event.getTitle(), event.getDescription(), event.getImageFileName());
             try {
-                new ShadowFrame("Event - " + event.getTitle(), eventDisplay, FramePosition.getPositionFromId(0), ShadowSize.EXTRA_LARGE, Speed.VERY_SLOW);
+                ShadowFrame shadowFrame = new ShadowFrame("Event - " + event.getTitle(), eventDisplay, FramePosition.getPositionFromId(0), ShadowSize.EXTRA_LARGE, Speed.VERY_SLOW);
+                shadowFrame.inflate();
             } catch (InvalidPanelSizeException ex) {
                 ex.printStackTrace();
             }
