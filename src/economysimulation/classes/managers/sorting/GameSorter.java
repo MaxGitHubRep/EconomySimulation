@@ -67,7 +67,7 @@ public class GameSorter {
         // Checks that the list being sorted has more than one item.
         if (gamePackageList.isEmpty() || gamePackageList.size() == 1) return;
         
-        MergeSort mergeSort = new MergeSort();
+        MergeSort mergeSort = new MergeSort(this);
         
         GamePackage[] gamePkgStaticList = new GamePackage[gamePackageList.size()-1];
         
@@ -75,7 +75,7 @@ public class GameSorter {
             gamePkgStaticList[i] = gamePackageList.get(i);
         }
         
-        mergeSort.sort(gamePkgStaticList, 0, gamePkgStaticList.length-1, this);
+        mergeSort.sort(gamePkgStaticList, 0, gamePkgStaticList.length-1);
         
         gamePackageList.clear();
         for (int i = 0; i < gamePkgStaticList.length; i++) {
