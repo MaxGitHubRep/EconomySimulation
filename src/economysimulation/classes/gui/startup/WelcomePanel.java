@@ -4,7 +4,6 @@ import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBUsers;
 import static economysimulation.classes.global.Methods.ModeHandler;
-import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.subpanels.TaxRevenueList;
 import economysimulation.classes.managers.animation.StockGraph;
@@ -226,8 +225,6 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                         if (Methods.FindTeammate == null) Methods.FindTeammate = new TeammateFinder();
                         Methods.FrameDisplay.addToMainFrame(Methods.FindTeammate);
                         
-                        //if (Methods.PlayerSearchDisplay == null) Methods.PlayerSearchDisplay = new PlayerSearch();
-                        //Methods.FrameDisplay.addToMainFrame(Methods.PlayerSearchDisplay);
                     } else {
                         //loads the pre-setup menu for the user.
                         Methods.FrameDisplay.addToMainFrame(new PreSetup());

@@ -18,7 +18,7 @@ public class MergeSort {
      */
     public MergeSort(GameSorter gameSorter) {
         if (gameSorter == null)
-            throw new NullPointerException("The MergeSort cannot work without an uninstantiated GameSorter.");
+            throw new NullPointerException("The MergeSort cannot work without an instantiated GameSorter.");
         this.gameSorter = gameSorter;
     }
     
