@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  *
- * @author Max
+ * @author Max Carter
  */
 public class User {
 
@@ -12,20 +12,35 @@ public class User {
     private int userId = -1;
     
     public User(String username, int userId) {
-        this.username = username;
-        this.userId = userId;
+        setName(username);
+        setID(userId);
     }
     
-    public String getUsername() {
+    public User() {};
+    
+    public String getName() {
         return username;
     }
     
-    public int getUserID() {
+    public void setName(String username) {
+        this.username = username;
+    }
+    
+    public int getID() {
         return userId;
     }
     
-    public String getFullUsername() {
+    public void setID(int userId) {
+        this.userId = userId;
+    }
+    
+    public String getFullName() {
         return username + "#" + new DecimalFormat("00000").format(userId);
+    }
+    
+    public void reset() {
+        setID(-1);
+        setName(null);
     }
     
 }

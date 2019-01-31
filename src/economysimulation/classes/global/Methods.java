@@ -2,7 +2,6 @@ package economysimulation.classes.global;
 
 import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.structure.Formula;
-import economysimulation.classes.gui.coop.PlayerSearch;
 import economysimulation.classes.gui.coop.TeammateFinder;
 import economysimulation.classes.gui.frame.MainFrame;
 import economysimulation.classes.gui.fronter.GameHold;
@@ -71,7 +70,6 @@ public class Methods {
     public static RateHold RatesBack;
     public static BudgetHold BudgetBack;
     public static Tutorial TutorialDisplay;
-    public static PlayerSearch PlayerSearchDisplay = null;
     public static ModeManager ModeHandler;
     public static StorageReceiver StorageEvent;
     public static StorageConnector StorageConnection;
@@ -79,8 +77,9 @@ public class Methods {
     
     public static TeammateFinder FindTeammate = null;
     
-    public static String Username = null;
-    public static int UserID = -1;
+    private static User user = new User();
+    //public static String Username = null;
+    //public static int UserID = -1;
     
     public static int MPServerSlot = -1;
     public static int UserInSlot = -1;
@@ -89,10 +88,14 @@ public class Methods {
     
     public static boolean SimulationInProgress = false;
     
+    public static User getUser() {
+        return user;
+    }
+    
     public static void quitSystem() {
-        if (Connection.isConnected && UserID != -1) {
-            if (DBUsers.isRedundantUser(UserID)) {
-                DBUsers.removeUser(UserID);
+        if (Connection.isConnected && user.getID() != -1) {
+            if (DBUsers.isRedundantUser(user)) {
+                DBUsers.removeUser(user);
             }
         }
         System.exit(0);
@@ -103,8 +106,7 @@ public class Methods {
      * Resets the local user data in the current session.
      */
     public static void resetCurrentUserData() {
-        UserID = -1;
-        Username = "";
+        user.reset();
     }//</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Allows multiple panels to drag the frame."> 

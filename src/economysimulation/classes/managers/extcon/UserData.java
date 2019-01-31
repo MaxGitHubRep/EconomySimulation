@@ -3,6 +3,7 @@ package economysimulation.classes.managers.extcon;
 import economysimulation.classes.managers.exception.UserDataOverflowException;
 import java.sql.SQLException;
 import static economysimulation.classes.global.Methods.DBConnector;
+import economysimulation.classes.global.User;
 import java.sql.PreparedStatement;
 
 /**
@@ -92,6 +93,10 @@ public class UserData {
         return name;
     }
     
+    public void createNewUser(User user) {
+        createNewUser(user.getID(), user.getName());
+    }
+    
     public void createNewUser(int id, String name) {
         if (id < 1) return;
         try {
@@ -103,6 +108,11 @@ public class UserData {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    
+    public boolean isRedundantUser(User user) {
+        return isRedundantUser(user.getID());
     }
     
     public boolean isRedundantUser(int userId) {
@@ -117,6 +127,10 @@ public class UserData {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public void removeUser(User user) {
+        removeUser(user.getID());
     }
     
     public void removeUser(int userId) {

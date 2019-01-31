@@ -35,7 +35,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
         colorPanels = new JPanel[]{ color3, color4, color1, color2 };
         
         titles = new JLabel[]{ title1, title2 };
-        hoverText = new String[]{ Methods.Username, "O" + (Connection.isConnected ? "n" : "ff") + "line", "Username", "Connection" };
+        hoverText = new String[]{ Methods.getUser().getFullName(), "O" + (Connection.isConnected ? "n" : "ff") + "line", "Username", "Connection" };
         
         for (int i = 0; i < backPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);

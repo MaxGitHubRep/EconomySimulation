@@ -60,7 +60,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
             "£" + f.format(Component.SpendingBudget) + "bn",
             "£" + f.format(Component.TotalCorporationProfits*1000) + "m",
             f.format(Component.CorporationConfidence*100) + "%",
-            Methods.Username
+            Methods.getUser().getFullName()
     
         };
     

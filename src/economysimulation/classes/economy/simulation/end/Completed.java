@@ -40,12 +40,12 @@ public class Completed {
         try {
             if (Connection.isConnected) {
                 if (DBConnector.getConnection().isValid(60)) {
-                    if (Methods.UserID == -1) {
-                        Methods.UserID = DBUsers.getNextAvailableUserID();
-                        DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                    if (Methods.getUser().getID() == -1) {
+                        Methods.getUser().setID(DBUsers.getNextAvailableUserID());
+                        DBUsers.createNewUser(Methods.getUser());
                         int gameId = DBGames.getGamesPlayed(true)+1;
                         DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
-                        DBGames.establishUserGameLink(gameId, new int[]{ Methods.UserID });
+                        DBGames.establishUserGameLink(gameId, new int[]{ Methods.getUser().getID() });
                     }
 
                 } else {

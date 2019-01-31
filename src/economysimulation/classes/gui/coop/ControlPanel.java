@@ -38,7 +38,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         ThemeHandler.addThemeUpdateListener(this);
         
-        userLabel.setText(Methods.Username);
+        userLabel.setText(Methods.getUser().getFullName());
         
         Format.addButtonFormat(back1, color1);
         Format.addButtonFormat(back2, color2);
@@ -79,7 +79,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     public void onPartyInviteEvent(PartyInvite partyInvite) {
         if (!localInvites.contains(partyInvite)) {
             this.latestPartyInvite = partyInvite;
-            inviteList.addItem(partyInvite.getUser().getFullUsername());
+            inviteList.addItem(partyInvite.getUser().getFullName());
             localInvites.add(partyInvite);
         }
     }
@@ -91,7 +91,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     public void onPartyUpdateEvent(List<User> users) {
         partyList.clear();
         users.forEach((user) -> {
-            partyList.addItem(user.getFullUsername());
+            partyList.addItem(user.getFullName());
         });
         //display a count of teammates if not all of them can be displayed on the main list.
         moreUsers.setText(partyList.overflows() ? "And " + partyList.getOverflowSize() + " more users..." : "");

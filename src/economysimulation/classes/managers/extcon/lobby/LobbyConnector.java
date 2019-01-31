@@ -195,7 +195,7 @@ public class LobbyConnector {
      * @return List of invites.
      */
     public List<PartyInvite> getPartyInvitesReceived() {
-        return getPartyInvitesReceived(Methods.UserID);
+        return getPartyInvitesReceived(Methods.getUser().getID());
     }
     
     /**
@@ -238,7 +238,7 @@ public class LobbyConnector {
      * @return List of invites.
      */
     public List<PartyInvite> getPartyInvitesSent() {
-        return getPartyInvitesSent(Methods.UserID);
+        return getPartyInvitesSent(Methods.getUser().getID());
     }
     
     /**

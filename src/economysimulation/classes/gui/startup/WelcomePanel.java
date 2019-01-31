@@ -201,7 +201,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     
                 } else {
                     //sets the global username to what the textbox is set to.
-                    Methods.Username = enterUsername.getText();
+                    if (Methods.getUser().getName() == null) Methods.getUser().setName(enterUsername.getText());
                     
                     //sets the mode based on what button was pressed.
                     ModeHandler.setMode(id+1);
@@ -216,10 +216,10 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                     
                     //if the user is playing multiplayer, it generates a unique player id.
                     if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
-                        if (Methods.UserID == -1) {
+                        if (Methods.getUser().getID() == -1) {
                             DBUsers.refresh();
-                            Methods.UserID = DBUsers.getNextAvailableUserID();
-                            DBUsers.createNewUser(Methods.UserID, Methods.Username);
+                            Methods.getUser().setID(DBUsers.getNextAvailableUserID());
+                            DBUsers.createNewUser(Methods.getUser());
                         }
                         //starts the teammate finder menu.
                         if (Methods.FindTeammate == null) Methods.FindTeammate = new TeammateFinder();

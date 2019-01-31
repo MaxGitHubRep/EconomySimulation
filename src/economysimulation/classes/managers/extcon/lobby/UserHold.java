@@ -21,7 +21,7 @@ public class UserHold extends JLabel {
     private Thread connectionThread = null;
     
     public UserHold(User user) {
-        super(user.getFullUsername());
+        super(user.getFullName());
         this.user = user;
         init();
     }
@@ -58,13 +58,11 @@ public class UserHold extends JLabel {
         //needs testing
         @Override
         public void mouseClicked(MouseEvent me) {
-            System.out.println("clicked");
             if (validating) return;
             
             connectionThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("running");
                     validating = true;
                     
                     for (PartyInvite inv : Methods.LobbyHandler.getPartyInvitesSent()) {
@@ -77,7 +75,7 @@ public class UserHold extends JLabel {
                     
                     int partyId = Methods.FindTeammate.getTeammateController().getPartyID();
                     Methods.LobbyHandler.addPartyInvite(partyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : partyId,
-                        Methods.UserID, user.getUserID());
+                        Methods.getUser().getID(), user.getID());
                     validating = false;
                 }
             });

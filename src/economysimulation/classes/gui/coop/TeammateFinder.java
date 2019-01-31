@@ -33,7 +33,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         teammateController = new ControlPanel();
         Methods.LobbyHandler = new LobbyConnector(teammateController, this);
         
-        Methods.LobbyHandler.addCoopUser(Methods.UserID);
+        Methods.LobbyHandler.addCoopUser(Methods.getUser().getID());
         
         Methods.LobbyHandler.startLoop();
         
@@ -49,7 +49,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     public void onLobbyUpdateEvent() {
         List<User> freshLonelyUsers = Methods.LobbyHandler.getUsersNotInParty(), toAddList = new ArrayList<>();
         for (User user : freshLonelyUsers) {
-            if (user.getUserID() != Methods.UserID) toAddList.add(user);
+            if (user.getID() != Methods.getUser().getID()) toAddList.add(user);
         }
         addUsersToLobby(toAddList);
     }
