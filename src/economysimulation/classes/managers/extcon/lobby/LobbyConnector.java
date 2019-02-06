@@ -29,14 +29,14 @@ public class LobbyConnector {
     
     /** Forces a data input stream. */
     private synchronized void data() {
-        if (controlPanel.getPartyID() == 0) {
+        if (getPartyId(Methods.getUser().getID()) == 0) {//is user in party or not
             //signal a new invite has occured.
             getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
             });
             
         } else {
-            controlPanel.onPartyUpdateEvent(getUsersInParty(controlPanel.getPartyID()));
+            controlPanel.onPartyUpdateEvent(getUsersInParty(getPartyId(Methods.getUser().getID())));
             //get data from database if all users are ready.
         }
         
@@ -69,9 +69,17 @@ public class LobbyConnector {
         looped = false;
     }
     
+    /**
+     * Identifies if {@code fromUser} has invited
+     * {@code toUser} to their party.
+     * 
+     * @param fromUser  The user who has sent the invite.
+     * @param toUser    Recipient of the invite.
+     * @return Returns true of an invite is established.
+     */
     public boolean isInviting(int fromUser, int toUser) {
         try {
-            String SQLStatement = "SELECT EXISTS(SELECT * FROM mxcrtr_db.PartyInvites WHERE FromUserID = ? AND ToUserID = ?)";
+            String SQLStatement = "SELECT COUNT(*) FROM mxcrtr_db.PartyInvites WHERE FromUserID = ? AND ToUserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, fromUser);
             pt.setInt(2, toUser);
@@ -98,7 +106,7 @@ public class LobbyConnector {
     public void addPartyInvite(int partyId, int fromUser, int toUser) {
         try {
             //validation to make sure that no other invites are open.
-            if (isInviting(fromUser, toUser)) return;
+            //if (isInviting(fromUser, toUser)) return;
             
             String SQLStatement = "INSERT INTO mxcrtr_db.PartyInvites VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -342,7 +350,6 @@ public class LobbyConnector {
             //adds user to list if they're found.
             while (DBConnector.getResultSet().next()) { 
                 int nextUser = DBConnector.getResultSet().getInt(1);
-                System.out.println("user: " + nextUser);//needs checking
                 users.add(nextUser);
             }
             
@@ -372,8 +379,8 @@ public class LobbyConnector {
         try {
             String SQLStatement = "UPDATE mxcrtr_db.LobbyData SET PartyID = ? WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(2, partyId);
             pt.setInt(1, userId);
+            pt.setInt(2, partyId);
             pt.executeUpdate();
             
         } catch (SQLException ex) {

@@ -73,7 +73,7 @@ public class UserHold extends JLabel {
                         }
                     }
                     
-                    int partyId = Methods.FindTeammate.getTeammateController().getPartyID();
+                    int partyId = Methods.LobbyHandler.getPartyId(Methods.getUser().getID());
                     Methods.LobbyHandler.addPartyInvite(partyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : partyId,
                         Methods.getUser().getID(), user.getID());
                     validating = false;

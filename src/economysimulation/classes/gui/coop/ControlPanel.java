@@ -11,7 +11,6 @@ import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,10 +24,6 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private ScrollableList inviteList = null, partyList = null;
     private final String EMPTY_USER = "-";
     private PartyInvite latestPartyInvite = null;
-    
-    private List<PartyInvite> localInvites = null;
-    
-    int partyId = 0;
     
     /**
      * Creates new form ControlPanel
@@ -45,25 +40,14 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Format.addButtonFormat(back3, color3);
         Format.addButtonFormat(back4, color4);
         
-        localInvites = new ArrayList<>();
-        
         inviteList = new ScrollableList(EMPTY_USER);
         Methods.addToFrontPanel(panelInvites, inviteList, false);
         
         partyList = new ScrollableList(EMPTY_USER);
         partyList.updateList();
         Methods.addToFrontPanel(panelParty, partyList, false);
+        Methods.addDraggablePanel(this);
         
-    }
-    
-    /**
-     * Gets the ID of the party that the user is
-     * in. If the user's party ID is 0, they are
-     * not in a party.
-     * @return User's party ID.
-     */
-    public int getPartyID() {
-        return partyId;
     }
     
     /**
@@ -77,10 +61,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void onPartyInviteEvent(PartyInvite partyInvite) {
-        if (!localInvites.contains(partyInvite)) {
+        if (!inviteList.contains(partyInvite.getUser().getFullName())) {
             this.latestPartyInvite = partyInvite;
             inviteList.addItem(partyInvite.getUser().getFullName());
-            localInvites.add(partyInvite);
+            inviteList.updateList();
         }
     }
     
@@ -93,6 +77,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         users.forEach((user) -> {
             partyList.addItem(user.getFullName());
         });
+        partyList.updateList();
         //display a count of teammates if not all of them can be displayed on the main list.
         moreUsers.setText(partyList.overflows() ? "And " + partyList.getOverflowSize() + " more users..." : "");
     }
@@ -102,11 +87,10 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         //checks that the user is not in a party, and that there is a valid invite
         if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
         
-        if (localInvites.contains(latestPartyInvite)) localInvites.remove(latestPartyInvite);
-        
-        if (join && getPartyID() == 0) {
+        if (join && Methods.LobbyHandler.getPartyId(Methods.getUser().getID()) == 0) {
+            System.out.println("accepting...");
             inviteList.disable();
-            latestPartyInvite.accept();
+            System.out.println(latestPartyInvite.accept());
         } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();
@@ -496,12 +480,11 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_ignoreLabelMouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
-        if (latestPartyInvite == null || partyId == 0) {
+        if (latestPartyInvite == null) {
             HintManager.createHint(Hints.NoPartyFound);
             return;
         }
         
-        partyId = 0;
         latestPartyInvite.undo();
         inviteList.enable();
         partyList.disable();

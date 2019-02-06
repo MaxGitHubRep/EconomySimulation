@@ -4,8 +4,6 @@ import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -20,8 +18,6 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
 
     private List<String> list;
     private JLabel[] labels;
-    
-    private LabelClickEvent listener = null;
     
     private String emptySlotText = "";
     
@@ -61,7 +57,6 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
             labels[i].setSize(420, (472 / labels.length));
             labels[i].setHorizontalAlignment(SwingConstants.CENTER);
             labels[i].setVerticalAlignment(SwingConstants.CENTER);
-            labels[i].addMouseListener(new MouseEventClick(labels[i]));
         }
         
         ThemeHandler.addThemeUpdateListener(this);
@@ -105,31 +100,12 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         updater.applyTextThemes(labels, null);
     }
     
-    private class MouseEventClick extends MouseAdapter {
-        
-        private JLabel label = null;
-        
-        public MouseEventClick(JLabel label) {
-            this.label = label;
-        }
-        
-        @Override
-        public void mouseClicked(MouseEvent me) {
-            listener.onLabelClick(this.label);
-        }
-        
-    }
-    
     public void setEmptySlotText(String emptySlotText) {
         this.emptySlotText = emptySlotText;
     }
     
     public String getEmptySlotText() {
         return emptySlotText;
-    }
-    
-    public void setLabelClickListener(LabelClickEvent listener) {
-        this.listener = listener;
     }
     
     public void updateList() {
@@ -158,6 +134,10 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
             list.remove(index);
             fillEmptySlots();
         }
+    }
+    
+    public boolean contains(String item) {
+        return list.contains(item);
     }
     
     private void fillEmptySlots() {

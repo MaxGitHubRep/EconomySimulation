@@ -37,7 +37,10 @@ public class PartyInvite {
     public boolean accept() {
         if (Methods.LobbyHandler.getPartyId(user.getID()) != this.partyId && Methods.getUser().getID() < 0) return false;
         else {
+            if (getPartyID() == 0) partyId = Methods.LobbyHandler.getNextAvailablePartyID();
+            System.out.println(partyId);
             Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
+            Methods.LobbyHandler.addUserToParty(user.getID(), partyId);
             return true;
         }
     }
