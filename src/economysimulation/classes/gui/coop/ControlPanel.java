@@ -25,11 +25,18 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private final String EMPTY_USER = "-";
     private PartyInvite latestPartyInvite = null;
     
+    
+    private final String READY = "READY UP", UNREADY = "NOT READY";
+    private TeammateFinder teammateFinder = null;
+    
     /**
      * Creates new form ControlPanel
+     * @param teammateFinder Instance of a {@code TeammateFinder}.
      */
-    public ControlPanel() {
+    public ControlPanel(TeammateFinder teammateFinder) {
         initComponents();
+        
+        this.teammateFinder = teammateFinder;
         
         ThemeHandler.addThemeUpdateListener(this);
         
@@ -348,7 +355,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         label4.setFont(new java.awt.Font("Agency FB", 0, 52)); // NOI18N
         label4.setForeground(new java.awt.Color(204, 0, 0));
         label4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label4.setText("READY");
+        label4.setText("READY UP");
 
         javax.swing.GroupLayout back4Layout = new javax.swing.GroupLayout(back4);
         back4.setLayout(back4Layout);
@@ -491,7 +498,15 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back3MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
-        // I AM READY
+        if (label4.getText().equals(READY)) {
+            //if the user is currently ready, unready them.
+            this.teammateFinder.setGameReadyState(false);
+            label4.setText(UNREADY);
+        } else {
+            //if the user is not ready, ready them up.
+            this.teammateFinder.setGameReadyState(true);
+            label4.setText(READY);
+        }
     }//GEN-LAST:event_back4MouseClicked
 
 

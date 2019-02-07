@@ -482,7 +482,7 @@
               <Color blue="0" green="0" red="cc" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="READY"/>
+            <Property name="text" type="java.lang.String" value="READY UP"/>
           </Properties>
         </Component>
       </SubComponents>

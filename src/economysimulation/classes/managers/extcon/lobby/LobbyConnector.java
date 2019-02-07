@@ -181,7 +181,7 @@ public class LobbyConnector {
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT PartyID FROM mxcrtr_db.PartyInvites"));
             
-            int previousID, nextID = 0;
+            int previousID = 0, nextID = 0;
             
             while (DBConnector.getResultSet().next()) {         //needs testing
                 previousID = nextID;
@@ -402,6 +402,79 @@ public class LobbyConnector {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } 
+    }
+    
+    /**
+     * Sets the state of whether or not a user is ready.
+     * @param userId The ID of the user.
+     * @param state  The state of whether they are ready or not.
+     */
+    public void setGameReadyState(int userId, boolean state) {
+        try {
+            String SQLStatement = "UPDATE mxcrtr_db.LobbyData SET Ready = ? WHERE UserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setBoolean(1, state);
+            pt.setInt(2, userId);
+            pt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Determines whether or not a user has declared themselves as ready.
+     * @param userId The ID of the user.
+     * @return Returns true if the user is ready.
+     */
+    public boolean isUserReady(int userId) {
+        try {
+            //get all users in the server slot first
+            String SQLStatement = "SELECT Ready FROM mxcrtr_db.LobbyData WHERE UserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            DBConnector.setResultSet(pt.executeQuery());
+            
+            //returns true if they are ready.
+            return DBConnector.getResultSet().next(); //requires testing.
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //defaults to returning false;
+        return false;
+    }
+    
+    /**
+     * Determines whether each user in the party has declared themselves as ready.
+     * @param partyId ID of the party.
+     * @return Returns true if every single member of the party has
+     *         declared themselves as ready. Returns false if at
+     *         least one user isn't ready.
+     */
+    public boolean isPartyReady(int partyId) {
+        //returns false if party is 0 because that means no party.
+        if (partyId == 0) return false;
+        
+        String SQLStatement = "SELECT Ready FROM mxcrtr_db.LobbyData WHERE UserID = ?";
+        try {
+            //loop through every user in the party.
+            for (User user : getUsersInParty(partyId)) {
+                PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+                pt.setInt(1, user.getID());
+                DBConnector.setResultSet(pt.executeQuery());
+                
+                //returns false if at least one of the users is not in a party.
+                if (!DBConnector.getResultSet().next()) return false;
+            }
+            
+            return true; //requires testing.
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //defaults to returning false;
+        return false;
     }
     
 }

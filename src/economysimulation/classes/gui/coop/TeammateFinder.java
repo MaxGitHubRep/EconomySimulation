@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.JPanel;
 
 /**
- *
  * @author Max Carter
  */
 public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEvent {
@@ -20,6 +19,8 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     
     public final int HEIGHT = 600, SPEED = 1;
     public int START = 0, plus = 0;
+    
+    private volatile boolean ready = false;
     
     private Thread animationThread;
     
@@ -30,7 +31,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         initComponents();
         START = 870;
         
-        teammateController = new ControlPanel();
+        teammateController = new ControlPanel(this);
         Methods.LobbyHandler = new LobbyConnector(teammateController, this);
         
         Methods.LobbyHandler.addCoopUser(Methods.getUser().getID());
@@ -99,12 +100,14 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         return teammateController;
     }
     
-    public void onGameReady() {
-        /** tell database that it is ready
-          * retrieve i am ready data from other users
-          * if (everyone else is ready)
-          *     launch simulation
-         */ 
+    public synchronized boolean isReady() {
+        return ready;
+    }
+    
+    public void setGameReadyState(boolean state) {
+        if (ready == state) return;
+        ready = state;
+        Methods.LobbyHandler.setGameReadyState(Methods.getUser().getID(), state);
     }
 
     @Override
