@@ -26,7 +26,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     private PartyInvite latestPartyInvite = null;
     
     
-    private final String READY = "READY UP", UNREADY = "NOT READY";
+    private final String I_AM_NOT_READY = "READY UP", I_AM_READY = "NOT READY";
     private TeammateFinder teammateFinder = null;
     
     /**
@@ -95,9 +95,8 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
         
         if (join && Methods.LobbyHandler.getPartyId(Methods.getUser().getID()) == 0) {
-            System.out.println("accepting...");
             inviteList.disable();
-            System.out.println(latestPartyInvite.accept());
+            latestPartyInvite.accept();
         } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();
@@ -494,21 +493,21 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         latestPartyInvite.undo();
         inviteList.enable();
+        partyList.clear();
         partyList.disable();
     }//GEN-LAST:event_back3MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
-        if (label4.getText().equals(READY)) {
-            //if the user is currently ready, unready them.
-            this.teammateFinder.setGameReadyState(false);
-            label4.setText(UNREADY);
+        if (label4.getText().equals(I_AM_NOT_READY)) {
+            //if the user is currently notready, ready them.
+            teammateFinder.setGameReadyState(true);
+            label4.setText(I_AM_READY);
         } else {
-            //if the user is not ready, ready them up.
-            this.teammateFinder.setGameReadyState(true);
-            label4.setText(READY);
+            //if the user is ready, unready them up.
+            teammateFinder.setGameReadyState(false);
+            label4.setText(I_AM_NOT_READY);
         }
     }//GEN-LAST:event_back4MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrow;

@@ -51,7 +51,8 @@ public class PartyInvite {
     }
     
     public void undo() {
-        Methods.LobbyHandler.removeUserFromParty(user.getID());
+        Methods.LobbyHandler.removeUserFromParty(Methods.getUser().getID());
+        Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), 0); //left off
     }
     
 }

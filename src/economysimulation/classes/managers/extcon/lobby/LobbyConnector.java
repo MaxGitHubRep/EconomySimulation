@@ -29,7 +29,9 @@ public class LobbyConnector {
     
     /** Forces a data input stream. */
     private synchronized void data() {
-        if (getPartyId(Methods.getUser().getID()) == 0) {//is user in party or not
+        int userParty = getPartyId(Methods.getUser().getID());
+        //is user in party or not
+        if (userParty == 0) {
             //signal a new invite has occured.
             getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
@@ -37,7 +39,15 @@ public class LobbyConnector {
             
         } else {
             controlPanel.onPartyUpdateEvent(getUsersInParty(getPartyId(Methods.getUser().getID())));
-            //get data from database if all users are ready.
+            
+            if (isPartyReady(userParty)) {
+                looped = false;
+                removePartyFromLobby(userParty);
+                removePartyInvites(userParty);
+                System.out.println("in theory it should start now");
+                //launch simulation
+            }
+            
         }
         
         teammateFinder.onLobbyUpdateEvent();
@@ -124,7 +134,7 @@ public class LobbyConnector {
      * Removes all invites and connected users from {@code partyId}.
      * @param partyId The ID of the party.
      */
-    public void removeParty(int partyId) {
+    public void deleteParty(int partyId) {
         try {
             String SQLStatement = "DELETE FROM mxcrtr_db.PartyInvites WHERE PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -138,6 +148,34 @@ public class LobbyConnector {
             
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Removes a party from a lobby.
+     * @param partyId The ID of the party.
+     */
+    public void removePartyFromLobby(int partyId) {
+        try {
+            String SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE PartyID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, partyId);
+            pt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Removes all the user's incoming and
+     * outgoing party invites at once.
+     * @param partyId The ID of the user.
+     */
+    public void removePartyInvites(int partyId) {
+        for (User user : getUsersInParty(partyId)) {
+            removePartyInvitesIncomming(user.getID());
+            removePartyInvitesOutgoing(user.getID());
         }
     }
     
@@ -290,10 +328,11 @@ public class LobbyConnector {
      */
     public void addCoopUser(int userId) {
         try {
-            String SQLStatement = "INSERT INTO mxcrtr_db.LobbyData VALUES (?, ?)";
+            String SQLStatement = "INSERT INTO mxcrtr_db.LobbyData VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, userId);
             pt.setInt(2, 0);
+            pt.setBoolean(3, false);
             pt.executeUpdate();
             
         } catch (SQLException ex) {
@@ -319,9 +358,8 @@ public class LobbyConnector {
             DBConnector.setResultSet(pt.executeQuery());
             
             //adds user to list if they're found.
-            DBConnector.getResultSet().next();
-
-            id = DBConnector.getResultSet().getInt(1);
+            if (DBConnector.getResultSet().next())
+                id = DBConnector.getResultSet().getInt(1);
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -379,8 +417,8 @@ public class LobbyConnector {
         try {
             String SQLStatement = "UPDATE mxcrtr_db.LobbyData SET PartyID = ? WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, userId);
-            pt.setInt(2, partyId);
+            pt.setInt(1, partyId);
+            pt.setInt(2, userId);
             pt.executeUpdate();
             
         } catch (SQLException ex) {
@@ -413,7 +451,7 @@ public class LobbyConnector {
         try {
             String SQLStatement = "UPDATE mxcrtr_db.LobbyData SET Ready = ? WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setBoolean(1, state);
+            pt.setInt(1, state ? 1 : 0);
             pt.setInt(2, userId);
             pt.executeUpdate();
             
@@ -435,8 +473,9 @@ public class LobbyConnector {
             pt.setInt(1, userId);
             DBConnector.setResultSet(pt.executeQuery());
             
-            //returns true if they are ready.
-            return DBConnector.getResultSet().next(); //requires testing.
+            if (DBConnector.getResultSet().next())
+                //returns true if they are ready.
+                return DBConnector.getResultSet().getInt("Ready") == 1;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -456,25 +495,14 @@ public class LobbyConnector {
         //returns false if party is 0 because that means no party.
         if (partyId == 0) return false;
         
-        String SQLStatement = "SELECT Ready FROM mxcrtr_db.LobbyData WHERE UserID = ?";
-        try {
-            //loop through every user in the party.
-            for (User user : getUsersInParty(partyId)) {
-                PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-                pt.setInt(1, user.getID());
-                DBConnector.setResultSet(pt.executeQuery());
-                
-                //returns false if at least one of the users is not in a party.
-                if (!DBConnector.getResultSet().next()) return false;
-            }
-            
-            return true; //requires testing.
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        //loop through every user in the party.
+        for (User user : getUsersInParty(partyId)) {
+
+            //returns false if at least one of the users is not in a party.
+            if (!isUserReady(user.getID())) return false;
         }
-        //defaults to returning false;
-        return false;
+
+        return true; //requires testing.
     }
     
 }
