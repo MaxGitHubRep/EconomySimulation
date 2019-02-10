@@ -24,6 +24,8 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     
     private Thread animationThread;
     
+    private List<String> userDummys;
+    
     /**
      * Creates new form TeammateFinder
      */
@@ -31,6 +33,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         initComponents();
         START = 870;
         
+        userDummys = new ArrayList<>();
         teammateController = new ControlPanel(this);
         Methods.LobbyHandler = new LobbyConnector(teammateController, this);
         
@@ -50,16 +53,17 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     public void onLobbyUpdateEvent() {
         List<User> freshLonelyUsers = Methods.LobbyHandler.getUsersNotInParty(), toAddList = new ArrayList<>();
         for (User user : freshLonelyUsers) {
-            if (user.getID() != Methods.getUser().getID()) toAddList.add(user);
+            if (user.getID() != Methods.getUser().getID() && !userDummys.contains(user.getFullName())) toAddList.add(user);
         }
         addUsersToLobby(toAddList);
     }
     
     private void addUsersToLobby(List<User> users) {
         for (User user : users) {
+            userDummys.add(user.getFullName());
             UserHold hold = new UserHold(user);
             add(hold);
-            hold.setLocation(Methods.randomInt(0, 500), Methods.randomInt(0, 500));
+            hold.setLocation(Methods.randomInt(0, getWidth()), Methods.randomInt(0, getHeight()-100));
         }
     }
     
@@ -119,39 +123,21 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        countdownPanel = new javax.swing.JPanel();
-
         setBackground(new java.awt.Color(204, 204, 204));
-
-        javax.swing.GroupLayout countdownPanelLayout = new javax.swing.GroupLayout(countdownPanel);
-        countdownPanel.setLayout(countdownPanelLayout);
-        countdownPanelLayout.setHorizontalGroup(
-            countdownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
-        countdownPanelLayout.setVerticalGroup(
-            countdownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 1600, Short.MAX_VALUE)
-                .addComponent(countdownPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 1800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(countdownPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 700, Short.MAX_VALUE))
+            .addGap(0, 900, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel countdownPanel;
     // End of variables declaration//GEN-END:variables
 }

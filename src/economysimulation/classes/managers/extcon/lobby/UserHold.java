@@ -4,10 +4,11 @@ import economysimulation.classes.global.Methods;
 import economysimulation.classes.global.User;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -28,12 +29,15 @@ public class UserHold extends JLabel {
     
     private void init() {
         setFont(new Font("Agency FB",Font.BOLD, 30));
-        setForeground(new Color(204, 0, 0));
+        setForeground(Methods.ThemeHandler.getTheme().getPrimaryTextColor());
         setOpaque(true);
-        setBackground(Color.black);
-        setSize(100, 40);
+        setBackground(Methods.ThemeHandler.getTheme().getPrimaryColor());
+        setSize(180, 60);
+        setBorder(BorderFactory.createMatteBorder(1, 5, 1, 1,
+                Methods.ThemeHandler.getTheme().getPrimaryTextColor()));
         setHorizontalAlignment(SwingConstants.CENTER);
         setVerticalAlignment(SwingConstants.CENTER);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
         
         //when a user is clicked, they will get invited to the user's party.
         addMouseListener(new MouseClickEvent(connectionThread, this));

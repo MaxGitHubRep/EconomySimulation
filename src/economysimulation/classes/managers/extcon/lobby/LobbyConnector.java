@@ -431,15 +431,7 @@ public class LobbyConnector {
      * @param userId ID of the user.
      */
     public void removeUserFromParty(int userId) {
-        try {
-            String SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE UserID = ?";
-            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, userId);
-            pt.executeUpdate();
-            
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } 
+        addUserToParty(userId, 0);
     }
     
     /**

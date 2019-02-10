@@ -95,8 +95,9 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
         
         if (join && Methods.LobbyHandler.getPartyId(Methods.getUser().getID()) == 0) {
-            inviteList.disable();
             latestPartyInvite.accept();
+            inviteList.clear();
+            inviteList.disable();
         } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();

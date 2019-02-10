@@ -38,9 +38,10 @@ public class PartyInvite {
         if (Methods.LobbyHandler.getPartyId(user.getID()) != this.partyId && Methods.getUser().getID() < 0) return false;
         else {
             if (getPartyID() == 0) partyId = Methods.LobbyHandler.getNextAvailablePartyID();
-            System.out.println(partyId);
             Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
             Methods.LobbyHandler.addUserToParty(user.getID(), partyId);
+            Methods.LobbyHandler.removePartyInvitesIncomming(Methods.getUser().getID());
+            Methods.LobbyHandler.removePartyInvitesOutgoing(Methods.getUser().getID());
             return true;
         }
     }
@@ -50,9 +51,9 @@ public class PartyInvite {
         Methods.LobbyHandler.removePartyInvitesOutgoing(user.getID());
     }
     
+    /** Places the invite receiver into the party pool. */
     public void undo() {
         Methods.LobbyHandler.removeUserFromParty(Methods.getUser().getID());
-        Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), 0); //left off
     }
     
 }
