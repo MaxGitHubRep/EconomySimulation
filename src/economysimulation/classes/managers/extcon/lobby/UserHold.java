@@ -18,15 +18,23 @@ import javax.swing.SwingConstants;
  */
 public class UserHold extends JLabel {
 
+    /** Instance of user who's featured on the label. */
     private User user;
+    
+    /** Thread which connects to the database. */
     private Thread connectionThread = null;
     
+    /**
+     * Creates a new display label for the user.
+     * @param user Instance of featured user.
+     */
     public UserHold(User user) {
         super(user.getFullName());
         this.user = user;
         init();
     }
     
+    /** Creates the display of the label. */
     private void init() {
         setFont(new Font("Agency FB",Font.BOLD, 30));
         setForeground(Methods.ThemeHandler.getTheme().getPrimaryTextColor());
@@ -43,23 +51,35 @@ public class UserHold extends JLabel {
         addMouseListener(new MouseClickEvent(connectionThread, this));
     }
     
+    /**
+     * Gets the instance of the user.
+     * @return The instance of the user.
+     */
     public User getUser() {
         return user;
     }
     
     private class MouseClickEvent extends MouseAdapter {
         
+        /** If the system is still in the process of inviting the user. */
         private volatile boolean validating = false;
         
+        /** Thread to connect to the database. */
         private Thread connectionThread = null;
+        
+        /** Instance of the display for the user. */
         private UserHold userHold = null;
         
+        /**
+         * When the user clicks on a user's label.
+         * @param connectionThread Thread to connect to the database on.
+         * @param userHold The display of the user.
+         */
         public MouseClickEvent(Thread connectionThread, UserHold userHold) {
             this.connectionThread = connectionThread;
             this.userHold = userHold;
         }
         
-        //needs testing
         @Override
         public void mouseClicked(MouseEvent me) {
             if (validating) return;
@@ -69,14 +89,17 @@ public class UserHold extends JLabel {
                 public void run() {
                     validating = true;
                     
+                    //loops through all of the party invites
                     for (PartyInvite inv : Methods.LobbyHandler.getPartyInvitesSent()) {
-                        if (inv.getUser().equals(userHold.getUser())) {
+                        //determines whether or not the user is already invited.
+                        if (inv.getUser().getFullName().equals(userHold.getUser().getFullName())) {
                             HintManager.createHint(Hints.AlreadyInvited);
                             validating = false;
                             return;
                         }
                     }
                     
+                    //creates the party invite.
                     int partyId = Methods.LobbyHandler.getPartyId(Methods.getUser().getID());
                     Methods.LobbyHandler.addPartyInvite(partyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : partyId,
                         Methods.getUser().getID(), user.getID());
