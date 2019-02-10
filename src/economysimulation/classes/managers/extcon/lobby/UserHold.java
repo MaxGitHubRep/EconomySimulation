@@ -100,8 +100,7 @@ public class UserHold extends JLabel {
                     }
                     
                     //creates the party invite.
-                    int partyId = Methods.LobbyHandler.getPartyId(Methods.getUser().getID());
-                    Methods.LobbyHandler.addPartyInvite(partyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : partyId,
+                    Methods.LobbyHandler.addPartyInvite(Methods.localPartyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : Methods.localPartyId,
                         Methods.getUser().getID(), user.getID());
                     validating = false;
                 }

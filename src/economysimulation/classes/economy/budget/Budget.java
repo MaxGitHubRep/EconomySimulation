@@ -22,8 +22,8 @@ public class Budget {
     /**
      * Spends £{@code value} billion into {@code sector}.
      * 
-     * @param sector
-     * @param money 
+     * @param sector The sector which is being modified.
+     * @param money  The money that is being spent.
      */
     public static void spendMoney(Sector sector, int money) {
         Component.SpendingBudget -= money;

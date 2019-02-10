@@ -77,16 +77,16 @@ public class Methods {
     
     public static TeammateFinder FindTeammate = null;
     
-    private static User user = new User();
+    public static int localPartyId = 0;
     
-    public static int MPServerSlot = -1;
-    public static int UserInSlot = -1;
+    private static User user = new User();
     
     public static volatile boolean MemorySaver = false;
     
     public static boolean SimulationInProgress = false;
     
     public static User getUser() {
+        if (user == null) return new User();
         return user;
     }
     

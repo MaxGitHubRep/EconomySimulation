@@ -19,6 +19,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.global.User;
 import economysimulation.classes.managers.extcon.multiplayer.MultiplayerComponentUpdate;
 
 /**
@@ -147,9 +148,9 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     }
     
     @Override
-    public void onComponentUpdate(String componentName, double value, String user) {
+    public void onComponentUpdate(String componentName, double value, User user) {
         mpComponent.setText(componentName);
-        mpUser.setText(user);
+        mpUser.setText(user.getFullName());
         mpValue.setText(value + "");
     }
     

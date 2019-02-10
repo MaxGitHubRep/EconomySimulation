@@ -2,6 +2,7 @@ package economysimulation.classes.managers.extcon.multiplayer;
 
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBConnector;
+import economysimulation.classes.global.User;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
 import java.sql.PreparedStatement;
@@ -19,9 +20,9 @@ public class StorageConnector {
     
     /**
      * Pull the data from the multi-player database.
-     * @param slotId Server slot to take data from.
+     * @param partyId The ID of the party.
      */
-    public void pullLatestPackage(int slotId) {
+    public void pullLatestPackage(int partyId) {
         //update package accordingly
         if (latestPackages == null) {
             latestPackages = new ArrayList<>();
@@ -29,19 +30,43 @@ public class StorageConnector {
             latestPackages.clear();
         }
         try {
+            System.out.println("pulling...");
             //Gets the server state from the database table.
-            String SQLStatement = "SELECT * FROM mxcrtr_db.VariableStorage WHERE GameTick = ? AND SlotID = ?";
+            String SQLStatement = "SELECT * FROM mxcrtr_db.VariableStorage WHERE GameTick = ? AND PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, Methods.GameDisplay.Ticks-1);
-            pt.setInt(2, slotId);
+            pt.setInt(2, partyId);
             
             DBConnector.setResultSet(pt.executeQuery());
             while (DBConnector.getResultSet().next()) {
-                latestPackages.add(new StoragePackage(slotId, 4, 56.5, "max#00001", 567));
+                User user = new User();
+                user.setID(DBConnector.getResultSet().getInt("UpdaterID"));
+                latestPackages.add(new StoragePackage(partyId, 4, 56.5, user, 567));
             }
             
         } catch (SQLException ex) {
             HintManager.createHint(Hints.NotConnected);
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Sends a package to the database which contains changes to a variable.
+     * @param pkg Package instance.
+     */
+    public void sendPackage(StoragePackage pkg) {
+        try {
+            System.out.println("trying");
+            String SQLStatement = "INSERT INTO mxcrtr_db.VariableStorage VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, pkg.getPartyID());
+            pt.setInt(2, pkg.getComponentId());
+            pt.setDouble(3, pkg.getComponentValue());
+            pt.setInt(4, pkg.getUpdater().getID());
+            pt.setInt(5, pkg.getGameTick());
+            pt.executeUpdate();
+            
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }

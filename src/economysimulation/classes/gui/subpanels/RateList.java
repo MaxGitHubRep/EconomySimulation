@@ -14,15 +14,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.ThemeHandler;
-
+import economysimulation.classes.managers.extcon.multiplayer.StorageComponent;
+import economysimulation.classes.managers.extcon.multiplayer.VariableUpdater;
+import economysimulation.classes.mode.Mode;
 
 /**
- *
  * @author Max Carter
  */
 public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    private VariableUpdater variableUpdater = null;
+    
     public int selectedType = 0;
     
     private JPanel[]
@@ -83,18 +85,28 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
             public void mouseClicked(MouseEvent e) {
                 int newValue = slider.getValue() / 10;
                 
+                StorageComponent component = null;
+        
                 switch (selectedType) {
                     case 0:
                         Component.InterestRate = newValue;
+                        component = StorageComponent.INTEREST_RATE;
                         break;
                     case 1:
                         Component.CorporationTax = newValue;
+                        component = StorageComponent.CORPORATION_TAX;
                         break;
                     case 2:
                         Component.IncomeTax = newValue;
+                        component = StorageComponent.INCOME_TAX;
                         break;
                     
                 }
+                
+                //if it is multiplayer, update the components on the database.
+                if (Methods.ModeHandler.isMode(Mode.MULTI_PLAYER) && variableUpdater != null && component != null)
+                    variableUpdater.onLocalComponentUpdateEvent(component, newValue);
+
                 saveChanges.setText("Changes Saved");
                 if (newValue > 90) HintManager.createHint(selectedType == 0 ? Hints.InterestRatesTooHigh : Hints.TaxesTooHigh);
                 
@@ -125,8 +137,9 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
         updater.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
     }
 
-    public RateList() {
+    public RateList(VariableUpdater variableUpdater) {
         initComponents();
+        this.variableUpdater = variableUpdater;
         
         backPanels = new JPanel[]{ panel1, panel2, panel3 };
         colorPanels = new JPanel[]{ color1, color2, color3 };

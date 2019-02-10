@@ -1,6 +1,7 @@
 package economysimulation.classes.gui.subpanels;
 
 import economysimulation.classes.economy.budget.Budget;
+import economysimulation.classes.economy.sectors.Sector;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.animation.NumberIncrementer;
 import economysimulation.classes.managers.exception.InvalidTimeException;
@@ -21,6 +22,9 @@ import javax.swing.event.ChangeListener;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.managers.extcon.multiplayer.StorageComponent;
+import economysimulation.classes.managers.extcon.multiplayer.VariableUpdater;
+import economysimulation.classes.mode.Mode;
 
 
 /**
@@ -34,6 +38,8 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
         budget.setText(format.format(SectorInstance.getSector(selectedType).getSpendingInfluence()*10) + "%");
     }
 
+    private VariableUpdater variableUpdater = null;
+    
     public DecimalFormat format = new DecimalFormat("0");
     private int selectedType = 0;
     
@@ -47,8 +53,9 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                 "Spend Money", "Money Spent", "Insufficient Funds", "Specify Money" }; 
     
     //<editor-fold defaultstate="collapsed" desc="Constructor."> 
-    public BudgetList() {
+    public BudgetList(VariableUpdater variableUpdater) {
         initComponents();
+        this.variableUpdater = variableUpdater;
         
         backPanels = new JPanel[]{ panel1, panel2, panel3, panel4, panel5, panel6, panel7, panel8 };
         colorPanels = new JPanel[]{ color1, color2, color3, color4, color5, color6, color7, color8 };
@@ -91,6 +98,40 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
         });
     }//</editor-fold>
     
+    private void onLocalComponentUpdate(int selected, int newValue) {
+        StorageComponent storageComponent = null;
+        
+        switch (selected) {
+            case 0:
+                storageComponent = StorageComponent.NHS;
+                break;
+            case 1:
+                storageComponent = StorageComponent.EDUCATION;
+                break;
+            case 2:
+                storageComponent = StorageComponent.HOUSING;
+                break;
+            case 3:
+                storageComponent = StorageComponent.FOOD;
+                break;
+            case 4:
+                storageComponent = StorageComponent.INFRASTRUCTURE;
+                break;
+            case 5:
+                storageComponent = StorageComponent.DEFENCE;
+                break;
+            case 6:
+                storageComponent = StorageComponent.SCIENCE;
+                break;
+            case 7:
+                storageComponent = StorageComponent.BENEFITS;
+                break;
+        }
+        
+        if (storageComponent != null)
+            variableUpdater.onLocalComponentUpdateEvent(storageComponent, newValue);
+    }
+    
     //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
     public void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
@@ -111,6 +152,9 @@ public class BudgetList extends javax.swing.JPanel implements GamePulse, ThemeUp
                             ex.printStackTrace();
                         }
                     }
+                    //if it is multiplayer, update the components on the database.
+                     if (Methods.ModeHandler.isMode(Mode.MULTI_PLAYER) && variableUpdater != null)
+                        onLocalComponentUpdate(selectedType, slider.getValue());
                     Budget.spendMoney(SectorInstance.getSector(selectedType), slider.getValue());
                     updatePercent(true);
                     saveChanges.setText(saveTexts[1]);

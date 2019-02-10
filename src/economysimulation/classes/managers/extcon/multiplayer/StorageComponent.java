@@ -5,7 +5,7 @@ package economysimulation.classes.managers.extcon.multiplayer;
  * @author Max Carter
  */
 public enum StorageComponent {
-    INTEREST_RATES(0),
+    INTEREST_RATE(0),
     CORPORATION_TAX(1),
     INCOME_TAX(2),
     NHS(3),

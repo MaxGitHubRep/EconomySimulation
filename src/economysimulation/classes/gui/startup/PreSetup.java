@@ -11,8 +11,6 @@ import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
-import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
-import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
 import economysimulation.classes.managers.popup.hint.HintManager;
 import economysimulation.classes.managers.popup.hint.Hints;
@@ -39,8 +37,8 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     public PreSetup() {
         initComponents();
 
-        Methods.BudgetDisplay = new BudgetList();
-        Methods.RateDisplay = new RateList();
+        Methods.BudgetDisplay = new BudgetList(null);
+        Methods.RateDisplay = new RateList(null);
         
         Methods.addToFrontPanel(govPanel, Methods.RateDisplay, false);
         Methods.addToFrontPanel(budgetPanel, Methods.BudgetDisplay, false);
@@ -373,14 +371,6 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
-        if (ModeHandler.isMode(Mode.MULTI_PLAYER)) {
-            if (Methods.UserInSlot != 0) {
-                HintManager.createHint(Hints.NotPartyLeader);
-                return;
-            } else {
-                //TODO signal other users to launch sim.
-            }
-        }
         launchSim();
     }//GEN-LAST:event_back1MouseClicked
 

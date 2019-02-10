@@ -1,10 +1,20 @@
 package economysimulation.classes.managers.extcon.lobby;
 
+import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.DBConnector;
 import economysimulation.classes.global.User;
 import economysimulation.classes.gui.coop.ControlPanel;
 import economysimulation.classes.gui.coop.TeammateFinder;
+import economysimulation.classes.gui.fronter.GameHold;
+import economysimulation.classes.gui.mainpanels.sim.Consumer;
+import economysimulation.classes.gui.mainpanels.sim.Corporation;
+import economysimulation.classes.gui.subpanels.BudgetList;
+import economysimulation.classes.gui.subpanels.RateList;
+import economysimulation.classes.managers.extcon.multiplayer.StorageConnector;
+import economysimulation.classes.managers.extcon.multiplayer.StorageReceiver;
+import economysimulation.classes.managers.extcon.multiplayer.VariableUpdater;
+import economysimulation.classes.pulse.ControlPulse;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +28,7 @@ public class LobbyConnector {
 
     private Thread connectionThread = null;
     private volatile boolean looped = false;
+    private volatile int timeout = 1000;
     
     private ControlPanel controlPanel = null;
     private TeammateFinder teammateFinder = null;
@@ -29,38 +40,61 @@ public class LobbyConnector {
     
     /** Forces a data input stream. */
     private synchronized void data() {
-        int userParty = getPartyId(Methods.getUser().getID());
         //is user in party or not
-        if (userParty == 0) {
+        Methods.localPartyId = getPartyId(Methods.getUser().getID());
+        if (Methods.localPartyId == 0) {
+            timeout = 1250;
             //signal a new invite has occured.
             getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
             });
             
         } else {
-            controlPanel.onPartyUpdateEvent(getUsersInParty(getPartyId(Methods.getUser().getID())));
+            timeout = 250;
             
-            if (isPartyReady(userParty)) {
+            if (isPartyReady(Methods.localPartyId)) {
                 looped = false;
-                removePartyFromLobby(userParty);
-                removePartyInvites(userParty);
+                //removePartyFromLobby(userParty);
+                //removePartyInvites(userParty);
                 System.out.println("in theory it should start now");
-                //launch simulation
+                start(Methods.localPartyId);
+                return;
             }
-            
+            controlPanel.onPartyUpdateEvent(getUsersInParty(Methods.localPartyId));
         }
         
         teammateFinder.onLobbyUpdateEvent();
         
         if (looped) {
             try {
-                connectionThread.sleep(2000);
+                connectionThread.sleep(timeout);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
             data();
         }
     }
+    
+    public void start(int partyId) {
+        VariableUpdater variableUpdater = new VariableUpdater(Methods.StorageConnection);
+        
+        Methods.localPartyId = partyId;
+        Methods.StorageEvent = new StorageReceiver();
+        Methods.StorageConnection = new StorageConnector();
+        
+        Methods.BudgetDisplay = new BudgetList(variableUpdater);
+        Methods.RateDisplay = new RateList(variableUpdater);
+        
+        Methods.ConsumerDisplay = new Consumer();
+        Methods.CorporationDisplay = new Corporation();
+        Methods.GameDisplay = new GameHold();
+        
+        Methods.FormulaInstance = new Formula();
+        Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
+        Methods.SimulationInProgress = true;
+        new ControlPulse();
+    }
+    
     
     /** Initiates the data input stream loop. */
     public synchronized void startLoop() {
@@ -113,9 +147,6 @@ public class LobbyConnector {
      */
     public void addPartyInvite(int partyId, int fromUser, int toUser) {
         try {
-            //validation to make sure that no other invites are open.
-            //if (isInviting(fromUser, toUser)) return;
-            
             String SQLStatement = "INSERT INTO mxcrtr_db.PartyInvites VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, partyId);
@@ -492,7 +523,7 @@ public class LobbyConnector {
             if (!isUserReady(user.getID())) return false;
         }
 
-        return true; //requires testing.
+        return true;
     }
     
 }

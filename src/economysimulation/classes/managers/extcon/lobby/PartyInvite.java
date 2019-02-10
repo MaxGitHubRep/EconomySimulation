@@ -35,15 +35,20 @@ public class PartyInvite {
     
     /* Accepts the party invite and sends the request to the database. */
     public boolean accept() {
-        if (Methods.LobbyHandler.getPartyId(user.getID()) != this.partyId && Methods.getUser().getID() < 0) return false;
-        else {
-            if (getPartyID() == 0) partyId = Methods.LobbyHandler.getNextAvailablePartyID();
-            Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
-            Methods.LobbyHandler.addUserToParty(user.getID(), partyId);
-            Methods.LobbyHandler.removePartyInvitesIncomming(Methods.getUser().getID());
-            Methods.LobbyHandler.removePartyInvitesOutgoing(Methods.getUser().getID());
-            return true;
+        if (Methods.LobbyHandler.getPartyId(user.getID()) != partyId && Methods.getUser().getID() < 0)
+            return false;
+            
+        if (getPartyID() == 0) {
+            partyId = Methods.LobbyHandler.getNextAvailablePartyID();
         }
+        System.out.println("partyId: " + partyId);
+        Methods.localPartyId = partyId;
+        Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
+        Methods.LobbyHandler.addUserToParty(user.getID(), partyId);
+        Methods.LobbyHandler.removePartyInvitesIncomming(Methods.getUser().getID());
+        Methods.LobbyHandler.removePartyInvitesOutgoing(Methods.getUser().getID());
+        return true;
+        
     }
     
     /* Denies the party invite and sends the request to the database. */
@@ -54,6 +59,7 @@ public class PartyInvite {
     /** Places the invite receiver into the party pool. */
     public void undo() {
         Methods.LobbyHandler.removeUserFromParty(Methods.getUser().getID());
+        Methods.localPartyId = 0;
     }
     
 }

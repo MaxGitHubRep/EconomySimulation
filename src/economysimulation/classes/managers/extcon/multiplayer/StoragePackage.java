@@ -1,30 +1,32 @@
 package economysimulation.classes.managers.extcon.multiplayer;
 
+import economysimulation.classes.global.User;
+
 /**
  *
  * @author Max Carter
  */
 public class StoragePackage {
 
-    private int slotId, gameTick, componentId;
+    private int partyId, gameTick, componentId;
     private double componentValue;
-    private String updater;
+    private User user;
     
     /**
      * Creates a new object that syncs a component ID and it's
      * respected value with accessors to adopt the information.
      * 
-     * @param slotId         ID of the server slot.
+     * @param partyId        ID of the party.
      * @param componentId    ID of the component.
      * @param componentValue Value of the component.
-     * @param updater        User who updated the component.
+     * @param user           User who updated the component.
      * @param gameTick       Game tick counter.
      */
-    public StoragePackage(int slotId, int componentId, double componentValue, String updater, int gameTick) {
-        this.slotId = slotId;
+    public StoragePackage(int partyId, int componentId, double componentValue, User user, int gameTick) {
+        this.partyId = partyId;
         this.componentId = componentId;
         this.componentValue = componentValue;
-        this.updater = updater;
+        this.user = user;
         this.gameTick = gameTick;
     }
     
@@ -42,8 +44,8 @@ public class StoragePackage {
      * 
      * @return User who updated the component.
      */
-    public String getUpdater() {
-        return updater;
+    public User getUpdater() {
+        return user;
     }
     
     /**
@@ -62,6 +64,14 @@ public class StoragePackage {
      */
     public double getComponentValue() {
         return componentValue;
+    }
+    
+    /**
+     * Gets the ID of the party.
+     * @return Party ID.
+     */
+    public int getPartyID() {
+        return partyId;
     }
     
 }

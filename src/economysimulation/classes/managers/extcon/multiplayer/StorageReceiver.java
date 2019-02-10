@@ -3,7 +3,7 @@ package economysimulation.classes.managers.extcon.multiplayer;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
-import economysimulation.classes.managers.exception.InvalidServerSlot;
+import economysimulation.classes.global.User;
 import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.GamePulse;
 import java.util.List;
@@ -20,16 +20,8 @@ public class StorageReceiver implements GamePulse {
     public void onGamePulseEvent() {
         if (!Methods.ModeHandler.isMode(Mode.MULTI_PLAYER)) return;
         
-        if (Methods.MPServerSlot == -1) {
-            try {
-                throw new InvalidServerSlot(Methods.MPServerSlot);
-            } catch (InvalidServerSlot ex) {
-                ex.printStackTrace();
-            }
-        }
-        
         //Requesting data from the database.
-        Methods.StorageConnection.pullLatestPackage(Methods.MPServerSlot);
+        Methods.StorageConnection.pullLatestPackage(Methods.localPartyId);
         List<StoragePackage> storagePackageList = Methods.StorageConnection.getStoragePackage();
         
         //Checks to see if there have been any changes.
@@ -38,53 +30,53 @@ public class StorageReceiver implements GamePulse {
         //Loops through the list
         for (StoragePackage pkg : storagePackageList) {
             double value = pkg.getComponentValue();
-            String name = pkg.getUpdater();
+            User user = pkg.getUpdater();
             
             //Switch case to update all variables that were changed.
             switch (pkg.getComponentId()) {
                 case 0:
                     Component.InterestRate = value;
-                    onComponentUpdate("Interest Rates", value, name);
+                    onComponentUpdate("Interest Rates", value, user);
                     break;
                 case 1:
                     Component.CorporationTax = value;
-                    onComponentUpdate("Corporation Tax", value, name);
+                    onComponentUpdate("Corporation Tax", value, user);
                     break;
                 case 2:
                     Component.IncomeTax = value;
-                    onComponentUpdate("Income Tax", value, name);
+                    onComponentUpdate("Income Tax", value, user);
                     break;
                 case 3:
                     SectorInstance.NHS.setSpending((int) value);
-                    onComponentUpdate("NHS", value, name);
+                    onComponentUpdate("NHS", value, user);
                     break;
                 case 4:
                     SectorInstance.Education.setSpending((int) value);
-                    onComponentUpdate("Education", value, name);
+                    onComponentUpdate("Education", value, user);
                     break;
                 case 5:
                     SectorInstance.Housing.setSpending((int) value);
-                    onComponentUpdate("Housing", value, name);
+                    onComponentUpdate("Housing", value, user);
                     break;
                 case 6:
                     SectorInstance.Food.setSpending((int) value);
-                    onComponentUpdate("Food", value, name);
+                    onComponentUpdate("Food", value, user);
                     break;
                 case 7:
                     SectorInstance.Infrastructure.setSpending((int) value);
-                    onComponentUpdate("Infrastructure", value, name);
+                    onComponentUpdate("Infrastructure", value, user);
                     break;
                 case 8:
                     SectorInstance.Defence.setSpending((int) value);
-                    onComponentUpdate("Defence", value, name);
+                    onComponentUpdate("Defence", value, user);
                     break;
                 case 9:
                     SectorInstance.Science.setSpending((int) value);
-                    onComponentUpdate("Science", value, name);
+                    onComponentUpdate("Science", value, user);
                     break;
                 case 10:
                     SectorInstance.Benefits.setSpending((int) value);
-                    onComponentUpdate("Benefits", value, name);
+                    onComponentUpdate("Benefits", value, user);
                     break;
                 
             }
@@ -95,8 +87,8 @@ public class StorageReceiver implements GamePulse {
         this.listener = listener;
     }
     
-    private void onComponentUpdate(String componentName, double value, String user) {
-        listener.onComponentUpdate(componentName, value, user);
+    private void onComponentUpdate(String componentName, double value, User user) {
+        if (listener != null) listener.onComponentUpdate(componentName, value, user);
     }
     
 }
