@@ -95,10 +95,8 @@ public class LobbyConnector {
             pt.setInt(2, toUser);
             DBConnector.setResultSet(pt.executeQuery());
             
-            if (DBConnector.getResultSet().next()) {
-                System.out.println("inviter");
+            if (DBConnector.getResultSet().next())
                 return true;
-            }
             
         } catch (SQLException ex) {
             ex.printStackTrace();

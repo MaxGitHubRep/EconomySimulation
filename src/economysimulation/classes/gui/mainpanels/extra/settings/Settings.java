@@ -1,5 +1,6 @@
 package economysimulation.classes.gui.mainpanels.extra.settings;
 
+import economysimulation.classes.global.Methods;
 import economysimulation.classes.managers.popup.positions.FramePosition;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import java.awt.event.ItemEvent;
 
 /**
  *
@@ -30,6 +32,10 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     public Settings() {
         initComponents();
+        
+        memSaverOption.setSelected(Methods.MemorySaver);
+        memSaverDesc.setText("<html>The memory saver option will remove all animations."
+                + "Certain things will not look as nice but it will help performance.</html>");
         
         middle = new ThemeMiddle();
         middle.setSize(360, 180);
@@ -104,8 +110,9 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3, back4, back5, back6, back7, back8, back9, color1, color2, color3, color4 }, new JPanel[]{ top1, top2, top3, top4 });
+        updater.applyPanelThemes(new JPanel[]{ rbbackground, back1, back2, back3, back4, back5, back6, back7, back8, back9, color1, color2, color3, color4 }, new JPanel[]{ top1, top2, top3, top4 });
         updater.applyTextThemes(new JLabel[]{ state1, state2, state3, state4, saveChanges, title6, title7, title8, title9 }, new JLabel[]{ label1, label2, label3, label4 });
+        updater.applyRadioButtonThemes(new JRadioButton[]{ memSaverOption, rb1, rb2, rb3, rb4 }, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -132,7 +139,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         state4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        rbbackground = new javax.swing.JPanel();
         rb1 = new javax.swing.JRadioButton();
         rb2 = new javax.swing.JRadioButton();
         rb3 = new javax.swing.JRadioButton();
@@ -153,6 +160,10 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         title9 = new javax.swing.JLabel();
         color4 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        memSaverOption = new javax.swing.JRadioButton();
+        memSaverTitle = new javax.swing.JLabel();
+        memSaverDesc = new javax.swing.JLabel();
 
         setOpaque(false);
 
@@ -371,7 +382,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         jPanel2.setBackground(new java.awt.Color(204, 0, 0));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        rbbackground.setBackground(new java.awt.Color(255, 255, 255));
 
         buttonGroup.add(rb1);
         rb1.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
@@ -413,38 +424,38 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         rb5.setFocusPainted(false);
         rb5.setOpaque(false);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout rbbackgroundLayout = new javax.swing.GroupLayout(rbbackground);
+        rbbackground.setLayout(rbbackgroundLayout);
+        rbbackgroundLayout.setHorizontalGroup(
+            rbbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rbbackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(rbbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rbbackgroundLayout.createSequentialGroup()
                         .addComponent(rb1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rb2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(rbbackgroundLayout.createSequentialGroup()
                         .addComponent(rb3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rb4)))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(rbbackgroundLayout.createSequentialGroup()
                 .addGap(201, 201, 201)
                 .addComponent(rb5)
                 .addContainerGap(213, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        rbbackgroundLayout.setVerticalGroup(
+            rbbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rbbackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(rbbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rb1)
                     .addComponent(rb2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rb5)
                 .addGap(93, 93, 93)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(rbbackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rb3)
                     .addComponent(rb4))
                 .addContainerGap())
@@ -487,7 +498,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbbackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(back5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -495,7 +506,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbbackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(back5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -699,6 +710,57 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 5, 1, 1, new java.awt.Color(204, 0, 0)));
+
+        memSaverOption.setBackground(new java.awt.Color(255, 255, 255));
+        memSaverOption.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
+        memSaverOption.setForeground(new java.awt.Color(204, 0, 0));
+        memSaverOption.setText("Memory Saver");
+        memSaverOption.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                memSaverOptionStateChanged(evt);
+            }
+        });
+
+        memSaverTitle.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
+        memSaverTitle.setForeground(new java.awt.Color(204, 0, 0));
+        memSaverTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        memSaverTitle.setText("Memory Saver");
+
+        memSaverDesc.setFont(new java.awt.Font("Agency FB", 0, 20)); // NOI18N
+        memSaverDesc.setForeground(new java.awt.Color(204, 0, 0));
+        memSaverDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        memSaverDesc.setText("Memory Saver");
+        memSaverDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(memSaverOption)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(memSaverTitle, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(memSaverDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(memSaverTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(memSaverDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(memSaverOption)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -724,12 +786,13 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
                         .addComponent(back4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -752,9 +815,11 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
                                 .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(53, 53, 53))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -767,6 +832,11 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             saveChanges.setText(States[0]);
         }
     }//GEN-LAST:event_back5MouseClicked
+
+    private void memSaverOptionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_memSaverOptionStateChanged
+        //updates the memory saver option.
+        Methods.MemorySaver = memSaverOption.isSelected();
+    }//GEN-LAST:event_memSaverOptionStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;
@@ -785,18 +855,22 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     private javax.swing.JPanel color4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label2;
     private javax.swing.JLabel label3;
     private javax.swing.JLabel label4;
+    private javax.swing.JLabel memSaverDesc;
+    private javax.swing.JRadioButton memSaverOption;
+    private javax.swing.JLabel memSaverTitle;
     private javax.swing.JPanel mid;
     private javax.swing.JRadioButton rb1;
     private javax.swing.JRadioButton rb2;
     private javax.swing.JRadioButton rb3;
     private javax.swing.JRadioButton rb4;
     private javax.swing.JRadioButton rb5;
+    private javax.swing.JPanel rbbackground;
     private javax.swing.JLabel saveChanges;
     private javax.swing.JLabel state1;
     private javax.swing.JLabel state2;

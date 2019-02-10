@@ -76,7 +76,6 @@ public class GameData {
         }
 
         GamePackage pkg = null;
-        System.out.println(id + " : " + getGamesPlayed(false));
         try {
             String SQLStatement = "SELECT * FROM mxcrtr_db.Games WHERE GameID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);

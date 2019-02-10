@@ -78,13 +78,11 @@ public class Methods {
     public static TeammateFinder FindTeammate = null;
     
     private static User user = new User();
-    //public static String Username = null;
-    //public static int UserID = -1;
     
     public static int MPServerSlot = -1;
     public static int UserInSlot = -1;
     
-    public static boolean MemorySaver = false;
+    public static volatile boolean MemorySaver = false;
     
     public static boolean SimulationInProgress = false;
     
