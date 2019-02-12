@@ -43,14 +43,14 @@ public class LobbyConnector {
         //is user in party or not
         Methods.localPartyId = getPartyId(Methods.getUser().getID());
         if (Methods.localPartyId == 0) {
-            timeout = 1250;
+            timeout = 1200;
             //signal a new invite has occured.
             getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
             });
             
         } else {
-            timeout = 250;
+            timeout = 200;
             
             if (isPartyReady(Methods.localPartyId)) {
                 looped = false;
@@ -75,7 +75,8 @@ public class LobbyConnector {
         }
     }
     
-    public void start(int partyId) {
+    /** Starts the economy simulation. */
+    private void start(int partyId) {
         VariableUpdater variableUpdater = new VariableUpdater(Methods.StorageConnection);
         
         Methods.localPartyId = partyId;

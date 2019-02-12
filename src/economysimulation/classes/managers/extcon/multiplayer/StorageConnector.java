@@ -34,14 +34,20 @@ public class StorageConnector {
             //Gets the server state from the database table.
             String SQLStatement = "SELECT * FROM mxcrtr_db.VariableStorage WHERE GameTick = ? AND PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
-            pt.setInt(1, Methods.GameDisplay.Ticks-1);
+            pt.setInt(1, Methods.GameDisplay.Ticks);
             pt.setInt(2, partyId);
             
             DBConnector.setResultSet(pt.executeQuery());
             while (DBConnector.getResultSet().next()) {
                 User user = new User();
                 user.setID(DBConnector.getResultSet().getInt("UpdaterID"));
-                latestPackages.add(new StoragePackage(partyId, 4, 56.5, user, 567));
+                latestPackages.add(new StoragePackage(
+                    partyId,
+                    DBConnector.getResultSet().getInt("ComponentID"), 
+                    DBConnector.getResultSet().getDouble("ComponentValue"),
+                    user,
+                    DBConnector.getResultSet().getInt("GameTick")
+                ));
             }
             
         } catch (SQLException ex) {
