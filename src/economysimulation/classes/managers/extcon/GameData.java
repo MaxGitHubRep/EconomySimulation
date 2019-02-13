@@ -147,13 +147,12 @@ public class GameData {
     public void establishUserGameLink(int gameId, int[] userId) {
         try {
             for (int i = 0; i < userId.length; i++) {
-                String SQLStatement = "INSERT INTO mxcrtr_db.LinkUsersGames VALUES (?, ?, ?, ?)";
+                String SQLStatement = "INSERT INTO mxcrtr_db.LinkUsersGames VALUES (?, ?, ?)";
                 PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
                 
-                pt.setInt(1, getGamesLinks(true)+1); //remove use of link ids
-                pt.setInt(2, gameId);
-                pt.setInt(3, userId[i]);
-                pt.setInt(4, userId.length);
+                pt.setInt(1, gameId);
+                pt.setInt(2, userId[i]);
+                pt.setInt(3, userId.length);
 
                 pt.executeUpdate();
             }

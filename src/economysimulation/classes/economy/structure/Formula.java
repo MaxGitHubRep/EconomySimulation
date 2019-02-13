@@ -8,8 +8,10 @@ import economysimulation.classes.pulse.GamePulse;
 import economysimulation.classes.economy.simulation.end.Completed;
 import economysimulation.classes.economy.structure.tax.Tax;
 import economysimulation.classes.economy.structure.tax.TaxManager;
+import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
 import economysimulation.classes.managers.events.EventManager;
+import economysimulation.classes.mode.Mode;
 
 /**
  *
@@ -62,10 +64,15 @@ public class Formula extends Component implements GamePulse, MoneySpent {
 
         if (StandardOfLiving > 1) StandardOfLiving = 1;
         
+        //checks if any variables are below 0 -> end the simulation.
         int index = 0;
         for (double component : new double[]{ StandardOfLiving, PoliticalInflluence, 100-Unemployment, ConsumerConfidence, CorporationConfidence }) {
             if (component <= 0) {
-                Completed.simulationCompleted(CAUSES_OF_COMPLETION[index]);
+                if (Methods.ModeHandler.isMode(Mode.MULTI_PLAYER)){
+                    Completed.simulationCompletedMP(CAUSES_OF_COMPLETION[index]);
+                } else {
+                    Completed.simulationCompleted(CAUSES_OF_COMPLETION[index]);
+                }
                 return;
             }
             index++;

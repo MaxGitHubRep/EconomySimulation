@@ -17,7 +17,6 @@ import economysimulation.classes.managers.popup.hint.hints.HintCauseOfCompletion
 import java.sql.SQLException;
 
 /**
- *
  * @author Max Carter
  */
 public class Completed {
@@ -33,6 +32,25 @@ public class Completed {
     }
     
     /**
+     * Resets the simulation specifically for multiplayer purposes.
+     * @param causeOfCompletion How the simulation ended.
+     */
+    public static void simulationCompletedMP(String causeOfCompletion) {
+        if (Methods.getUser().getID() == Methods.LobbyHandler.getUsersInParty(Methods.localPartyId).get(0).getID()) {
+            int gameId = DBGames.getGamesPlayed(true)+1;
+            DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
+            int[] party = new int[Methods.LobbyHandler.getLocalParty().size()];
+            for (int i = 0; i < party.length; i++) {
+                party[i] = Methods.LobbyHandler.getLocalParty().get(i).getID();
+            }
+            
+            DBGames.establishUserGameLink(gameId, party);
+        }
+        
+        reset(causeOfCompletion);
+    }
+    
+    /**
      * Ends the simulation and sends scores to database.
      * @param causeOfCompletion The reason behind why the simulation was ended.
      */
@@ -43,10 +61,10 @@ public class Completed {
                     if (Methods.getUser().getID() == -1) {
                         Methods.getUser().setID(DBUsers.getNextAvailableUserID());
                         DBUsers.createNewUser(Methods.getUser());
-                        int gameId = DBGames.getGamesPlayed(true)+1;
-                        DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
-                        DBGames.establishUserGameLink(gameId, new int[]{ Methods.getUser().getID() });
                     }
+                    int gameId = DBGames.getGamesPlayed(true)+1;
+                    DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
+                    DBGames.establishUserGameLink(gameId, new int[]{ Methods.getUser().getID() });
 
                 } else {
                     Connection.isConnected = false;
@@ -58,6 +76,11 @@ public class Completed {
             ex.printStackTrace();
         }
         
+        reset(causeOfCompletion);
+    }
+    
+    /** Ends the simulation and outputs the cause of completion. */
+    private static void reset(String causeOfCompletion) {
         if (PulseUpdater.SimulationTicking) {
             PulseUpdater.SimulationTicking = false;
             Methods.FrameDisplay.addToMainFrame(new EndScreen());
@@ -74,7 +97,6 @@ public class Completed {
         if (causeOfCompletion != null) {
             HintManager.createHint(hint);
         }
-        
     }
     
 }

@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Max Carter
  */
 public class LobbyConnector {
@@ -75,6 +74,14 @@ public class LobbyConnector {
             }
             data();
         }
+    }
+    
+    /**
+     * Gets a list of all the users in the party stored locally.
+     * @return List of users in the party.
+     */
+    public List<User> getLocalParty() {
+        return localUsersInParty;
     }
     
     /** Starts the economy simulation for multiplayer. */
