@@ -26,9 +26,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     
     private List<String> userDummys;
     
-    /**
-     * Creates new form TeammateFinder
-     */
+    /** Creates new form TeammateFinder */
     public TeammateFinder() {
         initComponents();
         START = 870;
@@ -58,31 +56,46 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         addUsersToLobby(toAddList);
     }
     
+    /**
+     * Adds a list of users to the lobby display.
+     * @param users List of users.
+     */
     private void addUsersToLobby(List<User> users) {
         for (User user : users) {
             userDummys.add(user.getFullName());
             UserHold hold = new UserHold(user);
             add(hold);
-            hold.setLocation(Methods.randomInt(0, getWidth()), Methods.randomInt(0, getHeight()-100));
+            hold.setLocation(Methods.randomInt(
+                0, getWidth()-hold.getWidth()),
+                Methods.randomInt(0, getHeight()-hold.getHeight()-200)
+            );
         }
     }
     
+    /** Expands the control panel onto the lobby display. */
     public void openControlPanel() {
         teammateController.arrowState(false);
         moveControlPanel(true);
     }
     
+    /** Collapses the control panel. */
     public void closeControlPanel() {
         teammateController.arrowState(true);
         moveControlPanel(false);
     }
     
+    /**
+     * Moves the control panel up or down depending on the {@code up} argument.
+     * @param up When set to true, the control panel will move upwards.
+     */
     private void moveControlPanel(boolean up) {
+        //if memory saver is true, move the panel directly.
         if (Methods.MemorySaver) {
             teammateController.setLocation(0, teammateController.getY() + (up ? - 470 : 470));
             return;
         }
         
+        //if not on memory saver, animate the panel in the correct direction.
         animationThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -100,14 +113,26 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         animationThread.start();
     }
     
+    /**
+     * Gets the {@code ControlPanel} object used by the class.
+     * @return The {@code ControlPanel}.
+     */
     public ControlPanel getTeammateController() {
         return teammateController;
     }
     
+    /**
+     * The status of the user regarding if they are ready to launch the simulation or not.
+     * @return Whether the user is ready to start or not.
+     */
     public synchronized boolean isReady() {
         return ready;
     }
     
+    /**
+     * Modifies the state of whether the user is ready or not.
+     * @param state The new state of the user.
+     */
     public void setGameReadyState(boolean state) {
         if (ready == state) return;
         ready = state;

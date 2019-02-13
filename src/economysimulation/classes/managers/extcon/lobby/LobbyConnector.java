@@ -33,9 +33,12 @@ public class LobbyConnector {
     private ControlPanel controlPanel = null;
     private TeammateFinder teammateFinder = null;
     
+    private List<User> localUsersInParty = null;
+    
     public LobbyConnector(ControlPanel controlPanel, TeammateFinder teammateFinder) {
         this.controlPanel = controlPanel;
         this.teammateFinder = teammateFinder;
+        localUsersInParty = new ArrayList<>();
     }
     
     /** Forces a data input stream. */
@@ -53,10 +56,9 @@ public class LobbyConnector {
             timeout = 200;
             
             if (isPartyReady(Methods.localPartyId)) {
-                looped = false;
+                stopLoop();
                 //removePartyFromLobby(userParty);
                 //removePartyInvites(userParty);
-                System.out.println("in theory it should start now");
                 start(Methods.localPartyId);
                 return;
             }
@@ -75,8 +77,11 @@ public class LobbyConnector {
         }
     }
     
-    /** Starts the economy simulation. */
+    /** Starts the economy simulation for multiplayer. */
     private void start(int partyId) {
+        localUsersInParty.clear();
+        localUsersInParty = getUsersInParty(Methods.localPartyId);
+                
         VariableUpdater variableUpdater = new VariableUpdater(Methods.StorageConnection);
         
         Methods.localPartyId = partyId;
@@ -94,6 +99,19 @@ public class LobbyConnector {
         Methods.FrameDisplay.addToMainFrame(Methods.GameDisplay);
         Methods.SimulationInProgress = true;
         new ControlPulse();
+    }
+    
+    /**
+     * Uses the {@code userId} to get a {@code User} that is stored
+     * locally in the party. This removes the need to get their
+     * name from the database.
+     * @param userId The ID of the user.
+     * @return Instance of a {@code User} if the ID gets a match.
+     */
+    public User getUserFromLocalParty(int userId) {
+        for (User user : localUsersInParty)
+            if (user.getID() == userId) return user;
+        return null;
     }
     
     
@@ -421,7 +439,10 @@ public class LobbyConnector {
                 users.add(nextUser);
             }
             
-            for (int user : users) list.add(new User(Methods.DBUsers.getUsernameFromId(user), user));
+            //converts the integer list to a user list.
+            users.forEach((user) -> {
+                list.add(new User(Methods.DBUsers.getUsernameFromId(user), user));
+            });
             
         } catch (SQLException ex) {
             ex.printStackTrace();

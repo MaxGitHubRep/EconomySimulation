@@ -36,11 +36,15 @@ public class StorageConnector {
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, Methods.GameDisplay.Ticks);
             pt.setInt(2, partyId);
-            
             DBConnector.setResultSet(pt.executeQuery());
+            
+            //loops through variable changes and formats them into a package.
             while (DBConnector.getResultSet().next()) {
-                User user = new User();
-                user.setID(DBConnector.getResultSet().getInt("UpdaterID"));
+                //gets the user from the local user pool via their id.
+                User user = Methods.LobbyHandler.getUserFromLocalParty(
+                        DBConnector.getResultSet().getInt("UpdaterID"));
+                
+                //formats the storage package.
                 latestPackages.add(new StoragePackage(
                     partyId,
                     DBConnector.getResultSet().getInt("ComponentID"), 
