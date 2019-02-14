@@ -25,6 +25,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
     private Thread animationThread;
     
     private List<String> userDummys;
+    private List<UserHold> holds;
     
     /** Creates new form TeammateFinder */
     public TeammateFinder() {
@@ -32,6 +33,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         START = 870;
         
         userDummys = new ArrayList<>();
+        holds = new ArrayList<>();
         teammateController = new ControlPanel(this);
         Methods.LobbyHandler = new LobbyConnector(teammateController, this);
         
@@ -65,11 +67,16 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
             userDummys.add(user.getFullName());
             UserHold hold = new UserHold(user);
             add(hold);
+            holds.add(hold);
             hold.setLocation(Methods.randomInt(
                 0, getWidth()-hold.getWidth()),
                 Methods.randomInt(0, getHeight()-hold.getHeight()-200)
             );
         }
+    }
+    
+    public void destroyUserHold(UserHold userHold) {
+        userDummys.remove(userHold.getUser().getFullName());
     }
     
     /** Expands the control panel onto the lobby display. */

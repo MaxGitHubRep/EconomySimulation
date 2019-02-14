@@ -91,12 +91,16 @@ public class Methods {
     }
     
     public static void quitSystem() {
+        if (user != null) removeRedundantUser(user);
+        System.exit(0);
+    }
+    
+    public static void removeRedundantUser(User user) {
         if (Connection.isConnected && user.getID() != -1) {
             if (DBUsers.isRedundantUser(user)) {
                 DBUsers.removeUser(user);
             }
         }
-        System.exit(0);
     }
     
     //<editor-fold defaultstate="collapsed" desc="Reset local user data in current session."> 

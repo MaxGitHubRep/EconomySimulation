@@ -84,6 +84,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Methods.resetCurrentUserData();
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         addUsernameUpdateListener(enterUsername);
+        updateUser();
         
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
@@ -92,6 +93,16 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
         runConnectionTest();
+    }
+    
+    /** If the user has already played a game it will not request a new username. */
+    public void updateUser() {
+        if (Methods.getUser().getID() != -1 && Methods.getUser().getName() != null) {
+            enterUsername.setText(Methods.getUser().getName());
+            enterUsername.setEnabled(false);
+        } else {
+            enterUsername.setEnabled(true);
+        }
     }
     
     /** Tests the connection in a different thread. */

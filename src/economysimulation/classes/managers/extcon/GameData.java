@@ -154,7 +154,7 @@ public class GameData {
                 pt.setInt(2, userId[i]);
                 pt.setInt(3, userId.length);
 
-                pt.executeUpdate();
+                pt.executeUpdate(); //something wrong with linkusersgames table
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

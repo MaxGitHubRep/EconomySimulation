@@ -59,6 +59,11 @@ public class UserHold extends JLabel {
         return user;
     }
     
+    public void destroy() {
+        setEnabled(false);
+        Methods.FindTeammate.destroyUserHold(this);
+    }
+    
     private class MouseClickEvent extends MouseAdapter {
         
         /** If the system is still in the process of inviting the user. */
@@ -99,9 +104,15 @@ public class UserHold extends JLabel {
                         }
                     }
                     
-                    //creates the party invite.
-                    Methods.LobbyHandler.addPartyInvite(Methods.localPartyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : Methods.localPartyId,
-                        Methods.getUser().getID(), user.getID());
+                    //validate if user is still in lobby
+                    if (Methods.DBUsers.isUserAlive(user)) {
+                        //creates the party invite.
+                        Methods.LobbyHandler.addPartyInvite(Methods.localPartyId == 0 ? Methods.LobbyHandler.getNextAvailablePartyID() : Methods.localPartyId,
+                            Methods.getUser().getID(), user.getID());
+                    } else {
+                        destroy();
+                        HintManager.createHint(Hints.NoUserFound);
+                    }
                     validating = false;
                 }
             });

@@ -50,12 +50,12 @@ public class StorageConnector {
                     DBConnector.getResultSet().getInt("ComponentID"), 
                     DBConnector.getResultSet().getDouble("ComponentValue"),
                     user,
-                    DBConnector.getResultSet().getInt("GameTick")
+                    DBConnector.getResultSet().getInt("GameTick") //error here sometimes
                 ));
             }
             
         } catch (SQLException ex) {
-            HintManager.createHint(Hints.NotConnected);
+            HintManager.createHint(Hints.NetworkError);
             ex.printStackTrace();
         }
     }

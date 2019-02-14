@@ -533,7 +533,7 @@ public class LobbyConnector {
         //defaults to returning false;
         return false;
     }
-    
+
     /**
      * Determines whether each user in the party has declared themselves as ready.
      * @param partyId ID of the party.

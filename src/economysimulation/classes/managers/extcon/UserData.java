@@ -110,6 +110,35 @@ public class UserData {
         }
     }
     
+        
+    /**
+     * Determines whether or not the {@code user} is existing.
+     * This is useful is a local copy of a user is saved and
+     * you want to know if said user is still on the database.
+     * @param user Instance of the user.
+     * @return Will return true if the user can be found on
+     *         the database. WIll return false if there are
+     *         no matches between the user's ID and username.
+     */
+    public boolean isUserAlive(User user) {
+        try {
+            String SQLStatement = "SELECT * FROM mxcrtr_db.Users WHERE UserID = ? AND Username = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, user.getID());
+            pt.setString(2, user.getName());
+            DBConnector.setResultSet(pt.executeQuery());
+            
+            //returns true if a user exists.
+            if (DBConnector.getResultSet().next())
+                return true;
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        //defaults to returning false;
+        return false;
+    }
+    
     
     public boolean isRedundantUser(User user) {
         return isRedundantUser(user.getID());
