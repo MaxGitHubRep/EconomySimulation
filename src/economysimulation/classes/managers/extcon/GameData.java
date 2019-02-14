@@ -27,8 +27,9 @@ public class GameData {
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.Games"));
             
-            while (DBConnector.getResultSet().next()) {
+            if (DBConnector.getResultSet().next()) {
                 totalGames = DBConnector.getResultSet().getInt(1);
+                System.out.println("total games played: " + totalGames);
             }
             
         } catch (SQLException ex) {
@@ -42,7 +43,7 @@ public class GameData {
         try {
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.LinkUsersGames"));
             
-            while (DBConnector.getResultSet().next()) {
+            if (DBConnector.getResultSet().next()) {
                 totalLinks = DBConnector.getResultSet().getInt(1);
             }
         } catch (SQLException ex) {
@@ -132,8 +133,10 @@ public class GameData {
     public List<GamePackage> getAllGameData() {
         List<GamePackage> gameData = new ArrayList<>();
         refreshGamesPlayed();
-        for (int i = 1; i <= getGamesPlayed(false); i++) {
-            gameData.add(getGameDataFromID(i));
+        int gamesPlayed = getGamesPlayed(true);
+        for (int i = 0; i < gamesPlayed; i++) {
+            System.out.println("game id: " + (i+1));
+            gameData.add(getGameDataFromID(i+1));
         }
         return gameData;
     }

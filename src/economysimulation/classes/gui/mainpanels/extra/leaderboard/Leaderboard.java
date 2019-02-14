@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent {
@@ -71,6 +70,8 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     /** Title of the leaderboard sorter which opens in a new window */
     public final String SORT_TITLE = "Custom Sort";
     
+    private Thread connectionThread = null;
+    
     /** Creates new form Leader board. */
     public Leaderboard() {
         initComponents();
@@ -94,9 +95,12 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             onGameInfoHoverEvent(data);
         }
         
-        //configurates the leaderboard with default sort patterns.
-        configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.HIGH_TO_LOW);
-
+        try {
+            //configurates the leaderboard with default sort patterns.
+            configLeaderboard(DisplayType.COMBINED, SearchComponent.GDP, SearchCondition.HIGH_TO_LOW); 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         //load the theme.
         ThemeHandler.addThemeUpdateListener(this);
         
@@ -140,14 +144,14 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     }
     
     /**
-     * 
+     * Gets all the data from the leaderboard.
      * @param displayType
      * @param searchComponent
      * @param searchCondition 
      */
-    private void pullLeaderboardData(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
+    private synchronized void pullLeaderboardData(DisplayType displayType, SearchComponent searchComponent, SearchCondition searchCondition) {
         //new event queue when pulling data.
-        EventQueue.invokeLater(new Runnable() {
+        connectionThread = new Thread(new Runnable() {
             public void run() {
                 ScoreList = new ArrayList<>();
                 //makes sure there are games in the database to use.
@@ -182,6 +186,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 }
             }
         });
+        connectionThread.start();
     }
 
     /**
@@ -508,8 +513,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         changeArrow4 = new javax.swing.JLabel();
         changeArrow3 = new javax.swing.JLabel();
         pageReference = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         back1 = new javax.swing.JPanel();
         col1 = new javax.swing.JPanel();
         title1 = new javax.swing.JLabel();
@@ -610,7 +613,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
         leftBar.setBackground(new java.awt.Color(153, 153, 153));
 
-        gback7.setBackground(new java.awt.Color(204, 204, 204));
+        gback7.setBackground(new java.awt.Color(153, 153, 153));
 
         var7.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var7.setForeground(new java.awt.Color(255, 255, 255));
@@ -634,7 +637,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap())
         );
 
-        gback6.setBackground(new java.awt.Color(204, 204, 204));
+        gback6.setBackground(new java.awt.Color(153, 153, 153));
 
         var6.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var6.setForeground(new java.awt.Color(255, 255, 255));
@@ -658,7 +661,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addGap(13, 13, 13))
         );
 
-        gback8.setBackground(new java.awt.Color(204, 204, 204));
+        gback8.setBackground(new java.awt.Color(153, 153, 153));
 
         var8.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var8.setForeground(new java.awt.Color(255, 255, 255));
@@ -682,7 +685,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap())
         );
 
-        gback9.setBackground(new java.awt.Color(204, 204, 204));
+        gback9.setBackground(new java.awt.Color(153, 153, 153));
 
         var9.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var9.setForeground(new java.awt.Color(255, 255, 255));
@@ -706,7 +709,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap())
         );
 
-        gback10.setBackground(new java.awt.Color(204, 204, 204));
+        gback10.setBackground(new java.awt.Color(153, 153, 153));
 
         var10.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var10.setForeground(new java.awt.Color(255, 255, 255));
@@ -730,7 +733,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap())
         );
 
-        gback1.setBackground(new java.awt.Color(204, 204, 204));
+        gback1.setBackground(new java.awt.Color(153, 153, 153));
 
         var1.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var1.setForeground(new java.awt.Color(255, 255, 255));
@@ -754,7 +757,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addGap(13, 13, 13))
         );
 
-        gback2.setBackground(new java.awt.Color(204, 204, 204));
+        gback2.setBackground(new java.awt.Color(153, 153, 153));
 
         var2.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var2.setForeground(new java.awt.Color(255, 255, 255));
@@ -778,7 +781,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addGap(13, 13, 13))
         );
 
-        gback11.setBackground(new java.awt.Color(204, 204, 204));
+        gback11.setBackground(new java.awt.Color(153, 153, 153));
 
         var11.setFont(new java.awt.Font("Agency FB", 0, 42)); // NOI18N
         var11.setForeground(new java.awt.Color(255, 255, 255));
@@ -807,7 +810,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         extraLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         extraLabel.setText("N/A");
 
-        gback5.setBackground(new java.awt.Color(204, 204, 204));
+        gback5.setBackground(new java.awt.Color(153, 153, 153));
 
         var5.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         var5.setForeground(new java.awt.Color(255, 255, 255));
@@ -831,7 +834,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        gback4.setBackground(new java.awt.Color(204, 204, 204));
+        gback4.setBackground(new java.awt.Color(153, 153, 153));
 
         var4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         var4.setForeground(new java.awt.Color(255, 255, 255));
@@ -855,7 +858,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        gback3.setBackground(new java.awt.Color(204, 204, 204));
+        gback3.setBackground(new java.awt.Color(153, 153, 153));
 
         var3.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         var3.setForeground(new java.awt.Color(255, 255, 255));
@@ -951,10 +954,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         pageReference.setForeground(new java.awt.Color(204, 0, 0));
         pageReference.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
+        back1.setBackground(new java.awt.Color(255, 255, 255));
         back1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -999,6 +999,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addContainerGap())
         );
 
+        back2.setBackground(new java.awt.Color(255, 255, 255));
         back2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -1058,15 +1059,11 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addComponent(playerTypeDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addComponent(back1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(22, 22, 22)
                 .addComponent(back2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(48, 48, 48)
                 .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pageReference, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1080,22 +1077,18 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(playerTypeDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(changeArrow1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(pageReference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(changeArrow3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator4))
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(playerTypeDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(changeArrow1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(changeArrow2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pageReference, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(changeArrow4, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(changeArrow3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(back1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(back2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(leftBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1147,8 +1140,6 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
     private static javax.swing.JPanel gback9;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private static javax.swing.JPanel leftBar;
     private javax.swing.JLabel pageReference;
     private javax.swing.JLabel playerTypeDisplay;
