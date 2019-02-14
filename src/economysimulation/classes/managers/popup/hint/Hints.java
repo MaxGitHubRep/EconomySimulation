@@ -3,6 +3,7 @@ package economysimulation.classes.managers.popup.hint;
 import economysimulation.classes.managers.popup.hint.hints.ErrorInvalidConnection;
 import economysimulation.classes.managers.popup.hint.hints.ErrorInviteSent;
 import economysimulation.classes.managers.popup.hint.hints.ErrorNullParty;
+import economysimulation.classes.managers.popup.hint.hints.NetworkError;
 import economysimulation.classes.managers.popup.hint.hints.ErrorSQLDatabase;
 import economysimulation.classes.managers.popup.hint.hints.ErrorServerSlotFull;
 import economysimulation.classes.managers.popup.hint.hints.Hint;
@@ -10,6 +11,7 @@ import economysimulation.classes.managers.popup.hint.hints.HintBankRateTooHigh;
 import economysimulation.classes.managers.popup.hint.hints.HintBankruptcy;
 import economysimulation.classes.managers.popup.hint.hints.HintInsufficientFunds;
 import economysimulation.classes.managers.popup.hint.hints.HintTaxesTooHigh;
+import economysimulation.classes.managers.popup.hint.hints.UserNotFoundError;
 
 /**
  *
@@ -27,6 +29,8 @@ public class Hints {
             NotConnected = new ErrorInvalidConnection(),
             DatabaseError = new ErrorSQLDatabase(),
             NoPartyFound = new ErrorNullParty(),
-            AlreadyInvited = new ErrorInviteSent();
+            AlreadyInvited = new ErrorInviteSent(),
+            NoUserFound = new UserNotFoundError(),
+            NetworkError = new NetworkError();
     
 }
