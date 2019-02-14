@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.popup.hint;
 
+import economysimulation.classes.managers.popup.hint.hints.CannotReadyUp;
 import economysimulation.classes.managers.popup.hint.hints.ErrorInvalidConnection;
 import economysimulation.classes.managers.popup.hint.hints.ErrorInviteSent;
 import economysimulation.classes.managers.popup.hint.hints.ErrorNullParty;
@@ -31,6 +32,7 @@ public class Hints {
             NoPartyFound = new ErrorNullParty(),
             AlreadyInvited = new ErrorInviteSent(),
             NoUserFound = new UserNotFoundError(),
-            NetworkError = new NetworkError();
+            NetworkError = new NetworkError(),
+            ErrorReadyUp = new CannotReadyUp();
     
 }

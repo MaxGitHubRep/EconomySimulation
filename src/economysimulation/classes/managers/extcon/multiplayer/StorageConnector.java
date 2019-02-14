@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Max Carter
  */
 public class StorageConnector {
@@ -50,7 +49,7 @@ public class StorageConnector {
                     DBConnector.getResultSet().getInt("ComponentID"), 
                     DBConnector.getResultSet().getDouble("ComponentValue"),
                     user,
-                    DBConnector.getResultSet().getInt("GameTick") //error here sometimes
+                    DBConnector.getResultSet().getInt("GameTick")
                 ));
             }
             

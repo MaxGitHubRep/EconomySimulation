@@ -504,6 +504,12 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back3MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
+        //validate that the user is in a party.
+        if (Methods.localPartyId <= 0) {
+            HintManager.createHint(Hints.ErrorReadyUp);
+            return;
+        }
+        
         if (label4.getText().equals(I_AM_NOT_READY)) {
             //if the user is currently notready, ready them.
             teammateFinder.setGameReadyState(true);

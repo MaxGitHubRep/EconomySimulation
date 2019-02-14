@@ -45,14 +45,14 @@ public class LobbyConnector {
         //is user in party or not
         Methods.localPartyId = getPartyId(Methods.getUser().getID());
         if (Methods.localPartyId == 0) {
-            timeout = 1200;
+            timeout = 1000;
             //signal a new invite has occured.
             getPartyInvitesReceived().forEach((invite) -> {
                 controlPanel.onPartyInviteEvent(invite);
             });
             
         } else {
-            timeout = 200;
+            timeout = 250;
             
             if (isPartyReady(Methods.localPartyId)) {
                 stopLoop();
