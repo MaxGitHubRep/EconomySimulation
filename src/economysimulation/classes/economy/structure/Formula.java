@@ -67,8 +67,9 @@ public class Formula extends Component implements GamePulse, MoneySpent {
         //checks if any variables are below 0 -> end the simulation.
         int index = 0;
         for (double component : new double[]{ StandardOfLiving, PoliticalInflluence, 100-Unemployment, ConsumerConfidence, CorporationConfidence }) {
-            if (component <= 0) {
+            if (component <= 0 && Methods.PulseUpdater.SimulationTicking) {
                 if (Methods.ModeHandler.isMode(Mode.MULTI_PLAYER)){
+                    System.out.println("yeeting game");
                     Completed.simulationCompletedMP(CAUSES_OF_COMPLETION[index]);
                 } else {
                     Completed.simulationCompleted(CAUSES_OF_COMPLETION[index]);

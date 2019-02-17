@@ -1,5 +1,6 @@
 package economysimulation.classes.managers.extcon.multiplayer;
 
+import economysimulation.classes.economy.budget.Budget;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 import static economysimulation.classes.global.Methods.SectorInstance;
@@ -47,35 +48,35 @@ public class StorageReceiver implements GamePulse {
                     onComponentUpdate("Income Tax", value, user);
                     break;
                 case 3:
-                    SectorInstance.NHS.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.NHS, (int) value);
                     onComponentUpdate("NHS", value, user);
                     break;
                 case 4:
-                    SectorInstance.Education.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Education, (int) value);
                     onComponentUpdate("Education", value, user);
                     break;
                 case 5:
-                    SectorInstance.Housing.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Housing, (int) value);
                     onComponentUpdate("Housing", value, user);
                     break;
                 case 6:
-                    SectorInstance.Food.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Food, (int) value);
                     onComponentUpdate("Food", value, user);
                     break;
                 case 7:
-                    SectorInstance.Infrastructure.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Infrastructure, (int) value);
                     onComponentUpdate("Infrastructure", value, user);
                     break;
                 case 8:
-                    SectorInstance.Defence.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Defence, (int) value);
                     onComponentUpdate("Defence", value, user);
                     break;
                 case 9:
-                    SectorInstance.Science.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Science, (int) value);
                     onComponentUpdate("Science", value, user);
                     break;
                 case 10:
-                    SectorInstance.Benefits.setSpending((int) value);
+                    Budget.spendMoney(SectorInstance.Benefits, (int) value);
                     onComponentUpdate("Benefits", value, user);
                     break;
                 

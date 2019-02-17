@@ -1,7 +1,5 @@
 package economysimulation.classes.economy.sectors;
 
-import static economysimulation.classes.global.Methods.SectorInstance;
-
 /**
  *
  * @author Max Carter

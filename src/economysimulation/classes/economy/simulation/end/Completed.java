@@ -36,6 +36,7 @@ public class Completed {
      * @param causeOfCompletion How the simulation ended.
      */
     public static void simulationCompletedMP(String causeOfCompletion) {
+        reset(causeOfCompletion);
         if (Methods.getUser().getID() == Methods.LobbyHandler.getUsersInParty(Methods.localPartyId).get(0).getID()) {
             int gameId = DBGames.getGamesPlayed(true)+1;
             DBGames.createNewGame(gameId, (int) Math.floor(Component.GrossDomesticProduct), GameDisplay.Ticks, DBComponents.getDBComponents());
@@ -45,9 +46,8 @@ public class Completed {
             }
             
             DBGames.establishUserGameLink(gameId, party);
+            Methods.StorageConnection.removePackagesFromParty(Methods.localPartyId);
         }
-        
-        reset(causeOfCompletion);
     }
     
     /**
@@ -55,6 +55,8 @@ public class Completed {
      * @param causeOfCompletion The reason behind why the simulation was ended.
      */
     public static void simulationCompleted(String causeOfCompletion) {
+        reset(causeOfCompletion);
+        
         try {
             if (Connection.isConnected) {
                 if (DBConnector.getConnection().isValid(60)) {
@@ -75,8 +77,6 @@ public class Completed {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
-        reset(causeOfCompletion);
     }
     
     /** Ends the simulation and outputs the cause of completion. */

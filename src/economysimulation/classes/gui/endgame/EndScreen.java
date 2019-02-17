@@ -4,6 +4,7 @@ import economysimulation.classes.economy.sectors.SectorManager;
 import economysimulation.classes.economy.simulation.reset.ResetSimulation;
 import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
+import static economysimulation.classes.global.Methods.ModeHandler;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.startup.PreSetup;
 import economysimulation.classes.gui.startup.WelcomePanel;
@@ -18,6 +19,7 @@ import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.mode.Mode;
 
 /**
  *
@@ -69,7 +71,6 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
      */
     public EndScreen() {
         initComponents();
-        if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         Methods.AnimationGraph = new StockGraph(animBack);
         
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
@@ -144,7 +145,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         Methods.AnimationGraph.stop();
         ResetSimulation.resetSimulation();
         
-        if (replay) {
+        if (replay && !ModeHandler.isMode(Mode.MULTI_PLAYER)) {
             Methods.SectorInstance = new SectorManager();
             Methods.TaxRevenueDisplay = new TaxRevenueList();
             Methods.FrameDisplay.addToMainFrame(new PreSetup());
@@ -156,6 +157,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     private void optionOpenLeaderboards() {
         Methods.AnimationGraph.stop();
+        if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         Methods.addToFrontPanel(animBack, Methods.LBDisplay, false);
     }
     

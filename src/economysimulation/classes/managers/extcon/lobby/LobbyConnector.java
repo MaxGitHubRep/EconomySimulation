@@ -175,6 +175,10 @@ public class LobbyConnector {
         try {
             String SQLStatement = "INSERT INTO mxcrtr_db.PartyInvites VALUES (?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            
+            //adjust party id is one is not set
+            if (partyId == 0) partyId = getNextAvailablePartyID();
+            
             pt.setInt(1, partyId);
             pt.setInt(2, fromUser);
             pt.setInt(3, toUser);
@@ -272,7 +276,7 @@ public class LobbyConnector {
      */
     public int getNextAvailablePartyID() {
         try {
-            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT PartyID FROM mxcrtr_db.PartyInvites"));
+            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT PartyID FROM mxcrtr_db.LobbyData"));
             
             int previousID = 0, nextID = 0;
             
@@ -280,9 +284,11 @@ public class LobbyConnector {
                 previousID = nextID;
                 nextID = DBConnector.getResultSet().getInt(1);
                 if (nextID != previousID+1) {
+                    System.out.println("next id: " + (previousID+1));
                     return previousID+1;
                 }
             }
+            System.out.println("next id: " + (nextID+1));
             return nextID+1;
             
         } catch (SQLException ex) {
@@ -490,6 +496,22 @@ public class LobbyConnector {
      */
     public void removeUserFromParty(int userId) {
         addUserToParty(userId, 0);
+    }
+    
+    /**
+     * Removes a user from the public lobby.
+     * @param userId ID of the user.
+     */
+    public void removeUserFromLobby(int userId) {
+        try {
+            String SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE UserID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, userId);
+            pt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     /**

@@ -29,10 +29,13 @@ public class PulseThread {
                 try {
                     while (SimulationTicking) {
                         Thread.sleep(GameDisplay.Speed);
-                        if (Pulses != null) {
+                        if (Pulses != null && SimulationTicking) {
                             Pulses.forEach((pulse) -> {
                                 pulse.onGamePulseEvent();
                             });
+                        } else {
+                            System.out.println("game over");
+                            return;
                         }
                     }
                 } catch (InterruptedException ex) {

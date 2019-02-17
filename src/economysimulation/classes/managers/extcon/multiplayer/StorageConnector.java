@@ -22,6 +22,7 @@ public class StorageConnector {
      * @param partyId The ID of the party.
      */
     public void pullLatestPackage(int partyId) {
+        if (!Methods.PulseUpdater.SimulationTicking) return;
         //update package accordingly
         if (latestPackages == null) {
             latestPackages = new ArrayList<>();
@@ -29,12 +30,12 @@ public class StorageConnector {
             latestPackages.clear();
         }
         try {
-            System.out.println("pulling...");
             //Gets the server state from the database table.
-            String SQLStatement = "SELECT * FROM mxcrtr_db.VariableStorage WHERE GameTick = ? AND PartyID = ?";
+            String SQLStatement = "SELECT * FROM mxcrtr_db.VariableStorage WHERE GameTick = ? AND PartyID = ? AND UpdaterID <> ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, Methods.GameDisplay.Ticks);
             pt.setInt(2, partyId);
+            pt.setInt(3, Methods.getUser().getID());
             DBConnector.setResultSet(pt.executeQuery());
             
             //loops through variable changes and formats them into a package.
@@ -65,7 +66,6 @@ public class StorageConnector {
      */
     public void sendPackage(StoragePackage pkg) {
         try {
-            System.out.println("trying");
             String SQLStatement = "INSERT INTO mxcrtr_db.VariableStorage VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, pkg.getPartyID());
@@ -73,6 +73,22 @@ public class StorageConnector {
             pt.setDouble(3, pkg.getComponentValue());
             pt.setInt(4, pkg.getUpdater().getID());
             pt.setInt(5, pkg.getGameTick());
+            pt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    /**
+     * Deletes all variable data from a party.
+     * @param partyId ID of the party.
+     */
+    public void removePackagesFromParty(int partyId) {
+        try {
+            String SQLStatement = "DELETE FROM mxcrtr_db.VariableStorage WHERE PartyID = ?";
+            PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
+            pt.setInt(1, partyId);
             pt.executeUpdate();
             
         } catch (SQLException ex) {

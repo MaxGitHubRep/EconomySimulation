@@ -77,16 +77,15 @@ public class UserData {
     }
     
     public String getUsernameFromId(int id) {
-        String name = "";
+        String name = "null";
         try {
             String SQLStatement = "SELECT Username FROM mxcrtr_db.Users WHERE UserID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, id);
             
             DBConnector.setResultSet(pt.executeQuery());
-            DBConnector.getResultSet().next();
-            
-            name = DBConnector.getResultSet().getString("Username");
+            if (DBConnector.getResultSet().next())
+                name = DBConnector.getResultSet().getString("Username");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

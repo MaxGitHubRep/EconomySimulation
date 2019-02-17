@@ -100,6 +100,7 @@ public class Methods {
             if (DBUsers.isRedundantUser(user)) {
                 DBUsers.removeUser(user);
             }
+            LobbyHandler.removeUserFromLobby(user.getID());
         }
     }
     
