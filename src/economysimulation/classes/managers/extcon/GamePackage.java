@@ -1,5 +1,8 @@
 package economysimulation.classes.managers.extcon;
 
+import economysimulation.classes.global.User;
+import java.util.List;
+
 /**
  *
  * @author Max Carter
@@ -8,9 +11,9 @@ public class GamePackage {
 
     private int id, score, gameTicks;
     private double[] components;
-    private String[] players;
+    private List<User> players = null;
     
-    public GamePackage(int id, int score, int gameTicks, String[] players, double[] components) {
+    public GamePackage(int id, int score, int gameTicks, List<User> players, double[] components) {
         this.id = id;
         this.score = score;
         this.gameTicks = gameTicks;
@@ -30,7 +33,7 @@ public class GamePackage {
         return this.gameTicks;
     }
     
-    public String[] getPlayers() {
+    public List<User> getPlayers() {
         return this.players;
     }
     

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
+import economysimulation.classes.global.User;
 
 /**
  *
@@ -32,8 +33,8 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
             rankDisplay.setText("#" + rank);
             scoreDisplay.setText(pkg.getScore() + "");
             String builder = "";
-            for (String player : pkg.getPlayers()) {
-                builder += player + " ";
+            for (User player : pkg.getPlayers()) {
+                builder += player.getFullName() + " ";
             }  
             
             playersDisplay.setText("<html>" + builder + "</html>");

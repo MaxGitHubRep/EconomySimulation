@@ -10,7 +10,6 @@ import economysimulation.classes.managers.sorting.conditions.SearchCondition;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
-import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -176,8 +175,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
 
                     //formats the top scores into game packages for the score display.
                     for (int i = 0; i < gameData.size(); i++) {
-                        GamePackage pkg = gameData.get(i);
-                        addScore(i+1, pkg);
+                        addScore(i+1, gameData.get(i));
                     }
 
                     //update display of leaderboard data.

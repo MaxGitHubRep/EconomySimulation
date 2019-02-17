@@ -45,13 +45,13 @@ public class GameSorter {
 
             if (displayType == DisplayType.SINGLE_PLAYER) {
                 for (GamePackage pkg : gamePackageList) {
-                    if (pkg.getPlayers().length > 1) {
+                    if (pkg.getPlayers().size() > 1) {
                         removeList.add(pkg);
                     }
                 }
             } else if (displayType == DisplayType.MULTI_PLAYER) {
                 for (GamePackage pkg : gamePackageList) {
-                    if (pkg.getPlayers().length == 1) {
+                    if (pkg.getPlayers().size() == 1) {
                         removeList.add(pkg);
                     }
                 }

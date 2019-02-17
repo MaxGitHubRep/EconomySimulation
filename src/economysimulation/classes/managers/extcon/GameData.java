@@ -2,6 +2,7 @@ package economysimulation.classes.managers.extcon;
 
 import static economysimulation.classes.global.Methods.DBConnector;
 import static economysimulation.classes.global.Methods.DBUsers;
+import economysimulation.classes.global.User;
 import economysimulation.classes.managers.exception.NonExistentGameException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -96,27 +97,25 @@ public class GameData {
             }
             // get players
             
-            SQLStatement = "SELECT * FROM mxcrtr_db.LinkUsersGames WHERE GameID = ?";
+            SQLStatement = "SELECT UserID FROM mxcrtr_db.LinkUsersGames WHERE GameID = ?";
             pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, id);
             
             DBConnector.setResultSet(pt.executeQuery());
             
-            List<String> playerList = new ArrayList<>();
+            List<User> userList = new ArrayList<>();
             
             while (DBConnector.getResultSet().next()) {
-                int userId = DBConnector.getResultSet().getInt("UserID");
-                playerList.add(DBUsers.getUsernameFromId(userId) + "#" + new DecimalFormat("00000").format(userId));
-                
+                User user = new User();
+                user.setID(DBConnector.getResultSet().getInt("UserID"));
+                userList.add(user);
             }
             
-            String[] players = new String[playerList.size()];
-            
-            for (int i = 0; i < players.length; i++) {
-                players[i] = playerList.get(i);
+            for (int i = 0; i < userList.size(); i++) {
+                userList.get(i).setName(DBUsers.getUsernameFromId(userList.get(i).getID()));
             }
             
-            pkg = new GamePackage(id, gdp, ticks, players, comp);
+            pkg = new GamePackage(id, gdp, ticks, userList, comp);
             
         } catch (SQLException ex) {
             ex.printStackTrace();
