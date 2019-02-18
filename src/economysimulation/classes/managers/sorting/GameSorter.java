@@ -69,7 +69,7 @@ public class GameSorter {
         
         MergeSort mergeSort = new MergeSort(this);
         
-        GamePackage[] gamePkgStaticList = new GamePackage[gamePackageList.size()-1];
+        GamePackage[] gamePkgStaticList = new GamePackage[gamePackageList.size()];
         
         for (int i = 0; i < gamePkgStaticList.length; i++) {
             gamePkgStaticList[i] = gamePackageList.get(i);

@@ -41,7 +41,6 @@ public class PartyInvite {
         if (getPartyID() == 0) {
             partyId = Methods.LobbyHandler.getNextAvailablePartyID();
         }
-        System.out.println("partyId: " + partyId);
         Methods.localPartyId = partyId;
         Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
         Methods.LobbyHandler.addUserToParty(user.getID(), partyId);

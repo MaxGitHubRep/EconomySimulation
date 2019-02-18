@@ -30,7 +30,6 @@ public class GameData {
             
             if (DBConnector.getResultSet().next()) {
                 totalGames = DBConnector.getResultSet().getInt(1);
-                System.out.println("total games played: " + totalGames);
             }
             
         } catch (SQLException ex) {
@@ -134,7 +133,6 @@ public class GameData {
         refreshGamesPlayed();
         int gamesPlayed = getGamesPlayed(true);
         for (int i = 0; i < gamesPlayed; i++) {
-            System.out.println("game id: " + (i+1));
             gameData.add(getGameDataFromID(i+1));
         }
         return gameData;

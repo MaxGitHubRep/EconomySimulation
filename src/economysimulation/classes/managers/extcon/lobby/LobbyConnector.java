@@ -284,11 +284,9 @@ public class LobbyConnector {
                 previousID = nextID;
                 nextID = DBConnector.getResultSet().getInt(1);
                 if (nextID != previousID+1) {
-                    System.out.println("next id: " + (previousID+1));
                     return previousID+1;
                 }
             }
-            System.out.println("next id: " + (nextID+1));
             return nextID+1;
             
         } catch (SQLException ex) {

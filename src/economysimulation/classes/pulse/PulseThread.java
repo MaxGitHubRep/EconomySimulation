@@ -34,7 +34,6 @@ public class PulseThread {
                                 pulse.onGamePulseEvent();
                             });
                         } else {
-                            System.out.println("game over");
                             return;
                         }
                     }

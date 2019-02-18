@@ -41,8 +41,9 @@ public class StorageConnector {
             //loops through variable changes and formats them into a package.
             while (DBConnector.getResultSet().next()) {
                 //gets the user from the local user pool via their id.
-                User user = Methods.LobbyHandler.getUserFromLocalParty(
-                        DBConnector.getResultSet().getInt("UpdaterID"));
+                User user = new User("Null", 0);
+                User testUser = Methods.LobbyHandler.getUserFromLocalParty(DBConnector.getResultSet().getInt("UpdaterID"));
+                if (testUser != null) user = testUser;
                 
                 //formats the storage package.
                 latestPackages.add(new StoragePackage(

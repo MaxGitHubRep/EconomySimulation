@@ -150,8 +150,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
     @Override
     public void onComponentUpdate(String componentName, double value, User user) {
         mpComponent.setText(componentName);
-        //System.out.println("NULL CHECK: " + user.getFullName());
-        //mpUser.setText(user.getFullName());
+        mpUser.setText(user == null ? "<Error>" : user.getFullName());
         mpValue.setText(value + "");
     }
     
