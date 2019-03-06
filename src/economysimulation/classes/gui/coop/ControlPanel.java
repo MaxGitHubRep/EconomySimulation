@@ -1,7 +1,6 @@
 package economysimulation.classes.gui.coop;
 
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.DBUsers;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.global.User;
 import economysimulation.classes.managers.comp.list.ScrollableList;
@@ -12,21 +11,32 @@ import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.GraphicUpdater;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
 import economysimulation.classes.managers.ui.Format;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
  * @author Max Carter
  */
 public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent, LobbyUpdateEvent {
 
+    /** Instances of lists which display users. */
     private ScrollableList inviteList = null, partyList = null;
-    private final String EMPTY_USER = "-";
-    private PartyInvite latestPartyInvite = null;
     
+    /** List of party invites incoming. */
+    private List<PartyInvite> partyInviteList = null;
+    
+    /** The invite which the user has accepted. */
+    private PartyInvite acceptedInvite = null;
+    
+    /** Text which represents an empty user. */
+    private final String EMPTY_USER = "-";
+    
+    /** Text for whether the user is ready or not. */
     private final String I_AM_NOT_READY = "READY UP", I_AM_READY = "NOT READY";
+    
+    /** Instance of the teammate finder. */
     private TeammateFinder teammateFinder = null;
     
     /**
@@ -38,6 +48,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         
         this.teammateFinder = teammateFinder;
         
+        //formatting theme and formats.
         ThemeHandler.addThemeUpdateListener(this);
         
         userLabel.setText(Methods.getUser().getFullName());
@@ -47,14 +58,16 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
         Format.addButtonFormat(back3, color3);
         Format.addButtonFormat(back4, color4);
         
+        partyInviteList = new ArrayList<>();
+        
+        //adds scroll lists which display users in parties/invites.
         inviteList = new ScrollableList(EMPTY_USER);
         Methods.addToFrontPanel(panelInvites, inviteList, false);
-        
         partyList = new ScrollableList(EMPTY_USER);
         partyList.updateList();
+        
         Methods.addToFrontPanel(panelParty, partyList, false);
         Methods.addDraggablePanel(this);
-        
     }
     
     /**
@@ -68,10 +81,11 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     @Override
     public void onPartyInviteEvent(PartyInvite partyInvite) {
+        //checks that the invite hasn't already been registered.
         if (!inviteList.contains(partyInvite.getUser().getFullName())) {
-            this.latestPartyInvite = partyInvite;
             inviteList.addItem(partyInvite.getUser().getFullName());
             inviteList.updateList();
+            partyInviteList.add(partyInvite);
         }
     }
     
@@ -92,17 +106,20 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     /** Handles the outcome of an invitation. */
     private void inviteOutcome(boolean join) {
         //checks that the user is not in a party, and that there is a valid invite
-        if (inviteList.getList().isEmpty() || latestPartyInvite == null) return;
+        if (inviteList.getList().isEmpty() || partyInviteList.isEmpty()) return;
         
         if (join && Methods.localPartyId == 0) {
-            if (latestPartyInvite.accept()) {
+            if (partyInviteList.get(0).accept()) {
+                acceptedInvite = partyInviteList.get(0);
                 inviteList.clear();
                 inviteList.disable();
+                partyInviteList.clear();
             }
         } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();
-            latestPartyInvite.ignore();
+            partyInviteList.get(0).ignore();
+            partyInviteList.remove(0);
         }
     }
     
@@ -491,15 +508,16 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_ignoreLabelMouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
-        if (latestPartyInvite == null) {
+        if (partyInviteList.isEmpty()) {
             HintManager.createHint(Hints.NoPartyFound);
             return;
         }
         
-        latestPartyInvite.undo();
+        acceptedInvite.undo();
         inviteList.enable();
         partyList.clear();
         partyList.disable();
+        acceptedInvite = null;
     }//GEN-LAST:event_back3MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
