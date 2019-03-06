@@ -5,22 +5,21 @@ import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
 import static economysimulation.classes.global.Methods.PulseUpdater;
 import static economysimulation.classes.global.Methods.SectorInstance;
+
 /**
- *
  * @author Max Carter
  */
 public class ResetSimulation {
     
-    /**
-     * Resets the simulation.
-     */
+    /** Resets the simulation. */
     public static void resetSimulation() {
         resetSimulationVariables();
 
-        //Garbage collection.
+        //prompts the garbage collection.
         System.gc();
     }
     
+    /** Resets the simulation variables. */
     private static void resetSimulationVariables() {
 
         //Sets all public spending to 0.

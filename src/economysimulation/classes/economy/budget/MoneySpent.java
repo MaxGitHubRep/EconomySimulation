@@ -8,6 +8,11 @@ import economysimulation.classes.economy.sectors.Sector;
  */
 public interface MoneySpent {
     
+    /**
+     * Called when money is spent on a sector.
+     * @param sector Event-sector.
+     * @param money How much money is spent.
+     */
     public void onMoneySpent(Sector sector, int money);
     
 }

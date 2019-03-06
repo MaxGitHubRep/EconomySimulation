@@ -2,7 +2,6 @@ package economysimulation.classes.economy.structure.tax;
 
 import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
-import economysimulation.classes.managers.exception.NonExistentTaxException;
 
 /**
  *
@@ -10,15 +9,15 @@ import economysimulation.classes.managers.exception.NonExistentTaxException;
  */
 public class TaxManager {
 
-    public static double getTaxRate(int type) {
-        if (type > 1 || type < 0) try {
-            throw new NonExistentTaxException(type);
-        } catch (NonExistentTaxException ex) {
-            ex.printStackTrace();
-        }
-        
-        if (GameDisplay.TaxBreak[type]) return 0;
-        return (type == Tax.INCOME ? Component.IncomeTax : Component.CorporationTax)/100;
+    /**
+     * Gets the rate which the tax is set at.
+     * @param tax Type of tax.
+     * @return Tax rate.
+     */
+    public static double getTaxRate(Tax tax) {
+        //returns to 0% if the tax is 'frozen'.
+        if (GameDisplay.TaxBreak[tax.getID()]) return 0;
+        return (tax.getName().equals("Income") ? Component.IncomeTax : Component.CorporationTax)/100;
     }
     
 }

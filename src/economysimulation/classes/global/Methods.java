@@ -40,7 +40,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
 
 /**
- *
  * @author Max Carter
  */
 public class Methods {
@@ -74,27 +73,41 @@ public class Methods {
     public static StorageReceiver StorageEvent;
     public static StorageConnector StorageConnection;
     public static LobbyConnector LobbyHandler;
-    
     public static TeammateFinder FindTeammate = null;
     
+    /** Local party ID. */
     public static int localPartyId = 0;
     
+    /** Local user. */
     private static User user = new User();
     
+    /** Whether memory saver is enabled or not. */
     public static volatile boolean MemorySaver = false;
     
+    /** Whether or not the simulation is in progress. */
     public static boolean SimulationInProgress = false;
     
+    /**
+     * Gets the local user instance.
+     * @return The local user.
+     */
     public static User getUser() {
+        //if the local user is null, an empty user is returned.
         if (user == null) return new User();
         return user;
     }
     
+    /** Quits the system. */
     public static void quitSystem() {
+        //removes any redundant users from the database.
         if (user != null) removeRedundantUser(user);
         System.exit(0);
     }
     
+    /**
+     * Removes a redundant user from the database.
+     * @param user Possible redundant user.
+     */
     public static void removeRedundantUser(User user) {
         if (Connection.isConnected && user.getID() != -1) {
             if (DBUsers.isRedundantUser(user)) {
@@ -104,15 +117,11 @@ public class Methods {
         }
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Reset local user data in current session."> 
-    /**
-     * Resets the local user data in the current session.
-     */
+    /** Resets the local user data in the current session. */
     public static void resetCurrentUserData() {
         user.reset();
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Allows multiple panels to drag the frame."> 
     /**
      * Allows multiple panels to drag the main frame.
      * @param panels Panels that can drag the main frame.
@@ -121,30 +130,29 @@ public class Methods {
         for (JPanel dragPanel : panels) {
             FrameDisplay.frameDragged(dragPanel);
         }
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Allows a single panel to drag the frame."> 
     /**
      * Allows a panel to drag the main frame.
      * @param panel Panel that can drag the main frame.
      */
     public static void addDraggablePanel(JPanel panel) {
         FrameDisplay.frameDragged(panel);
-        
-    }//</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc="Returns the username with an extra 5 integers."> 
-    public static String generateRandomUsername(String currentUsername) {
-        return currentUsername + "#" + randomInt(0, 99999);
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Adds panel to another panel."> 
+    /**
+     * Adds an external panel to an existing panel.
+     * @param backPanel   The existing panel.
+     * @param panel       The panel which will be placed on top.
+     * @param scrollable  Whether or not the top panel is scrollable.
+     */
     public static void addToFrontPanel(JPanel backPanel, JPanel panel, boolean scrollable) {
+        //creates back panel layout
         backPanel.removeAll();
         backPanel.revalidate();
-        
         backPanel.setLayout(new BorderLayout());
         
+        //creates scrollpane if option enabled.
         if (scrollable) {
             JScrollPane scrolling = new JScrollPane(panel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -157,41 +165,54 @@ public class Methods {
         }
 
         backPanel.repaint();
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Applies specific theme to graph."> 
     /**
      * Creates a chart theme object and applies it to the {@code chart}.
      * @param chart Chart to add the theme too.
      */
     public static void applyChartTheme(JFreeChart chart) {
-        StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
+        StandardChartTheme theme = (StandardChartTheme) org.jfree.chart.StandardChartTheme.createJFreeTheme();
         
+        //handles the text.
         theme.setTitlePaint(ThemeHandler.getTheme().getPrimaryColor());
         theme.setExtraLargeFont(new Font("Agency FB",Font.PLAIN, 32));
         theme.setLargeFont(new Font("Agency FB",Font.PLAIN, 25));
         theme.setRegularFont(new Font("Agency FB",Font.PLAIN, 20));
 
+        //handles chart colours.
         theme.setAxisLabelPaint(ThemeHandler.getTheme().getPrimaryTextColor());
         theme.setChartBackgroundPaint(ThemeHandler.getTheme().getPrimaryColor());
         theme.setPlotBackgroundPaint(ThemeHandler.getTheme().getPrimaryHoverColor());
         theme.setRangeGridlinePaint(ThemeHandler.getTheme().getSecondaryColor());
         theme.setShadowVisible(true);
         
+        //applies chart.
         theme.apply(chart);
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Adds a chart to a panel."> 
+    /**
+     * Adds a chart to a panel.
+     * @param chart The chart to add on top.
+     * @param panel The background panel.
+     */
     public static void addChartToPanel(JFreeChart chart, JPanel panel) {
+        //creates new layout for the panel.
         panel.setLayout(new BorderLayout());
         panel.removeAll();
+        //adds chart to panel.
         panel.add(new ChartPanel(chart), BorderLayout.CENTER);
         panel.validate();
-    }//</editor-fold> 
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Generates random number."> 
+    /**
+     * Generates a random number.
+     * @param min Minimum possible number.
+     * @param max Maximum possible number.
+     * @return The random number.
+     */
     public static int randomInt(int min, int max) {
         return new Random().nextInt((max-min)+1)+min;
-    }//</editor-fold> 
+    }
 
 }

@@ -14,11 +14,11 @@ import economysimulation.classes.managers.events.EventManager;
 import economysimulation.classes.mode.Mode;
 
 /**
- *
  * @author Max Carter
  */
 public class Formula extends Component implements GamePulse, MoneySpent {
     
+    /** List of possible completion causations. */
     private static final String[] CAUSES_OF_COMPLETION = new String[]{
         "Standard of Living below 0%.",
         "Political Influence below 0%.",
@@ -27,27 +27,25 @@ public class Formula extends Component implements GamePulse, MoneySpent {
         "Corporation Support hit 0%."
     };
     
-    /**
-     * Creates new Formula class.
-     */
+    /** Creates new Formula class. */
     public Formula() {
         Budget.addMoneySpentListener(this);
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Recalculates real GDP."> 
+    /** Calculates the GDP of the economy. */
     public void calculateGDP() {
         GrossDomesticProduct = (TotalConsumption + Investment + Budget.getPublicSpendingTotal(false))*1000;
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Recalculates the annual budget."> 
+    /** Calculates the budget of the economy. */
     public void calculateBudget() {
         SpendingBudget+= Taxation;
         Taxation = 0;
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Uses the budget to adjust economic behaviour.">
     /** Uses the budget to adjust economic behaviour.*/
     private void calculateSpendingInfluence() {
+        //loops through the sectors and adjusts the spending influences.
         for (Sector sector : SectorInstance.SectorList) {
             if (sector.getSpendingInfluence() >= 0.1) {
                 sector.addSpendingInfluence(-0.1);
@@ -59,6 +57,7 @@ public class Formula extends Component implements GamePulse, MoneySpent {
             WageMultiplier *= sector.getWageInfluence() > 0 ? sector.getWageInfluence() : 1;
         }
         
+        //adjusts cost of production.
         CostOfProduction = (SectorInstance.Infrastructure.getSpendingInfluence() <= 0 ? 0.09 : -0.09) +
                 (SectorInstance.Science.getSpendingInfluence() <= 0 ? 0.05 : -0.05);
 
@@ -77,20 +76,23 @@ public class Formula extends Component implements GamePulse, MoneySpent {
             }
             index++;
         }
-    }//</editor-fold>
+    }
 
     @Override
     public void onGamePulseEvent() {
         WageMultiplier = 1;
         CostOfProduction = 0;
         
+        //ccalculates the political influence.
         PoliticalInflluence = ConsumerConfidence * CorporationConfidence * (100-Unemployment)/100;
         
+        //drops the political influence if the event is not paid off.
         if (EventManager.eventId < 7 && SectorInstance.SectorList[EventManager.eventId].getSpendingInfluence() <= 5) {
             EventManager.delay+=0.01;
             PoliticalInflluence-= EventManager.delay;
         }
         
+        //waits at least 14 in-game days before calculating anything.
         if (GameDisplay.Ticks > 14) calculateSpendingInfluence();
 
     }
@@ -98,6 +100,7 @@ public class Formula extends Component implements GamePulse, MoneySpent {
     @Override
     public void onMoneySpent(Sector sector, int money) {
         if (sector.equals(SectorInstance.Benefits)) {
+            //adds benefits payment to total consumption.
             TotalConsumption += money * (1-(TaxManager.getTaxRate(Tax.INCOME)));
         }
     }

@@ -6,15 +6,19 @@ import economysimulation.classes.economy.structure.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- *
  * @author Max Carter
  */
 public class Budget {
     
+    /** List of listeners. */
     private static List<MoneySpent> listeners = new ArrayList<>();
     
+    /**
+     * Adds an instance of {@code MoneySpent}
+     * to receive the event listener.
+     * @param listener 
+     */
     public static void addMoneySpentListener(MoneySpent listener) {
         listeners.add(listener);
     }
@@ -35,12 +39,13 @@ public class Budget {
     }
 
     /**
-    * @param includeTransfer Return result with transfer payments included (benefits)
-    * @return Sum of budget
+    * @param includeTransfer Return result with transfer payments included (benefits).
+    * @return Sum of the spending budget.
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0, index = 0;
         
+        //loop through the list and add each sector's spending to variable.
         for (Sector sector : SectorInstance.SectorList) {
             if (!(!includeTransfer && index == 7)) {
                 value+= sector.getSpending();
