@@ -13,21 +13,29 @@ import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.global.User;
 
 /**
- *
  * @author Max Carter
  */
 public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** ID of the game. */
     private int gameid;
+    
+    /** GamePackage of the score. */
     private GamePackage pkg;
     
+    /** Creates a new ScoreDisplay. */
     public ScoreDisplay() {
         initComponents();
     }
     
+    /**
+     * Formats the data which will be displayed.
+     * @param rank Rank of the game.
+     * @param pkg  Data about the game.
+     */
     public void setDisplayData(int rank, GamePackage pkg) {
-        
         this.pkg = pkg;
+        //if the package is not empty, load data.
         if (pkg != null) {
             this.gameid = pkg.getID();
             rankDisplay.setText("#" + rank);
@@ -40,23 +48,28 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
             playersDisplay.setText("<html>" + builder + "</html>");
             
         } else {
+            //present empty game data.
             this.gameid = -1;
             for (JLabel label : new JLabel[]{ rankDisplay, scoreDisplay, playersDisplay }) {
                 label.setText(" - ");
             }
         }
         
-        
+        //add theme manager to the score display data.
         applyButtonListener(this);
         Format.addButtonFormat(this, null);
         ThemeHandler.addThemeUpdateListener(this);
     }
     
+    /**
+     * Triggers the onScoreClickListener in the leaderboard display.
+     * @param panel Panel to add a listener to.
+     */
     private void applyButtonListener(JPanel panel) {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (pkg != null) Methods.LBDisplay.onScoreHoverListener(gameid, pkg);
+                if (pkg != null) Methods.LBDisplay.onScoreClickListener(gameid, pkg);
             }
         });
     }
@@ -130,7 +143,6 @@ public class ScoreDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;

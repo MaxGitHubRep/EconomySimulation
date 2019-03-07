@@ -22,16 +22,18 @@ import static economysimulation.classes.global.Methods.ThemeHandler;
 import economysimulation.classes.mode.Mode;
 
 /**
- *
  * @author Max Carter
  */
 public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** Standard decimal format. */
     private DecimalFormat f = new DecimalFormat("0");
     
+    //List of panels which control the buttons.
     private JPanel[] backPanels, colorPanels, opBackPanels, opColorPanels;
     private JLabel[] opTitles;
     
+    //String lists which format the ending variables.
     private final String[]
         ComponentList = new String[]{
             "GDP",
@@ -73,6 +75,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         initComponents();
         Methods.AnimationGraph = new StockGraph(animBack);
         
+        //format the buttons
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
         colorPanels = new JPanel[]{ color1, color2, color3, color4,  };
         
@@ -95,6 +98,7 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
+        //apply the theme listeners to all the buttons and components.
         updater.applyPanelThemes(new JPanel[]{ back, back1, back2, back3, back4,
             color1, color2, color3, color4, opCol1, opCol2, opCol3, opCol4, opCol5, opCol6, opCol7, opCol8, opCol9, opCol10, opCol11, opCol12,
             opBack1, opBack2, opBack3, opBack4, opBack5, opBack6, opBack7, opBack8, opBack9, opBack10, opBack11, opBack12, opBack13
@@ -104,6 +108,10 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         }, null);
     }
     
+    /**
+     * Displays a variable score on a specific button.
+     * @param id ID of the button.
+     */
     private void displayRelativeScore(int id) {
         opBackPanels[id].addMouseListener(new MouseAdapter() {
             @Override
@@ -118,10 +126,15 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         });
     }
     
+    /**
+     * Action that happens when a menu button is clicked.
+     * @param id ID of the button.
+     */
     private void applyButtonListener(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //switch case to determine which button was pressed.
                 switch (id) {
                     case 0:
                         optionMenu(true);
@@ -140,21 +153,28 @@ public class EndScreen extends javax.swing.JPanel implements ThemeUpdateEvent {
         });
     }
 
+    /**
+     * Sends the user to the main menu.
+     * @param replay If the user intends to replay the simulation.
+     */
     private void optionMenu(boolean replay) {
         Methods.SimulationInProgress = false;
         Methods.AnimationGraph.stop();
         ResetSimulation.resetSimulation();
         
+        //if the user is replaying the simulation, regenerate certain components.
         if (replay && !ModeHandler.isMode(Mode.MULTI_PLAYER)) {
             Methods.SectorInstance = new SectorManager();
             Methods.TaxRevenueDisplay = new TaxRevenueList();
             Methods.FrameDisplay.addToMainFrame(new PreSetup());
         } else {
+            //if they're not replaying, just make a new welcome menu.
             Methods.FrameDisplay.addToMainFrame(new WelcomePanel());
         }    
         
     }
     
+    /** Opens up the leaderboard on the animation panel. */
     private void optionOpenLeaderboards() {
         Methods.AnimationGraph.stop();
         if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();

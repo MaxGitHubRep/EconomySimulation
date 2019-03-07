@@ -9,14 +9,11 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class LoadingError extends javax.swing.JPanel implements ThemeUpdateEvent {
 
-    /**
-     * Creates new form LoadingError
-     */
+    /** Creates new form LoadingError. */
     public LoadingError(String message) {
         initComponents();
         errorMessage.setText(message);
@@ -149,9 +146,9 @@ public class LoadingError extends javax.swing.JPanel implements ThemeUpdateEvent
     }// </editor-fold>//GEN-END:initComponents
 
     private void reloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reloadMouseClicked
+        //reloads leaderboard data.
         LBDisplay.configLeaderboard();
     }//GEN-LAST:event_reloadMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;

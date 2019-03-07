@@ -105,16 +105,20 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     
     /** Handles the outcome of an invitation. */
     private void inviteOutcome(boolean join) {
-        //checks that the user is not in a party, and that there is a valid invite
+        //checks that the user is not in a party, and that there is a valid invite.
         if (inviteList.getList().isEmpty() || partyInviteList.isEmpty()) return;
         
+        //validates that the user is in a party.
         if (join && Methods.localPartyId == 0) {
             if (partyInviteList.get(0).accept()) {
+                //accepts party invite.
                 acceptedInvite = partyInviteList.get(0);
                 inviteList.clear();
                 inviteList.disable();
                 partyInviteList.clear();
             }
+        
+        //declines party invite.
         } else if (!join) {
             inviteList.removeItem(0);
             inviteList.updateList();
@@ -481,6 +485,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonStateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStateMouseClicked
+        //toggles whether the control panel is open or closed.
         if (buttonState.getText().equals("^")) {
             Methods.FindTeammate.openControlPanel();
         } else {
@@ -493,6 +498,7 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back2MouseClicked
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        //takes user back to main menu and removes them from lobby.
         Methods.removeRedundantUser(Methods.getUser());
         Methods.FrameDisplay.addToMainFrame(Methods.IntroPanel);
         Methods.IntroPanel.updateUser();
@@ -500,19 +506,23 @@ public class ControlPanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }//GEN-LAST:event_back1MouseClicked
 
     private void joinLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_joinLabelMouseClicked
+        //accept invite.
         inviteOutcome(true);
     }//GEN-LAST:event_joinLabelMouseClicked
 
     private void ignoreLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ignoreLabelMouseClicked
+        //decline invite.
         inviteOutcome(false);
     }//GEN-LAST:event_ignoreLabelMouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
-        if (partyInviteList.isEmpty()) {
+        //validates that a user is in a party.
+        if (acceptedInvite == null) {
             HintManager.createHint(Hints.NoPartyFound);
             return;
         }
         
+        //quits the party and undo's the party invite accept.
         acceptedInvite.undo();
         inviteList.enable();
         partyList.clear();

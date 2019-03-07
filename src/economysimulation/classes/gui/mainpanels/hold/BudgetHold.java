@@ -15,28 +15,43 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
- *
  * @author Max Carter
  */
 public class BudgetHold extends javax.swing.JPanel implements ItemSelected, MoneySpent {
 
+    //Chart data to display spending.
     private static PiePlot plot;
     private static JFreeChart pieChart;
 
+    /** Creates a new BudgetHold. */ 
+    public BudgetHold() {
+        initComponents();
+        Methods.addToFrontPanel(backRatesPanel, Methods.BudgetDisplay, false);
+        
+        SideBarDisplay.addItemSelectionListener(this);
+        Budget.addMoneySpentListener(this);
+    }
+
     @Override
     public void onMoneySpent(Sector sector, int money) {
+        //updates the spending graph when money is spent.
         displaySpendingGraph();
     }
 
     @Override
     public void onItemSelected(ItemSelected selected) {
+        //update spending graph when user enters the panel.
         if (selected == this) displaySpendingGraph();
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Applies colours to the pie chart sections.">
+    /**
+     * Applies colour them to the chart.
+     * @param chart Chart to add colours to.
+     */
     private void applyPieChartColour(JFreeChart chart) {
         plot = (PiePlot) chart.getPlot();
 
+        //list of colours.
         Color[] colourGuide = new Color[]{
                 new Color(204, 0, 0),
                 new Color(204, 0, 176),
@@ -48,12 +63,13 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
                 new Color(255, 128, 0)
         };
 
+        //apply colour to sector on graph.
         for (int i = 0; i < colourGuide.length; i++) {
             plot.setSectionPaint(BudgetList.titles[i], colourGuide[i]);
         }
-    }//</editor-fold> 
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Creates pie chart.">
+    /** Display the spending graph. */
     public void displaySpendingGraph() {
         DefaultPieDataset datasetPie = new DefaultPieDataset();
 
@@ -61,22 +77,13 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
             datasetPie.insertValue(i, BudgetList.titles[i], SectorInstance.SectorList[i].getSpending());
         }
 
+        //creates the pie chart.
         pieChart = ChartFactory.createPieChart3D("Total Budget Spending", datasetPie);
 
         Methods.applyChartTheme(pieChart);
         applyPieChartColour(pieChart);
         Methods.addChartToPanel(pieChart, graphPanel);
-
-    }//</editor-fold> 
-
-    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public BudgetHold() {
-        initComponents();
-        Methods.addToFrontPanel(backRatesPanel, Methods.BudgetDisplay, false);
-        
-        SideBarDisplay.addItemSelectionListener(this);
-        Budget.addMoneySpentListener(this);
-    }//</editor-fold> 
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -138,7 +145,6 @@ public class BudgetHold extends javax.swing.JPanel implements ItemSelected, Mone
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backRatesPanel;
     private static javax.swing.JPanel graphPanel;

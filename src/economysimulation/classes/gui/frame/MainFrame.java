@@ -15,13 +15,16 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
 
+    //Position of the frame relative to the screen.
     private static int PositionX, PositionY;
     
+    /**
+     * Creates a new MainFrame.
+     */
     public MainFrame() {
         initComponents();
         ThemeHandler.addThemeUpdateListener(this);
@@ -30,6 +33,10 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
         addToMainFrame(Methods.IntroPanel);
     }
 
+    /**
+     * Adds a panel to the main frame.
+     * @param panel Panel to add.
+     */
     public void addToMainFrame(JPanel panel) {
         back.removeAll();
         back.revalidate();
@@ -39,6 +46,10 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
         
     }
 
+    /**
+     * Allows a panel to drag the main frame across the screen.
+     * @param dragPanel Panel which can drag the frame.
+     */
     public static void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -50,6 +61,10 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
                 
         dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent me) {
+                /** Finds the Frame used and moves it across the screen.
+                 *  JFrame and Frame are not the same objects, and a JFrame
+                 *  doesn't support this which is why I need to loop through all the Frames.
+                 */ 
                 for (Frame frame : MainFrame.getFrames()) {
                     if (!frame.getTitle().contains("Hint"))
                     frame.setLocation(frame.getLocation().x + me.getX() - PositionX, frame.getLocation().y + me.getY() - PositionY);
@@ -103,9 +118,11 @@ public class MainFrame extends javax.swing.JFrame implements ThemeUpdateEvent {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Main method.
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                //initiates the main frame and theme manager.
                 ThemeHandler = new ThemeManager();
                 Methods.FrameDisplay = new MainFrame();
                 Methods.FrameDisplay.setVisible(true);

@@ -23,45 +23,54 @@ import economysimulation.classes.global.User;
 import economysimulation.classes.managers.extcon.multiplayer.MultiplayerComponentUpdate;
 
 /**
- *
  * @author Max Carter
  */
 public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent, MultiplayerComponentUpdate {
 
+    /** List of previous GDPs recorded. */
     public ArrayList<Double> HistoryGDP = new ArrayList<>();
     
+    /** List of Tax Breaks, the first index
+     * is corporation, the second is income tax.
+     */
     public boolean[] TaxBreak = new boolean[]{ false, false };
     
+    /** ProgressBar which displays certain variables on the side bar.. */
     private CircleProgressBar ProgressBar;
     
-    public static double[]
-            Percents = new double[3];
+    /** Percentages of the progress bars. */
+    public static double[] Percents = new double[3];
     
+    /** ProgressBar thread. */
     private Thread CBPThread;
     
+    //Decimal formats for certain variables.
     private final DecimalFormat
             m = new DecimalFormat("0"),
             f = new DecimalFormat("#00"),
             fYear = new DecimalFormat("#0000");
     
+    //Handles the timing of the economy.
     private final int[]
             MONTH_SIZES = new int[]{ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 },
             TimeTrack = new int[]{ 0, 1, 1 };
     
-    public final int
-            SPEED_MID_POINT = 100;
+    /** The default simulation speed. */
+    public final int SPEED_MID_POINT = 100;
+    
+    //Variables which control the simulation speed, and tick counters.
     public int
             TicksPerQuarter = 0,
             Speed,
             Ticks = 0;
 
+    /** List of progress bar variables. */
     public final String[] TITLES = new String[]{
         "Standard of Living",
         "Political Influence",
         "Consumption Rate"
     };
     
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
     /**'
      * Creates new game set up.
      */
@@ -80,6 +89,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         }
         onSliderChange(time);
         
+        //initiate side bars and formats buttons.
         Methods.SideBarDisplay = new SideBar();
         Methods.addToFrontPanel(sideBarBack, Methods.SideBarDisplay, false);
         Methods.SideBarDisplay.addPanelButtons();
@@ -109,7 +119,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
             label.setVisible(ModeHandler.isMode(Mode.MULTI_PLAYER));
         }
         mpSeperator.setVisible(ModeHandler.isMode(Mode.MULTI_PLAYER));
-    }//</editor-fold>
+    }
     
     /**
      * Adds the circle progress bar to the right side bar.
@@ -131,6 +141,7 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         updateTime();
         updateSpeed();
         
+        //if a variable changes, update the progress bar.
         int index = 0;
         for (double percent : new double[]{ Component.StandardOfLiving, Component.PoliticalInflluence, Component.PropensityToConsume }) {
             if (percent != Percents[index]) updateProgressBar(percent, index);
@@ -144,11 +155,11 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         if (ModeHandler.isMode(Mode.SINGLE_PLAYER) && Ticks % 110 == 0) {
             EventManager.createEvent();
         }
-        
     }
     
     @Override
     public void onComponentUpdate(String componentName, double value, User user) {
+        //display and changes made by other users in multiplayer.
         mpComponent.setText(componentName);
         mpUser.setText(user == null ? "<Error>" : user.getFullName());
         mpValue.setText(value + "");
@@ -161,16 +172,19 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
      * @param id         Index of the percent array.
      */
     private synchronized void updateProgressBar(double newPercent, int id) {
+        //if memory saver is on, change the progress bar straight away.
         if (Methods.MemorySaver) {
             Percents[id] = newPercent;
             repaint();
             return;
         }
         
+        //animates the progress bar changing.
         boolean increase = newPercent > Percents[id];
         CBPThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                //creates a smooth change in the progress bar instead of it being jumpy.
                 for (double i = Percents[id]; increase ? i < newPercent : i > newPercent; i = i + (increase ? 0.01 : - 0.01)) {
                     Percents[id] = i;
                     repaint();
@@ -188,13 +202,13 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         System.gc();
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Updates GDP label and quarterly components."> 
+    /** Updates the real GDP display. */
     private void updateRealGDPLabel() {
         FormulaInstance.calculateGDP();
         labelGDP.setText("£" + m.format(Component.GrossDomesticProduct) + "m");
-    }//</editor-fold>
+    }
  
-    //<editor-fold defaultstate="collapsed" desc="Calculate timer speed."> 
+    /** Updates the speed display. */
     private void updateSpeed() {
         int speed = time.getValue();
         
@@ -205,33 +219,38 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
         } else if (speed < SPEED_MID_POINT) {
             Speed = 1000 + ((100 - speed) * 10);
         }
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Calculate display time."> 
+    /** Update the time display. */
     private void updateTime() {
         TimeTrack[0]++;
 
+        //if a week has passed, change the GDP history graph.
         if (Ticks % 7 == 0) HistoryGDP.add(Component.GrossDomesticProduct);
         if (Ticks > 8) Methods.OverivewDisplay.displayGDPGraph();
         
+        //If a month has passed, set the day to 1.
         if (TimeTrack[0] == MONTH_SIZES[TimeTrack[1]-1]+1) {
             TimeTrack[0] = 1;
             TimeTrack[1]++;
             Component.TotalSavings *=  1 + (Component.InterestRate/100);
+            //if a year has passed, set the month to 1.
             if (TimeTrack[1] == 12) {
                 TimeTrack[1] = 1;
                 TimeTrack[2]++;
             }
         }
 
+        //update the date format.
         try {
             titleTime.setText(f.format(TimeTrack[0]) + "/" + f.format(TimeTrack[1]) + "/" + fYear.format(TimeTrack[2]));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         
-    }//</editor-fold>
+    }
     
+    /** Updates the slider value output. */
     private void onSliderChange(JSlider slider) {
         titleSpeed.setText(String.format("Speed: %s", slider.getValue()) + "%");
     }
@@ -635,7 +654,6 @@ public class GameHold extends javax.swing.JPanel implements GamePulse, ThemeUpda
                 .addComponent(backadd, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel backadd;

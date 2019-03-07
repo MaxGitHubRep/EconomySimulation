@@ -1,19 +1,20 @@
 package economysimulation.classes.gui.mainpanels.hold;
 
 import economysimulation.classes.global.Methods;
+
 /**
- *
  * @author Max Carter
  */
 public class RateHold extends javax.swing.JPanel {
 
-    //<editor-fold defaultstate="collapsed" desc="Constructor."> 
+    /** Creates a new RateHold display. */
     public RateHold() {
         initComponents();
+        
+        //adds tax panels to the top.
         Methods.addToFrontPanel(backPanelGov, Methods.RateDisplay, false);
         Methods.addToFrontPanel(taxResultPanel, Methods.TaxRevenueDisplay, false);
-        
-    }//</editor-fold>
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -69,7 +70,6 @@ public class RateHold extends javax.swing.JPanel {
                 .addComponent(taxResultPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backPanelGov;

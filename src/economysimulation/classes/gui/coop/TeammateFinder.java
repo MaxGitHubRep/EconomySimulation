@@ -15,16 +15,23 @@ import javax.swing.JPanel;
  */
 public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** Instance of the teammate controller. */
     private ControlPanel teammateController = null;
     
+    //Variables that define how the control panel moves.
     public final int HEIGHT = 600, SPEED = 1;
     public int START = 0, plus = 0;
     
+    /** Whether or not the user is ready (locally). */
     private volatile boolean ready = false;
     
+    /** The animation thread for moving the control panel. */
     private Thread animationThread;
     
+    /** List of user's names in the lobby. */
     private List<String> userDummys;
+    
+    /** List of UserHold's in the lobby. */
     private List<UserHold> holds;
     
     /** Creates new form TeammateFinder */
@@ -32,6 +39,7 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         initComponents();
         START = 870;
         
+        //initialize the teammate finder lobby mechanics.
         userDummys = new ArrayList<>();
         holds = new ArrayList<>();
         teammateController = new ControlPanel(this);
@@ -39,20 +47,21 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
         
         Methods.LobbyHandler.addCoopUser(Methods.getUser().getID());
         
-        Methods.LobbyHandler.startLoop();
-        
+        //adds the control panel to the top.
         add(teammateController);
         teammateController.setSize(1800, 600);
         teammateController.setLocation(0, START);
         
+        //starts pulling data from the database.
         Methods.LobbyHandler.startLoop();
-        
     }
     
     /** Displays all users that are not in a party */
     public void onLobbyUpdateEvent() {
+        //gets all the users in the lobby who aren't in a party.
         List<User> freshLonelyUsers = Methods.LobbyHandler.getUsersNotInParty(), toAddList = new ArrayList<>();
         for (User user : freshLonelyUsers) {
+            //adds a user to the local user pool if they're not already in it.
             if (user.getID() != Methods.getUser().getID() && !userDummys.contains(user.getFullName())) toAddList.add(user);
         }
         addUsersToLobby(toAddList);
@@ -63,18 +72,23 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
      * @param users List of users.
      */
     private void addUsersToLobby(List<User> users) {
+        //loops through the new user's and adds them to the lobby pool.
         for (User user : users) {
             userDummys.add(user.getFullName());
             UserHold hold = new UserHold(user);
             add(hold);
             holds.add(hold);
+            //defines the random location of the user in the pool.
             hold.setLocation(Methods.randomInt(
                 0, getWidth()-hold.getWidth()),
                 Methods.randomInt(0, getHeight()-hold.getHeight()-200)
             );
         }
     }
-    
+    /**
+     * Removes a local UserHold from the lobby pool.
+     * @param userHold UserHold to remove.
+     */
     public void destroyUserHold(UserHold userHold) {
         userDummys.remove(userHold.getUser().getFullName());
     }
@@ -168,7 +182,6 @@ public class TeammateFinder extends javax.swing.JPanel implements ThemeUpdateEve
             .addGap(0, 900, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

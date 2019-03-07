@@ -20,27 +20,35 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max
  */
 public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** List of listeners for the item selection event. */
     private List<ItemSelected> listeners;
     
+    /** Currently selected option. 999 is default (nothing selected). */
     private int selectedOption = 999;
+    
+    //List of whether a panel has been loaded yet, or in a pop up frame.
     public boolean[]
             loaded,
             framed;
     
-    private final int dragPanels = 5;  
+    //Up to which index of panels can be inflated.
+    private final int dragPanels = 5;
+    
+    /** List of potential pop up frames. */
     public PopUpFrame[] frames;
     
+    //List of components which control the buttons.
     public JPanel[]
             backPanels,
             colorPanels,
             opPanels;
-    
     public JLabel[] titles;
+    
+    /** Descriptions of all the sidebar buttons. */
     public String[] descriptions = new String[]{
         "Change the tax rates for consumers and firms, and change interest rates.<br>You can also check out the economic quarterly growth pattern",
         "Change how much you want to spend on different sectors,<br>and check it out on a pie chart",
@@ -51,20 +59,52 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
     
     };
 
+    
+    /** Creates a new side bar. */
+    public SideBar() {
+        initComponents();
+        //defines all the button lists.
+        titles = new JLabel[]{
+            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences
+        };
+        backPanels = new JPanel[]{
+            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7
+        };
+        colorPanels = new JPanel[]{
+            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
+        };
+
+        listeners = new ArrayList<>();
+        
+        ThemeHandler.addThemeUpdateListener(this);
+    }
+    
+    /**
+     * Selects a specific button.
+     * @param backPanel Button pressed on.
+     * @param title Sets the simulation title to this.
+     * @param description Sets the simulation description to this.
+     */
     public void selectOption(JPanel backPanel, JLabel title, String description) {
         Methods.addToFrontPanel(GameDisplay.backadd, backPanel, false);
         GameDisplay.title.setText("Currently Showing: " + title.getText());
         GameDisplay.description.setText("<html>" + description + ". </html>");
+        
+        //alerts all the listeners for the change.
         listeners.forEach((listener) -> {
             listener.onItemSelected(listener);
         });
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
+    /**
+     * Adds a format to the button.
+     * @param id Index of the button in a list.
+     */
     public void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //if the panel is open in a pop-up frame, deflate the pop-up.
                 if (id < dragPanels) {
                     if (!loaded[id]) loaded[id] = true;
                     
@@ -86,6 +126,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         backPanels[id].addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                //if the user drags a button, it will open in a new tab.
                 if (!framed[id] && selectedOption != id && loaded[id]) {
                     
                     framed[id] = true;
@@ -98,7 +139,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
                 }
             }
         });
-    }//</editor-fold>
+    }
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
@@ -106,10 +147,15 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
         updater.applyTextThemes(titles, null);
     }
 
+    /**
+     * Adds a listener to the list of item selected listeners.
+     * @param listener Instance of listener.
+     */
     public void addItemSelectionListener(ItemSelected listener) {
         listeners.add(listener);
     }
     
+    /** Formats all the navigation buttons. */
     public void addPanelButtons() {
         Methods.RatesBack = new RateHold();
         Methods.BudgetBack = new BudgetHold();
@@ -125,6 +171,7 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             Methods.SettingsDisplay
         };
         
+        //initiates the pop-up frames, ready for use.
         loaded = new boolean[titles.length];
         
         frames = new PopUpFrame[dragPanels];
@@ -133,31 +180,13 @@ public class SideBar extends javax.swing.JPanel implements ThemeUpdateEvent {
             framed[i] = false;
         }
         
+        //adds the button format for each button.
         for (int i = 0; i < opPanels.length; i++) {
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
             addButtonFormat(i);
         }
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Constructor.">   
-    public SideBar() {
-        initComponents();
-        
-        titles = new JLabel[]{
-            titleGov, titleBudget, titleCorp, titleCons, titleOverview, titlePreferences
-        };
-        backPanels = new JPanel[]{
-            backPanel1, backPanel2, backPanel3, backPanel4, backPanel6, backPanel7
-        };
-        colorPanels = new JPanel[]{
-            colorPanel1, colorPanel2, colorPanel3, colorPanel4, colorPanel6, colorPanel7
-        };
-
-        listeners = new ArrayList<>();
-        
-        ThemeHandler.addThemeUpdateListener(this);
-    }//</editor-fold>
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

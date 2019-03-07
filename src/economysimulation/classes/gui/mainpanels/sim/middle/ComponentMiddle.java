@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class ComponentMiddle extends JPanel {
@@ -23,8 +22,6 @@ public class ComponentMiddle extends JPanel {
         super.setSize(450, 450);
         this.title = title;
         this.consumer = consumer;
-        
-        
     }
     
     public void addHoverEvent(JPanel panel, int id) {
@@ -59,7 +56,6 @@ public class ComponentMiddle extends JPanel {
         
         g.setFont(new Font("Agency FB", Font.PLAIN, 40));
         g.drawString("Support: " + new DecimalFormat("0").format((consumer ? Component.ConsumerConfidence : Component.CorporationConfidence) * 100) + "%", 130, 270);
-        
     }
     
 }

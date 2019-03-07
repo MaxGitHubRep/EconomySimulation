@@ -11,37 +11,42 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import static economysimulation.classes.global.Methods.ThemeHandler;
-import java.awt.event.ItemEvent;
 
 /**
- *
  * @author Max Carter
  */
 public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** List of text which defines whether the changes are saved or not. */
     private final String[] States = new String[]{ "Save Changes", "Changes Saved" };
     
+    //Variables that control which option is picked.
     public int oldIndex = 0, selectedOption = 0;
     
+    //label and button lists.
     private JLabel[] stateLabels;
     private JPanel[] backPanels, settingBack, settingColor;
     
     private JRadioButton[] buttons;
     
+    /** The semi-circle that sits in the middle of the theme. */
     private ThemeMiddle middle;
     
     public Settings() {
         initComponents();
         
+        //adds memory saver description.
         memSaverOption.setSelected(Methods.MemorySaver);
         memSaverDesc.setText("<html>The memory saver option will remove all animations."
                 + "Certain things will not look as nice but it will help performance.</html>");
         
+        //adds the custom theme middle to the panel.
         middle = new ThemeMiddle();
         middle.setSize(360, 180);
         mid.add(middle);
         repaint();
         
+        //formats the buttons and labels.
         settingColor = new JPanel[]{ color1, color2, color3, color4 };
         settingBack = new JPanel[]{ back6, back7, back8, back9 };
         
@@ -70,6 +75,10 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         ThemeHandler.addThemeUpdateListener(this);
     }
     
+    /**
+     * Changes the position of a pop-up.
+     * @param id Index of button is list.
+     */
     private void optionPositionEvent(int id) {
         settingBack[id].addMouseListener(new MouseAdapter() {
             @Override
@@ -82,7 +91,12 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
         });
     }
     
+    /**
+     * Adds hover listeners to a label.
+     * @param id Index of label in list.
+     */
     private void addEventListener(int id) {
+        //adds listeners for mouse enter and exit.
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseEntered(MouseEvent e) {
@@ -98,6 +112,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
             
             @Override
             public void mouseClicked(MouseEvent e) {
+                //load new theme when clicked.
                 if (stateLabels[id].getText().equals("Unselected")){
                     ThemeHandler.setTheme(ThemeHandler.Themes[id]);
                     stateLabels[id].setText("Selected");
@@ -824,6 +839,7 @@ public class Settings extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked
+        //If an option is not saved, it will save the new position of the specific pop-ip frame.
         int option = Integer.parseInt(buttonGroup.getSelection().getActionCommand());
         if (saveChanges.getText().equals(States[0]) && FramePosition.getPositionFromId(selectedOption) != option) {
             saveChanges.setText(States[1]);

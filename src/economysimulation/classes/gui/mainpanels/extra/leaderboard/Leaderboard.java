@@ -313,6 +313,15 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         private JLabel label, secondary;
         private int id;
         
+        /**
+         * Creates new GameData.
+         * @param title     Title of the game data.
+         * @param back      Panel to use.
+         * @param label     Label to use.
+         * @param format    Pattern format of variable.
+         * @param id        Index of the game data.
+         * @param secondary If it uses a secondary label.
+         */
         GameData(String title, JPanel back, JLabel label, String format, int id, JLabel secondary) {
             this.title = title;
             this.format = format;
@@ -322,30 +331,58 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             this.secondary = secondary;
         }
         
+        /**
+         * Gets the title of the game data.
+         * @return Title of the game data.
+         */
         public String getTitle() {
             return title;
         }
         
+        /**
+         * Gets the format of the game type.
+         * @return Format of the game type.
+         */
         public String getFormat() {
             return format;
         }
         
+        /**
+         * Gets the back panel of the game type.
+         * @return Panel of the game type.
+         */
         public JPanel getPanel() {
             return back;
         }
         
+        /**
+         * Gets the label of the game type.
+         * @return Label of the game type.
+         */
         public JLabel getLabel() {
             return label;
         }
         
+        /**
+         * Whether the game type uses a secondary label.
+         * @return Returns true if the game type uses a secondary label.
+         */
         public boolean usesSecondaryLabel() {
             return secondary != null;
         }
         
+        /**
+         * Gets the secondary label of the game type.
+         * @return Secondary label of the game type.
+         */
         public JLabel getSecondaryLabel() {
             return secondary;
         }   
         
+        /**
+         * Gets the index of the game type.
+         * @return Index of the game type.
+         */
         public int getIndex() {
             return id;
         }
@@ -360,11 +397,13 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
         data.getPanel().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                //if nothing is loaded, set default text to N/A
                 if (selectedPackage == null) {
                     data.getLabel().setText("N/A");
                     return;
                 }
                 
+                //load data onto side bar.
                 JLabel label = null;
                 if (data.usesSecondaryLabel()) {
                     label = data.getSecondaryLabel();
@@ -418,7 +457,7 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
      * @param gameId Index of the game in the game package list.
      * @param pkg    The actual game package with the information in.
      */
-    public void onScoreHoverListener(int gameId, GamePackage pkg) {
+    public void onScoreClickListener(int gameId, GamePackage pkg) {
         selectedPackage = pkg;
         for (GameData data : dataList) {
             updateDisplayInfo(data);
@@ -459,10 +498,18 @@ public class Leaderboard extends javax.swing.JPanel implements ThemeUpdateEvent 
             initComponents();
         }
 
+        /**
+         * Gets the ranking of the score.
+         * @return Rank of score.
+         */
         public int getRank() {
             return this.rank;
         }
 
+        /**
+         * Gets the GamePackage of the score.
+         * @return GamePackage of the score.
+         */
         public GamePackage getGamePackage() {
             return this.pkg;
         }

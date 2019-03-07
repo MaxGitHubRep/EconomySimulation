@@ -11,21 +11,24 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 /**
- *
  * @author Max Carter
  */
 public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** List of components to sort by. */
     private SearchComponent[] searchComponents = null;
     
+    /** Selected index of the component list. */
     private int selectedComponentIndex = 0;
+    
+    /** Selected search component. */
     private SearchComponent selectedSearchComponent = null;
     
-    /**
-     * Creates new form SortPopUp
-     */
+    /** Creates new form SortPopUp. */
     public SortPopUp() {
         initComponents();
+        
+        //defines the search components.
         searchComponents = new SearchComponent[] {
             SearchComponent.GDP,
             SearchComponent.TICKS,
@@ -40,6 +43,7 @@ public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
             SearchComponent.FIRM_SUPPORT
         };
         
+        //formats the buttons.
         Methods.ThemeHandler.addThemeUpdateListener(this);
         Format.addButtonFormat(back1, col1);
         Format.addButtonFormat(back2, col2);
@@ -47,30 +51,46 @@ public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
         setComponentSelected(0);
     }
 
+    /**
+     * Moves the scroller either forward or backwards.
+     * @param forward When set to true, the scroller moves forward.
+     */
     private void componentMove(boolean forward) {
         if (forward) {
+            //traverses through list index.
             if (selectedComponentIndex == searchComponents.length-1) {
                 selectedComponentIndex = 0;
             } else {
                 selectedComponentIndex ++;
             }
         } else {
+            //traverses backwards through list.
             if (selectedComponentIndex == 0) {
                 selectedComponentIndex = 10;
             } else {
                 selectedComponentIndex--;
             }
         }
+        //update the component.
         setComponentSelected(selectedComponentIndex);
     }
     
+    /**
+     * Set the component selected.
+     * @param index Index of component.
+     */
     private void setComponentSelected(int index) {
         selectedSearchComponent = searchComponents[index];
         component.setText(selectedSearchComponent.getName());
     }
     
+    /**
+     * Closes the sort pop up.
+     * @param update Whether or not the close should trigger an update.
+     */
     private void close(boolean update) {
         if (update) {
+            //updates the custom sort.
             Methods.LBDisplay.onSortCustomClose(state1.isSelected() ? SearchCondition.HIGH_TO_LOW : SearchCondition.LOW_TO_HIGH,
                 selectedSearchComponent);
         } else {
@@ -302,21 +322,24 @@ public class SortPopUp extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void arrow1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrow1MouseClicked
+        //moves list forward.
         componentMove(true);
     }//GEN-LAST:event_arrow1MouseClicked
 
     private void arrow2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrow2MouseClicked
+        //moves list backwards.
         componentMove(false);
     }//GEN-LAST:event_arrow2MouseClicked
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        //closes with update.
         close(true);
     }//GEN-LAST:event_back1MouseClicked
 
     private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
+        //closes without update.
         close(false);
     }//GEN-LAST:event_back2MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrow1;

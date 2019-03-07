@@ -19,18 +19,20 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 /**
- *
  * @author Max Carter
  */
 public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, ItemSelected {
 
+    //Lists of buttons and labels.
     private JPanel[] backPanels, colorPanels;
     private JLabel[] titles;
     private String[] hoverText;
     
+    /** Creates new Overview. */
     public Overview() {
         initComponents();
         
+        //formats the buttons and labels.
         backPanels = new JPanel[]{ back1, back2, back3, back4 };
         colorPanels = new JPanel[]{ color3, color4, color1, color2 };
         
@@ -42,17 +44,23 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
             if (i < hoverText.length-2) addHoverEvent(i);
         }
         
+        //becomes a listener for the item selection listener.
         SideBarDisplay.addItemSelectionListener(this);
     }
     
+    /** Displays a graph of the GDP. */
     public void displayGDPGraph() {
         XYSeriesCollection dataset = new XYSeriesCollection();
         XYSeries series = new XYSeries("GDP");
+        
+        //adds data to the graph set.
         if (GameDisplay.HistoryGDP.size() > 0) {
             for (int i = 0; i < GameDisplay.HistoryGDP.size(); i++) {
                 series.add(i, GameDisplay.HistoryGDP.get(i)/1000);
             }
         }
+        
+        //creates the chart.
         dataset.addSeries(series);
         JFreeChart chart = ChartFactory.createXYLineChart("GDP History", "Week", "GDP (Billions)", dataset);
         Methods.applyChartTheme(chart);
@@ -60,6 +68,10 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
         repaint();
     }
     
+    /**
+     * Adds a hover event to a button.
+     * @param id Index of button in list.
+     */
     private void addHoverEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
@@ -76,6 +88,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
 
     @Override
     public void onItemSelected(ItemSelected listener) {
+        //update the graph when the user enters the overview panel.
         if (listener == this) displayGDPGraph();
     }
 
@@ -341,6 +354,7 @@ public class Overview extends javax.swing.JPanel implements ThemeUpdateEvent, It
     }//GEN-LAST:event_back4MouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
+        //force ends the simulation if the user quits.
         Completed.simulationCompleted("Declared Bankruptcy!");
     }//GEN-LAST:event_back3MouseClicked
 
