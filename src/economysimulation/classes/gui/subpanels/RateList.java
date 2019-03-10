@@ -23,16 +23,23 @@ import economysimulation.classes.mode.Mode;
  */
 public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** The multiplayer component updater. */
     private VariableUpdater variableUpdater = null;
     
+    /** Selected rate. */
     public int selectedType = 0;
     
+    //variables for the buttons.
     private JPanel[]
             backPanels,
             colorPanels;
     private JLabel[] arrowLabels;
     private final String[] titles = new String[]{ "Interest Rates", "Corporation Tax", "Income Tax" };
     
+    /**
+     * Displays information about a certain rate.
+     * @param id Index of the rate.
+     */
     private void applySelectedType(int id) {
         selectedType = id;
         title.setText(titles[id]);
@@ -51,42 +58,42 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
                 newValue = Component.IncomeTax;
                 break;
         }
+        
         slider.setValue((int) newValue * 10);
         updatePercent();
-        
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Formats the button to open different jPanel."> 
+    /**
+     * Formats the button to update the information displayed when clicked.
+     * @param id 
+     */
     public void addButtonFormat(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 applySelectedType(id);
                 
+                //update the red arrow on the side of the selected button.
                 for (int i = 0; i < colorPanels.length; i++) {
-                    if (i == id) {
-                        arrowLabels[i].setIcon(new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow40.png")));
-                    } else {
-                        arrowLabels[i].setIcon(null);
-                    }
+                    arrowLabels[i].setIcon(i == id ? new javax.swing.ImageIcon(getClass().getResource("/economysimulation/resources/misc/arrow40.png")) : null);
                 }
-                
             }
-            
         });
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Formats the save changes button."> 
-    public void addSaveChangesFormat(JPanel picPanel, JPanel backPanel) {
+    /**
+     * When a user saves the changes made via the slider.
+     * @param backPanel The button to add the click listener to.
+     */
+    public void addSaveChangesFormat(JPanel backPanel) {
         backPanel.addMouseListener(new MouseAdapter() {
-            
             @Override
             public void mouseClicked(MouseEvent e) {
                 int newValue = slider.getValue() / 10;
                 
                 StorageComponent component = null;
         
+                //identify the component changed.
                 switch (selectedType) {
                     case 0:
                         Component.InterestRate = newValue;
@@ -108,14 +115,18 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
                     variableUpdater.onLocalComponentUpdateEvent(component, newValue);
 
                 saveChanges.setText("Changes Saved");
-                if (newValue > 90) HintManager.createHint(selectedType == 0 ? Hints.InterestRatesTooHigh : Hints.TaxesTooHigh);
                 
+                //display error if the new rate is higher than 90%.
+                if (newValue > 90) HintManager.createHint(selectedType == 0 ? Hints.InterestRatesTooHigh : Hints.TaxesTooHigh);
             }
             
         });
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Slider Event">   
+    /**
+     * Adds a listener for the slider to update the percentagge when the slider is moved.
+     * @param slider Slider to add the listener to.
+     */
     private void addSliderListener(JSlider slider) { 
         slider.addChangeListener(new ChangeListener() {
             @Override
@@ -125,8 +136,9 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
             }
         });
         
-    }//</editor-fold> 
+    }
     
+    //** Updates the percentage of the component. */
     private static void updatePercent() {
         percent.setText((double) slider.getValue() / 10 + "%");
     }
@@ -137,15 +149,22 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
         updater.applyTextThemes(new JLabel[]{ min, max, title1, title2, title3, title, percent, saveChanges }, null);
     }
 
+    /**
+     * Creates a new RateList.
+     * @param variableUpdater The instance of the multiplayer component updater.
+     */
     public RateList(VariableUpdater variableUpdater) {
         initComponents();
-        this.variableUpdater = variableUpdater;
         
+        //sets the variable updater if is not set to null.
+        if (variableUpdater != null) this.variableUpdater = variableUpdater;
+        
+        //formats the buttons and labels.
         backPanels = new JPanel[]{ panel1, panel2, panel3 };
         colorPanels = new JPanel[]{ color1, color2, color3 };
         arrowLabels = new JLabel[]{ arrow1, arrow2, arrow3 };
         
-        addSaveChangesFormat(panelPic, saveChangesPanel);
+        addSaveChangesFormat(saveChangesPanel);
         addSliderListener(slider);
         
         
@@ -155,7 +174,10 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
         }
         Format.addButtonFormat(saveChangesPanel, panelPic);
         
+        //sets the theme.
         Methods.ThemeHandler.addThemeUpdateListener(this);
+        
+        //sets the default selected rate to index:0.
         applySelectedType(0);
     }
 
@@ -466,7 +488,6 @@ public class RateList extends javax.swing.JPanel implements ThemeUpdateEvent {
                         .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrow1;

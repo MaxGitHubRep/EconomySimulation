@@ -12,11 +12,11 @@ import javax.swing.SwingConstants;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** List of descriptions for each picture. */
     protected String[] descriptions = new String[]{
         "You can change the tax rates before the simulation starts by moving the slider and then clicking the 'Spend Money' button.<br>You need to gain tax revenue to finance spending, high interest rates will make consumers have more money from savings",
         "You can also change the budget spending before the simulation by moving the slider and then clicking the 'Spend Money'<br>button. Different sectors will boost the economy in different ways when you spend money on them",
@@ -29,22 +29,24 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         "If you don't spend money on a certain sector you might experience an 'Event'<br>which will keep dropping the political influence until you spend money on it"
     };
     
+    //Slideshow index variables.
     protected int selectedImage = 0,
             images = 9;
     
+    /** Instance of the ImageIndexer. */
     private ImageIndexer indexer;
     
-    /**
-     * Creates new form Tutorial
-     */
+    /** Creates new form Tutorial. */
     public Tutorial() {
         initComponents();
         picDesc.setText(String.format("<html>%s.</html>", descriptions[0]));
         
+        //indexes the images on display.
         indexer = new ImageIndexer();
         imageIndexPanel.add(indexer);
         indexer.setSize(342, 70);
         
+        //sets up theme.
         ThemeHandler.addThemeUpdateListener(this);
     }
 
@@ -56,11 +58,15 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
 
     private class ImageIndexer extends JPanel implements ThemeUpdateEvent {
 
+        //Dimensions of the indexer.
         private final int Height = 70, Width = 342;
         
+        /** List of clickable index circles. */
         private JLabel[] labels;
         
+        /** Creates a new ImageIndexer. */
         public ImageIndexer() {
+            //formats the clickable index.
             labels = new JLabel[images];
             super.setOpaque(false);
             super.setSize(Width, Height);
@@ -68,10 +74,12 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             ThemeHandler.addThemeUpdateListener(this);
         }
         
+        /** Displays all the circle indexes. */
         private void initImages() {
             int width = (int) Math.floor(Width/images);
             for (int i = 0; i < images; i++) {
                 labels[i] = new JLabel("   " + (i == selectedImage ? "_" : "O") + "   ");
+                //adds each label to the main panel
                 this.add(labels[i]);
                 labels[i].setSize(width, Height);
                 labels[i].setLocation(i * width, 0);
@@ -84,8 +92,13 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
         
         class MouseEventClick extends MouseAdapter {
             
+            /** Index of the circle. */
             int index;
             
+            /**
+             * Creates a new listener for when a circle index is clicked.
+             * @param index 
+             */
             public MouseEventClick(int index) {
                 this.index = index;
             }
@@ -96,10 +109,16 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
             }
         }
         
+        /**
+         * Sets the image on display to the one at the specified index.
+         * @param index Index of the image to display.
+         */
         private void setSelectedImage(int index) {
             labels[selectedImage].setText("   O   ");
             selectedImage = index;
             labels[selectedImage].setText("   _   ");
+            
+            //updates the image icon.
             picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/tutorialimages/image" + (selectedImage+1) + ".jpg")));
             picDesc.setText(String.format("<html>%s.</html>", descriptions[index]));
         }
@@ -228,6 +247,7 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void arrowRightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrowRightMouseClicked
+        //moves the selected index along right.
         if (selectedImage+1 == images) {
             indexer.setSelectedImage(0);
         } else {
@@ -236,13 +256,13 @@ public class Tutorial extends javax.swing.JPanel implements ThemeUpdateEvent {
     }//GEN-LAST:event_arrowRightMouseClicked
 
     private void arrowLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arrowLeftMouseClicked
+        //moves the selected index along left.
         if (selectedImage == 0) {
             indexer.setSelectedImage(images-1);
         } else {
             indexer.setSelectedImage(selectedImage-1);
         }
     }//GEN-LAST:event_arrowLeftMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel arrowLeft;

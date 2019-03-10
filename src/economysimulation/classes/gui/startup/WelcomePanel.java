@@ -33,7 +33,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
- *
  * @author Max Carter
  */
 public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent {
@@ -67,6 +66,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     public WelcomePanel() {
         initComponents();
         
+        //sets up the buttons and labels.
         backPanels = new JPanel[]{ back1, back2, back3, back4, back5, back6 };
         colorPanels = new JPanel[]{ co1, co2, co3, co4, co5, co6 };
         titleLabels = new JLabel[]{ title1, title2, title3, title4, connectionState, leave };
@@ -79,16 +79,24 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             Format.addButtonFormat(backPanels[i], colorPanels[i]);
         }
         
+        //setst he default mode to unselected.
         ModeHandler = new ModeManager(Mode.UNSELECTED);
         
+        //prepares simulation for user.
         Methods.resetCurrentUserData();
         Format.addGhostText(enterUsername, USERNAME_GHOST_TEXT);
         addUsernameUpdateListener(enterUsername);
         updateUser();
         
+        /**
+         * creates a hidden radio button which prioritises the
+         * focus so the username text field ghost text is
+         * not hidden automatically.
+         */
         JRadioButton btn = new JRadioButton("removes automatic text box focus");
         sideBarLeft.add(btn);
         
+        //sets up theme and adds the animation graph.
         ThemeHandler.addThemeUpdateListener(this);
         Methods.addDraggablePanel(new JPanel[]{ animBack, sideBarLeft });
         Methods.AnimationGraph = new StockGraph(animBack);
@@ -132,6 +140,7 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
             Connection.isConnected = true;
         } catch (SQLException ex) {
             HintManager.createHint(Hints.NotConnected);
+            Connection.isConnected = false;
             ex.printStackTrace();
         }
         connectionState.setText("O" + (Connection.isConnected ? "n" : "ff") + "line");
@@ -240,37 +249,39 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
                         //loads the pre-setup menu for the user.
                         Methods.FrameDisplay.addToMainFrame(new PreSetup());
                     }
-                    
                 }
             }
-
         });
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Panel hover event to display button descritpion."> 
     /**
     * Changes the text and font size of the button
     * to display a description of it's purpose.
-    * 
     * @param id index of the panel list
     */
     private void addPanelHoverEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+                //sets the text of the button to the description.
                 titleLabels[id].setText("<html>" + DESCS[id] + ".</html>");
                 titleLabels[id].setFont(new Font("Agency FB", 0, 24));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                //sets the text of the button back to the title.
                 titleLabels[id].setText(TITLES[id]);
                 titleLabels[id].setFont(new Font("Agency FB", 0, 48));
             }
-
         });
-    }//</editor-fold>
+    }
 
+    /**
+     * Sets the text of a label.
+     * @param id   Index of the button.
+     * @param text New text of the button.
+     */
     private void setLabelText(int id, String text) {
         titleLabels[id].setText("<html>" + text + ".</html>");
     }
@@ -666,25 +677,28 @@ public class WelcomePanel extends javax.swing.JPanel implements ThemeUpdateEvent
     }// </editor-fold>//GEN-END:initComponents
 
     private void back6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back6MouseClicked
+        //exits the system.
         Methods.quitSystem();
     }//GEN-LAST:event_back6MouseClicked
 
     private void back5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back5MouseClicked
+        //checks the connection.
         runConnectionTest();
     }//GEN-LAST:event_back5MouseClicked
 
     private void back3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back3MouseClicked
+        //displays the tutorial.
         Methods.AnimationGraph.stop();
         if (Methods.TutorialDisplay == null) Methods.TutorialDisplay = new Tutorial();
         Methods.addToFrontPanel(animBack, Methods.TutorialDisplay, false);
     }//GEN-LAST:event_back3MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
+        //displays the leaderboard.
         Methods.AnimationGraph.stop();
         if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         Methods.addToFrontPanel(animBack, Methods.LBDisplay, false);
     }//GEN-LAST:event_back4MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel animBack;

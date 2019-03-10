@@ -2,7 +2,6 @@ package economysimulation.classes.gui.startup;
 
 import economysimulation.classes.economy.structure.Formula;
 import economysimulation.classes.global.Methods;
-import static economysimulation.classes.global.Methods.ModeHandler;
 import economysimulation.classes.gui.fronter.GameHold;
 import economysimulation.classes.gui.mainpanels.extra.leaderboard.Leaderboard;
 import economysimulation.classes.gui.mainpanels.sim.Consumer;
@@ -12,37 +11,38 @@ import economysimulation.classes.managers.ui.Format;
 import economysimulation.classes.gui.subpanels.BudgetList;
 import economysimulation.classes.gui.subpanels.RateList;
 import economysimulation.classes.managers.popup.frame.PopUpFrame;
-import economysimulation.classes.managers.popup.hint.HintManager;
-import economysimulation.classes.managers.popup.hint.Hints;
 import economysimulation.classes.managers.theme.ThemeUpdateEvent;
-import economysimulation.classes.mode.Mode;
 import economysimulation.classes.pulse.ControlPulse;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    /** Title of the leaderboard pop up. */
     private final String LBTitle = "Leaderboards";
     
+    /** Frame of the leaderboard. */
     private PopUpFrame LBFrame = null;
     
-    private JPanel[]
-            backPanels, colorPanels;
+    //Variables for the buttons.
+    private JPanel[] backPanels, colorPanels;
 
+    /** Creates a new pre-sim setup. */
     public PreSetup() {
         initComponents();
 
+        //adds the budget list and rate list to the set-up.
         Methods.BudgetDisplay = new BudgetList(null);
         Methods.RateDisplay = new RateList(null);
         
         Methods.addToFrontPanel(govPanel, Methods.RateDisplay, false);
         Methods.addToFrontPanel(budgetPanel, Methods.BudgetDisplay, false);
         
+        //formats the buttons and theme.
         backPanels = new JPanel[]{ back1, back4, back2 };
         colorPanels = new JPanel[]{ col1, col4, col2 };
         
@@ -60,12 +60,14 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
         updater.applyTextThemes(new JLabel[]{ subTitle, titleLaunch, titleQuit }, null);
     }
 
+    /** Inflates the leaderboard pop up frame. */
     private void openInFrame() {
         if (Methods.LBDisplay == null) Methods.LBDisplay = new Leaderboard();
         LBFrame = new PopUpFrame(Methods.LBDisplay, LBTitle);
         LBFrame.createPopUpFrame();
     }
     
+    /** Launches the economy simulation (single player). */
     public void launchSim() {
         Methods.ConsumerDisplay = new Consumer();
         Methods.CorporationDisplay = new Corporation();
@@ -371,21 +373,23 @@ public class PreSetup extends javax.swing.JPanel implements ThemeUpdateEvent {
     }// </editor-fold>//GEN-END:initComponents
 
     private void back1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back1MouseClicked
+        //button which launches the simulation.
         launchSim();
     }//GEN-LAST:event_back1MouseClicked
 
     private void back4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back4MouseClicked
+        //quit to desktop button.
         Methods.quitSystem();
     }//GEN-LAST:event_back4MouseClicked
 
     private void back2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back2MouseClicked
+        //inflates the leaderboard frame if it isn't open yet.
         if (LBFrame == null) {
             openInFrame();
         } else if (!LBFrame.isOpen(LBTitle)) {
             openInFrame();
         }
     }//GEN-LAST:event_back2MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel back1;

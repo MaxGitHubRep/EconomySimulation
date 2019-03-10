@@ -18,14 +18,15 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
+    //Button and Label variables.
     private JPanel[] backPanels;
     private JLabel[] valueLabels;
     
+    /** List of variable formats. */
     private String[] TextFormat = new String[]{
         "%s",
         "£%sm",
@@ -35,23 +36,33 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
         "£%sm"
     };
     
+    /** Instance of circle in middle. */
     private ComponentMiddle middle;
     
+    /** Instance of consumer variable handler. */
     private final ConsumerComponents components;
 
     private class ConsumerComponents extends Component {
     
+        /**
+         * Calculates all the consumer variable of the simulation.
+         * @return Excess variables needed to display on the consumer panel.
+         */
         protected double[] calculateConsumerComponents() {
 
+            //calculate wages and incomes.
             Wages = (0.000000064 * (Population * ((100 - Unemployment)/100)) * WageMultiplier);
             double DisposableIncome = Wages;
             CostOfProduction+= Wages;
 
+            //calculate consumer confidence.
             ConsumerConfidence = StandardOfLiving * (1 - TaxManager.getTaxRate(Tax.INCOME)) * ((100 - Unemployment)/100);
 
+            //calculate propensity to consume.
             PropensityToConsume = (((-0.006 * (Math.pow((InterestRate), 2))) + 100)/100) * ConsumerConfidence;
             if (PropensityToConsume == 0) PropensityToConsume+=0.01;
 
+            //checks if consumers are bankrupt.
             if (DisposableIncome == 0 && TotalSavings >= 0.1) {
                 TotalSavings-=0.1;
                 DisposableIncome+=0.1;
@@ -59,30 +70,38 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
                 HintManager.createHint(Hints.ConsumersBankrupt);
             }
 
+            //calculate taxes for consumers.
             DailyIncomeTax = Wages * (Wages > 0 && TaxManager.getTaxRate(Tax.INCOME) > 0 ? TaxManager.getTaxRate(Tax.INCOME) : 0);
             DisposableIncome -= DailyIncomeTax;
 
+            //global consumption rate for the day.
             Consumption = PropensityToConsume * ((DisposableIncome + 0.4) * (1-TaxManager.getTaxRate(Tax.INCOME)));
             double Savings = (1 - PropensityToConsume) * DisposableIncome;
             
+            //modify global tax variables and savings.
             TotalConsumption += Consumption;
             TotalIncomeTax += DailyIncomeTax;
             TotalSavings += Savings;
             Taxation += DailyIncomeTax;
             
+            //return excess variables.
             return new double[]{ DisposableIncome, Wages };
         }
 
     }
     
+    /** Creates a new Consumer variable display. */
     public Consumer() {
         initComponents();
+        
+        //add consumer circle in them iddle.
         middle = new ComponentMiddle("CONSUMERS", true);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();
         this.components = new ConsumerComponents();
         
+        //format buttons and theme.
         valueLabels = new JLabel[]{ val1, val2, val3, val4, val5, val6 };
         backPanels = new JPanel[]{ comp1, comp2, comp3, comp4, comp5, comp6 };
         
@@ -95,21 +114,29 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
 
     }
 
-    private void addHoverEvent(int id) {
+        
+    /**
+     * The event for when a panel is hovered on and changes a sector colour.
+     * @param id Which sector should be changed.
+     */
+    public void addHoverEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseEntered(MouseEvent e) {
+                //hover event.
                 middle.sector = id;
                 repaint();
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
+                //when hover leaves, make the sector index out of bounds (6).
                 middle.sector = 6;
                 repaint();
             }
         });
     }
+    
     
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
@@ -119,6 +146,7 @@ public class Consumer extends javax.swing.JPanel implements GamePulse, ThemeUpda
     
     @Override
     public void onGamePulseEvent() {
+        //update variables on display every game tick.
         double[] data = this.components.calculateConsumerComponents();
         double[] values = new double[]{ Component.Population, Component.TotalConsumption*1000, Component.TotalSavings*1000, Component.Unemployment, data[0]*1000, data[1]*1000 };
         

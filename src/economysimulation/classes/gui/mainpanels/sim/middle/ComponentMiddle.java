@@ -14,34 +14,29 @@ import static economysimulation.classes.global.Methods.ThemeHandler;
  */
 public class ComponentMiddle extends JPanel {
 
+    /** Which sector is highlighted. */
     public int sector = 6;
+    
+    /** The title of the circle. */
     public String title;
+    
+    /** Whether the circle displays Consumer or Corporation. */
     public boolean consumer;
     
+    /**
+     * Creates a circle with six sectors.
+     * @param title     The title in the middle of the circle.
+     * @param consumer  Whether to use the corporation or consumer variable.
+     */
     public ComponentMiddle(String title, boolean consumer) {
         super.setSize(450, 450);
         this.title = title;
         this.consumer = consumer;
     }
-    
-    public void addHoverEvent(JPanel panel, int id) {
-        panel.addMouseListener(new MouseAdapter() {
-            @Override 
-            public void mouseEntered(MouseEvent e) {
-                sector = id;
-                repaint();
-            }
-            
-            @Override
-            public void mouseExited(MouseEvent e) {
-                sector = 6;
-                repaint();
-            }
-        });
-    }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
+        //paint the circle.
         for (int i = 0; i < 6; i++) {
             g.setColor(sector == i ? ThemeHandler.getTheme().getPrimaryColor() : ThemeHandler.getTheme().getPrimaryTextColor());
             g.fillArc(0, 0, 450, 450, (60*i)+62, 52);
@@ -50,6 +45,7 @@ public class ComponentMiddle extends JPanel {
         g.setColor(ThemeHandler.getTheme().getPrimaryColor());
         g.fillOval(75, 75, 300, 300);
         
+        //create texts.
         g.setColor(ThemeHandler.getTheme().getPrimaryTextColor());
         g.setFont(new Font("Agency FB", Font.PLAIN, 60));
         g.drawString(this.title, 110 - (this.title.length() > 10 ? 18: 0), 220);

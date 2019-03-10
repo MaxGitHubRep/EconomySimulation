@@ -18,32 +18,42 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
+    //Variables for the buttons and labels.
     private JPanel[] backPanels;
     private JLabel[] valueLabels;
 
+    /** Instance of the circle in the middle. */
     private ComponentMiddle middle;
     
+    /** Instance of the corporation variable handler. */
     private final CorporationComponents components;
 
     private class CorporationComponents extends Component {
         
+        /**
+         * Calculates all the corporation components of the simulation.
+         * @return Excess local variables to display.
+         */
         protected double[] calculateCorporationComponents() {
             
+            //calcculate profits.
             double CorporationProfits = (Consumption - CostOfProduction);
 
+            //calculate taxes.
             DailyCorporationTax = CorporationProfits * ((CorporationProfits > 0 && TaxManager.getTaxRate(Tax.CORPORATION) > 0) ? TaxManager.getTaxRate(Tax.CORPORATION) : 0);
             CorporationProfits -= DailyCorporationTax;
 
             Taxation += DailyCorporationTax;
             
+            //calculates profits.
             CorporationConfidence = 1 * (1 - TaxManager.getTaxRate(Tax.CORPORATION)) * (CorporationProfits > 0 ? 1.2 : 0.5);
             CorporationConfidence = CorporationConfidence > 1 ? 1 : CorporationConfidence;
 
+            //ccalculate investment.
             double investment = CorporationProfits > 0 ? CorporationProfits * CorporationConfidence * 0.75 : 0;
             Investment+= investment;
             CorporationProfits -= investment;
@@ -51,28 +61,34 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
             TotalCorporationTax += DailyCorporationTax;
             TotalCorporationProfits += CorporationProfits;
 
+            //calculate unemployment rate.
             if (CostOfProduction > CorporationProfits && Unemployment < 100) {
                 Unemployment++;
             } else if (Unemployment > 1) {
                 Unemployment--;
             }
             
+            //send warning if corporations are bankrupt.
             if (TotalCorporationProfits <= 0) HintManager.createHint(Hints.CorporationBankrupt);
             
+            //return excess variables.
             return new double[]{ CorporationProfits, investment };
         }
         
     }
     
+    /** Creates a new Corporation variable display. */
     public Corporation() {
         initComponents();
         this.components = new CorporationComponents();
         
+        //create a circle in the middle.
         middle = new ComponentMiddle("CORPORATION", false);
         middle.setSize(450, 450);
         mid.add(middle);
         repaint();
         
+        //format buttons and the theme.
         valueLabels = new JLabel[]{ val1, val2, val3, val4, val5, val6 };
         backPanels = new JPanel[]{ comp1, comp2, comp3, comp4, comp5, comp6 };
         
@@ -84,16 +100,22 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
         ThemeHandler.addThemeUpdateListener(this);
     }
 
-    private void addHoverEvent(int id) {
+    /**
+     * The event for when a panel is hovered on and changes a sector colour.
+     * @param id Which sector should be changed.
+     */
+    public void addHoverEvent(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseEntered(MouseEvent e) {
+                //hover event.
                 middle.sector = id;
                 repaint();
             }
             
             @Override
             public void mouseExited(MouseEvent e) {
+                //when hover leaves, make the sector index out of bounds (6).
                 middle.sector = 6;
                 repaint();
             }
@@ -108,9 +130,12 @@ public class Corporation extends javax.swing.JPanel implements GamePulse, ThemeU
     
     @Override
     public void onGamePulseEvent() {
+        //display the variables every game tick
         this.components.calculateCorporationComponents();
         double[] data = this.components.calculateCorporationComponents();
         double[] values = new double[]{ Component.Wages, Component.TotalCorporationProfits, data[0], Component.CostOfProduction, data[1], Component.Investment };
+        
+        //display variables here.
         DecimalFormat format = new DecimalFormat("0");
         for (int i = 0; i < valueLabels.length; i++) {
             valueLabels[i].setText(String.format("£%sm", format.format(values[i]*1000)));

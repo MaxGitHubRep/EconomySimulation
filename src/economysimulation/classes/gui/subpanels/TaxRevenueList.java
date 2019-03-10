@@ -13,29 +13,28 @@ import economysimulation.classes.economy.structure.Component;
 import economysimulation.classes.global.Methods;
 
 /**
- *
  * @author Max Carter
  */
 public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, ThemeUpdateEvent {
 
-    private final String[]
-            taxTexts = new String[]{ "Tax Break", "Taxes Frozen" };
+    /** The two text states of a tax. */
+    private final String[] taxTexts = new String[]{ "Tax Break", "Taxes Frozen" };
     
+    //Variables for the buttons and labels.
     private JLabel[]
-            perDay,
-            total,
-            taxBreaks;
+        perDay,
+        total,
+        taxBreaks;
     
     private JPanel[]
-            backPanels,
-            colorPanels;
+        backPanels,
+        colorPanels;
     
-    /**
-     * Creates new form TaxResultList
-     */
+    /** Creates new form TaxResultList. */
     public TaxRevenueList() {
         initComponents();
         
+        //sets up the buttons and theme.
         perDay = new JLabel[]{ ct1, it1, tt1 };
         total = new JLabel[]{ ct4, it4, tt4 };
         taxBreaks = new JLabel[]{ tb1, tb2 };
@@ -53,26 +52,29 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
 
     @Override
     public void onGamePulseEvent() {
+        //updates the tax data every game tick.
         updateTaxationLabels();
     }
 
     @Override
     public void onThemeUpdate(GraphicUpdater updater) {
-        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3,subback1, subback2, subcolor1, subcolor2 }, new JPanel[]{ color1, color2, color3 } );
+        updater.applyPanelThemes(new JPanel[]{ back1, back2, back3, subback1, subback2, subcolor1, subcolor2 }, new JPanel[]{ color1, color2, color3 } );
         updater.applyTextThemes(new JLabel[]{ c1, ct1, c4, ct4, i1, i4, it1, it4, tt1, tt4, t1, t4, tb1, tb2 }, new JLabel[]{ title1, title2, title3 });
     }
 
-    /**
-     * Updates the labels to show daily taxation revenue.
-     */
+    /** Updates the labels to show daily taxation revenue. */
     public void updateTaxationLabels() {
         int index = 0;
 
+        //update daily tax data.
         for (double value : new double[]{ Component.DailyCorporationTax, Component.DailyIncomeTax, (Component.DailyCorporationTax + Component.DailyIncomeTax) }) { //tax per day
             perDay[index].setText(String.format("£%sm", Math.round(value*1000)));
             index++;
         }
+        
         index = 0;
+        
+        //update total tax data.
         for (double value : new double[]{ Component.TotalCorporationTax, Component.TotalIncomeTax, (Component.TotalCorporationTax + Component.TotalIncomeTax) }) { //tax in total
             total[index].setText(String.format("£%sm", Math.round(value*1000)));
             index++;
@@ -81,13 +83,13 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
     
     /**
      * When the tax break button is clicked.
-     * 
      * @param id Index of which button is pressed.
      */
     private void taxBreakClicked(int id) {
         backPanels[id].addMouseListener(new MouseAdapter() {
             @Override 
             public void mouseClicked(MouseEvent e) {
+                //toggles whether a tax is frozen or active.
                 boolean nowBreaking = taxBreaks[id].getText().equals(taxTexts[0]);
                 GameDisplay.TaxBreak[id] = nowBreaking;
                 taxBreaks[id].setText(taxTexts[nowBreaking ? 1 : 0]);
@@ -448,7 +450,6 @@ public class TaxRevenueList extends javax.swing.JPanel implements GamePulse, The
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel back1;
