@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- *
  * @author Max Carter
  */
 public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEvent {
@@ -174,7 +173,6 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
             .addGap(0, 472, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
