@@ -12,13 +12,19 @@ import java.sql.Statement;
  */
 public class DatabaseConnector {
     
+    //Database connection credentials.
     private final String
             HOST = "jdbc:mysql://rds-mxcrtr-db.cejdk9ogcqcy.eu-west-2.rds.amazonaws.com:3306/mxcrtr_db",
             USERNAME = "maxcarter",
             PASSWORD = "";
     
+    /** Connection instance. */
     private Connection Connection;
+    
+    /** Statement instance. */
     private Statement Statement;
+    
+    /** ResultSet instance. */
     private ResultSet ResultSet;
     
     /**
@@ -39,35 +45,55 @@ public class DatabaseConnector {
         
     }
     
+    /**
+     * Gets the statement of the database connection.
+     * @return Statement of database connection.
+     */
     public Statement getStatement() {
         try {
+            //re-initiates connection if it is closed.
             if (Statement.isClosed()) {
                 initConnection();
             }
-            return this.Statement;
+            return Statement;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        //defaults to empty statement.
         return null;
     }
     
+    /**
+     * Sets the ResultSet.
+     * @param resultSet New ResultSet.
+     */
     public void setResultSet(ResultSet resultSet) {
         this.ResultSet = resultSet;
     }
     
+    /**
+     * Gets the ResultSet.
+     * @return The current ResultSet.
+     */
     public ResultSet getResultSet() {
         return this.ResultSet;
     }
     
+    /**
+     * Gets the connection.
+     * @return The connection instance.
+     */
     public Connection getConnection() {
         try {
+            //re-initiates connection if closed.
             if (Connection.isClosed()) {
                 initConnection();
             }
-            return this.Connection;
+            return Connection;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        //sends empty connection by default.
         return null;
     }
     

@@ -13,28 +13,40 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class HintDisplay extends JPanel implements ThemeUpdateEvent {
 
+    //Positions of the frame.
     private int pX, pY;
             
+    /** Creates a new HitnDisplay. */
     public HintDisplay() {
         initComponents();
         setSize(500, 100);
         
+        //formats the frame.
         Format.addButtonFormat(bottom, null);
         ThemeHandler.addThemeUpdateListener(this);
         frameDragged(top);
     }
     
+    /**
+     * Creates the hint.
+     * @param title       Title of the hint.
+     * @param description Description of the hint.
+     * @param urgency     Urgency of the hint.
+     */
     protected void createHint(String title, String description, int urgency) {
         titleLabel.setText((urgency < Urgency.NULL ? "[" + Urgency.getUrgencyString(urgency).toUpperCase() + "] " : "") + "Hint: " + title);
         descLabel.setText("<html>" + description + "</html>");
         top.setBackground(Urgency.getUrgencyColor(urgency));
     }
     
+    /**
+     * Allows the frame to be dragged by a panel.
+     * @param dragPanel Panel to drag the frame.
+     */
     protected void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -46,7 +58,9 @@ public class HintDisplay extends JPanel implements ThemeUpdateEvent {
         dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
             public void mouseDragged(MouseEvent me) {
                 for (Frame frame : ShadowFrame.getFrames()) {
+                    //finds the right frame.
                     if (frame.getTitle().contains("Hint"))
+                    //moves said frame
                     frame.setLocation(frame.getLocation().x + me.getX() - pX, frame.getLocation().y + me.getY() - pY);
                 } 
             }
@@ -128,7 +142,6 @@ public class HintDisplay extends JPanel implements ThemeUpdateEvent {
                 .addComponent(bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel bottom;

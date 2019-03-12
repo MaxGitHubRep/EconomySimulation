@@ -6,14 +6,12 @@ import javax.swing.JRadioButton;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class GraphicUpdater {
 
     /**
      * Changes the theme colour of the labels.
-     * 
      * @param primaryTextLabels   List of primary labels.
      * @param secondaryTextLabels List of secondary labels.
      */
@@ -71,7 +69,6 @@ public class GraphicUpdater {
                 button.setForeground(ThemeHandler.getTheme().getSecondaryTextColor());
             }
         }
-        
     }
      
 }

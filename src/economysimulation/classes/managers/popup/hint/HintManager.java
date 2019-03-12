@@ -10,11 +10,11 @@ import javax.swing.AbstractAction;
 import javax.swing.Timer;
 
 /**
- *
  * @author Max Carter
  */
 public class HintManager {
     
+    /** The amount of hints used in total. */
     private static int HintCount = 0;
     
     /**
@@ -22,12 +22,15 @@ public class HintManager {
      * @param hint The hint that will be inflated.
      */
     public static synchronized void createHint(Hint hint) {
+        //makes sure the hint isn't already on cooldown.
         if (hint.isCooldownEnabled()) return;
         
+        //initiates the hint.
         hint.setCooldownState(true);
         HintCooldown cooldownTimer = new HintCooldown(hint);
         cooldownTimer.startCooldown();
 
+        //displays the hint.
         HintCount++;
         HintDisplay hintDisplay = new HintDisplay();
         hintDisplay.createHint(hint.getTitle(), hint.getDescription(), hint.getUrgency());

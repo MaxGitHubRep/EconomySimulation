@@ -4,7 +4,6 @@ import economysimulation.classes.managers.extcon.GamePackage;
 import economysimulation.classes.managers.sorting.conditions.SearchCondition;
 
 /**
- *
  * @author Max Carter
  */
 public class MergeSort {
@@ -74,6 +73,7 @@ public class MergeSort {
                     break;
             }
             
+            // Sort the list based on whether it is high to low or low to high.
             if (gameSorter.getSearchCondition() == SearchCondition.HIGH_TO_LOW) {
                 if (value1 >= value2) {
                     arr[k] = LeftList[i];
@@ -91,7 +91,6 @@ public class MergeSort {
                     j++;
                 }
             }
-            
             
             k++;
         }

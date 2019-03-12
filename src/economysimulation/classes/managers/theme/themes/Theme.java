@@ -3,12 +3,11 @@ package economysimulation.classes.managers.theme.themes;
 import java.awt.Color;
 
 /**
- *
  * @author Max Carter
  */
 public enum Theme {
 
-    White("White",
+    White(
         new Color(255, 255, 255),
         new Color(180, 180, 180),
         new Color(204, 0, 0),
@@ -18,7 +17,7 @@ public enum Theme {
         new Color(153, 0, 0)
     ),
 
-    Dark("Dark",
+    Dark(
         new Color(51, 51, 51),
         new Color(41, 41, 41),
         new Color(235, 235, 235),
@@ -28,7 +27,7 @@ public enum Theme {
         new Color(153, 153, 153)
     ),
 
-    Ocean("Ocean",
+    Ocean(
         new Color(0, 102, 153),
         new Color(0, 153, 204),
         new Color(255, 255, 255),
@@ -38,7 +37,7 @@ public enum Theme {
         new Color(240, 240, 240)
     ),
 
-    Pink("Pink",
+    Pink(
         new Color(170, 0, 170),
         new Color(150, 0, 150),
         new Color(235, 235, 235),
@@ -48,6 +47,7 @@ public enum Theme {
         new Color(153, 153, 153)
     );
     
+    //Local colour variables.
     private Color
         primaryBack,
         secondaryBack,
@@ -57,10 +57,8 @@ public enum Theme {
         primaryHover,
         secondaryHover;
     
-    private String name;
-    
-    Theme(String name, Color primaryBack, Color secondaryBack, Color primaryText, Color secondaryText, Color primaryHover, Color secondaryHover, Color ghostText) {
-       setName(name);
+    //Creates a new Theme using the parameters.
+    Theme(Color primaryBack, Color secondaryBack, Color primaryText, Color secondaryText, Color primaryHover, Color secondaryHover, Color ghostText) {
        setPrimaryColor(primaryBack);
        setSecondaryColor(secondaryBack);
        setPrimaryTextColor(primaryText);
@@ -70,67 +68,115 @@ public enum Theme {
        setGhostTextColor(ghostText);
        
     }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getName(String name) {
-        return this.name;
-    }
-    
+    /**
+     * Sets the primary colour.
+     * @param color New colour.
+     */
     public void setPrimaryColor(Color color) {
         this.primaryBack = color;
     }
 
+    /**
+     * Gets the primary colour.
+     * @return The primary colour.
+     */
     public Color getPrimaryColor() {
         return this.primaryBack;
     }
 
+    /**
+     * Sets the secondary colour.
+     * @param color New colour.
+     */
     public void setSecondaryColor(Color color) {
         this.secondaryBack = color;
     }
 
+    /**
+     * Gets the secondary colour.
+     * @return The secondary colour.
+     */
     public Color getSecondaryColor() {
         return this.secondaryBack;
     }
 
+    /**
+     * Sets the primary text colour.
+     * @param color New colour.
+     */
     public void setPrimaryTextColor(Color color) {
         this.primaryText = color;
     }
 
+    /**
+     * Gets the primary text colour.
+     * @return The primary text colour.
+     */
     public Color getPrimaryTextColor() {
         return this.primaryText;
     }
     
+    /**
+     * Sets the secondary text colour.
+     * @param color New colour.
+     */
     public void setSecondaryTextColor(Color color) {
         this.secondaryText = color;
     }
 
+    /**
+     * Gets the secondary text hover colour.
+     * @return The secondary text colour.
+     */
     public Color getSecondaryTextColor() {
         return this.secondaryText;
     }
 
+    /**
+     * Sets the primary hover colour.
+     * @param color New colour.
+     */
     public void setPrimaryHoverColor(Color color) {
         this.primaryHover = color;
     }
 
+    /**
+     * Gets the primary hover colour.
+     * @return The primary hover colour.
+     */
     public Color getPrimaryHoverColor() {
         return this.primaryHover;
     }
 
+    /**
+     * Sets the secondary hover colour.
+     * @param color New colour.
+     */
     public void setSecondaryHoverColor(Color color) {
         this.secondaryHover = color;
     }
 
+    /**
+     * Gets the secondary hover colour.
+     * @return The secondary hover colour.
+     */
     public Color getSecondaryHoverColor() {
         return this.secondaryHover;
     }
 
+    /**
+     * Sets the ghost text colour.
+     * @param color New colour.
+     */
     public void setGhostTextColor(Color color) {
         this.ghostText = color;
     }
 
+    /**
+     * Gets the ghost text colour.
+     * @return The ghost text colour.
+     */
     public Color getGhostTextColor() {
         return this.ghostText;
     }

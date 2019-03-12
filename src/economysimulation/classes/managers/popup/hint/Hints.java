@@ -15,11 +15,11 @@ import economysimulation.classes.managers.popup.hint.hints.HintTaxesTooHigh;
 import economysimulation.classes.managers.popup.hint.hints.UserNotFoundError;
 
 /**
- *
  * @author Max Carter
  */
 public class Hints {
     
+    //All the available hints to choose from.
     public static final Hint
             InsufficientFunds = new HintInsufficientFunds(),
             ConsumersBankrupt = new HintBankruptcy("Consumers"),

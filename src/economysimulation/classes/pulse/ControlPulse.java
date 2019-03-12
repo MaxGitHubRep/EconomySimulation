@@ -7,19 +7,17 @@ import economysimulation.classes.mode.Mode;
 import java.util.ArrayList;
 
 /**
- *
  * @author Max Carter
  */
 public class ControlPulse {
     
-    /**
-     * Initiates simulation pulse.
-     */
+    /** Initiates simulation pulse. */
     public ControlPulse() {
         PulseUpdater = new PulseThread();
         
         PulseUpdater.Pulses = new ArrayList<>();
         
+        //adds all the listeners in the correct order.
         if (ModeHandler.isMode(Mode.MULTI_PLAYER)) PulseUpdater.addGamePulseEventListener(Methods.StorageEvent);
         
         PulseUpdater.addGamePulseEventListener(Methods.FormulaInstance);
@@ -29,6 +27,7 @@ public class ControlPulse {
         PulseUpdater.addGamePulseEventListener(Methods.TaxRevenueDisplay);
         PulseUpdater.addGamePulseEventListener(Methods.BudgetDisplay);
 
+        //starts the pulse thread.
         PulseUpdater.initPulseThread();
     }
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Max Carter
  */
 public class GameSorter {
@@ -43,12 +42,14 @@ public class GameSorter {
         if (displayType != DisplayType.COMBINED) {
             List<GamePackage> removeList = new ArrayList<>();
 
+            //single-player: remove all games were player size is greater than 1.
             if (displayType == DisplayType.SINGLE_PLAYER) {
                 for (GamePackage pkg : gamePackageList) {
                     if (pkg.getPlayers().size() > 1) {
                         removeList.add(pkg);
                     }
                 }
+            //multi-player: remove all games were the player size is 1.    
             } else if (displayType == DisplayType.MULTI_PLAYER) {
                 for (GamePackage pkg : gamePackageList) {
                     if (pkg.getPlayers().size() == 1) {
@@ -57,6 +58,7 @@ public class GameSorter {
                 }
             }
 
+            //clear all unwanted games.
             for (GamePackage pkg : removeList) {
                 if (gamePackageList.contains(pkg)) {
                     gamePackageList.remove(pkg);
@@ -67,26 +69,27 @@ public class GameSorter {
         // Checks that the list being sorted has more than one item.
         if (gamePackageList.isEmpty() || gamePackageList.size() == 1) return;
         
+        //conducts merge sort.
         MergeSort mergeSort = new MergeSort(this);
         
         GamePackage[] gamePkgStaticList = new GamePackage[gamePackageList.size()];
         
+        //converts to primitive list.
         for (int i = 0; i < gamePkgStaticList.length; i++) {
             gamePkgStaticList[i] = gamePackageList.get(i);
         }
         
         mergeSort.sort(gamePkgStaticList, 0, gamePkgStaticList.length-1);
         
+        //resets the game package list to the sorted version.
         gamePackageList.clear();
         for (int i = 0; i < gamePkgStaticList.length; i++) {
             gamePackageList.add(gamePkgStaticList[i]);
         }
-        
     }
     
     /**
      * Sets the list of the instance.
-     * 
      * @param gamePackageList List of games.
      */
     public void setList(List<GamePackage> gamePackageList) {
@@ -95,7 +98,6 @@ public class GameSorter {
     
     /**
      * Retrieves the list of game packages.
-     * 
      * @return The list of games.
      */
     public List<GamePackage> getList() {
@@ -105,7 +107,6 @@ public class GameSorter {
     /**
      * Specifies the {@code DisplayType} of the
      * search, multiplayer, singleplayer etc.
-     * 
      * @param displayType The display type.
      */
     public void setDisplayType(DisplayType displayType) {
@@ -116,13 +117,16 @@ public class GameSorter {
         }
     }
     
+    /**
+     * Gets the display type which is being sorted.
+     * @return DisplayType of sort.
+     */
     public DisplayType getDisplayType() {
         return displayType;
     }
     
     /**
      * Specifies the search condition for the instance.
-     * 
      * @param searchCondition Condition of the sort.
      */
     public void setSearchCondition(SearchCondition searchCondition) {
@@ -133,10 +137,18 @@ public class GameSorter {
         }
     }
     
+    /**
+     * Gets the SearchCondition used by the sort.
+     * @return SearchCondition of the sort.
+     */
     public SearchCondition getSearchCondition() {
         return searchCondition;
     }
     
+    /**
+     * Sets the search component used by the sort.
+     * @param searchComponent New search component to use.
+     */
     public void setSearchComponent(SearchComponent searchComponent) {
         if (searchComponent == null) {
             this.searchComponent = SearchComponent.GDP;
@@ -145,6 +157,10 @@ public class GameSorter {
         }
     }
     
+    /**
+     * Gets the SearchComponent used by the sort.
+     * @return The SearchComponent used by the sort.
+     */
     public SearchComponent getSearchComponent() {
         return searchComponent;
     }
