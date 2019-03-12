@@ -5,30 +5,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- *
  * @author Max Carter
  */
 public class StockGraph {
     
+    /** Animation thread. */
     protected Thread GThread;
     
     private JPanel panel;
     
-    /**
-    * Boolean to control loop on thread.
-    */
-    private volatile boolean
-            build = true;
+    /** Boolean to control loop on thread. */
+    private volatile boolean build = true;
     
-    /**
-     * Locations of the graph vectors.
-     */
+    /** Locations of the graph vectors. */
     private int[][]
             vectors = new int[10][2];
     
-    /**
-     * Dimensions of the vectors and caps.
-     */
+    //Dimensions of the vectors and caps.
     private final int
             VECTOR_WIDTH = 6,
             CAP_WIDTH = 60,
@@ -36,15 +29,16 @@ public class StockGraph {
             LWIDTH = 1300,
             LHEIGHT = 1000;
     
-    /**
-     * List of JLabels for holding graph vector data.
-     */
+    // List of JLabels for holding graph vector data.*/
     private JLabel[]
             lines,
             capBottoms,
             capTops;
     
-    
+    /**
+     * Creates a new animated stock graph.
+     * @param addPanel Panel to add the graph to.
+     */
     public StockGraph(JPanel addPanel) {
         this.panel = addPanel;
         
@@ -52,6 +46,7 @@ public class StockGraph {
         capTops = new JLabel[vectors.length];
         capBottoms = new JLabel[vectors.length];
         
+        //format the lines and caps.
         for (int i = 0; i < lines.length; i++) {
             lines[i] = new JLabel();
             lines[i].setSize(VECTOR_WIDTH, VECTOR_WIDTH);
@@ -72,22 +67,17 @@ public class StockGraph {
         initThread();
     }
     
-    //<editor-fold defaultstate="collapsed" desc="Defines line vectors,."> 
-    /**
-     * Sets the vectors of the lines.
-     */
+    /** Sets the vectors of the lines. */
     private void setGraphCoords() {
         int step = LWIDTH / vectors.length;
         for (int i = 0; i < vectors.length; i++) {
             vectors[i][0] = (int) (step * i) + step/2;
             vectors[i][1] = (int) Math.floor(Math.sin(vectors[i][0])*400) + LHEIGHT/2;
         }
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Draws a cap that surrounds a line."> 
     /**
      * Draws a cap that surrounds a line.
-     * 
      * @param i  Index of the cap list to use.
      * @param x  X coordinate of the line.
      * @param y1 First Y coordinate of the line.
@@ -98,23 +88,19 @@ public class StockGraph {
         panel.add(capBottoms[i]);
         capTops[i].setLocation(x - CAP_WIDTH/2 + VECTOR_WIDTH/2, y1 - CAP_HEIGHT);
         capBottoms[i].setLocation(x - CAP_WIDTH/2 + VECTOR_WIDTH/2, y2);
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Gets the next index in the list."> 
     /**
      * Gets the previous index of a list, and returns the last index if {@code i} arg is {@code 0}.
-     * 
      * @param i Current index of the list.
      * @return Previous index in the list.
      */
     private int g(int i) {
         return (i == 0 ? vectors.length : i)-1;
-    }//</editor-fold>
+    }
     
-    //<editor-fold defaultstate="collapsed" desc="Constructs the graph and formats the lines and caps."> 
     /**
      * Constructs the graph and formats the lines and caps.
-     * 
      * @param i Index of the list of lines.
      */
     private void buildGraph(int i) {
@@ -122,6 +108,7 @@ public class StockGraph {
         lines[i].setLocation(vectors[i][0], vectors[i][1]);
 
         int potY = vectors[g(i)][1] - vectors[i][1];
+        //colours the lines based on whether it is going up or down.
         if (potY < 0) {
             lines[g(i)].setBackground(Color.red);
             lines[g(i)].setSize(VECTOR_WIDTH, vectors[i][1] - vectors[g(i)][1]);
@@ -132,14 +119,12 @@ public class StockGraph {
             lines[g(i)].setSize(VECTOR_WIDTH, potY);
             insertCap(g(i), vectors[g(i)][0], vectors[g(i)][1] - potY, vectors[g(i)][1]);
         }
-    }//</editor-fold>
+    }
 
-    //<editor-fold defaultstate="collapsed" desc="Moves all vector positions along."> 
-    /**
-     * Shifts all vectors, lines and caps by {@code 1} pixel, or by the {@code width} of the panel if it touches the edge.
-     */
+    /** Shifts all vectors, lines and caps by {@code 1} pixel, or by the {@code width} of the panel if it touches the edge. */
     private synchronized void shiftGraph() {
         int i1 = -1;
+        //moves each line along by 1.
         for (int i = 0; i < vectors.length; i++) {
             if (capBottoms[i].getX() == -CAP_WIDTH/2) i1 = LWIDTH+CAP_WIDTH/2;
             capBottoms[i].setLocation(capBottoms[i].getX() + i1, capBottoms[i].getY());
@@ -147,6 +132,7 @@ public class StockGraph {
             lines[i].setLocation(lines[i].getX() + i1, lines[i].getY());
             i1 = -1;
         }
+        //using recursion, shifts the graph again after a 20ms break.
         if (build) {
             try {
                 System.gc();
@@ -157,30 +143,30 @@ public class StockGraph {
                 ex.printStackTrace();
             }
         }
-    }//</editor-fold>
+    }
     
+    /** Freezes the graph. */
     public void stop() {
         this.build = false;
         System.gc();
     }
 
-    /**
-     * Initiates thread that shifts the x axis along.
-     */
+    /** Initiates thread that shifts the x axis along. */
     private synchronized void initThread() {
         setGraphCoords();
         for (int i = 0; i < vectors.length; i++) {
             buildGraph(i);
         }
-        GThread = new Thread(new GraphRunnable() {
-        });
+        GThread = new Thread(new GraphRunnable() {});
         GThread.start();
     }
     
+    //Custom runnable which starts the graph movement.
     private class GraphRunnable implements Runnable {
 
         @Override
         public void run() {
+            //initiates the graph movement.
             shiftGraph();
         }
         

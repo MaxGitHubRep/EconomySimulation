@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class CircleProgressBar extends JPanel {
     
+    //constants that control the progess bars height.
     public static final long serialVersionUID = 1;
     public static final int plus = 290;
     
