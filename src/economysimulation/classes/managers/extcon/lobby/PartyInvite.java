@@ -4,14 +4,21 @@ import economysimulation.classes.global.Methods;
 import economysimulation.classes.global.User;
 
 /**
- *
  * @author Max Carter
  */
 public class PartyInvite {
 
+    /** The external user. */
     private User user;
+    
+    /** ID of the party. */
     private int partyId;
     
+    /**
+     * Creates a new PartyInvite.
+     * @param user Instance of external user.
+     * @param partyId ID of the party.
+     */
     public PartyInvite(User user, int partyId) {
         this.user = user;
         this.partyId = partyId;
@@ -41,9 +48,11 @@ public class PartyInvite {
         if (getPartyID() == 0) {
             partyId = Methods.LobbyHandler.getNextAvailablePartyID();
         }
+        //establishes party and user.
         Methods.localPartyId = partyId;
         Methods.LobbyHandler.addUserToParty(Methods.getUser().getID(), partyId);
         Methods.LobbyHandler.addUserToParty(user.getID(), partyId);
+        //deletes all invites from the user.
         Methods.LobbyHandler.removePartyInvitesIncomming(Methods.getUser().getID());
         Methods.LobbyHandler.removePartyInvitesOutgoing(Methods.getUser().getID());
         return true;

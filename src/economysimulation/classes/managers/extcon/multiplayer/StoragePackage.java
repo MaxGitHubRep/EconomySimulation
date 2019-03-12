@@ -3,7 +3,6 @@ package economysimulation.classes.managers.extcon.multiplayer;
 import economysimulation.classes.global.User;
 
 /**
- *
  * @author Max Carter
  */
 public class StoragePackage {

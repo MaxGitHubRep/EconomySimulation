@@ -6,6 +6,10 @@ package economysimulation.classes.managers.extcon.lobby;
  */
 public interface LobbyUpdateEvent {
     
+    /**
+     * When a party invite has been received.
+     * @param partyInvite The party invite.
+     */
     void onPartyInviteEvent(PartyInvite partyInvite);
     
 }

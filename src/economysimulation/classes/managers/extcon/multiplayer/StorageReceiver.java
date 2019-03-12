@@ -10,11 +10,11 @@ import economysimulation.classes.pulse.GamePulse;
 import java.util.List;
 
 /**
- *
  * @author Max Carter
  */
 public class StorageReceiver implements GamePulse {
 
+    /** Listener of the component update event. */
     private MultiplayerComponentUpdate listener;
     
     @Override
@@ -84,10 +84,20 @@ public class StorageReceiver implements GamePulse {
         }
     }
     
+    /**
+     * Updates the component listener.
+     * @param listener New component listener.
+     */
     public void setComponentUpdateListener(MultiplayerComponentUpdate listener) {
         this.listener = listener;
     }
     
+    /**
+     * When a component is updated.
+     * @param componentName Name of the component.
+     * @param value New value of component.
+     * @param user The user who cchanged the ccomponent.
+     */
     private void onComponentUpdate(String componentName, double value, User user) {
         if (listener != null) listener.onComponentUpdate(componentName, value, user);
     }

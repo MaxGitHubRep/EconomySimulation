@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class StorageConnector {
     
+    /** List of the latest data packets received. */
     private List<StoragePackage> latestPackages = null;
     
     /**

@@ -1,7 +1,6 @@
 package economysimulation.classes.managers.popup.hint.hints;
 
 /**
- *
  * @author Max Carter
  */
 public abstract class Hint {

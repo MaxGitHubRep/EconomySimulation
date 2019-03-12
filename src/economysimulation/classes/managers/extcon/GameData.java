@@ -6,59 +6,48 @@ import economysimulation.classes.global.User;
 import economysimulation.classes.managers.exception.NonExistentGameException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Max Carter
  */
 public class GameData {
     
-    private int totalGames = 0, totalLinks = 0;
+    /** Local amount of games played. */
+    private int totalGames = 0;
     
+    /** Creates new GameData. */
     public GameData() {
         refreshGamesPlayed();
     }
 
+    /** Updates the amount of games played. */
     public void refreshGamesPlayed() {
         totalGames = 0;
         
         try {
+            //counts all ggames stored.
             DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.Games"));
             
             if (DBConnector.getResultSet().next()) {
                 totalGames = DBConnector.getResultSet().getInt(1);
             }
-            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
-    
-    public void refreshUserGamesLinkCount() {
-        totalLinks = 0;
-        
-        try {
-            DBConnector.setResultSet(DBConnector.getStatement().executeQuery("SELECT COUNT(*) FROM mxcrtr_db.LinkUsersGames"));
-            
-            if (DBConnector.getResultSet().next()) {
-                totalLinks = DBConnector.getResultSet().getInt(1);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
+
+    /**
+     * Returns the amount of games played.
+     * @param refreshTable When set to true, this will get the total games from
+     *                     the database.When set to false it will use the local
+     *                      saved amount of games.
+     * @return Amount of games played.
+     */
     public int getGamesPlayed(boolean refreshTable) {
         if (refreshTable) refreshGamesPlayed();
         return this.totalGames;
-    }
-    
-    public int getGamesLinks(boolean refreshTable) {
-        if (refreshTable) refreshUserGamesLinkCount();
-        return this.totalLinks;
     }
     
     /**
@@ -68,6 +57,7 @@ public class GameData {
      * @return   Package of information about the game.
      */
     public GamePackage getGameDataFromID(int id) {
+        //throws error if there are no games played.
         try {
             if (getGamesPlayed(false) == 0) {
                 throw new NonExistentGameException();
@@ -76,8 +66,10 @@ public class GameData {
             ex.printStackTrace();
         }
 
+        //create empty game package.
         GamePackage pkg = null;
         try {
+            //selects game data from database with id.
             String SQLStatement = "SELECT * FROM mxcrtr_db.Games WHERE GameID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, id);
@@ -91,10 +83,11 @@ public class GameData {
             double[] comp = new double[9];
             String[] column = new String[]{ "TotalConsumption", "TotalSavings", "TotalInvestment", "TotalTaxation", "TotalFirmProfits", "Population", "ConsumerConfidence", "FirmConfidence", "Unemployment" };
             
+            //gets data from result set and adds to local list.
             for (int i = 0; i < comp.length; i++) {
                 comp[i] = DBConnector.getResultSet().getInt(column[i]);
             }
-            // get players
+            //gets players who participate in the game.
             
             SQLStatement = "SELECT UserID FROM mxcrtr_db.LinkUsersGames WHERE GameID = ?";
             pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -104,6 +97,7 @@ public class GameData {
             
             List<User> userList = new ArrayList<>();
             
+            //adds all users to new list.
             while (DBConnector.getResultSet().next()) {
                 User user = new User();
                 user.setID(DBConnector.getResultSet().getInt("UserID"));
@@ -114,6 +108,7 @@ public class GameData {
                 userList.get(i).setName(DBUsers.getUsernameFromId(userList.get(i).getID()));
             }
             
+            //updates empty game package.
             pkg = new GamePackage(id, gdp, ticks, userList, comp);
             
         } catch (SQLException ex) {
@@ -132,6 +127,7 @@ public class GameData {
         List<GamePackage> gameData = new ArrayList<>();
         refreshGamesPlayed();
         int gamesPlayed = getGamesPlayed(true);
+        //loops through every game.
         for (int i = 0; i < gamesPlayed; i++) {
             gameData.add(getGameDataFromID(i+1));
         }
@@ -146,6 +142,7 @@ public class GameData {
      */
     public void establishUserGameLink(int gameId, int[] userId) {
         try {
+            //loops through every user in the list and creates link.
             for (int i = 0; i < userId.length; i++) {
                 String SQLStatement = "INSERT INTO mxcrtr_db.LinkUsersGames VALUES (?, ?, ?)";
                 PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
@@ -154,7 +151,7 @@ public class GameData {
                 pt.setInt(2, userId[i]);
                 pt.setInt(3, userId.length);
 
-                pt.executeUpdate(); //something wrong with linkusersgames table
+                pt.executeUpdate();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -163,7 +160,6 @@ public class GameData {
     
     /**
      * Creates a new record of a game in the database with the args.
-     * 
      * @param id            Index of the game.
      * @param score         GDP obtained in the game.
      * @param gameTicks     Amount of ticks pulsated.

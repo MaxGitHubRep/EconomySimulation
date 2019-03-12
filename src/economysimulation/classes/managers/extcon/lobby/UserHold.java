@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 /**
- *
  * @author Max Carter
  */
 public class UserHold extends JLabel {
@@ -59,6 +58,7 @@ public class UserHold extends JLabel {
         return user;
     }
     
+    /** Deletes a UserHold. */
     public void destroy() {
         setEnabled(false);
         Methods.FindTeammate.destroyUserHold(this);

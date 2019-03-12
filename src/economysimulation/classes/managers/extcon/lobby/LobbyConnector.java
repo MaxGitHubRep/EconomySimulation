@@ -25,15 +25,29 @@ import java.util.List;
  */
 public class LobbyConnector {
 
+    /** Database connection thread. */
     private Thread connectionThread = null;
+    
+    //** Whether the system should keep looping lobby data from the database. */
     private volatile boolean looped = false;
+    
+    /** How long the system should wait between lobby checks. */
     private volatile int timeout = 1000;
     
+    /** Instance of the control panel. */
     private ControlPanel controlPanel = null;
+    
+    /** Instance of the teammate finder. */
     private TeammateFinder teammateFinder = null;
     
+    /** Local list of users in the party. */
     private List<User> localUsersInParty = null;
     
+    /**
+     * Creates a new LobbyConnector.
+     * @param controlPanel Instance of the control panel.
+     * @param teammateFinder Instance of the teammate finder.
+     */
     public LobbyConnector(ControlPanel controlPanel, TeammateFinder teammateFinder) {
         this.controlPanel = controlPanel;
         this.teammateFinder = teammateFinder;
@@ -66,6 +80,7 @@ public class LobbyConnector {
         
         teammateFinder.onLobbyUpdateEvent();
         
+        //call this method again if still in loop.
         if (looped) {
             try {
                 connectionThread.sleep(timeout);
@@ -86,11 +101,14 @@ public class LobbyConnector {
     
     /** Starts the economy simulation for multiplayer. */
     private void start(int partyId) {
+        //resets the local players in party in case any have left.
         localUsersInParty.clear();
         localUsersInParty = getUsersInParty(Methods.localPartyId);
                 
+        //initiate the variable updater.
         VariableUpdater variableUpdater = new VariableUpdater(Methods.StorageConnection);
         
+        //load all simulation assets.
         Methods.localPartyId = partyId;
         Methods.StorageEvent = new StorageReceiver();
         Methods.StorageConnection = new StorageConnector();
@@ -142,7 +160,6 @@ public class LobbyConnector {
     /**
      * Identifies if {@code fromUser} has invited
      * {@code toUser} to their party.
-     * 
      * @param fromUser  The user who has sent the invite.
      * @param toUser    Recipient of the invite.
      * @return Returns true of an invite is established.
@@ -155,12 +172,14 @@ public class LobbyConnector {
             pt.setInt(2, toUser);
             DBConnector.setResultSet(pt.executeQuery());
             
+            //returns true if an invite is found.
             if (DBConnector.getResultSet().next())
                 return true;
             
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        //returns false as default.
         return false;
     }
     
@@ -195,11 +214,13 @@ public class LobbyConnector {
      */
     public void deleteParty(int partyId) {
         try {
+            //delete party invites.
             String SQLStatement = "DELETE FROM mxcrtr_db.PartyInvites WHERE PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, partyId);
             pt.executeUpdate();
             
+            //delete lobby data of that party.
             SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE PartyID = ?";
             pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, partyId);
@@ -216,6 +237,7 @@ public class LobbyConnector {
      */
     public void removePartyFromLobby(int partyId) {
         try {
+            //removes the party from the lobby.
             String SQLStatement = "DELETE FROM mxcrtr_db.LobbyData WHERE PartyID = ?";
             PreparedStatement pt = DBConnector.getConnection().prepareStatement(SQLStatement);
             pt.setInt(1, partyId);
@@ -280,9 +302,12 @@ public class LobbyConnector {
             
             int previousID = 0, nextID = 0;
             
-            while (DBConnector.getResultSet().next()) {         //needs testing
+            //loops through all the parties
+            while (DBConnector.getResultSet().next()) {
                 previousID = nextID;
                 nextID = DBConnector.getResultSet().getInt(1);
+                //if the next possible id is not taken, return that.
+                //if not, iterate again.
                 if (nextID != previousID+1) {
                     return previousID+1;
                 }
@@ -292,6 +317,7 @@ public class LobbyConnector {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        //defaults to 0 (no party available).
         return 0;
     }
     
@@ -327,10 +353,10 @@ public class LobbyConnector {
                 parties.add(partyId);
             }
             
+            //forms new user instance from users found.
             for (int i = 0; i < users.size(); i++) {
                 list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(users.get(i)), users.get(i)), parties.get(i)));
             }
-            
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -370,10 +396,10 @@ public class LobbyConnector {
                 parties.add(partyId);
             }
             
+            //forms new user instance from users found.
             for (int i = 0; i < users.size(); i++) {
                 list.add(new PartyInvite(new User(Methods.DBUsers.getUsernameFromId(users.get(i)), users.get(i)), parties.get(i)));
             }
-            
             
         } catch (SQLException ex) {
             ex.printStackTrace();

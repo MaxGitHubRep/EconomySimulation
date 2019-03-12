@@ -14,16 +14,14 @@ import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;
 
 /**
- *
  * @author Max Carter
  */
 public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent {
 
+    //Positions of the event display.
     private int PositionX, PositionY;
     
-    /**
-     * Creates new form EventDisplay
-     */
+    /** Creates new form EventDisplay. */
     public EventDisplay() {
         initComponents();
         setSize(600, 400);
@@ -40,7 +38,6 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
 
     /**
      * Changes the display of the event panel.
-     * 
      * @param title       Title of the event.
      * @param description Description of the event.
      * @param image       File name of the image.
@@ -51,10 +48,15 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         if (image != null) picHold.setIcon(new ImageIcon(getClass().getResource("/economysimulation/resources/eventimages/" + image + ".png")));
     }
 
+    /**
+     * Allows the frame to be dragged.
+     * @param dragPanel Panel which will drag the frame.
+     */
     private void frameDragged(JPanel dragPanel) {
         dragPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent me) {
+                //sets the positions when the user clicks the panel.
                 PositionX = me.getX();
                 PositionY = me.getY();
             }
@@ -63,8 +65,10 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
         dragPanel.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent me) {
+                //finds frame
                 for (Frame frame : ShadowFrame.getFrames()) {
                     if (frame.getTitle().contains("Event"))
+                    //adjusts the frame location when it is dragged.
                     frame.setLocation(frame.getLocation().x + me.getX() - PositionX, frame.getLocation().y + me.getY() - PositionY);
                 } 
             }
@@ -150,7 +154,6 @@ public class EventDisplay extends javax.swing.JPanel implements ThemeUpdateEvent
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel description;

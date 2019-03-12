@@ -10,11 +10,11 @@ import economysimulation.classes.managers.events.events.EventStrikeSchool;
 import economysimulation.classes.managers.events.events.EventVirusOutbreak;
 
 /**
- *
  * @author Max Carter
  */
 public class Events {
     
+    //All registered events.
     public static final Event
             HealthcareStrike = new EventStrikeNHS(0),
             StudentStrike = new EventStrikeSchool(1),
@@ -25,6 +25,7 @@ public class Events {
             VirusOutbreak = new EventVirusOutbreak(6);
     
     
+    /** List of all the events. */
     public static final Event[] EventList = new Event[]{
         HealthcareStrike,
         StudentStrike,
