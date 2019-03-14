@@ -4,7 +4,6 @@ import economysimulation.classes.economy.structure.Component;
 import static economysimulation.classes.global.Methods.GameDisplay;
 
 /**
- *
  * @author Max Carter
  */
 public class TaxManager {

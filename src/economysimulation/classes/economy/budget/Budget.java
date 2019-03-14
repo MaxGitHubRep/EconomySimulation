@@ -39,13 +39,14 @@ public class Budget {
     }
 
     /**
-    * @param includeTransfer Return result with transfer payments included (benefits).
+    * @param includeTransfer Return result with transfer
+    *                        payments included (benefits).
     * @return Sum of the spending budget.
     */
     public static int getPublicSpendingTotal(boolean includeTransfer) {
         int value = 0, index = 0;
         
-        //loop through the list and add each sector's spending to variable.
+        //loop through the list and add each sector's spending.
         for (Sector sector : SectorInstance.SectorList) {
             if (!(!includeTransfer && index == 7)) {
                 value+= sector.getSpending();

@@ -219,7 +219,6 @@ public class ScrollableList extends javax.swing.JPanel implements ThemeUpdateEve
         for (int i = labels.length-1; i >= 0; i--) {
             if (list.size()-1 < i) labels[i].setText(emptySlotText); else return;
         }
-        
     }
     
     /**

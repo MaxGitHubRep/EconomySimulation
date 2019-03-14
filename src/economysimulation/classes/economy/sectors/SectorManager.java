@@ -1,7 +1,6 @@
 package economysimulation.classes.economy.sectors;
 
 /**
- *
  * @author Max Carter
  */
 public class SectorManager {

@@ -3,8 +3,6 @@ package economysimulation.classes.gui.mainpanels.sim.middle;
 import economysimulation.classes.economy.structure.Component;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
 import static economysimulation.classes.global.Methods.ThemeHandler;

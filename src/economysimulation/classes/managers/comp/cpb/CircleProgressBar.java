@@ -59,9 +59,7 @@ public class CircleProgressBar extends JPanel {
 
             // Draws text percentage in middle of circle.
             g.drawString(text, x, 185 + (i * plus));
-
         }
- 
     }
     
 }

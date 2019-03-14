@@ -1,7 +1,6 @@
 package economysimulation.classes.economy.structure.tax;
 
 /**
- *
  * @author Max Carter
  */
 public enum Tax {

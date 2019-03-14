@@ -6,7 +6,6 @@ import economysimulation.classes.managers.popup.hint.hints.ErrorInviteSent;
 import economysimulation.classes.managers.popup.hint.hints.ErrorNullParty;
 import economysimulation.classes.managers.popup.hint.hints.NetworkError;
 import economysimulation.classes.managers.popup.hint.hints.ErrorSQLDatabase;
-import economysimulation.classes.managers.popup.hint.hints.ErrorServerSlotFull;
 import economysimulation.classes.managers.popup.hint.hints.Hint;
 import economysimulation.classes.managers.popup.hint.hints.HintBankRateTooHigh;
 import economysimulation.classes.managers.popup.hint.hints.HintBankruptcy;
@@ -26,7 +25,6 @@ public class Hints {
             CorporationBankrupt = new HintBankruptcy("Corporations"),
             TaxesTooHigh = new HintTaxesTooHigh(),
             InterestRatesTooHigh = new HintBankRateTooHigh(),
-            ServerSlotFull = new ErrorServerSlotFull(),
             NotConnected = new ErrorInvalidConnection(),
             DatabaseError = new ErrorSQLDatabase(),
             NoPartyFound = new ErrorNullParty(),

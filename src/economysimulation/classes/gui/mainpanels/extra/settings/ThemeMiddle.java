@@ -36,7 +36,6 @@ public class ThemeMiddle extends JPanel {
         
         g.setFont(new Font("Agency FB", Font.PLAIN, 40));
         g.drawString("SELECTOR", 125, 170);
-        
     }
     
 }
