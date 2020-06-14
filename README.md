@@ -1,6 +1,6 @@
 # Economy Simulation  
 
-The Economy Simulation allows you to simulate a real-world economy. Players can change features of an economy, which will stimulate a change in other determinants. The simulation demonstrates why politicians make certain decisions, and compromises. 
+The Economy Simulation allows you to simulate a real-world economy. Players can change features of an economy, which will stimulate a change in other determinants. The simulation demonstrates why politicians make certain decisions, and compromises. This project was part of my A-Level coursework and I received 100%.
 
 ***
 
@@ -26,6 +26,3 @@ The Economy Simulation allows you to simulate a real-world economy. Players can 
  
  - **Strikes** - At certain intervals in the simulation, if a budget sector is neglected, unions will organise a strike, forcing you to invest money into that sector.
    
-***
-
-*Max Carter.*
